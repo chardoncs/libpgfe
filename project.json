@@ -1,0 +1,11 @@
+{
+  "name": "libpgfe",
+  "version": "0.1.0",
+  "compiler_binary": "clang",
+  "standard": {
+    "c": "c11"
+  },
+  "libs": [
+    "-lnettle"
+  ]
+}
