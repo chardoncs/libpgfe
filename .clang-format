@@ -1,0 +1,61 @@
+#
+# Komorebi clang-format file
+#
+
+---
+# Global
+BasedOnStyle: LLVM
+
+IndentWidth: 4
+
+PointerAlignment: Right
+BreakBeforeBraces: Custom
+AlignAfterOpenBracket: BlockIndent
+
+AlignArrayOfStructures: Left
+
+AlignConsecutiveMacros: None
+
+AllowShortIfStatementsOnASingleLine: WithoutElse
+AllowShortLambdasOnASingleLine: Empty
+
+AllowShortLoopsOnASingleLine: true
+AlwaysBreakAfterReturnType: None
+AllowShortEnumsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortBlocksOnASingleLine: Empty
+
+BraceWrapping:
+  BeforeWhile: false
+  BeforeElse: true
+  BeforeLambdaBody: false
+  BeforeCatch: true
+
+  AfterControlStatement: Never
+  AfterFunction: false
+  AfterStruct: true
+  AfterUnion: true
+  AfterEnum: false
+  AfterCaseLabel: false
+
+  SplitEmptyFunction: false
+
+ColumnLimit: 120
+
+BitFieldColonSpacing: After
+---
+# C++
+Language: Cpp
+
+BraceWrapping:
+  AfterClass: true
+  AfterNamespace: false
+  AfterExternBlock: false
+---
+Language: CSharp
+
+BasedOnStyle: Microsoft
+---
+Language: Json
+
+IndentWidth: 2
