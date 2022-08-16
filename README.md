@@ -1,7 +1,10 @@
 # libpgfe
 
-libpgfe (**Lib**rary of **P**assword **G**eneration **F**ront-**e**nd) is a front-end library for generating hash passwords and OTP passwords, based on [Nettle](https://www.lysator.liu.se/~nisse/nettle/).
+libpgfe (**Lib**rary of **P**assword **G**eneration **F**ront-**e**nd) is a front-end library for generating hash passwords and OTP passwords, using [Nettle](https://www.lysator.liu.se/~nisse/nettle/) as its backend.
 
 "libpgfe" is pronounced like "lib-pig-fee" (IPA: /ˌlɪbˈpɪɡfiː/).
 
-License: LGPL-3.0-or-later
+| Item | Content |
+| :-- | :-- |
+| C Standard | C11 |
+| License | LGPL 3.0 (or later) |
