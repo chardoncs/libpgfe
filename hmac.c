@@ -6,20 +6,24 @@
 #include "sha3.h"
 #include "utils.h"
 
-#define __pgfe_hmac_tmpl(name, nettle_name)                                                                            \
+#define __pgfe_hmac_tmpl(name, nettle_name, upper)                                                                     \
     inline void pgfe_hmac_##name(                                                                                      \
         const pgfe_encode_t key[], const size_t key_length, const pgfe_encode_t data[], const size_t length,           \
         pgfe_encode_t output[], const size_t out_length                                                                \
     ) {                                                                                                                \
-        pgfe_hmac_generic(pgfe_##nettle_name##_encode_multiple, key, key_length, data, length, output, out_length);    \
+        pgfe_hmac_generic(                                                                                             \
+            pgfe_##nettle_name##_encode_multiple, PGFE_##upper##_BLOCK_SIZE, PGFE_##upper##_DIGEST_SIZE, key,          \
+            key_length, data, length, output, out_length                                                               \
+        );                                                                                                             \
     }
 
 void pgfe_hmac_generic(
-    pgfe_encode_multi_func *emfp, const pgfe_encode_t key[], const size_t key_length, const pgfe_encode_t data[],
-    const size_t length, pgfe_encode_t output[], const size_t out_length
+    pgfe_encode_multi_func *emfp, const size_t block_size, const size_t digest_size, const pgfe_encode_t key[],
+    const size_t key_length, const pgfe_encode_t data[], const size_t length, pgfe_encode_t output[],
+    const size_t out_length
 ) {
-    pgfe_encode_t k_i_pad[PGFE_MD5_BLOCK_SIZE], k_o_pad[PGFE_MD5_BLOCK_SIZE];
-    size_t i, block_size = PGFE_MD5_BLOCK_SIZE;
+    pgfe_encode_t k_i_pad[block_size], k_o_pad[block_size];
+    size_t i;
 
     //// Initialize arrays (No need since the copy operations below will do that)
     // __pgfe_arrinit(k_i_pad, block_size);
@@ -33,20 +37,20 @@ void pgfe_hmac_generic(
         k_o_pad[i] ^= O_UNIT;
     }
 
-    pgfe_encode_t mid_hash[PGFE_MD5_DIGEST_SIZE];
-    emfp(mid_hash, PGFE_MD5_DIGEST_SIZE, 2, k_i_pad, block_size, data, length);
-    emfp(output, out_length, 2, k_o_pad, block_size, mid_hash, PGFE_MD5_DIGEST_SIZE);
+    pgfe_encode_t mid_hash[digest_size];
+    emfp(mid_hash, digest_size, 2, k_i_pad, block_size, data, length);
+    emfp(output, out_length, 2, k_o_pad, block_size, mid_hash, digest_size);
 }
 
-__pgfe_hmac_tmpl(md5, md5);
-__pgfe_hmac_tmpl(sha1, sha1);
-__pgfe_hmac_tmpl(sha224, sha224);
-__pgfe_hmac_tmpl(sha256, sha256);
-__pgfe_hmac_tmpl(sha384, sha384);
-__pgfe_hmac_tmpl(sha512, sha512);
-__pgfe_hmac_tmpl(sha512_224, sha512_224);
-__pgfe_hmac_tmpl(sha512_256, sha512_256);
-__pgfe_hmac_tmpl(sha3_224, sha3_224);
-__pgfe_hmac_tmpl(sha3_256, sha3_256);
-__pgfe_hmac_tmpl(sha3_384, sha3_384);
-__pgfe_hmac_tmpl(sha3_512, sha3_512);
+__pgfe_hmac_tmpl(md5, md5, MD5);
+__pgfe_hmac_tmpl(sha1, sha1, SHA1);
+__pgfe_hmac_tmpl(sha224, sha224, SHA224);
+__pgfe_hmac_tmpl(sha256, sha256, SHA256);
+__pgfe_hmac_tmpl(sha384, sha384, SHA384);
+__pgfe_hmac_tmpl(sha512, sha512, SHA512);
+__pgfe_hmac_tmpl(sha512_224, sha512_224, SHA512_224);
+__pgfe_hmac_tmpl(sha512_256, sha512_256, SHA512_256);
+__pgfe_hmac_tmpl(sha3_224, sha3_224, SHA3_224);
+__pgfe_hmac_tmpl(sha3_256, sha3_256, SHA3_256);
+__pgfe_hmac_tmpl(sha3_384, sha3_384, SHA3_384);
+__pgfe_hmac_tmpl(sha3_512, sha3_512, SHA3_512);

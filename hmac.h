@@ -10,8 +10,9 @@ extern "C" {
 const pgfe_encode_t I_UNIT = 0x36, O_UNIT = 0x5c;
 
 void pgfe_hmac_generic(
-    pgfe_encode_multi_func *emfp, const pgfe_encode_t key[], const size_t key_length, const pgfe_encode_t data[],
-    const size_t length, pgfe_encode_t output[], const size_t out_length
+    pgfe_encode_multi_func *emfp, const size_t block_size, const size_t digest_size, const pgfe_encode_t key[],
+    const size_t key_length, const pgfe_encode_t data[], const size_t length, pgfe_encode_t output[],
+    const size_t out_length
 );
 
 void pgfe_hmac_md5(
