@@ -44,7 +44,7 @@ extern "C" {
                                                                                                                        \
         nettle_name##_init(&ctx);                                                                                      \
                                                                                                                        \
-        for (int i = 0; i < input_c - 1; i += 2) {                                                                     \
+        for (int i = 0; i < input_c; i++) {                                                                            \
             input = va_arg(vl, pgfe_encode_t *);                                                                       \
             input_s = va_arg(vl, size_t);                                                                              \
             if (!input) continue;                                                                                      \
@@ -52,6 +52,7 @@ extern "C" {
             nettle_name##_update(&ctx, input_s, input);                                                                \
         }                                                                                                              \
                                                                                                                        \
+        va_end(vl);                                                                                                    \
         nettle_name##_digest(&ctx, out_length, output);                                                                \
     }
 

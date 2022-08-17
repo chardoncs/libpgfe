@@ -23,12 +23,6 @@ typedef void pgfe_encode_func(const pgfe_encode_t input[], pgfe_encode_t output[
 
 typedef void pgfe_encode_multi_func(pgfe_encode_t output[], const size_t out_length, const size_t input_c, ...);
 
-// Convert SHA hash to a string represented by hexadecimal numbers
-void pgfe_hash_to_hex_string(const pgfe_encode_t hash[], const size_t hash_length, char out[]);
-
-// Print SHA hash
-void pgfe_print_hash(const pgfe_encode_t hash[], const size_t length);
-
 #ifdef __cplusplus
 }
 #endif

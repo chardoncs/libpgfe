@@ -7,9 +7,22 @@
 extern "C" {
 #endif
 
-void __pgfe_arrinit(pgfe_encode_t arr[], const size_t size);
+// Convert SHA hash to a string represented by hexadecimal numbers
+size_t pgfe_hash_to_hex_string(const pgfe_encode_t hash[], const size_t hash_length, char out[]);
 
-void __pgfe_arrcpy(pgfe_encode_t dest[], const size_t dest_s, const pgfe_encode_t src[], const size_t src_s);
+size_t pgfe_hex_string_to_hash(const char hash_s[], pgfe_encode_t hash_out[]);
+
+// Print SHA hash
+void pgfe_print_hash(const pgfe_encode_t hash[], const size_t length);
+
+// Clean non-hexadecimal characters and put it into `output'
+size_t pgfe_hash_string_clean(const char hash_s[], char output[]);
+
+// Clean non-hexadecimal characters and overwrite the string
+size_t pgfe_hash_string_clean_(char hash_s[]);
+
+// Calculate length of a hash represented by a string
+size_t pgfe_hash_length(const char hash_s[]);
 
 #ifdef __cplusplus
 }

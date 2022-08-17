@@ -1,10 +1,10 @@
 #include "hmac.h"
 
+#include "generic-internal.h"
 #include "md5.h"
 #include "sha1.h"
 #include "sha2.h"
 #include "sha3.h"
-#include "utils.h"
 
 #define __pgfe_hmac_tmpl(name, nettle_name, upper)                                                                     \
     inline void pgfe_hmac_##name(                                                                                      \
@@ -38,6 +38,7 @@ void pgfe_hmac_generic(
     }
 
     pgfe_encode_t mid_hash[digest_size];
+
     emfp(mid_hash, digest_size, 2, k_i_pad, block_size, data, length);
     emfp(output, out_length, 2, k_o_pad, block_size, mid_hash, digest_size);
 }

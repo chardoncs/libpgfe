@@ -8,6 +8,7 @@ enable_testing()
 
 add_library(pgfe SHARED 
     generic.c 
+    generic-internal.c
     templates.c
     utils.c
     sha1.c sha224.c sha256.c sha384.c sha512.c sha3-224.c sha3-256.c sha3-384.c sha3-512.c 
@@ -19,7 +20,7 @@ add_executable(pgfetest test/test.c)
 target_link_libraries(pgfe nettle)
 target_link_libraries(pgfetest pgfe)
 
-set(test_text hello)
+set(test_text "hello")
 
 add_test(
     NAME SHA1_string1
@@ -69,6 +70,49 @@ add_test(
     NAME SHA256_frontend
     COMMAND pgfetest fe-sha256 ${test_text}
 )
+add_test(
+    NAME string_to_hash_normal
+    COMMAND pgfetest string2hash "aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d"
+)
+add_test(
+    NAME string_to_hash_odd_length
+    COMMAND pgfetest string2hash "aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434"
+)
+add_test(
+    NAME string_to_hash_with_prefix
+    COMMAND pgfetest string2hash "0xaaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d"
+)
+add_test(
+    NAME string_to_hash_prefix_odd
+    COMMAND pgfetest string2hash "0Xaaf4c61ddcc5e8a2dabede0f3b482cd9aea9434"
+)
+add_test(
+    NAME string_to_hash_with_suffix
+    COMMAND pgfetest string2hash "aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434dH"
+)
+add_test(
+    NAME string_to_hash_suffix_odd
+    COMMAND pgfetest string2hash "aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434h"
+)
+add_test(
+    NAME string_to_hash_both_odd
+    COMMAND pgfetest string2hash "0Xaaf4c61ddcc5e8a2dabede0f3b482cd9aea9434h"
+)
+
+set(test_noisy_hash "0Xaaf4c61ddc+`ZZHHgc5[e8a2dab;:edeKKKKKK0f3b48??//2cdw9aea9434h")
+
+add_test(
+    NAME hash_string_clean
+    COMMAND pgfetest hash_string_clean ${test_noisy_hash}
+)
+add_test(
+    NAME hash_string_clean_inplace
+    COMMAND pgfetest hash_string_clean_inplace ${test_noisy_hash}
+)
+add_test(
+    NAME hmac_md5_hex
+    COMMAND pgfetest hmac-md5 "0x0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b" "Hi There"
+)
 
 set_property(TEST SHA1_string1 PROPERTY PASS_REGULAR_EXPRESSION "aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d")
 set_property(TEST SHA1_file1 PROPERTY PASS_REGULAR_EXPRESSION "65d7d52df994f64a0e993794222124645242e00f")
@@ -82,6 +126,16 @@ set_property(TEST SHA3_384_string1 PROPERTY PASS_REGULAR_EXPRESSION "720aea11019
 set_property(TEST SHA3_512_string1 PROPERTY PASS_REGULAR_EXPRESSION "75d527c368f2efe848ecf6b073a36767800805e9eef2b1857d5f984f036eb6df891d75f72d9b154518c1cd58835286d1da9a38deba3de98b5a53e5ed78a84976")
 set_property(TEST MD5_string1 PROPERTY PASS_REGULAR_EXPRESSION "5d41402abc4b2a76b9719d911017c592")
 set_property(TEST SHA256_frontend PROPERTY PASS_REGULAR_EXPRESSION "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824")
+set_property(TEST string_to_hash_normal PROPERTY PASS_REGULAR_EXPRESSION "aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d")
+set_property(TEST string_to_hash_odd_length PROPERTY PASS_REGULAR_EXPRESSION "0?aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434")
+set_property(TEST string_to_hash_with_prefix PROPERTY PASS_REGULAR_EXPRESSION "aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d")
+set_property(TEST string_to_hash_prefix_odd PROPERTY PASS_REGULAR_EXPRESSION "0?aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434")
+set_property(TEST string_to_hash_with_suffix PROPERTY PASS_REGULAR_EXPRESSION "aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d")
+set_property(TEST string_to_hash_suffix_odd PROPERTY PASS_REGULAR_EXPRESSION "0?aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434")
+set_property(TEST string_to_hash_both_odd PROPERTY PASS_REGULAR_EXPRESSION "0?aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434")
+set_property(TEST hash_string_clean PROPERTY PASS_REGULAR_EXPRESSION "0?aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434")
+set_property(TEST hash_string_clean_inplace PROPERTY PASS_REGULAR_EXPRESSION "0?aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434")
+set_property(TEST hmac_md5_hex PROPERTY PASS_REGULAR_EXPRESSION "9294727a3638bb1c13f48ef8158bfc9d")
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
