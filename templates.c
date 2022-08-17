@@ -7,7 +7,7 @@ extern "C" {
 
 #define __PGFE_FRONTEND_GEN(func_name, nettle_name)                                                                    \
     void pgfe_##func_name##_encode(                                                                                    \
-        const pgfe_encode_t data[], const size_t length, pgfe_encode_t output[], const size_t out_length               \
+        const pgfe_encode_t data[], size_t length, pgfe_encode_t output[], size_t out_length                           \
     ) {                                                                                                                \
         struct nettle_name##_ctx ctx;                                                                                  \
                                                                                                                        \
@@ -17,7 +17,7 @@ extern "C" {
         nettle_name##_digest(&ctx, out_length, output);                                                                \
     }                                                                                                                  \
                                                                                                                        \
-    void pgfe_##func_name##_encode_f(FILE *fp, pgfe_encode_t output[], const size_t length) {                          \
+    void pgfe_##func_name##_encode_f(FILE *fp, pgfe_encode_t output[], size_t length) {                                \
         pgfe_encode_t buf[PGFE_BUFFER_SIZE];                                                                           \
         size_t size;                                                                                                   \
                                                                                                                        \
@@ -32,9 +32,7 @@ extern "C" {
                                                                                                                        \
         nettle_name##_digest(&ctx, length, output);                                                                    \
     }                                                                                                                  \
-    void pgfe_##func_name##_encode_multiple(                                                                           \
-        pgfe_encode_t output[], const size_t out_length, const size_t input_c, ...                                     \
-    ) {                                                                                                                \
+    void pgfe_##func_name##_encode_multiple(pgfe_encode_t output[], size_t out_length, size_t input_c, ...) {          \
         va_list vl;                                                                                                    \
         va_start(vl, input_c);                                                                                         \
                                                                                                                        \

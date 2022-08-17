@@ -2,7 +2,7 @@
 
 #include "generic-internal.h"
 
-size_t pgfe_hash_to_hex_string(const pgfe_encode_t hash[], const size_t hash_length, char out[]) {
+size_t pgfe_hash_to_hex_string(const pgfe_encode_t hash[], size_t hash_length, char out[]) {
     char *op = out, dual_hex[3];
 
     for (size_t i = 0; i < hash_length; i++) {
@@ -55,7 +55,7 @@ size_t pgfe_hex_string_to_hash(const char hash_s[], pgfe_encode_t hash_out[]) {
     return op - hash_out;
 }
 
-void pgfe_print_hash(const pgfe_encode_t hash[], const size_t length) {
+void pgfe_print_hash(const pgfe_encode_t hash[], size_t length) {
     for (size_t i = 0; i < length; i++) {
         printf("%02x", hash[i]);
     }

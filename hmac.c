@@ -8,8 +8,8 @@
 
 #define __pgfe_hmac_tmpl(name, nettle_name, upper)                                                                     \
     inline void pgfe_hmac_##name(                                                                                      \
-        const pgfe_encode_t key[], const size_t key_length, const pgfe_encode_t data[], const size_t length,           \
-        pgfe_encode_t output[], const size_t out_length                                                                \
+        const pgfe_encode_t key[], size_t key_length, const pgfe_encode_t data[], size_t length,                       \
+        pgfe_encode_t output[], size_t out_length                                                                      \
     ) {                                                                                                                \
         pgfe_hmac_generic(                                                                                             \
             pgfe_##nettle_name##_encode_multiple, PGFE_##upper##_BLOCK_SIZE, PGFE_##upper##_DIGEST_SIZE, key,          \
@@ -18,9 +18,8 @@
     }
 
 void pgfe_hmac_generic(
-    pgfe_encode_multi_func *emfp, const size_t block_size, const size_t digest_size, const pgfe_encode_t key[],
-    const size_t key_length, const pgfe_encode_t data[], const size_t length, pgfe_encode_t output[],
-    const size_t out_length
+    pgfe_encode_multi_func *emfp, size_t block_size, size_t digest_size, const pgfe_encode_t key[], size_t key_length,
+    const pgfe_encode_t data[], size_t length, pgfe_encode_t output[], size_t out_length
 ) {
     pgfe_encode_t k_i_pad[block_size], k_o_pad[block_size];
     size_t i;

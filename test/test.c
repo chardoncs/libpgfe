@@ -124,7 +124,7 @@ int main(int argc, char **argv) {
 
     pgfe_hex_string_to_hash(key_s, key);
 
-    pgfe_hmac_md5(key, pgfe_hash_length(key_s), data, strlen(data), out, PGFE_MD5_DIGEST_SIZE);
+    pgfe_hmac_md5(key, pgfe_hash_length(key_s), (pgfe_encode_t *)data, strlen(data), out, PGFE_MD5_DIGEST_SIZE);
 
     pgfe_print_hash(out, PGFE_MD5_DIGEST_SIZE);
 
@@ -137,7 +137,9 @@ int main(int argc, char **argv) {
 
     // pgfe_hex_string_to_hash(key_s, key);
 
-    pgfe_hmac_md5((pgfe_encode_t *)key_s, strlen(key_s), data, strlen(data), out, PGFE_MD5_DIGEST_SIZE);
+    pgfe_hmac_md5(
+        (pgfe_encode_t *)key_s, strlen(key_s), (pgfe_encode_t *)data, strlen(data), out, PGFE_MD5_DIGEST_SIZE
+    );
 
     pgfe_print_hash(out, PGFE_MD5_DIGEST_SIZE);
 

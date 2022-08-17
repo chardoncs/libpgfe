@@ -21,7 +21,7 @@ typedef uint8_t pgfe_encode_t;
 
 typedef void pgfe_encode_func(const pgfe_encode_t input[], pgfe_encode_t output[]);
 
-typedef void pgfe_encode_multi_func(pgfe_encode_t output[], const size_t out_length, const size_t input_c, ...);
+typedef void pgfe_encode_multi_func(pgfe_encode_t output[], size_t out_length, size_t input_c, ...);
 
 #ifdef __cplusplus
 }
