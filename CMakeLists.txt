@@ -15,12 +15,14 @@ add_library(pgfe SHARED
     md5.c 
     hmac.c
     otp-generic.c
-    hotp.c
+    hotp.c totp.c
     pgfe.c)
 add_executable(pgfetest test/test.c)
+add_executable(totptest test/totptest.c)
 
 target_link_libraries(pgfe nettle)
 target_link_libraries(pgfetest pgfe)
+target_link_libraries(totptest pgfe)
 
 include(tests.cmake)
 

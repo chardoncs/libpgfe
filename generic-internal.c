@@ -29,3 +29,13 @@ inline void __pgfe_ch2hex(char ch, pgfe_encode_t *hex) {
 
     *hex = tmp_o;
 }
+
+void __pgfe_reverse_elements(pgfe_encode_t *low, pgfe_encode_t *high) {
+    pgfe_encode_t tmp;
+
+    for (; low < high; low++, high--) {
+        tmp = *low;
+        *low = *high;
+        *high = tmp;
+    }
+}

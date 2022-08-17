@@ -3,6 +3,8 @@
 
 #include "generic.h"
 
+#include <time.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -23,6 +25,9 @@ size_t pgfe_hash_string_clean_(char hash_s[]);
 
 // Calculate length of a hash represented by a string
 size_t pgfe_hash_length(const char hash_s[]);
+
+// Get current UNIX time
+time_t pgfe_curtime();
 
 #ifdef __cplusplus
 }

@@ -15,6 +15,8 @@ void __pgfe_arrcpy(pgfe_encode_t dest[], size_t dest_s, const pgfe_encode_t src[
 
 void __pgfe_ch2hex(char ch, pgfe_encode_t *hex);
 
+void __pgfe_reverse_elements(pgfe_encode_t *low, pgfe_encode_t *high);
+
 #ifdef __cplusplus
 }
 #endif

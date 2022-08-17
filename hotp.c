@@ -2,6 +2,7 @@
 
 #include <string.h>
 
+#include "generic-internal.h"
 #include "sha1.h"
 
 pgfe_otp_t __pgfe_10pow(uint8_t p) {
@@ -17,12 +18,12 @@ pgfe_otp_t pgfe_hotp_generic(
     pgfe_otp_counter_t counter, uint8_t digit_c
 ) {
     size_t sec_len = strlen((char *)secret);
-    size_t counter_len = sizeof(pgfe_otp_counter_t) / sizeof(pgfe_encode_t);
-    pgfe_encode_t counter_h[counter_len];
-    pgfe_encode_t out_hash[digest_size];
+    size_t enc_s = sizeof(pgfe_encode_t), counter_len = sizeof(pgfe_otp_counter_t) / enc_s;
+    pgfe_encode_t counter_h[counter_len], out_hash[digest_size];
     pgfe_otp_t result;
 
     memcpy(counter_h, &counter, counter_len);
+    __pgfe_reverse_elements(counter_h, counter_h + counter_len - 1);
 
     pgfe_hmac_generic(func, block_size, digest_size, secret, sec_len, counter_h, counter_len, out_hash, digest_size);
     result = pgfe_dynamically_truncate(out_hash, digest_size);

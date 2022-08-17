@@ -99,3 +99,7 @@ size_t pgfe_hash_length(const char hash_s[]) {
 
     return len / 2 + len % 2;
 }
+
+inline time_t pgfe_curtime() {
+    return time(NULL);
+}
