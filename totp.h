@@ -7,22 +7,37 @@
 extern "C" {
 #endif
 
-// Get current UNIX time as counters' type
-pgfe_otp_counter_t pgfe_current_unix_time();
+typedef uint32_t pgfe_totp_interval_t;
+
+typedef int32_t pgfe_totp_delta_t;
+
+pgfe_otp_counter_t __pgfe_calc_periodic_counter(
+    pgfe_time_t realtime, pgfe_totp_interval_t interval, pgfe_time_t initial_time, pgfe_totp_delta_t *delta_out
+);
 
 // Generic HOTP function suitable for various hash algorithm
 pgfe_otp_t pgfe_totp_generic(
-    pgfe_encode_multi_func *func, size_t block_size, size_t digest_size, const pgfe_encode_t secret[], uint8_t digit_c
+    PGFE_ENCODER_DEF_SIG, const pgfe_encode_t secret[], size_t secret_length, uint8_t digit_c,
+    pgfe_totp_interval_t interval, pgfe_time_t initial_time, pgfe_totp_delta_t *delta_out
 );
 
 // Common HOTP using HMAC-SHA1 algorithm
-pgfe_otp_t pgfe_totp(const pgfe_encode_t secret[], uint8_t digit_c);
+pgfe_otp_t pgfe_totp(
+    const pgfe_encode_t secret[], size_t secret_length, uint8_t digit_c, pgfe_totp_interval_t interval,
+    pgfe_totp_delta_t *delta_out
+);
 
-pgfe_otp_t pgfe_totp_4digits(const pgfe_encode_t secret[]);
+pgfe_otp_t pgfe_totp_4digits(
+    const pgfe_encode_t secret[], size_t secret_length, pgfe_totp_interval_t interval, pgfe_totp_delta_t *delta_out
+);
 
-pgfe_otp_t pgfe_totp_6digits(const pgfe_encode_t secret[]);
+pgfe_otp_t pgfe_totp_6digits(
+    const pgfe_encode_t secret[], size_t secret_length, pgfe_totp_interval_t interval, pgfe_totp_delta_t *delta_out
+);
 
-pgfe_otp_t pgfe_totp_8digits(const pgfe_encode_t secret[]);
+pgfe_otp_t pgfe_totp_8digits(
+    const pgfe_encode_t secret[], size_t secret_length, pgfe_totp_interval_t interval, pgfe_totp_delta_t *delta_out
+);
 
 #ifdef __cplusplus
 }

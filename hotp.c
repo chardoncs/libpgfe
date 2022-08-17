@@ -5,19 +5,17 @@
 #include "generic-internal.h"
 #include "sha1.h"
 
-pgfe_otp_t __pgfe_10pow(uint8_t p) {
-    pgfe_otp_t r = 1;
-    for (; p > 0; p--) {
-        r *= 10;
-    }
-    return r;
+//                 10 ^          0   1    2     3      4       5        6         7          8           9
+const pgfe_otp_t DIGITS_POW[] = {1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000};
+
+inline pgfe_otp_t __pgfe_10pow(uint8_t p) {
+    return DIGITS_POW[p];
 }
 
 pgfe_otp_t pgfe_hotp_generic(
-    pgfe_encode_multi_func *func, size_t block_size, size_t digest_size, const pgfe_encode_t secret[],
-    pgfe_otp_counter_t counter, uint8_t digit_c
+    PGFE_ENCODER_DEF_SIG, const pgfe_encode_t secret[], size_t secret_length, pgfe_otp_counter_t counter,
+    uint8_t digit_c
 ) {
-    size_t sec_len = strlen((char *)secret);
     size_t enc_s = sizeof(pgfe_encode_t), counter_len = sizeof(pgfe_otp_counter_t) / enc_s;
     pgfe_encode_t counter_h[counter_len], out_hash[digest_size];
     pgfe_otp_t result;
@@ -25,7 +23,7 @@ pgfe_otp_t pgfe_hotp_generic(
     memcpy(counter_h, &counter, counter_len);
     __pgfe_reverse_elements(counter_h, counter_h + counter_len - 1);
 
-    pgfe_hmac_generic(func, block_size, digest_size, secret, sec_len, counter_h, counter_len, out_hash, digest_size);
+    pgfe_hmac_generic(PGFE_ENCODER_CALL_SIG, secret, secret_length, counter_h, counter_len, out_hash, digest_size);
     result = pgfe_dynamically_truncate(out_hash, digest_size);
 
     if (digit_c < PGFE_OTP_DIGIT_MAX_LIMIT) {
@@ -35,20 +33,19 @@ pgfe_otp_t pgfe_hotp_generic(
     return result;
 }
 
-inline pgfe_otp_t pgfe_hotp(const pgfe_encode_t secret[], pgfe_otp_counter_t counter, uint8_t digit_c) {
-    return pgfe_hotp_generic(
-        pgfe_sha1_encode_multiple, PGFE_SHA1_BLOCK_SIZE, PGFE_SHA1_DIGEST_SIZE, secret, counter, digit_c
-    );
+inline pgfe_otp_t
+pgfe_hotp(const pgfe_encode_t secret[], size_t secret_length, pgfe_otp_counter_t counter, uint8_t digit_c) {
+    return pgfe_hotp_generic(PGFE_ENCODER_SIG_SHA1, secret, secret_length, counter, digit_c);
 }
 
-inline pgfe_otp_t pgfe_hotp_4digits(const pgfe_encode_t secret[], pgfe_otp_counter_t counter) {
-    return pgfe_hotp(secret, counter, 4);
+inline pgfe_otp_t pgfe_hotp_4digits(const pgfe_encode_t secret[], size_t secret_length, pgfe_otp_counter_t counter) {
+    return pgfe_hotp(secret, secret_length, counter, 4);
 }
 
-inline pgfe_otp_t pgfe_hotp_6digits(const pgfe_encode_t secret[], pgfe_otp_counter_t counter) {
-    return pgfe_hotp(secret, counter, 6);
+inline pgfe_otp_t pgfe_hotp_6digits(const pgfe_encode_t secret[], size_t secret_length, pgfe_otp_counter_t counter) {
+    return pgfe_hotp(secret, secret_length, counter, 6);
 }
 
-inline pgfe_otp_t pgfe_hotp_8digits(const pgfe_encode_t secret[], pgfe_otp_counter_t counter) {
-    return pgfe_hotp(secret, counter, 8);
+inline pgfe_otp_t pgfe_hotp_8digits(const pgfe_encode_t secret[], size_t secret_length, pgfe_otp_counter_t counter) {
+    return pgfe_hotp(secret, secret_length, counter, 8);
 }

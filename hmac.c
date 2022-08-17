@@ -18,8 +18,8 @@
     }
 
 void pgfe_hmac_generic(
-    pgfe_encode_multi_func *emfp, size_t block_size, size_t digest_size, const pgfe_encode_t key[], size_t key_length,
-    const pgfe_encode_t data[], size_t length, pgfe_encode_t output[], size_t out_length
+    PGFE_ENCODER_DEF_SIG, const pgfe_encode_t key[], size_t key_length, const pgfe_encode_t data[], size_t length,
+    pgfe_encode_t output[], size_t out_length
 ) {
     pgfe_encode_t k_i_pad[block_size], k_o_pad[block_size];
     size_t i;
@@ -38,8 +38,8 @@ void pgfe_hmac_generic(
 
     pgfe_encode_t mid_hash[digest_size];
 
-    emfp(mid_hash, digest_size, 2, k_i_pad, block_size, data, length);
-    emfp(output, out_length, 2, k_o_pad, block_size, mid_hash, digest_size);
+    func(mid_hash, digest_size, 2, k_i_pad, block_size, data, length);
+    func(output, out_length, 2, k_o_pad, block_size, mid_hash, digest_size);
 }
 
 __pgfe_hmac_tmpl(md5, md5, MD5);
