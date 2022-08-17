@@ -1,8 +1,8 @@
 # libpgfe
 
-libpgfe (**Lib**rary of **P**assword **G**eneration **F**ront-**e**nd) is a front-end library for generating hash codes and OTP passwords, using [Nettle](https://www.lysator.liu.se/~nisse/nettle/) as its backend.
+**libpgfe** (IPA: /ˌlɪbˈpɪɡfiː/, like "lib-pig-fee") is a library for hash encoding, HOTP/TOTP generation and base encoding.
 
-"libpgfe" is pronounced like "lib-pig-fee" (IPA: /ˌlɪbˈpɪɡfiː/).
+*libpgfe* was an abbreviation of "**Lib**rary of **P**assword **G**eneration **F**ront-**e**nd". It is initially designed as a user-friendly port to [Nettle](https://www.lysator.liu.se/~nisse/nettle/), but since some algorithms (e.g. HMAC, HOTP etc.) are directly implemented in this library, its full name has been deprecated.
 
 ## Information
 
