@@ -16,6 +16,8 @@ add_library(pgfe SHARED
     hmac.c
     otp-generic.c
     hotp.c totp.c
+    base-encoding-internal.c
+    base64.c base32.c base16.c
     pgfe.c)
 add_executable(pgfetest test/test.c)
 add_executable(totptest test/totptest.c)
