@@ -12,6 +12,9 @@ $(OBJS): $(BUILD_DIR)
 $(OBJS_DIR)/%.o: %.c
 	$(CC) -c $(OUTPUT_OPTION) $< $(STD_OPTION)
 
+$(OBJS_DIR)/%.o: %.cpp
+	$(CPP) -c $(OUTPUT_OPTION) $< $(STD_CPP_OPTION)
+
 $(BUILD_DIR):
 	@mkdir -v $(BUILD_DIR)
 	@mkdir -vp $(OBJS_DIR)

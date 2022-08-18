@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.0.0)
 project(libpgfe VERSION 0.1.0)
 
 set(CMAKE_C_STANDARD 11)
+set(CMAKE_CXX_STANDARD 11)
 
 include(CTest)
 enable_testing()
@@ -18,15 +19,23 @@ add_library(pgfe SHARED
     hotp.c totp.c
     base-encoding-internal.c
     base64.c base32.c base16.c
-    pgfe.c)
+    pgfe.c
+    hash_encoder.cpp
+    hmac_encoder.cpp
+    generic_otp.cpp
+    hotp.cpp)
 add_executable(pgfetest test/test.c)
 add_executable(totptest test/totptest.c)
+
+add_executable(pgfetestcpp test/test.cpp)
 
 target_link_libraries(pgfe nettle)
 target_link_libraries(pgfetest pgfe)
 target_link_libraries(totptest pgfe)
+target_link_libraries(pgfetestcpp pgfe)
 
-include(tests.cmake)
+include(test/tests.cmake)
+include(test/tests_cpp.cmake)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})

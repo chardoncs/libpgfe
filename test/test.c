@@ -4,8 +4,6 @@
 
 #include "test.h"
 
-#define TEST_OPTION_START(name) if (!strcmp(option, name)) {
-#define TEST_OPTION_END }
 #include "baseencodetest.h"
 #include "hmactest.h"
 #include "mdtest.h"

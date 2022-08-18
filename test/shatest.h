@@ -96,6 +96,6 @@ void sha3_512_test(ARGS) {
 void sha256_fe_test(ARGS) {
     pgfe_encode_t output[PGFE_SHA256_DIGEST_SIZE];
 
-    pgfe_encode(PGFE_SHA256, (pgfe_encode_t *)argv[2], output);
+    pgfe_encode(SHA256, (pgfe_encode_t *)argv[2], output);
     pgfe_print_hash(output, PGFE_SHA256_DIGEST_SIZE);
 }
