@@ -26,6 +26,9 @@ inline pgfe_encode_t pgfe_decode_base32_char(char base32_c) {
     else if (base32_c >= 'A' && base32_c <= 'Z') {
         o = base32_c - 'A';
     }
+    else if (base32_c >= 'a' && base32_c <= 'z') {
+        o = base32_c - 'a';
+    }
     else if (base32_c == '=') {
         o = PGFE_BASE_PADDING_CODE;
     }
@@ -44,6 +47,9 @@ inline pgfe_encode_t pgfe_decode_base32hex_char(char base32_c) {
     }
     else if (base32_c >= 'A' && base32_c <= 'V') {
         o = base32_c - 'A' + 10;
+    }
+    else if (base32_c >= 'a' && base32_c <= 'v') {
+        o = base32_c - 'a' + 10;
     }
     else if (base32_c == '=') {
         o = PGFE_BASE_PADDING_CODE;

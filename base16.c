@@ -15,6 +15,9 @@ inline pgfe_encode_t pgfe_decode_base16_char(char base16_c) {
     else if (base16_c >= 'A' && base16_c <= 'F') {
         o = base16_c - 'A' + 10;
     }
+    else if (base16_c >= 'a' && base16_c <= 'f') {
+        o = base16_c - 'a' + 10;
+    }
     else {
         o = PGFE_BASE_UNKNOWN_CODE;
     }

@@ -3,7 +3,7 @@
 #include "generic-internal.h"
 
 inline pgfe_mask_t __pgfe_build_mask(uint8_t digit_c) {
-    return ((pgfe_mask_t)-1) >> (sizeof(pgfe_mask_t) - digit_c);
+    return ((pgfe_mask_t)-1) >> (sizeof(pgfe_mask_t) * 8 - digit_c);
 }
 
 size_t __pgfe_transform_codes(const pgfe_encode_t input[], size_t length, uint8_t chunk_size, pgfe_encode_t out[]) {
@@ -24,7 +24,7 @@ size_t __pgfe_transform_codes(const pgfe_encode_t input[], size_t length, uint8_
         else {
             sz_diff = bitsz - low;
             mv_sz = chunk_size - sz_diff;
-            *op = (((*inp) << mv_sz) & (__pgfe_build_mask(sz_diff) << mv_sz));
+            *op = ((*inp) & __pgfe_build_mask(sz_diff)) << mv_sz;
             if (inp - input + 1 < length) {
                 *op |= ((*(inp + 1)) >> (bitsz - high)) & __pgfe_build_mask(high);
             }
@@ -39,26 +39,25 @@ size_t __pgfe_transform_codes(const pgfe_encode_t input[], size_t length, uint8_
 
 size_t __pgfe_unittostr(
     size_t chunk_count, size_t unit_size, size_t bit_size, size_t alphabet_size, const char alphabet[],
-    const pgfe_encode_t unit[], char out[], short pad_by
+    const pgfe_encode_t unit[], char out[], bool padding
 ) {
     char unit_s[chunk_count];
     pgfe_encode_t unit_split[chunk_count];
+    int i;
 
     __pgfe_transform_codes(unit, unit_size, bit_size, unit_split);
-    for (int i = 0; i < chunk_count; i++) {
+    for (i = 0; i < chunk_count; i++) {
         unit_s[i] = alphabet[unit_split[i]];
     }
 
-    for (; pad_by > 0; pad_by--) {
-        if (pad_by >= chunk_count) {
-            continue;
-        }
+    if (padding) {
+        for (i = chunk_count - 1; i >= 0; i--) {
+            if (unit_s[i] != alphabet[0]) {
+                break;
+            }
 
-        if (unit_s[pad_by - 1] != alphabet[0]) {
-            break;
+            unit_s[i] = alphabet[alphabet_size];
         }
-
-        unit_s[pad_by - 1] = alphabet[alphabet_size];
     }
 
     memcpy(out, unit_s, chunk_count);
@@ -97,10 +96,10 @@ size_t __pgfe_decode_generic(
     PGFE_BASE_PARAMS_DEF, pgfe_encode_t (*func)(char), const char basexx_cs[], pgfe_encode_t output[]
 ) {
     pgfe_encode_t *op, ch, sig, o_unit[unit_size];
-    const size_t sz_ou = sizeof(pgfe_encode_t);
+    const size_t sz_ou = sizeof(pgfe_encode_t) * 8;
     char *sp = (char *)basexx_cs;
     size_t i = 0, j;
-    uint32_t u;
+    uint64_t u;
     const pgfe_mask_t mask = __pgfe_build_mask(bit_size);
 
     op = output;

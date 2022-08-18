@@ -1,6 +1,8 @@
 #ifndef LIBPGFE_BASE_ENCODING_INTERNAL_H
 #define LIBPGFE_BASE_ENCODING_INTERNAL_H
 
+#include <stdbool.h>
+
 #include "generic.h"
 
 #ifdef __cplusplus
@@ -30,7 +32,7 @@ size_t __pgfe_transform_codes(const pgfe_encode_t input[], size_t length, uint8_
 pgfe_mask_t __pgfe_build_mask(uint8_t digit_c);
 
 size_t
-__pgfe_unittostr(PGFE_BASE_PARAMS_DEF, const char alphabet[], const pgfe_encode_t unit[], char out[], short pad_by);
+__pgfe_unittostr(PGFE_BASE_PARAMS_DEF, const char alphabet[], const pgfe_encode_t unit[], char out[], bool padding);
 
 size_t __pgfe_encode_generic(
     PGFE_BASE_PARAMS_DEF, const char alphabet[], const pgfe_encode_t input[], size_t input_length, char cs_out[]

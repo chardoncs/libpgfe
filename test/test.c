@@ -6,6 +6,7 @@
 
 #define TEST_OPTION_START(name) if (!strcmp(option, name)) {
 #define TEST_OPTION_END }
+#include "baseencodetest.h"
 #include "hmactest.h"
 #include "mdtest.h"
 #include "otptest.h"
@@ -42,6 +43,16 @@ int main(ARGS) {
     TEST_CASE("hotp_hex", hotp_hex)
     TEST_CASE("hotp_hex_sha256", hotp_hex_sha256)
     TEST_CASE("hotp_hex_sha512", hotp_hex_sha512)
+
+    TEST_CASE("base16-encode", base16_encode_test)
+    TEST_CASE("base16-decode", base16_decode_test)
+    TEST_CASE("base32-encode", base32_encode_test)
+    TEST_CASE("base32-decode", base32_decode_test)
+    TEST_CASE("base32hex-encode", base32hex_encode_test)
+    TEST_CASE("base32hex-decode", base32hex_decode_test)
+    TEST_CASE("base64-encode", base64_encode_test)
+    TEST_CASE("base64url-encode", base64url_encode_test)
+    TEST_CASE("base64-decode", base64_decode_test)
 
         ;
 
