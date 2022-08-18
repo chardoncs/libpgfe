@@ -130,5 +130,12 @@ size_t __pgfe_decode_generic(
         op += unit_size;
     }
 
+    // Determine end of the output
+    op -= unit_size;
+    for (i = 0; i < unit_size && op[i] == o_unit[i] && op[i]; i++)
+        ;
+
+    op += i;
+    *op = 0;
     return op - output;
 }
