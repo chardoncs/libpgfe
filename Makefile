@@ -26,5 +26,15 @@ clean:
 	@echo 'Cleaning...'
 	@rm -rfv ./$(BUILD_DIR)
 
+install: 
+	@mkdir -v $(HEADER_DIR) 
+	@cp -v *.h $(HEADER_DIR) 
+	@cp -v *.hpp $(HEADER_DIR) 
+	@cp -v $(TARGET) $(LIB_DIR)
+
+uninstall:
+	@rm -vrf $(HEADER_DIR)
+	@rm -vrf $(LIB_DIR)/$(TARGET_FILE)
+
 update-meta:
 	@python3 ./scripts/update_meta.py ./project.json

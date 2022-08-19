@@ -3,6 +3,7 @@ VERSION := 0.1.0
 
 BUILD_DIR := build
 TARGET_DIR := $(BUILD_DIR)
+TARGET_FILE := $(PROJECT).so
 
 OBJS_DIR := $(BUILD_DIR)/obj
 OBJS := $(addprefix $(OBJS_DIR)/,\
@@ -23,9 +24,12 @@ abstract_otp.cpp.o\
 hotp.cpp.o\
 totp.cpp.o)
 
-TARGET := $(TARGET_DIR)/$(PROJECT).so
+TARGET := $(TARGET_DIR)/$(TARGET_FILE)
 TEST_TARGET := $(TARGET_DIR)/$(TEST_BIN)
 LIBS := -lnettle
+
+HEADER_DIR := /usr/include/libpgfe
+LIB_DIR := /usr/lib
 
 CC := clang
 CPP := clang++
