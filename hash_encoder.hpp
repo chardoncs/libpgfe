@@ -1,6 +1,7 @@
 #ifndef LIBPGFE_HASH_ENCODER_HPP
 #define LIBPGFE_HASH_ENCODER_HPP
 #ifdef __cplusplus
+
 #include "abstract_hash_encoder.hpp"
 
 #include "generic.hpp"
@@ -16,6 +17,7 @@ class HashEncoder : public AbstractHashEncoder
     void *ctx = nullptr;
 
     size_t digsz, blocksz;
+    pgfe_encode_t *seq = nullptr;
 
     void load_algorithm();
 
@@ -37,8 +39,9 @@ class HashEncoder : public AbstractHashEncoder
     void update(const pgfe_encode_t sequence[], size_t length);
     void update(const char cs[]);
     void update(const std::string &cpp_s);
+    void update(SequentialData &sd);
 
-    void get_digest(pgfe_encode_t out[], size_t length);
+    SequentialData get_digest();
 
     size_t digest_size() {
         return digsz;

@@ -32,7 +32,7 @@
 
 #define __PGFE_DIGEST_FUNC_CALL_CASE(alg, name)                                                                        \
     case alg:                                                                                                          \
-        name##_digest((name##_ctx *)ctx, length ? length : pgfe_digest_length[cur], out);                              \
+        name##_digest((name##_ctx *)ctx, digsz, seq);                                                                  \
         break
 
 #define __PGFE_INIT_SIZE_CASE(alg, name)                                                                               \
@@ -61,6 +61,11 @@ void HashEncoder::load_algorithm() {
     __PGFE_BATCH_CASES(CTX_CREATE)
     __PGFE_BATCH_CASES(INIT_FUNC_CALL)
     __PGFE_BATCH_CASES(INIT_SIZE)
+
+    if (seq) {
+        delete seq;
+    }
+    seq = new pgfe_encode_t[digsz + 1];
 }
 
 void HashEncoder::reset() {
@@ -84,6 +89,9 @@ HashEncoder::HashEncoder(const std::string &choice) {
 
 HashEncoder::~HashEncoder() {
     destroy_context();
+    if (seq) {
+        delete seq;
+    }
 }
 
 void HashEncoder::update(const pgfe_encode_t sequence[], size_t length) {
@@ -98,6 +106,14 @@ inline void HashEncoder::update(const std::string &cpp_s) {
     return this->AbstractHashEncoder::update(cpp_s);
 }
 
-void HashEncoder::get_digest(pgfe_encode_t out[], size_t length) {
+inline void HashEncoder::update(SequentialData &sd) {
+    return this->AbstractHashEncoder::update(sd);
+}
+
+SequentialData HashEncoder::get_digest() {
     __PGFE_BATCH_CASES(DIGEST_FUNC_CALL)
+    seq[digsz] = 0;
+
+    SequentialData sd(seq, digsz);
+    return sd;
 }

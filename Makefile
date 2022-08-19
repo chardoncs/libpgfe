@@ -9,10 +9,10 @@ $(TARGET): $(OBJS) $(LIBS)
 
 $(OBJS): $(BUILD_DIR)
 
-$(OBJS_DIR)/%.o: %.c
+$(OBJS_DIR)/%.c.o: %.c
 	$(CC) -c $(OUTPUT_OPTION) $< $(STD_OPTION)
 
-$(OBJS_DIR)/%.o: %.cpp
+$(OBJS_DIR)/%.cpp.o: %.cpp
 	$(CPP) -c $(OUTPUT_OPTION) $< $(STD_CPP_OPTION)
 
 $(BUILD_DIR):

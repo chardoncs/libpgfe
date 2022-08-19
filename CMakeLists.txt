@@ -20,6 +20,8 @@ add_library(pgfe SHARED
     base-encoding-internal.c
     base64.c base32.c base16.c
     pgfe.c
+    sequential_data.cpp
+    utils.cpp
     hash_encoder.cpp
     hmac_encoder.cpp
     abstract_otp.cpp

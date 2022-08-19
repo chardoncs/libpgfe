@@ -6,6 +6,7 @@
 
 #include "generic.h"
 #include "otp-generic.h"
+#include "sequential_data.hpp"
 
 namespace chardon55 {
 namespace PGFE {
@@ -13,9 +14,10 @@ namespace PGFE {
 class AbstractOTP
 {
   public:
-    virtual void set_secret(pgfe_encode_t *, size_t) {}
+    virtual void set_secret(const pgfe_encode_t *, size_t) {}
     virtual void set_secret(const char *cs);
     virtual void set_secret(const std::string &);
+    virtual void set_secret(SequentialData &);
 
     virtual void set_counter(pgfe_otp_counter_t){};
 

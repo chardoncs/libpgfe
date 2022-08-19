@@ -6,6 +6,8 @@
 #include <string>
 
 #include "generic.h"
+#include "sequential_data.hpp"
+#include "utils.hpp"
 
 namespace chardon55 {
 namespace PGFE {
@@ -16,14 +18,21 @@ class AbstractEncoder
     virtual void reset() {}
 
     virtual void update(const pgfe_encode_t sequence[], size_t length) {}
-    virtual inline void update(const char cs[]) {
+
+    virtual void update(const char cs[]) {
         return update((const pgfe_encode_t *)cs, strlen(cs));
     }
-    virtual inline void update(const std::string &cpp_s) {
+    virtual void update(const std::string &cpp_s) {
         return update((const pgfe_encode_t *)cpp_s.c_str(), cpp_s.length());
     }
+    virtual void update(SequentialData &sd) {
+        size_t sz;
+        update(sd.to_pgfe_seq(sz), sz);
+    }
 
-    virtual void get_digest(pgfe_encode_t out[], size_t length = 0) {}
+    virtual SequentialData get_digest() {
+        return nullptr;
+    }
 }; // namespace AbstractEncoder
 
 } // namespace PGFE
