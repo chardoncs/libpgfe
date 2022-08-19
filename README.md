@@ -10,7 +10,7 @@
 | :----------- | :------------------ |
 | C Standard   | C11                 |
 | C++ Standard | C++11               |
-| Compiler     | LLVM-Clang          |
+| Compiler     | LLVM Clang          |
 | License      | LGPL 3.0 (or later) |
 
 ### Tips for compilation
