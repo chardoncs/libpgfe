@@ -2,12 +2,12 @@
 #define LIBPGFE_HOTP_HPP
 #ifdef __cplusplus
 
-#include "generic_otp.hpp"
+#include "abstract_otp.hpp"
 
 namespace chardon55 {
 namespace PGFE {
 
-class HOTP : public GenericOTP
+class HOTP : public AbstractOTP
 {
   private:
     pgfe_encode_t *secret;
@@ -19,6 +19,9 @@ class HOTP : public GenericOTP
 
   public:
     HOTP();
+    HOTP(pgfe_encode_t *, size_t);
+    HOTP(const char *);
+    HOTP(const std::string &);
     ~HOTP();
 
     void set_secret(pgfe_encode_t *, size_t);

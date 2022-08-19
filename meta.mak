@@ -14,7 +14,8 @@ pgfe.o\
 hash_encoder.o\
 hmac_encoder.o\
 generic_otp.o\
-hotp.o)
+hotp.o\
+totp.o)
 
 TARGET := $(TARGET_DIR)/$(PROJECT).so
 TEST_TARGET := $(TARGET_DIR)/$(TEST_BIN)

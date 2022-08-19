@@ -1,7 +1,7 @@
 #ifndef LIBPGFE_HASH_ENCODER_HPP
 #define LIBPGFE_HASH_ENCODER_HPP
 #ifdef __cplusplus
-#include "generic_hash_encoder.hpp"
+#include "abstract_hash_encoder.hpp"
 
 #include "generic.hpp"
 
@@ -9,7 +9,7 @@ namespace chardon55 {
 namespace PGFE {
 
 // Libpgfe - Hash Encoder
-class HashEncoder : public GenericHashEncoder
+class HashEncoder : public AbstractHashEncoder
 {
 
   private:
@@ -23,6 +23,10 @@ class HashEncoder : public GenericHashEncoder
 
     void init();
 
+  protected:
+    void before_change_alg();
+    void after_change_alg();
+
   public:
     HashEncoder(pgfe_algorithm_choice choice = SHA1);
     HashEncoder(const std::string &choice);
@@ -35,9 +39,6 @@ class HashEncoder : public GenericHashEncoder
     void update(const std::string &cpp_s);
 
     void get_digest(pgfe_encode_t out[], size_t length);
-
-    void select_algorithm(pgfe_algorithm_choice);
-    void select_algorithm(const std::string &);
 
     size_t digest_size() {
         return digsz;

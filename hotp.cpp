@@ -13,7 +13,21 @@ void HOTP::destroy_secret() {
     selen = 0;
 }
 
-HOTP::HOTP() {}
+HOTP::HOTP() {
+    secret = nullptr;
+}
+
+HOTP::HOTP(pgfe_encode_t *secret_seq, size_t length) : HOTP() {
+    set_secret(secret_seq, length);
+}
+
+HOTP::HOTP(const char *secret_cs) : HOTP() {
+    set_secret(secret_cs);
+}
+
+HOTP::HOTP(const std::string &secret_cpp_s) : HOTP() {
+    set_secret(secret_cpp_s);
+}
 
 HOTP::~HOTP() {
     destroy_secret();
@@ -28,11 +42,11 @@ void HOTP::set_secret(pgfe_encode_t *seq, size_t length) {
 }
 
 inline void HOTP::set_secret(const char *cs) {
-    this->GenericOTP::set_secret(cs);
+    this->AbstractOTP::set_secret(cs);
 }
 
 inline void HOTP::set_secret(const std::string &cpp_s) {
-    this->GenericOTP::set_secret(cpp_s);
+    this->AbstractOTP::set_secret(cpp_s);
 }
 
 void HOTP::set_counter(pgfe_otp_counter_t c) {
@@ -43,6 +57,6 @@ inline pgfe_otp_t HOTP::generate(uint8_t digit_count) {
     return pgfe_hotp(secret, selen, co, digit_count);
 }
 
-inline std::string HOTP::generate_str(uint8_t digit_count = 6) {
-    return this->GenericOTP::generate_str(digit_count);
+inline std::string HOTP::generate_str(uint8_t digit_count) {
+    return this->AbstractOTP::generate_str(digit_count);
 }

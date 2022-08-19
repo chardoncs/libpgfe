@@ -25,16 +25,6 @@
         name##_init((name##_ctx *)ctx);                                                                                \
         break
 
-#define __PGFE_UPDATE_FUNC_CALL1_CASE(alg, name)                                                                       \
-    case alg:                                                                                                          \
-        name##_update((name##_ctx *)ctx, strlen(cs), (uint8_t *)cs);                                                   \
-        break
-
-#define __PGFE_UPDATE_FUNC_CALL2_CASE(alg, name)                                                                       \
-    case alg:                                                                                                          \
-        name##_update((name##_ctx *)ctx, cpp_s.length(), (uint8_t *)cpp_s.c_str());                                    \
-        break
-
 #define __PGFE_UPDATE_FUNC_CALL3_CASE(alg, name)                                                                       \
     case alg:                                                                                                          \
         name##_update((name##_ctx *)ctx, length, sequence);                                                            \
@@ -59,16 +49,12 @@ void HashEncoder::destroy_context() {
     __PGFE_BATCH_CASES(CTX_DELETE)
 }
 
-void HashEncoder::select_algorithm(pgfe_algorithm_choice choice) {
-    if (choice == cur) return;
-
+void HashEncoder::before_change_alg() {
     destroy_context();
-    cur = choice;
-    load_algorithm();
 }
 
-void HashEncoder::select_algorithm(const std::string &s) {
-    this->GenericHashEncoder::select_algorithm(s);
+void HashEncoder::after_change_alg() {
+    load_algorithm();
 }
 
 void HashEncoder::load_algorithm() {
@@ -104,12 +90,12 @@ void HashEncoder::update(const pgfe_encode_t sequence[], size_t length) {
     __PGFE_BATCH_CASES(UPDATE_FUNC_CALL3)
 }
 
-void HashEncoder::update(const char cs[]) {
-    __PGFE_BATCH_CASES(UPDATE_FUNC_CALL1)
+inline void HashEncoder::update(const char cs[]) {
+    return this->AbstractHashEncoder::update(cs);
 }
 
-void HashEncoder::update(const std::string &cpp_s) {
-    __PGFE_BATCH_CASES(UPDATE_FUNC_CALL2)
+inline void HashEncoder::update(const std::string &cpp_s) {
+    return this->AbstractHashEncoder::update(cpp_s);
 }
 
 void HashEncoder::get_digest(pgfe_encode_t out[], size_t length) {

@@ -2,18 +2,16 @@
 #define LIBPGFE_HMAC_ENCODER_HPP
 #ifdef __cplusplus
 
+#include "abstract_hash_encoder.hpp"
 #include "generic.h"
 #include "generic.hpp"
-#include "generic_hash_encoder.hpp"
 
 namespace chardon55 {
 namespace PGFE {
 
-class HMACEncoder : public GenericHashEncoder
+class HMACEncoder : public AbstractHashEncoder
 {
   private:
-    pgfe_algorithm_choice choice;
-
     pgfe_encode_multi_func *encode_func;
 
     pgfe_encode_t *key, *data;
@@ -21,6 +19,9 @@ class HMACEncoder : public GenericHashEncoder
 
     void destroy_key();
     void destroy_data();
+
+  protected:
+    void after_change_alg();
 
   public:
     HMACEncoder();
@@ -35,9 +36,6 @@ class HMACEncoder : public GenericHashEncoder
     void update(const std::string &cpp_s);
 
     void get_digest(pgfe_encode_t out[], size_t length);
-
-    void select_algorithm(pgfe_algorithm_choice);
-    void select_algorithm(const std::string &);
 };
 
 } // namespace PGFE

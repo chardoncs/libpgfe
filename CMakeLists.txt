@@ -22,8 +22,8 @@ add_library(pgfe SHARED
     pgfe.c
     hash_encoder.cpp
     hmac_encoder.cpp
-    generic_otp.cpp
-    hotp.cpp)
+    abstract_otp.cpp
+    hotp.cpp totp.cpp)
 add_executable(pgfetest test/test.c)
 add_executable(totptest test/totptest.c)
 

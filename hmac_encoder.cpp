@@ -36,12 +36,8 @@ HMACEncoder::~HMACEncoder() {
     destroy_data();
 }
 
-void HMACEncoder::select_algorithm(pgfe_algorithm_choice choice) {
+void HMACEncoder::after_change_alg() {
     __PGFE_BATCH_CASES(FUNC_SET)
-}
-
-inline void HMACEncoder::select_algorithm(const std::string &s) {
-    this->GenericHashEncoder::select_algorithm(s);
 }
 
 void HMACEncoder::set_key(const pgfe_encode_t sequence[], size_t length) {

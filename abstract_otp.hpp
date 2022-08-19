@@ -10,7 +10,7 @@
 namespace chardon55 {
 namespace PGFE {
 
-class GenericOTP
+class AbstractOTP
 {
   public:
     virtual void set_secret(pgfe_encode_t *, size_t) {}
