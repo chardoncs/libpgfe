@@ -4,6 +4,7 @@
 
 #include <string>
 
+#include "algorithm_selectable.hpp"
 #include "generic.h"
 #include "otp-generic.h"
 #include "sequential_data.hpp"
@@ -11,7 +12,7 @@
 namespace chardon55 {
 namespace PGFE {
 
-class AbstractOTP
+class AbstractOTP : public AlgorithmSelectable
 {
   public:
     virtual void set_secret(const pgfe_encode_t *, size_t) {}

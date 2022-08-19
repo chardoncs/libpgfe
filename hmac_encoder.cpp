@@ -2,25 +2,9 @@
 
 #include <cstring>
 
-#include "exceptions.hpp"
 #include "hmac.h"
-#include "md5.h"
-#include "sha1.h"
-#include "sha2.h"
-#include "sha3.h"
 
 using namespace chardon55::PGFE;
-
-#define __PGFE_FUNC_SET_CASE(alg, name)                                                                                \
-    case alg:                                                                                                          \
-        encode_func = pgfe_##name##_encode_multiple;                                                                   \
-        break
-
-#define __PGFE_INIT_SIZE_CASE(alg, name)                                                                               \
-    case alg:                                                                                                          \
-        digsz = PGFE_##alg##_DIGEST_SIZE;                                                                              \
-        blocksz = PGFE_##alg##_BLOCK_SIZE;                                                                             \
-        break
 
 void HMACEncoder::destroy_key() {
     if (!key) return;
@@ -56,7 +40,7 @@ HMACEncoder::~HMACEncoder() {
 }
 
 void HMACEncoder::after_change_alg() {
-    __PGFE_BATCH_CASES(FUNC_SET)
+    __PGFE_BATCH_CASES(MTFUNC_SET)
     __PGFE_BATCH_CASES(INIT_SIZE)
 
     if (output) {
@@ -74,15 +58,15 @@ void HMACEncoder::set_key(const pgfe_encode_t sequence[], size_t length) {
     key_len = length;
 }
 
-inline void HMACEncoder::set_key(const char cs[]) {
+void HMACEncoder::set_key(const char cs[]) {
     set_key((pgfe_encode_t *)cs, strlen(cs));
 }
 
-inline void HMACEncoder::set_key(const std::string &cpp_s) {
+void HMACEncoder::set_key(const std::string &cpp_s) {
     set_key((const pgfe_encode_t *)cpp_s.c_str(), cpp_s.length());
 }
 
-inline void HMACEncoder::set_key(SequentialData &sd) {
+void HMACEncoder::set_key(SequentialData &sd) {
     size_t sz;
     set_key(sd.to_pgfe_seq(sz), sz);
 }

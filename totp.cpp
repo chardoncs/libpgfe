@@ -37,7 +37,7 @@ TOTP::TOTP(pgfe_totp_interval_t interval) : HOTP() {
     set_interval(interval);
 }
 
-TOTP::TOTP(pgfe_encode_t *secret_seq, size_t length, pgfe_totp_interval_t interval) : HOTP(secret_seq, length) {
+TOTP::TOTP(const pgfe_encode_t *secret_seq, size_t length, pgfe_totp_interval_t interval) : HOTP(secret_seq, length) {
     set_interval(interval);
 }
 TOTP::TOTP(const char *secret_cs, pgfe_totp_interval_t interval) : HOTP(secret_cs) {
@@ -45,6 +45,10 @@ TOTP::TOTP(const char *secret_cs, pgfe_totp_interval_t interval) : HOTP(secret_c
 }
 
 TOTP::TOTP(const std::string &secret_cpp_s, pgfe_totp_interval_t interval) : HOTP(secret_cpp_s) {
+    set_interval(interval);
+}
+
+TOTP::TOTP(SequentialData &sd, pgfe_totp_interval_t interval) : HOTP(sd) {
     set_interval(interval);
 }
 

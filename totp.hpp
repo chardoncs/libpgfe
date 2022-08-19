@@ -18,9 +18,10 @@ class TOTP : public HOTP
 
   public:
     TOTP(pgfe_totp_interval_t = 30);
-    TOTP(pgfe_encode_t *, size_t, pgfe_totp_interval_t = 30);
+    TOTP(const pgfe_encode_t *, size_t, pgfe_totp_interval_t = 30);
     TOTP(const char *, pgfe_totp_interval_t = 30);
     TOTP(const std::string &, pgfe_totp_interval_t = 30);
+    TOTP(SequentialData &, pgfe_totp_interval_t = 30);
     ~TOTP();
 
     void update_counter();

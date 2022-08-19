@@ -47,6 +47,8 @@ BitFieldColonSpacing: After
 # C++
 Language: Cpp
 
+AlwaysBreakTemplateDeclarations: Yes
+
 BraceWrapping:
   AfterClass: true
   AfterNamespace: false

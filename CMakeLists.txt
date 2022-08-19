@@ -27,14 +27,16 @@ add_library(pgfe SHARED
     abstract_otp.cpp
     hotp.cpp totp.cpp)
 add_executable(pgfetest test/test.c)
-add_executable(totptest test/totptest.c)
+# add_executable(totptest test/totptest.c)
+add_executable(totptestcpp test/totptest.cpp)
 
 add_executable(pgfetestcpp test/test.cpp)
 
 target_link_libraries(pgfe nettle)
 target_link_libraries(pgfetest pgfe)
-target_link_libraries(totptest pgfe)
+# target_link_libraries(totptest pgfe)
 target_link_libraries(pgfetestcpp pgfe)
+target_link_libraries(totptestcpp pgfe)
 
 include(test/tests.cmake)
 include(test/tests_cpp.cmake)

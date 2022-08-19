@@ -10,12 +10,19 @@ namespace PGFE {
 class HOTP : public AbstractOTP
 {
   private:
+    pgfe_encode_multi_func *encode_func = nullptr;
+
     pgfe_encode_t *secret;
-    size_t selen;
+    size_t selen, digsz, blocksz;
 
     pgfe_otp_counter_t co;
 
     void destroy_secret();
+
+  protected:
+    void after_change_alg();
+
+    void init();
 
   public:
     HOTP();
@@ -24,9 +31,10 @@ class HOTP : public AbstractOTP
     HOTP(const std::string &);
     ~HOTP();
 
-    void set_secret(pgfe_encode_t *, size_t);
+    void set_secret(const pgfe_encode_t *, size_t);
     void set_secret(const char *cs);
     void set_secret(const std::string &);
+    void set_secret(SequentialData &);
 
     void set_counter(pgfe_otp_counter_t);
 

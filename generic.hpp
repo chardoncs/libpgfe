@@ -6,6 +6,7 @@
 #include <unordered_map>
 
 #include "algorithm-choice.h"
+#include "exceptions.hpp"
 #include "md5.h"
 #include "sha1.h"
 #include "sha2.h"
@@ -29,6 +30,17 @@
         throw std::invalid_argument("Unknown option");                                                                 \
         break;                                                                                                         \
     }
+
+#define __PGFE_MTFUNC_SET_CASE(alg, name)                                                                              \
+    case alg:                                                                                                          \
+        encode_func = pgfe_##name##_encode_multiple;                                                                   \
+        break
+
+#define __PGFE_INIT_SIZE_CASE(alg, name)                                                                               \
+    case alg:                                                                                                          \
+        digsz = PGFE_##alg##_DIGEST_SIZE;                                                                              \
+        blocksz = PGFE_##alg##_BLOCK_SIZE;                                                                             \
+        break
 
 namespace chardon55 {
 namespace PGFE {
