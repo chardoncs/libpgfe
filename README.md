@@ -6,11 +6,12 @@
 
 ## Information
 
-| Item       | Content             |
-| :--------- | :------------------ |
-| C Standard | C11                 |
-| Compiler   | LLVM-Clang          |
-| License    | LGPL 3.0 (or later) |
+| Item         | Content             |
+| :----------- | :------------------ |
+| C Standard   | C11                 |
+| C++ Standard | C++11               |
+| Compiler     | LLVM-Clang          |
+| License      | LGPL 3.0 (or later) |
 
 ### Tips for compilation
 
