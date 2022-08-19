@@ -9,7 +9,17 @@
 | Item       | Content             |
 | :--------- | :------------------ |
 | C Standard | C11                 |
+| Compiler   | LLVM-Clang          |
 | License    | LGPL 3.0 (or later) |
+
+### Tips for compilation
+
+It is suggested to use latest [LLVM](https://llvm.org/) or [GCC](https://gcc.gnu.org/) to compile this project. Using [MSVC](https://en.wikipedia.org/wiki/Microsoft_Visual_C++) is not tested and will probably cause compilation failure. 
+
+| Compiler   | Suggested version |
+| :--------- | :---------------- |
+| LLVM Clang | 11.0+             |
+| GCC        | 9.0+              |
 
 
 ## Implementation
