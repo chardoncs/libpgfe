@@ -35,6 +35,9 @@ def add_comment_header(file: Path):
 
 
 def iter_dir(path_item: Path):
+    if not path_item.exists():
+        return
+
     if not path_item.is_dir():
         add_comment_header(path_item)
     else:

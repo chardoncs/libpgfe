@@ -1,6 +1,6 @@
 /*
   libpgfe
-  abstract_otp.cpp
+  base16.cpp
 
   Copyright (C) 2022 Charles Dong
 
@@ -15,32 +15,26 @@
   Lesser General Public License for more details.
 */
 
-#include "abstract_otp.hpp"
-
-#include <cstring>
+#include "base16.hpp"
 
 #include "base-encoding.h"
 
 using namespace chardon55::PGFE;
 
-void AbstractOTP::set_secret(const char *cs) {
-    set_secret((pgfe_encode_t *)cs, strlen(cs));
+void Base16::init_base_function(base_encode_func *&encode_f_ref, base_decode_func *&decode_f_ref) {
+    encode_f_ref = pgfe_encode_base16;
+    decode_f_ref = pgfe_decode_base16;
 }
 
-void AbstractOTP::set_secret(std::string &cpp_s) {
-    set_secret((pgfe_encode_t *)cpp_s.c_str(), cpp_s.length());
+void Base16::init_size(
+    base_short_size_t &unitsz, base_short_size_t &chunksz, base_short_size_t &bitsz, base_short_size_t &alphabetsz
+) {
+    unitsz = PGFE_BASE16_UNIT_SIZE;
+    chunksz = PGFE_BASE16_CHUNK_COUNT;
+    bitsz = PGFE_BASE16_BIT_SIZE;
+    alphabetsz = PGFE_BASE16_ALPHABET_SIZE;
 }
 
-void AbstractOTP::set_secret(SequentialData &sd) {
-    size_t sz;
-    set_secret(sd.to_pgfe_seq(sz), sz);
-}
-
-std::string AbstractOTP::generate_str(uint8_t digit_count) {
-    std::string str = std::to_string(generate(digit_count));
-    while (str.length() < digit_count) {
-        str.insert(0, "0");
-    }
-
-    return str;
+Base16::Base16() {
+    init();
 }

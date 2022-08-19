@@ -24,7 +24,10 @@ add_library(pgfe SHARED
     utils.cpp
     hash_encoder.cpp
     hmac_encoder.cpp
-    reversible_encoding.cpp
+    abstract_base_encoding.cpp
+    base16.cpp
+    base32.cpp
+    base64.cpp
     abstract_otp.cpp
     hotp.cpp totp.cpp)
 add_executable(pgfetest test/test.c)

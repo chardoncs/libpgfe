@@ -50,7 +50,7 @@ pgfe_time_t TOTP::get_remain_time() {
     return delta - (pgfe_curtime() - update_time);
 }
 
-TOTP::TOTP(pgfe_totp_interval_t interval) : HOTP() {
+TOTP::TOTP(pgfe_totp_interval_t interval) {
     set_interval(interval);
 }
 
@@ -69,6 +69,4 @@ TOTP::TOTP(SequentialData &sd, pgfe_totp_interval_t interval) : HOTP(sd) {
     set_interval(interval);
 }
 
-TOTP::~TOTP() {
-    HOTP::~HOTP();
-}
+TOTP::~TOTP() {}

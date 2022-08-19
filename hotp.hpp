@@ -20,6 +20,7 @@
 #ifdef __cplusplus
 
 #include "abstract_otp.hpp"
+#include "base32.hpp"
 
 namespace chardon55 {
 namespace PGFE {
@@ -33,6 +34,8 @@ class HOTP : public AbstractOTP
     size_t selen, digsz, blocksz;
 
     pgfe_otp_counter_t co;
+
+    Base32 base32;
 
     void destroy_secret();
 
@@ -53,6 +56,9 @@ class HOTP : public AbstractOTP
     void set_secret(const char *cs);
     void set_secret(std::string &);
     void set_secret(SequentialData &);
+
+    void set_secret_from_base32(const char *);
+    void set_secret_from_base32(std::string &);
 
     void set_counter(pgfe_otp_counter_t);
 

@@ -100,3 +100,13 @@ pgfe_otp_t HOTP::generate(uint8_t digit_count) {
 std::string HOTP::generate_str(uint8_t digit_count) {
     return this->AbstractOTP::generate_str(digit_count);
 }
+
+void HOTP::set_secret_from_base32(const char *cs) {
+    auto sd = base32.decode(cs);
+    set_secret(sd);
+}
+
+void HOTP::set_secret_from_base32(std::string &cpp_s) {
+    auto sd = base32.decode(cpp_s);
+    set_secret(sd);
+}

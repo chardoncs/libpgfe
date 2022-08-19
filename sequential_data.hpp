@@ -21,6 +21,7 @@
 #define LIBPGFE_SEQUENTIAL_DATA_HPP
 #ifdef __cplusplus
 
+#include <ostream>
 #include <string>
 
 #include "generic.h"
@@ -54,6 +55,12 @@ class SequentialData
     const pgfe_encode_t *to_pgfe_seq(size_t &);
 
     size_t length();
+
+    friend std::ostream &operator<<(std::ostream &os, SequentialData &sd) {
+        auto s = sd.to_str();
+        os << s;
+        return os;
+    }
 };
 
 } // namespace PGFE

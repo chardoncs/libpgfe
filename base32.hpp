@@ -1,6 +1,6 @@
 /*
   libpgfe
-  abstract_otp.hpp
+  base32.hpp
 
   Copyright (C) 2022 Charles Dong
 
@@ -15,35 +15,30 @@
   Lesser General Public License for more details.
 */
 
-#ifndef LIBPGFE_GENERIC_OTP_HPP
-#define LIBPGFE_GENERIC_OTP_HPP
+#ifndef LIBPGFE_BASE32_HPP
+#define LIBPGFE_BASE32_HPP
 #ifdef __cplusplus
 
-#include <string>
-
-#include "algorithm_selectable.hpp"
-#include "generic.h"
-#include "otp-generic.h"
-#include "sequential_data.hpp"
+#include "abstract_base_encoding.hpp"
 
 namespace chardon55 {
 namespace PGFE {
 
-class AbstractOTP : public AlgorithmSelectable
+class Base32 : public AbstractBaseEncoding
 {
+  private:
+    bool hexm;
+
+  protected:
+    void init_base_function(base_encode_func *&, base_decode_func *&);
+    void init_size(base_short_size_t &, base_short_size_t &, base_short_size_t &, base_short_size_t &);
+
   public:
-    virtual void set_secret(const pgfe_encode_t *, size_t) {}
-    virtual void set_secret(const char *cs);
-    virtual void set_secret(std::string &);
-    virtual void set_secret(SequentialData &);
+    Base32(bool hex_mode = false);
 
-    virtual void set_counter(pgfe_otp_counter_t){};
-
-    virtual pgfe_otp_t generate(uint8_t digit_count = 6) {
-        return 0;
+    bool is_hex_mode() {
+        return hexm;
     }
-
-    virtual std::string generate_str(uint8_t digit_count = 6);
 };
 
 } // namespace PGFE

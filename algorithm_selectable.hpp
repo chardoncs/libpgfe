@@ -47,7 +47,11 @@ class AlgorithmSelectable
         cur = choice;
         after_change_alg();
     }
-    inline void select_algorithm(std::string &s) {
+    void select_algorithm(const char *cs) {
+        std::string s(cs);
+        return select_algorithm(convert_choice(s));
+    }
+    void select_algorithm(std::string &s) {
         return select_algorithm(convert_choice(s));
     }
 
