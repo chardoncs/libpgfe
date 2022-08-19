@@ -31,6 +31,7 @@ def add_comment_header(file: Path):
         return
 
     file.write_text('\n'.join([HEADER_STR.format(file.name), file_content]))
+    print(f"Updated {file}")
 
 
 def iter_dir(path_item: Path):
