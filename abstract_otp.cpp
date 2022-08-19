@@ -16,3 +16,12 @@ inline void AbstractOTP::set_secret(SequentialData &sd) {
     size_t sz;
     this->set_secret(sd.to_pgfe_seq(sz), sz);
 }
+
+std::string AbstractOTP::generate_str(uint8_t digit_count) {
+    std::string str = std::to_string(generate(digit_count));
+    while (str.length() < digit_count) {
+        str.insert(0, "0");
+    }
+
+    return str;
+}

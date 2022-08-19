@@ -25,14 +25,7 @@ class AbstractOTP
         return 0;
     }
 
-    virtual std::string generate_str(uint8_t digit_count = 6) {
-        std::string str = std::to_string(generate(digit_count));
-        while (str.length() < 6) {
-            str.insert(0, "0");
-        }
-
-        return str;
-    }
+    virtual std::string generate_str(uint8_t digit_count = 6);
 };
 
 } // namespace PGFE
