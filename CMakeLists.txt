@@ -4,6 +4,9 @@ project(libpgfe VERSION 0.1.0)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 11)
 
+set(CMAKE_C_COMPILER clang)
+set(CMAKE_CXX_COMPILER clang++)
+
 include(CTest)
 enable_testing()
 
@@ -32,7 +35,7 @@ add_library(pgfe SHARED
     hotp.cpp totp.cpp)
 add_executable(pgfetest test/test.c)
 # add_executable(totptest test/totptest.c)
-add_executable(totptestcpp test/totptest.cpp)
+# add_executable(totptestcpp test/totptest.cpp)
 
 add_executable(pgfetestcpp test/test.cpp)
 
@@ -40,7 +43,7 @@ target_link_libraries(pgfe nettle)
 target_link_libraries(pgfetest pgfe)
 # target_link_libraries(totptest pgfe)
 target_link_libraries(pgfetestcpp pgfe)
-target_link_libraries(totptestcpp pgfe)
+# target_link_libraries(totptestcpp pgfe)
 
 include(test/tests.cmake)
 include(test/tests_cpp.cmake)
