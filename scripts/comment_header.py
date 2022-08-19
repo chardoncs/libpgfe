@@ -1,4 +1,5 @@
 from pathlib import Path
+import sys
 
 
 HEADER_STR = '''\
@@ -20,7 +21,6 @@ HEADER_STR = '''\
 */
 '''
 
-ROOT_DIR = '.'
 INCLUDE_SUBDIR = ['test']
 EXTS = ['c', 'h', 'cpp', 'hpp']
 
@@ -35,17 +35,21 @@ def add_comment_header(file: Path):
 
 
 def iter_dir(path_item: Path):
-    for item in path_item.iterdir():
-        if item.is_dir() and item.name in INCLUDE_SUBDIR:
-            iter_dir(item)
-            continue
-        
-        if item.name.split('.')[-1] in EXTS:
-            add_comment_header(item)
+    if not path_item.is_dir():
+        add_comment_header(path_item)
+    else:
+        for item in path_item.iterdir():
+            if item.is_dir() and item.name in INCLUDE_SUBDIR:
+                iter_dir(item)
+                continue
+            
+            if item.name.split('.')[-1] in EXTS:
+                add_comment_header(item)
 
 
-def main():
-    iter_dir(Path(ROOT_DIR))
+def main(args):
+    if len(args) > 0:
+        iter_dir(Path(args[0]))
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])
