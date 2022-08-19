@@ -25,7 +25,7 @@ SequentialData::SequentialData(const pgfe_encode_t *pgfe_seq, size_t length) {
 
 SequentialData::SequentialData(const char *cs) : SequentialData((const pgfe_encode_t *)cs, strlen(cs)) {}
 
-SequentialData::SequentialData(const std::string &cpp_s)
+SequentialData::SequentialData(std::string &cpp_s)
     : SequentialData((const pgfe_encode_t *)cpp_s.c_str(), cpp_s.length()) {}
 
 size_t SequentialData::length() {

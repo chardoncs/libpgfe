@@ -15,6 +15,7 @@ sequential_data.cpp.o\
 utils.cpp.o\
 hash_encoder.cpp.o\
 hmac_encoder.cpp.o\
+reversible_encoding.cpp.o\
 abstract_otp.cpp.o\
 hotp.cpp.o\
 totp.cpp.o)

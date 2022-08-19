@@ -26,14 +26,15 @@ class HOTP : public AbstractOTP
 
   public:
     HOTP();
-    HOTP(pgfe_encode_t *, size_t);
+    HOTP(const pgfe_encode_t *, size_t);
     HOTP(const char *);
-    HOTP(const std::string &);
+    HOTP(std::string &);
+    HOTP(SequentialData &);
     ~HOTP();
 
     void set_secret(const pgfe_encode_t *, size_t);
     void set_secret(const char *cs);
-    void set_secret(const std::string &);
+    void set_secret(std::string &);
     void set_secret(SequentialData &);
 
     void set_counter(pgfe_otp_counter_t);

@@ -31,14 +31,14 @@ class HashEncoder : public AbstractHashEncoder
 
   public:
     HashEncoder(pgfe_algorithm_choice choice = SHA1);
-    HashEncoder(const std::string &choice);
+    HashEncoder(std::string &choice);
     ~HashEncoder();
 
     void reset();
 
     void update(const pgfe_encode_t sequence[], size_t length);
     void update(const char cs[]);
-    void update(const std::string &cpp_s);
+    void update(std::string &cpp_s);
     void update(SequentialData &sd);
 
     SequentialData get_digest();

@@ -24,7 +24,7 @@ HOTP::HOTP() {
     init();
 }
 
-HOTP::HOTP(pgfe_encode_t *secret_seq, size_t length) : HOTP() {
+HOTP::HOTP(const pgfe_encode_t *secret_seq, size_t length) : HOTP() {
     set_secret(secret_seq, length);
 }
 
@@ -32,8 +32,11 @@ HOTP::HOTP(const char *secret_cs) : HOTP() {
     set_secret(secret_cs);
 }
 
-HOTP::HOTP(const std::string &secret_cpp_s) : HOTP() {
+HOTP::HOTP(std::string &secret_cpp_s) : HOTP() {
     set_secret(secret_cpp_s);
+}
+HOTP::HOTP(SequentialData &sd) : HOTP() {
+    set_secret(sd);
 }
 
 HOTP::~HOTP() {
@@ -57,7 +60,7 @@ void HOTP::set_secret(const char *cs) {
     this->AbstractOTP::set_secret(cs);
 }
 
-void HOTP::set_secret(const std::string &cpp_s) {
+void HOTP::set_secret(std::string &cpp_s) {
     this->AbstractOTP::set_secret(cpp_s);
 }
 

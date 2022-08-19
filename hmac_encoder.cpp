@@ -62,7 +62,7 @@ void HMACEncoder::set_key(const char cs[]) {
     set_key((pgfe_encode_t *)cs, strlen(cs));
 }
 
-void HMACEncoder::set_key(const std::string &cpp_s) {
+void HMACEncoder::set_key(std::string &cpp_s) {
     set_key((const pgfe_encode_t *)cpp_s.c_str(), cpp_s.length());
 }
 
@@ -83,7 +83,7 @@ inline void HMACEncoder::update(const char cs[]) {
     this->AbstractHashEncoder::update(cs);
 }
 
-inline void HMACEncoder::update(const std::string &cpp_s) {
+inline void HMACEncoder::update(std::string &cpp_s) {
     this->AbstractHashEncoder::update(cpp_s);
 }
 

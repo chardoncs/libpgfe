@@ -82,7 +82,7 @@ HashEncoder::HashEncoder(pgfe_algorithm_choice choice) {
     init();
 }
 
-HashEncoder::HashEncoder(const std::string &choice) {
+HashEncoder::HashEncoder(std::string &choice) {
     select_algorithm(choice);
     init();
 }
@@ -102,7 +102,7 @@ inline void HashEncoder::update(const char cs[]) {
     return this->AbstractHashEncoder::update(cs);
 }
 
-inline void HashEncoder::update(const std::string &cpp_s) {
+inline void HashEncoder::update(std::string &cpp_s) {
     return this->AbstractHashEncoder::update(cpp_s);
 }
 

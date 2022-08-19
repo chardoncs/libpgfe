@@ -44,7 +44,7 @@ TOTP::TOTP(const char *secret_cs, pgfe_totp_interval_t interval) : HOTP(secret_c
     set_interval(interval);
 }
 
-TOTP::TOTP(const std::string &secret_cpp_s, pgfe_totp_interval_t interval) : HOTP(secret_cpp_s) {
+TOTP::TOTP(std::string &secret_cpp_s, pgfe_totp_interval_t interval) : HOTP(secret_cpp_s) {
     set_interval(interval);
 }
 

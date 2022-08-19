@@ -22,7 +22,7 @@ class AbstractEncoder
     virtual void update(const char cs[]) {
         return update((const pgfe_encode_t *)cs, strlen(cs));
     }
-    virtual void update(const std::string &cpp_s) {
+    virtual void update(std::string &cpp_s) {
         return update((const pgfe_encode_t *)cpp_s.c_str(), cpp_s.length());
     }
     virtual void update(SequentialData &sd) {

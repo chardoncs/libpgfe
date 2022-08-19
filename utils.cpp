@@ -18,7 +18,7 @@ SequentialData to_sequential_data(const char *cs) {
     return seq;
 }
 
-SequentialData to_sequential_data(const std::string &cpp_s) {
+SequentialData to_sequential_data(std::string &cpp_s) {
     SequentialData seq(cpp_s);
     return seq;
 }
@@ -33,7 +33,7 @@ SequentialData sequential_data::from_hex_string(const char *hex_cs) {
     return to_sequential_data(h_out, sz);
 }
 
-SequentialData sequential_data::from_hex_string(const std::string &hex_cpps) {
+SequentialData sequential_data::from_hex_string(std::string &hex_cpps) {
     return from_hex_string(hex_cpps.c_str());
 }
 

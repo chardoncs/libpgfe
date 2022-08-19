@@ -29,12 +29,12 @@ class HMACEncoder : public AbstractHashEncoder
 
     void set_key(const pgfe_encode_t sequence[], size_t length);
     void set_key(const char cs[]);
-    void set_key(const std::string &cpp_s);
+    void set_key(std::string &cpp_s);
     void set_key(SequentialData &sd);
 
     void update(const pgfe_encode_t sequence[], size_t length);
     void update(const char cs[]);
-    void update(const std::string &cpp_s);
+    void update(std::string &cpp_s);
     void update(SequentialData &sd);
 
     SequentialData get_digest();
