@@ -56,9 +56,8 @@ class SequentialData
 
     size_t length();
 
-    friend std::ostream &operator<<(std::ostream &os, SequentialData &sd) {
-        auto s = sd.to_str();
-        os << s;
+    friend std::ostream &operator<<(std::ostream &os, const SequentialData &sd) {
+        os << (char *)sd.seq;
         return os;
     }
 };
