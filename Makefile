@@ -36,5 +36,5 @@ uninstall:
 	@rm -vrf $(HEADER_DIR)
 	@rm -vrf $(LIB_DIR)/$(TARGET_FILE)
 
-update-meta:
-	@python3 ./scripts/update_meta.py ./project.json
+# update-meta:
+	# @python3 ./scripts/update_meta.py ./project.json
