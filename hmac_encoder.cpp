@@ -26,7 +26,7 @@ using namespace chardon55::PGFE;
 void HMACEncoder::destroy_key() {
     if (!key) return;
 
-    delete key;
+    delete[] key;
     key = nullptr;
     key_len = 0;
 }
@@ -34,7 +34,7 @@ void HMACEncoder::destroy_key() {
 void HMACEncoder::destroy_data() {
     if (!data) return;
 
-    delete data;
+    delete[] data;
     data = nullptr;
     data_len = 0;
 }
@@ -52,7 +52,7 @@ HMACEncoder::~HMACEncoder() {
     destroy_data();
 
     if (output) {
-        delete output;
+        delete[] output;
     }
 }
 
@@ -61,7 +61,7 @@ void HMACEncoder::after_change_alg() {
     __PGFE_BATCH_CASES(INIT_SIZE)
 
     if (output) {
-        delete output;
+        delete[] output;
     }
 
     output = new pgfe_encode_t[digsz + 1];

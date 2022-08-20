@@ -23,11 +23,11 @@ using namespace chardon55::PGFE;
 
 SequentialData::~SequentialData() {
     if (seq) {
-        delete seq;
+        delete[] seq;
     }
 
     if (hex_str) {
-        delete hex_str;
+        delete[] hex_str;
     }
 }
 
@@ -86,4 +86,8 @@ const pgfe_encode_t *SequentialData::to_pgfe_seq(size_t &length_out) {
 
 bool SequentialData::is_str() {
     return _is_str;
+}
+
+void SequentialData::set_is_str(bool str) {
+    _is_str = str;
 }

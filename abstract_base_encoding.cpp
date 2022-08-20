@@ -29,14 +29,14 @@ void AbstractBaseEncoding::init() {
 
 void AbstractBaseEncoding::destroy_encode_cache() {
     if (en_cache) {
-        delete en_cache;
+        delete[] en_cache;
         en_cache = nullptr;
     }
 }
 
 void AbstractBaseEncoding::destroy_decode_cache() {
     if (de_cache) {
-        delete de_cache;
+        delete[] de_cache;
         de_cache = nullptr;
     }
 }
@@ -51,7 +51,7 @@ AbstractBaseEncoding::~AbstractBaseEncoding() {
 }
 
 std::string AbstractBaseEncoding::encode(const pgfe_encode_t *pgfe_c_seq, size_t length) {
-    size_t sz = (size_t)ceil(length * ((double)sizeof(pgfe_encode_t) / (double)bitsz));
+    size_t sz = (size_t)ceil(length * ((double)to_bit(sizeof(pgfe_encode_t)) / (double)bitsz));
 
     if (!en_cache || encsz <= sz) {
         destroy_encode_cache();
@@ -78,7 +78,7 @@ std::string AbstractBaseEncoding::encode(SequentialData &sd) {
 }
 
 SequentialData AbstractBaseEncoding::decode(const char *base_cs) {
-    size_t sz = (size_t)ceil(strlen(base_cs) * ((double)bitsz / (double)sizeof(pgfe_encode_t)));
+    size_t sz = (size_t)ceil(strlen(base_cs) * ((double)bitsz / (double)to_bit(sizeof(pgfe_encode_t))));
 
     if (!de_cache || decsz <= sz) {
         destroy_decode_cache();

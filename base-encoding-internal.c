@@ -20,11 +20,11 @@
 #include "generic-internal.h"
 
 inline pgfe_mask_t __pgfe_build_mask(uint8_t digit_c) {
-    return ((pgfe_mask_t)-1) >> (sizeof(pgfe_mask_t) * 8 - digit_c);
+    return ((pgfe_mask_t)-1) >> (to_bit(sizeof(pgfe_mask_t)) - digit_c);
 }
 
 size_t __pgfe_transform_codes(const pgfe_encode_t input[], size_t length, uint8_t chunk_size, pgfe_encode_t out[]) {
-    const uint16_t bitsz = sizeof(pgfe_encode_t) * 8;
+    const uint16_t bitsz = to_bit(sizeof(pgfe_encode_t));
     pgfe_encode_t *inp = (pgfe_encode_t *)input, *op = out;
     size_t low, high, mv_sz, sz_diff;
 
@@ -113,7 +113,7 @@ size_t __pgfe_decode_generic(
     PGFE_BASE_PARAMS_DEF, pgfe_encode_t (*func)(char), const char basexx_cs[], pgfe_encode_t output[]
 ) {
     pgfe_encode_t *op, ch, sig, o_unit[unit_size];
-    const size_t sz_ou = sizeof(pgfe_encode_t) * 8;
+    const size_t sz_ou = to_bit(sizeof(pgfe_encode_t));
     char *sp = (char *)basexx_cs;
     size_t i = 0, j;
     uint64_t u;

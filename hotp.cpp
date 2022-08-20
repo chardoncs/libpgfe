@@ -27,7 +27,7 @@ using namespace chardon55::PGFE;
 void HOTP::destroy_secret() {
     if (!secret) return;
 
-    delete secret;
+    delete[] secret;
     secret = nullptr;
     selen = 0;
 }

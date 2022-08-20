@@ -31,6 +31,8 @@ extern "C" {
 
 #define PGFE_BUFFER_SIZE 1024
 
+#define to_bit(value) (value * 8)
+
 // // File reading behavior options
 // #define PGFE_FR_CURRENT_END 0
 // #define PGFE_FR_START_END -1

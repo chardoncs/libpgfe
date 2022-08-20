@@ -80,7 +80,7 @@ void HashEncoder::load_algorithm() {
     __PGFE_BATCH_CASES(INIT_SIZE)
 
     if (seq) {
-        delete seq;
+        delete[] seq;
     }
     seq = new pgfe_encode_t[digsz + 1];
 }
@@ -107,7 +107,7 @@ HashEncoder::HashEncoder(std::string &choice) {
 HashEncoder::~HashEncoder() {
     destroy_context();
     if (seq) {
-        delete seq;
+        delete[] seq;
     }
 }
 
