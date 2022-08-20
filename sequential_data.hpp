@@ -40,7 +40,9 @@ class SequentialData
 
     char *hex_str = nullptr;
 
-    bool _is_str = false;
+    bool _is_str, _apstr;
+
+    bool determine_ascii_str();
 
   public:
     SequentialData(const pgfe_encode_t *, size_t);
@@ -61,6 +63,8 @@ class SequentialData
 
     bool is_str();
     void set_is_str(bool);
+
+    bool is_apparent_str();
 
     friend std::ostream &operator<<(std::ostream &os, const SequentialData &sd) {
         if (sd._is_str) {

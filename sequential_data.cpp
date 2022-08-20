@@ -36,16 +36,13 @@ SequentialData::SequentialData(const pgfe_encode_t *pgfe_seq, size_t length) {
     memcpy(seq, pgfe_seq, length);
     seq[length] = 0;
     sz = length;
+    _is_str = _apstr = determine_ascii_str();
 }
 
-SequentialData::SequentialData(const char *cs) : SequentialData((const pgfe_encode_t *)cs, strlen(cs)) {
-    _is_str = true;
-}
+SequentialData::SequentialData(const char *cs) : SequentialData((const pgfe_encode_t *)cs, strlen(cs)) {}
 
 SequentialData::SequentialData(std::string &cpp_s)
-    : SequentialData((const pgfe_encode_t *)cpp_s.c_str(), cpp_s.length()) {
-    _is_str = true;
-}
+    : SequentialData((const pgfe_encode_t *)cpp_s.c_str(), cpp_s.length()) {}
 
 size_t SequentialData::length() {
     return sz;
@@ -90,4 +87,18 @@ bool SequentialData::is_str() {
 
 void SequentialData::set_is_str(bool str) {
     _is_str = str;
+}
+
+bool SequentialData::is_apparent_str() {
+    return _apstr;
+}
+
+bool SequentialData::determine_ascii_str() {
+    for (size_t i = 0; i < sz; i++) {
+        if (seq[i] > 0x7F || seq[i] < 0x20) {
+            return false;
+        }
+    }
+
+    return true;
 }

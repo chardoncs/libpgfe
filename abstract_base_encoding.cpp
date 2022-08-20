@@ -84,7 +84,8 @@ SequentialData AbstractBaseEncoding::decode(const char *base_cs) {
         destroy_decode_cache();
         de_cache = new pgfe_encode_t[sz + 1];
     }
-    decode_f(base_cs, de_cache);
+    sz = decode_f(base_cs, de_cache);
+    de_cache[sz] = 0;
 
     SequentialData sd(de_cache, sz);
     return sd;
