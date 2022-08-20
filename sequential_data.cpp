@@ -19,8 +19,6 @@
 
 #include <cstring>
 
-#include "utils.h"
-
 using namespace chardon55::PGFE;
 
 SequentialData::~SequentialData() {
@@ -40,10 +38,14 @@ SequentialData::SequentialData(const pgfe_encode_t *pgfe_seq, size_t length) {
     sz = length;
 }
 
-SequentialData::SequentialData(const char *cs) : SequentialData((const pgfe_encode_t *)cs, strlen(cs)) {}
+SequentialData::SequentialData(const char *cs) : SequentialData((const pgfe_encode_t *)cs, strlen(cs)) {
+    _is_str = true;
+}
 
 SequentialData::SequentialData(std::string &cpp_s)
-    : SequentialData((const pgfe_encode_t *)cpp_s.c_str(), cpp_s.length()) {}
+    : SequentialData((const pgfe_encode_t *)cpp_s.c_str(), cpp_s.length()) {
+    _is_str = true;
+}
 
 size_t SequentialData::length() {
     return sz;
@@ -80,4 +82,8 @@ const pgfe_encode_t *SequentialData::to_pgfe_seq() {
 const pgfe_encode_t *SequentialData::to_pgfe_seq(size_t &length_out) {
     length_out = sz;
     return to_pgfe_seq();
+}
+
+bool SequentialData::is_str() {
+    return _is_str;
 }

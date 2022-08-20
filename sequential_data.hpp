@@ -25,6 +25,7 @@
 #include <string>
 
 #include "generic.h"
+#include "utils.h"
 
 namespace chardon55 {
 namespace PGFE {
@@ -38,6 +39,8 @@ class SequentialData
     size_t sz = 0, hex_sz = 0;
 
     char *hex_str = nullptr;
+
+    bool _is_str = false;
 
   public:
     SequentialData(const pgfe_encode_t *, size_t);
@@ -56,8 +59,24 @@ class SequentialData
 
     size_t length();
 
+    bool is_str();
+
     friend std::ostream &operator<<(std::ostream &os, const SequentialData &sd) {
-        os << (char *)sd.seq;
+        if (sd._is_str) {
+            os << (char *)sd.seq;
+        }
+        else {
+            if (!sd.hex_str) {
+                size_t hex_size = sz * 2;
+                char hex_s[] = new char[hex_size + 1];
+                pgfe_hash_to_hex_string(sd.seq, sd.sz, hex_s);
+                os << hex_s;
+                delete hex_s;
+            }
+            else {
+                os << sd.hex_str;
+            }
+        }
         return os;
     }
 };
