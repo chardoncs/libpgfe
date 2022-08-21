@@ -1,66 +1,8 @@
 #include "sha2-internal.h"
 #include "sha2.h"
+#include "templates.c"
 
-inline void pgfe_sha224_init(struct pgfe_sha224_ctx *ctx) {
-    __pgfe_sha224n256_init(ctx, SHA224_H0);
-}
-
-inline void pgfe_sha224_update(struct pgfe_sha224_ctx *ctx, const pgfe_encode_t input[], size_t length) {
-    pgfe_sha256_update(ctx, input, length);
-}
-
-inline void pgfe_sha224_digest(struct pgfe_sha224_ctx *ctx, pgfe_encode_t output[], size_t out_length) {
-    __pgfe_sha224n256_digest(ctx, output, out_length, PGFE_SHA224_DIGEST_SIZE);
-}
-
-inline void pgfe_sha256_init(struct pgfe_sha256_ctx *ctx) {
-    __pgfe_sha224n256_init(ctx, SHA256_H0);
-}
-
-void pgfe_sha256_update(struct pgfe_sha256_ctx *ctx, const pgfe_encode_t input[], size_t length) {
-    if (!ctx || !input) return;
-
-    pgfe_encode_t *inp = (pgfe_encode_t *)input;
-    int corrupt_flag = 0;
-    uint32_t tmp_low;
-    for (int i = 0; i < length && !corrupt_flag; i++) {
-        ctx->block[ctx->index++] = *inp;
-
-        tmp_low = ctx->len_low;
-        ctx->len_low += 8;
-        corrupt_flag = ctx->len_low < tmp_low;
-        if (corrupt_flag) {
-            ctx->len_high++;
-
-            if (!ctx->len_high) {
-                corrupt_flag = 1;
-            }
-        }
-
-        if (ctx->index == PGFE_SHA256_BLOCK_SIZE) {
-            __pgfe_sha224n256_process_block(ctx);
-        }
-
-        inp++;
-    }
-}
-
-inline void pgfe_sha256_digest(struct pgfe_sha256_ctx *ctx, pgfe_encode_t output[], size_t out_length) {
-    __pgfe_sha224n256_digest(ctx, output, out_length, PGFE_SHA256_DIGEST_SIZE);
-}
-
-void __pgfe_sha224n256_init(struct pgfe_sha256_ctx *ctx, const pgfe_word_t H0[]) {
-    if (!ctx) return;
-
-    ctx->len_high = ctx->len_low = 0;
-    ctx->index = 0;
-
-    for (int i = 0; i < 8; i++) {
-        ctx->state[i] = H0[i];
-    }
-}
-
-void __pgfe_sha224n256_process_block(struct pgfe_sha256_ctx *ctx) {
+void __pgfe_sha256_process_block(struct pgfe_sha256_ctx *ctx) {
     static const pgfe_word_t K[] = {
         0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
         0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
@@ -127,7 +69,7 @@ void __pgfe_sha224n256_padding(struct pgfe_sha256_ctx *ctx, pgfe_encode_t paddin
             ctx->block[ctx->index++] = 0;
         }
 
-        __pgfe_sha224n256_process_block(ctx);
+        __pgfe_sha256_process_block(ctx);
     }
 
     while (ctx->index < PGFE_SHA256_BLOCK_SIZE - 8) {
@@ -144,7 +86,7 @@ void __pgfe_sha224n256_padding(struct pgfe_sha256_ctx *ctx, pgfe_encode_t paddin
     ctx->block[62] = (uint8_t)(ctx->len_low >> 8);
     ctx->block[63] = (uint8_t)(ctx->len_low);
 
-    __pgfe_sha224n256_process_block(ctx);
+    __pgfe_sha256_process_block(ctx);
 }
 
 void __pgfe_sha224n256_digest(

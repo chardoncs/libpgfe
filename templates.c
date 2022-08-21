@@ -138,6 +138,59 @@ extern "C" {
         pgfe_##name##_encode_f(fp, output, PGFE_##upper##_DIGEST_SIZE);                                                \
     }
 
+#define __PGFE_SHA_INIT(name)                                                                                          \
+    void pgfe_##name##_init(struct pgfe_##name##_ctx *ctx) {                                                           \
+        if (!ctx) return;                                                                                              \
+                                                                                                                       \
+        ctx->len_low = ctx->len_high = 0;                                                                              \
+        ctx->index = 0;                                                                                                \
+                                                                                                                       \
+        memcpy(ctx->state, __pgfe_##name##_H0, sizeof(__pgfe_##name##_H0));                                            \
+    }
+
+#define __PGFE_SHA_UPDATE(name, upper)                                                                                 \
+    void pgfe_##name##_update(struct pgfe_##name##_ctx *ctx, const pgfe_encode_t input[], size_t length) {             \
+        if (!ctx || !input) return;                                                                                    \
+                                                                                                                       \
+        pgfe_encode_t *inp = (pgfe_encode_t *)input;                                                                   \
+        int corrupt_flag = 0;                                                                                          \
+        uint32_t tmp_low;                                                                                              \
+        for (int i = 0; i < length && !corrupt_flag; i++) {                                                            \
+            ctx->block[ctx->index++] = *inp;                                                                           \
+                                                                                                                       \
+            tmp_low = ctx->len_low;                                                                                    \
+            ctx->len_low += 8;                                                                                         \
+            corrupt_flag = ctx->len_low < tmp_low && !(++ctx->len_high);                                               \
+                                                                                                                       \
+            if (ctx->index == PGFE_##upper##_BLOCK_SIZE) {                                                             \
+                __pgfe_##name##_process_block(ctx);                                                                    \
+            }                                                                                                          \
+                                                                                                                       \
+            inp++;                                                                                                     \
+        }                                                                                                              \
+    }
+
+#define __PGFE_SHA_DIGEST(name, upper)                                                                                 \
+    void pgfe_##name##_digest(struct pgfe_##name##_ctx *ctx, pgfe_encode_t output[], size_t out_length) {              \
+        if (!ctx || !output) return;                                                                                   \
+                                                                                                                       \
+        size_t i;                                                                                                      \
+                                                                                                                       \
+        __pgfe_##name##_padding(ctx);                                                                                  \
+                                                                                                                       \
+        /* Wipe stored data */                                                                                         \
+        for (i = 0; i < PGFE_##upper##_BLOCK_SIZE; i++) {                                                              \
+            ctx->block[i] = 0;                                                                                         \
+        }                                                                                                              \
+                                                                                                                       \
+        ctx->len_high = ctx->len_low = 0;                                                                              \
+                                                                                                                       \
+        /* Write output */                                                                                             \
+        for (i = 0; i < out_length && i < PGFE_##upper##_DIGEST_SIZE; i++) {                                           \
+            output[i] = (pgfe_encode_t)(ctx->state[i >> 2] >> 8 * (3 - (i & 3)));                                      \
+        }                                                                                                              \
+    }
+
 #ifdef __cplusplus
 }
 #endif

@@ -16,7 +16,8 @@ add_library(pgfe SHARED
     templates.c
     utils.c
     fake_int.c
-    sha1-backend.c sha2-backend.c
+    sha-internal.c
+    sha2-internal.c
     sha1.c sha224.c sha256.c sha384.c sha512.c sha3-224.c sha3-256.c sha3-384.c sha3-512.c 
     md5.c 
     hmac.c

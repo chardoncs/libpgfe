@@ -1,5 +1,7 @@
 #include "fake_int.h"
 
+#ifdef __PGFE_ARCH_COMPAT
+
 pf_uint64_t pf64_add(pf_uint64_t left, pf_uint64_t right) {
     left.r += right.r;
     left.l = left.l + right.l + (left.r < right.r);
@@ -59,3 +61,5 @@ pf_uint64_t pf64_clshift(pf_uint64_t fnum, int count) {
 pf_uint64_t pf64_crshift(pf_uint64_t fnum, int count) {
     return pf64_OR(pf64_rshift(fnum, count), pf64_lshift(fnum, 64 - count));
 }
+
+#endif
