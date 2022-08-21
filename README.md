@@ -35,7 +35,7 @@ The standards that are followed in this library are shown below.
 | Algorithm           | Standard                                            |
 | :------------------ | :-------------------------------------------------- |
 | Base 16/32/64       | [RFC 4648](https://www.rfc-editor.org/info/rfc4648) |
-| HMAC (Generic)      | [RFC 2104](https://www.rfc-editor.org/info/rfc2104) |
+| HMAC                | [RFC 2104](https://www.rfc-editor.org/info/rfc2104)<br>[RFC 6151](https://www.rfc-editor.org/info/rfc6151) |
 | HOTP                | [RFC 4226](https://www.rfc-editor.org/info/rfc4226) |
 | MD5                 | [RFC 6561](https://www.rfc-editor.org/info/rfc6151) |
 | SHA-1, SHA-2 Family | [RFC 6234](https://www.rfc-editor.org/info/rfc6234) |
