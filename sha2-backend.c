@@ -22,11 +22,14 @@ void pgfe_sha256_update(struct pgfe_sha256_ctx *ctx, const pgfe_encode_t input[]
 
     pgfe_encode_t *inp = (pgfe_encode_t *)input;
     int corrupt_flag = 0;
+    uint32_t tmp_low;
     for (int i = 0; i < length && !corrupt_flag; i++) {
         ctx->block[ctx->index++] = *inp;
 
+        tmp_low = ctx->len_low;
         ctx->len_low += 8;
-        if (!ctx->len_low) {
+        corrupt_flag = ctx->len_low < tmp_low;
+        if (corrupt_flag) {
             ctx->len_high++;
 
             if (!ctx->len_high) {

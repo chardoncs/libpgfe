@@ -10,8 +10,8 @@ extern "C" {
 
 #define sha256_SIGMA0(word) (crshift(word, 2) ^ crshift(word, 13) ^ crshift(word, 22))
 #define sha256_SIGMA1(word) (crshift(word, 6) ^ crshift(word, 11) ^ crshift(word, 25))
-#define sha256_sigma0(word) (crshift(word, 7) ^ crshift(word, 18) ^ crshift(word, 3))
-#define sha256_sigma1(word) (crshift(word, 17) ^ crshift(word, 19) ^ crshift(word, 10))
+#define sha256_sigma0(word) (crshift(word, 7) ^ crshift(word, 18) ^ ((word) >> 3))
+#define sha256_sigma1(word) (crshift(word, 17) ^ crshift(word, 19) ^ ((word) >> 10))
 
 const pgfe_word_t SHA224_H0[] = {0xC1059ED8, 0x367CD507, 0x3070DD17, 0xF70E5939,
                                  0xFFC00B31, 0x68581511, 0x64F98FA7, 0xBEFA4FA4};
