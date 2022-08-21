@@ -1,5 +1,5 @@
 PROJECT := libpgfe
-VERSION := 0.1.4
+VERSION := 0.2.0
 
 BUILD_DIR := build
 TARGET_DIR := $(BUILD_DIR)
@@ -8,7 +8,9 @@ TARGET_FILE := $(PROJECT).so
 OBJS_DIR := $(BUILD_DIR)/obj
 OBJS := $(addprefix $(OBJS_DIR)/,\
 generic.c.o \
-generic-internal.c.o utils.c.o templates.c.o sha1.c.o sha224.c.o sha256.c.o sha384.c.o \
+generic-internal.c.o utils.c.o templates.c.o\
+sha1-backend.c.o\
+sha1.c.o sha224.c.o sha256.c.o sha384.c.o \
 sha512.c.o sha3-224.c.o sha3-256.c.o sha3-384.c.o sha3-512.c.o md5.c.o hmac.c.o otp-generic.c.o hotp.c.o totp.c.o \
 base-encoding-internal.c.o base64.c.o base32.c.o base16.c.o\
 pgfe.c.o\
