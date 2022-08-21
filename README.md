@@ -38,6 +38,7 @@ The standards that are followed in this library are shown below.
 | HMAC                | [RFC 2104](https://www.rfc-editor.org/info/rfc2104)<br>[RFC 6151](https://www.rfc-editor.org/info/rfc6151) |
 | HOTP                | [RFC 4226](https://www.rfc-editor.org/info/rfc4226) |
 | MD5                 | [RFC 6561](https://www.rfc-editor.org/info/rfc6151) |
-| SHA-1, SHA-2 Family | [RFC 6234](https://www.rfc-editor.org/info/rfc6234) |
+| SHA-1               | [RFC 3174](https://www.rfc-editor.org/info/rfc3174)<br>[RFC 6234](https://www.rfc-editor.org/info/rfc6234) |
+| SHA-2 Family        | [RFC 6234](https://www.rfc-editor.org/info/rfc6234) |
 | SHA-3 Family        |  |
 | TOTP                | [RFC 6238](https://www.rfc-editor.org/info/rfc6238) |
