@@ -1,5 +1,7 @@
 # libpgfe
 
+![Version 0.1.4](.github/info/version.svg)
+
 ## Introduction
 
 **libpgfe** (IPA: /ˌlɪbˈpɪɡfiː/, like "lib-pig-fee") is a simple and easy-to-use C/C++ library for hash encoding, HOTP/TOTP generation and base encoding/decoding.
