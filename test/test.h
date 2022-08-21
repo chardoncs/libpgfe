@@ -15,8 +15,8 @@
   Lesser General Public License for more details.
 */
 
-#ifndef LIGPGFE_TEST_TEST_H
-#define LIGPGFE_TEST_TEST_H
+#ifndef LIBPGFE_TEST_TEST_H
+#define LIBPGFE_TEST_TEST_H
 
 #define ARGS int argc, char **argv
 

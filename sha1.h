@@ -22,7 +22,7 @@
 
 #include <nettle/sha1.h>
 
-#include "generic.h"
+#include "generic-internal.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -33,14 +33,12 @@ extern "C" {
 
 #define __PGFE_SHA1_BUFHASHSZ 5
 
-typedef uint32_t pgfe_sha1_word_t;
-
 struct pgfe_sha1_ctx
 {
-    pgfe_sha1_word_t state[__PGFE_SHA1_BUFHASHSZ]; // State
-    uint32_t len_low, len_high;                    // State length (low and high)
-    size_t index;                                  // Buffer block index
-    pgfe_encode_t block[PGFE_SHA1_BLOCK_SIZE];     // Buffer block
+    pgfe_word_t state[__PGFE_SHA1_BUFHASHSZ];  // State
+    uint32_t len_low, len_high;                // State length (low and high)
+    size_t index;                              // Buffer block index
+    pgfe_encode_t block[PGFE_SHA1_BLOCK_SIZE]; // Buffer block
 };
 
 void pgfe_sha1_encode(const pgfe_encode_t data[], size_t length, pgfe_encode_t output[], size_t out_length);

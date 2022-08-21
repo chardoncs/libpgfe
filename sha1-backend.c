@@ -63,7 +63,7 @@ void pgfe_sha1_digest(struct pgfe_sha1_ctx *ctx, pgfe_encode_t output[], size_t 
 
 void __pgfe_sha1_process_block(struct pgfe_sha1_ctx *ctx) {
     // Constants in SHA1
-    static const pgfe_sha1_word_t K[] = {
+    static const pgfe_word_t K[] = {
         0x5A827999,
         0x6ED9EBA1,
         0x8F1BBCDC,
@@ -71,7 +71,7 @@ void __pgfe_sha1_process_block(struct pgfe_sha1_ctx *ctx) {
     };
 
     uint8_t i;
-    pgfe_sha1_word_t tmp, ws[80], A, B, C, D, E;
+    pgfe_word_t tmp, ws[80], A, B, C, D, E;
 
     for (i = 0; i < 16; i++) {
         ws[i] = ctx->block[i * 4] << 24;

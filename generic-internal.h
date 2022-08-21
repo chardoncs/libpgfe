@@ -24,6 +24,12 @@
 extern "C" {
 #endif
 
+#if __x86_64__ || _M_AMD64 || __aarch64__ || __ppc64__ || __mips64__ || __mips64 || __MIPS64__
+#define __PGFE_64Bit
+#else
+#define __PGFE_32Bit
+#endif
+
 #define PGFE_HEX_UNKNOWN_CHAR 0xF1
 
 #define PGFE_ENCODER_DEF_SIG pgfe_encode_multi_func *func, size_t block_size, size_t digest_size
@@ -31,6 +37,11 @@ extern "C" {
 
 #define clshift(n, c) (((n) << (c)) | ((n) >> (to_bit(sizeof(n)) - (c))))
 #define crshift(n, c) (((n) >> (c)) | ((n) << (to_bit(sizeof(n)) - (c))))
+
+typedef uint32_t pgfe_word_t;
+#ifdef __PGFE_64Bit
+typedef uint64_t pgfe_word64_t;
+#endif
 
 void __pgfe_arrinit(pgfe_encode_t arr[], size_t size);
 
