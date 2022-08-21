@@ -80,6 +80,64 @@ extern "C" {
         pgfe_##func##_encode_f(fp, output, macro_n);                                                                   \
     }
 
+// NATIVE HASH BACKEND
+
+#define __PGFE_FRONTEND_GEN2(name)                                                                                     \
+    void pgfe_##name##_encode(const pgfe_encode_t data[], size_t length, pgfe_encode_t output[], size_t out_length) {  \
+        struct pgfe_##name##_ctx ctx;                                                                                  \
+                                                                                                                       \
+        pgfe_##name##_init(&ctx);                                                                                      \
+        pgfe_##name##_update(&ctx, data, length);                                                                      \
+                                                                                                                       \
+        pgfe_##name##_digest(&ctx, output, out_length);                                                                \
+    }                                                                                                                  \
+                                                                                                                       \
+    void pgfe_##name##_encode_f(FILE *fp, pgfe_encode_t output[], size_t length) {                                     \
+        pgfe_encode_t buf[PGFE_BUFFER_SIZE];                                                                           \
+        size_t size;                                                                                                   \
+                                                                                                                       \
+        struct pgfe_##name##_ctx ctx;                                                                                  \
+                                                                                                                       \
+        pgfe_##name##_init(&ctx);                                                                                      \
+                                                                                                                       \
+        do {                                                                                                           \
+            size = fread(buf, 1, PGFE_BUFFER_SIZE, fp);                                                                \
+            pgfe_##name##_update(&ctx, buf, size);                                                                     \
+        } while (size >= PGFE_BUFFER_SIZE);                                                                            \
+                                                                                                                       \
+        pgfe_##name##_digest(&ctx, output, length);                                                                    \
+    }                                                                                                                  \
+    void pgfe_##name##_encode_multiple(pgfe_encode_t output[], size_t out_length, size_t input_c, ...) {               \
+        va_list vl;                                                                                                    \
+        va_start(vl, input_c);                                                                                         \
+                                                                                                                       \
+        struct pgfe_##name##_ctx ctx;                                                                                  \
+        pgfe_encode_t *input;                                                                                          \
+        size_t input_s;                                                                                                \
+                                                                                                                       \
+        pgfe_##name##_init(&ctx);                                                                                      \
+                                                                                                                       \
+        for (int i = 0; i < input_c; i++) {                                                                            \
+            input = va_arg(vl, pgfe_encode_t *);                                                                       \
+            input_s = va_arg(vl, size_t);                                                                              \
+            if (!input) continue;                                                                                      \
+                                                                                                                       \
+            pgfe_##name##_update(&ctx, input, input_s);                                                                \
+        }                                                                                                              \
+                                                                                                                       \
+        va_end(vl);                                                                                                    \
+        pgfe_##name##_digest(&ctx, output, out_length);                                                                \
+    }
+
+#define __PGFE_FRONTEND_DEFAULT_GEN2(name, upper)                                                                      \
+    inline void pgfe_##name##_encode_default(const pgfe_encode_t data_str[], pgfe_encode_t output[]) {                 \
+        pgfe_##name##_encode(data_str, strlen((char *)data_str), output, PGFE_##upper##_DIGEST_SIZE);                  \
+    }                                                                                                                  \
+                                                                                                                       \
+    inline void pgfe_##name##_encode_default_f(FILE *fp, pgfe_encode_t output[]) {                                     \
+        pgfe_##name##_encode_f(fp, output, PGFE_##upper##_DIGEST_SIZE);                                                \
+    }
+
 #ifdef __cplusplus
 }
 #endif
