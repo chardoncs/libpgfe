@@ -17,6 +17,7 @@
 
 #include <iostream>
 
+#include "base_multithread.hpp"
 #include "base_test.hpp"
 #include "hash_encoder_test.hpp"
 #include "hmactest.hpp"
@@ -43,6 +44,7 @@ int main(ARGS) {
         TEST_CASE("base64_decode", base64_decode_test)
         TEST_CASE("base64url_encode", base64url_encode_test)
         TEST_CASE("base64url_decode", base64url_decode_test)
+        TEST_CASE("base_multithread1", base_multithread1)
 
             ;
     }

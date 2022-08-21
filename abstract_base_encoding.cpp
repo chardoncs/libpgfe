@@ -20,6 +20,8 @@
 
 #include "abstract_base_encoding.hpp"
 
+#define PGFE_SPACE_MULTIPLE 1.2
+
 using namespace chardon55::PGFE;
 
 void AbstractBaseEncoding::init() {
@@ -51,17 +53,20 @@ AbstractBaseEncoding::~AbstractBaseEncoding() {
 }
 
 std::string AbstractBaseEncoding::encode(const pgfe_encode_t *pgfe_c_seq, size_t length) {
-    size_t sz = (size_t)ceil(length * ((double)to_bit(sizeof(pgfe_encode_t)) / (double)bitsz));
+    size_t sz = (size_t)ceil(length * ((double)to_bit(sizeof(pgfe_encode_t)) / (double)bitsz) * PGFE_SPACE_MULTIPLE);
 
+    enc_mutex.lock();
     if (!en_cache || encsz <= sz) {
         destroy_encode_cache();
         en_cache = new char[sz + 1];
         encsz = sz;
     }
 
-    encode_f(pgfe_c_seq, length, en_cache);
+    sz = encode_f(pgfe_c_seq, length, en_cache);
+    en_cache[sz] = 0;
 
     std::string str(en_cache);
+    enc_mutex.unlock();
     return str;
 }
 
@@ -78,16 +83,20 @@ std::string AbstractBaseEncoding::encode(SequentialData &sd) {
 }
 
 SequentialData AbstractBaseEncoding::decode(const char *base_cs) {
-    size_t sz = (size_t)ceil(strlen(base_cs) * ((double)bitsz / (double)to_bit(sizeof(pgfe_encode_t))));
+    size_t sz =
+        (size_t)ceil(strlen(base_cs) * ((double)bitsz / (double)to_bit(sizeof(pgfe_encode_t))) * PGFE_SPACE_MULTIPLE);
 
+    dec_mutex.lock();
     if (!de_cache || decsz <= sz) {
         destroy_decode_cache();
         de_cache = new pgfe_encode_t[sz + 1];
+        decsz = sz;
     }
     sz = decode_f(base_cs, de_cache);
     de_cache[sz] = 0;
 
     SequentialData sd(de_cache, sz);
+    dec_mutex.unlock();
     return sd;
 }
 

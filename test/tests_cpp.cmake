@@ -118,6 +118,11 @@ add_test(
     NAME base64_decode2_cpp
     COMMAND pgfetestcpp base64_decode "aG93IGFyZSB5b3U/"
 )
+add_test(
+    NAME base64_multithread
+    COMMAND pgfetestcpp base_multithread1
+)
+
 
 
 set_property(TEST hash_encoder_SHA1 PROPERTY PASS_REGULAR_EXPRESSION ${test_text_sha1})

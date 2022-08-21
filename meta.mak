@@ -1,5 +1,5 @@
 PROJECT := libpgfe
-VERSION := 0.1.3
+VERSION := 0.1.4
 
 BUILD_DIR := build
 TARGET_DIR := $(BUILD_DIR)
@@ -28,7 +28,7 @@ TARGET := $(TARGET_DIR)/$(TARGET_FILE)
 TEST_TARGET := $(TARGET_DIR)/$(TEST_BIN)
 LIBS := -lnettle
 
-HEADER_DIR := /usr/include/libpgfe
+HEADER_DIR := /usr/local/include/libpgfe
 LIB_DIR := /usr/lib
 
 CC := clang

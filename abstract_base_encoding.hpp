@@ -19,6 +19,7 @@
 #define LIBPGFE_ABSTRACT_BASE_ENCODING
 #ifdef __cplusplus
 
+#include <mutex>
 #include <string>
 
 #include "generic.h"
@@ -37,7 +38,9 @@ class AbstractBaseEncoding
   private:
     pgfe_encode_t *de_cache = nullptr;
     char *en_cache = nullptr;
-    size_t encsz, decsz;
+    size_t encsz = 0, decsz = 0;
+
+    std::mutex enc_mutex, dec_mutex;
 
     base_short_size_t unitsz, chunksz, bitsz, alphabetsz;
 
