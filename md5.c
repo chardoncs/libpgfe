@@ -17,7 +17,6 @@
 
 #include "md5.h"
 
-#include "generic-internal.h"
 #include "templates.c"
 
 #define S11 7
