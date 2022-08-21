@@ -34,9 +34,12 @@ It is suggested to use CMake GUI or [VSCode](https://code.visualstudio.com/)'s C
 
 MD5 and SHA series' implementation is ported to Nettle. Besides that, the standards followed in this library are shown below.
 
-| Algorithm     | Standard                                           |
-| :------------ | :------------------------------------------------- |
-| Base 16/32/64 | [RFC 4648](https://www.rfc-editor.org/rfc/rfc4648) |
-| HMAC          | [RFC 2104](https://www.rfc-editor.org/rfc/rfc2104) |
-| HOTP          | [RFC 4226](https://www.rfc-editor.org/rfc/rfc4226) |
-| TOTP          | [RFC 6238](https://www.rfc-editor.org/rfc/rfc6238) |
+| Algorithm      | Standard                                           |
+| :------------  | :------------------------------------------------- |
+| Base 16/32/64  | [RFC 4648](https://www.rfc-editor.org/rfc/rfc4648) |
+| HMAC (Generic) | [RFC 2104](https://www.rfc-editor.org/rfc/rfc2104) |
+| HOTP           | [RFC 4226](https://www.rfc-editor.org/rfc/rfc4226) |
+| SHA-1          | [RFC 3174](https://www.rfc-editor.org/rfc/rfc3174) |
+| SHA-2 Family   | [RFC 6234](https://www.rfc-editor.org/rfc/rfc6234) |
+| SHA-3 Family   |  |
+| TOTP           | [RFC 6238](https://www.rfc-editor.org/rfc/rfc6238) |
