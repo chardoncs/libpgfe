@@ -62,4 +62,46 @@ pf_uint64_t pf64_crshift(pf_uint64_t fnum, int count) {
     return pf64_OR(pf64_rshift(fnum, count), pf64_lshift(fnum, 64 - count));
 }
 
+pf_uint64_t to_pf64(uint32_t num) {
+    pf_uint64_t n;
+    n.l = 0;
+    n.r = num;
+    return n;
+}
+
+pf_uint64_t to_pf64_2(uint32_t left, uint32_t right) {
+    pf_uint64_t n;
+    n.l = left;
+    n.r = right;
+    return n;
+}
+
+#else
+
+#include "generic-internal.h"
+
+#define pf64_add(l, r) ((l) + (r))
+
+#define pf64_sub(l, r) ((l) - (r))
+
+#define pf64_AND(l, r) ((l) & (r))
+
+#define pf64_OR(l, r) ((l) | (r))
+
+#define pf64_XOR(l, r) ((l) ^ (r))
+
+#define pf64_NOT(n) (~(n))
+
+#define pf64_lshift(n, c) ((n) << (c))
+
+#define pf64_rshift(n, c) ((n) >> (c))
+
+#define pf64_clshift(n, c) clshift(n, c)
+
+#define pf64_crshift(n, c) crshift(n, c)
+
+#define to_pf64(n) ((uint64_t)(n))
+
+#define to_pf64_2(l, r) (((uint64_t)(r)) | ((uint64_t)(l) << 32));
+
 #endif

@@ -36,6 +36,14 @@ pf_uint64_t pf64_clshift(pf_uint64_t fnum, int count);
 
 pf_uint64_t pf64_crshift(pf_uint64_t fnum, int count);
 
+pf_uint64_t to_pf64(uint32_t num);
+
+pf_uint64_t to_pf64_2(uint32_t left, uint32_t right);
+
+#else
+
+typedef uint64_t pf_uint64_t;
+
 #endif
 
 #ifdef __cplusplus
