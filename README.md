@@ -1,8 +1,8 @@
 # libpgfe
 
-**libpgfe** (IPA: /ˌlɪbˈpɪɡfiː/, like "lib-pig-fee") is a simple and easy-to-use library for hash encoding, HOTP/TOTP generation and base encoding.
+**libpgfe** (IPA: /ˌlɪbˈpɪɡfiː/, like "lib-pig-fee") is a simple and easy-to-use library for hash encoding, HOTP/TOTP generation and base encoding/decoding.
 
-*libpgfe* was an abbreviation of "**Lib**rary of **P**assword **G**eneration **F**ront-**e**nd". It is initially designed to be a functional and user-friendly port to [Nettle](https://www.lysator.liu.se/~nisse/nettle/), but since more algorithms (e.g. HMAC, HOTP, Base etc.) are directly implemented in this library, its full name has been deprecated.
+*libpgfe* was an abbreviation of "**Lib**rary of **P**assword **G**eneration **F**ront-**e**nd". It is initially designed to be a functional and user-friendly port to [Nettle](https://www.lysator.liu.se/~nisse/nettle/), but since more algorithms are directly implemented in this library, its full name has been deprecated.
 
 ## Information
 
@@ -15,7 +15,7 @@
 
 ### Tips for compilation
 
-It is suggested to use latest [LLVM](https://llvm.org/) or [GCC](https://gcc.gnu.org/) to compile this project. Using [MSVC](https://en.wikipedia.org/wiki/Microsoft_Visual_C++) is not tested and will probably cause compilation failure. 
+It is suggested to use latest [LLVM](https://llvm.org/) or [GCC](https://gcc.gnu.org/) to compile this project. **Using [MSVC](https://en.wikipedia.org/wiki/Microsoft_Visual_C++) is not tested and will probably cause compilation failure.**
 
 | Compiler   | Suggested version |
 | :--------- | :---------------- |
