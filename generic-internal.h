@@ -18,16 +18,11 @@
 #ifndef LIBPGFE_GENERIC_INTERNAL_H
 #define LIBPGFE_GENERIC_INTERNAL_H
 
+#include "architecture.h"
 #include "generic.h"
 
 #ifdef __cplusplus
 extern "C" {
-#endif
-
-#if __x86_64__ || _M_AMD64 || __aarch64__ || __ppc64__ || __mips64__ || __mips64 || __MIPS64__
-#define __PGFE_64Bit
-#else
-#define __PGFE_32Bit
 #endif
 
 #define PGFE_HEX_UNKNOWN_CHAR 0xF1

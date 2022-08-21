@@ -3,9 +3,13 @@
 
 #include <stdint.h>
 
+#include "architecture.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#ifdef __PGFE_ARCH_COMPAT
 
 typedef struct pgfe_fake_uint64
 {
@@ -31,6 +35,8 @@ pf_uint64_t pf64_rshift(pf_uint64_t fnum, int count);
 pf_uint64_t pf64_clshift(pf_uint64_t fnum, int count);
 
 pf_uint64_t pf64_crshift(pf_uint64_t fnum, int count);
+
+#endif
 
 #ifdef __cplusplus
 }
