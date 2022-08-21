@@ -42,7 +42,33 @@ pf_uint64_t to_pf64_2(uint32_t left, uint32_t right);
 
 #else
 
+#include "generic-internal.h"
+
 typedef uint64_t pf_uint64_t;
+
+#define pf64_add(l, r) ((l) + (r))
+
+#define pf64_sub(l, r) ((l) - (r))
+
+#define pf64_AND(l, r) ((l) & (r))
+
+#define pf64_OR(l, r) ((l) | (r))
+
+#define pf64_XOR(l, r) ((l) ^ (r))
+
+#define pf64_NOT(n) (~(n))
+
+#define pf64_lshift(n, c) ((n) << (c))
+
+#define pf64_rshift(n, c) ((n) >> (c))
+
+#define pf64_clshift(n, c) clshift(n, c)
+
+#define pf64_crshift(n, c) crshift(n, c)
+
+#define to_pf64(n) ((uint64_t)(n))
+
+#define to_pf64_2(l, r) (((uint64_t)(r)) | ((uint64_t)(l) << 32));
 
 #endif
 
