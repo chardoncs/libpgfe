@@ -16,7 +16,33 @@
 */
 
 #include "md5.h"
+
+#include "generic-internal.h"
 #include "templates.c"
+
+#define S11 7
+#define S12 12
+#define S13 17
+#define S14 22
+#define S21 5
+#define S22 9
+#define S23 14
+#define S24 20
+#define S31 4
+#define S32 11
+#define S33 16
+#define S34 23
+#define S41 6
+#define S42 10
+#define S43 15
+#define S44 21
+
+#define F(x, y, z) (((x) & (y)) | ((~x) & (z)))
+#define G(x, y, z) (((x) & (z)) | ((y) & (~z)))
+#define H(x, y, z) ((x) ^ (y) ^ (z))
+#define I(x, y, z) ((y) ^ ((x) | (~z)))
+
+// TODO: Continue
 
 __PGFE_FRONTEND_GEN(md5, md5);
 __PGFE_FRONTEND_DEFAULT_GEN(md5, PGFE_MD5_DIGEST_SIZE);
