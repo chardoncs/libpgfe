@@ -39,7 +39,7 @@ add_executable(pgfetest test/test.c)
 
 add_executable(pgfetestcpp test/test.cpp)
 
-target_link_libraries(pgfe nettle)
+target_link_libraries(pgfe -lnettle)
 target_link_libraries(pgfetest pgfe)
 # target_link_libraries(totptest pgfe)
 target_link_libraries(pgfetestcpp pgfe)
