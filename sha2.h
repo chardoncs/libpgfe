@@ -51,6 +51,8 @@ extern "C" {
 
 #define pgfe_sha224_ctx pgfe_sha256_ctx
 #define pgfe_sha384_ctx pgfe_sha512_ctx
+#define pgfe_sha512_224_ctx pgfe_sha512_ctx
+#define pgfe_sha512_256_ctx pgfe_sha512_ctx
 
 struct pgfe_sha256_ctx
 {

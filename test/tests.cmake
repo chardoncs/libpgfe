@@ -45,6 +45,14 @@ add_test(
     COMMAND pgfetest sha512_file ${test_text}
 )
 add_test(
+    NAME SHA512_224_string1
+    COMMAND pgfetest sha512_224 ${test_text}
+)
+add_test(
+    NAME SHA512_256_string1
+    COMMAND pgfetest sha512_256 ${test_text}
+)
+add_test(
     NAME SHA3_224_string1
     COMMAND pgfetest sha3_224 ${test_text}
 )
@@ -194,6 +202,8 @@ set_property(TEST SHA256_file1 PROPERTY PASS_REGULAR_EXPRESSION "fa0853e947a1ba8
 set_property(TEST SHA384_string1 PROPERTY PASS_REGULAR_EXPRESSION ${test_text_sha384})
 set_property(TEST SHA512_string1 PROPERTY PASS_REGULAR_EXPRESSION ${test_text_sha512})
 set_property(TEST SHA512_file1 PROPERTY PASS_REGULAR_EXPRESSION "d4584e8dababfd80675e78a0f28a3d8130eb2da30aa01d671b916401d03475c25051fe4de8e9a61adf3852adbc1d9bbe9588feb16a99cd4e7b52db89b9f60f44")
+set_property(TEST SHA512_224_string1 PROPERTY PASS_REGULAR_EXPRESSION "fe8509ed1fb7dcefc27e6ac1a80eddbec4cb3d2c6fe565244374061c")
+set_property(TEST SHA512_256_string1 PROPERTY PASS_REGULAR_EXPRESSION "e30d87cfa2a75db545eac4d61baf970366a8357c7f72fa95b52d0accb698f13a")
 set_property(TEST SHA3_224_string1 PROPERTY PASS_REGULAR_EXPRESSION ${test_text_sha3_224})
 set_property(TEST SHA3_256_string1 PROPERTY PASS_REGULAR_EXPRESSION ${test_text_sha3_256})
 set_property(TEST SHA3_384_string1 PROPERTY PASS_REGULAR_EXPRESSION ${test_text_sha3_384})
