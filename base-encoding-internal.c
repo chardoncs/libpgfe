@@ -17,6 +17,7 @@
 
 #include "base-encoding-internal.h"
 
+#include "fake_int.h"
 #include "generic-internal.h"
 
 inline pgfe_mask_t __pgfe_build_mask(uint8_t digit_c) {
@@ -116,12 +117,13 @@ size_t __pgfe_decode_generic(
     const size_t sz_ou = to_bit(sizeof(pgfe_encode_t));
     char *sp = (char *)basexx_cs;
     size_t i = 0, j;
-    uint64_t u;
+    pf_uint64_t u;
     const pgfe_mask_t mask = __pgfe_build_mask(bit_size);
 
+    u = to_pf64(0);
     op = output;
     while (*sp) {
-        for (i = 0, u = 0; *sp && i < chunk_count; sp++) {
+        for (i = 0; *sp && i < chunk_count; sp++) {
             ch = func(*sp);
             sig = ch & 0xC0;
 
@@ -129,18 +131,18 @@ size_t __pgfe_decode_generic(
                 continue;
             }
 
-            u <<= bit_size;
-            u |= ch & mask;
+            u = pf64_lshift(u, bit_size);
+            u = pf64_OR(u, to_pf64(ch & mask));
 
             i++;
         }
 
         if (!*sp && i < chunk_count) {
-            u <<= bit_size * (chunk_count - i);
+            u = pf64_lshift(u, bit_size * (chunk_count - i));
         }
 
         for (j = 0; j < unit_size; j++) {
-            o_unit[j] = (pgfe_encode_t)((u >> (sz_ou * (unit_size - j - 1))) & 0xFF);
+            o_unit[j] = (pgfe_encode_t)pf64_r(pf64_AND(pf64_rshift(u, sz_ou * (unit_size - j - 1)), to_pf64(0xFF)));
         }
 
         memcpy(op, o_unit, unit_size);
