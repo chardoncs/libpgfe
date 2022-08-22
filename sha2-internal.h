@@ -19,7 +19,7 @@ void __pgfe_sha256_process_block(struct pgfe_sha256_ctx *ctx);
 
 #define __pgfe_sha224_process_block __pgfe_sha256_process_block
 
-void __pgfe_sha224n256_padding(struct pgfe_sha256_ctx *ctx, pgfe_encode_t padding_byte);
+void __pgfe_sha224n256_padding(struct pgfe_sha256_ctx *ctx);
 
 void __pgfe_sha224n256_digest(
     struct pgfe_sha256_ctx *ctx, pgfe_encode_t output[], size_t out_length, uint8_t digest_size

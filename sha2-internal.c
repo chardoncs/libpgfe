@@ -61,19 +61,18 @@ void __pgfe_sha256_process_block(struct pgfe_sha256_ctx *ctx) {
     ctx->index = 0;
 }
 
-void __pgfe_sha224n256_padding(struct pgfe_sha256_ctx *ctx, pgfe_encode_t padding_byte) {
-    ctx->block[ctx->index++] = padding_byte;
+void __pgfe_sha224n256_padding(struct pgfe_sha256_ctx *ctx) {
+    ctx->block[ctx->index++] = __PGFE_PADDING_HEADER;
 
-    if (ctx->index > PGFE_SHA256_BLOCK_SIZE - 8) {
-        while (ctx->index < PGFE_SHA256_BLOCK_SIZE) {
-            ctx->block[ctx->index++] = 0;
-        }
-
+    if (ctx->index > 56) {
+        memset(ctx->block + ctx->index, 0, PGFE_SHA256_BLOCK_SIZE - ctx->index);
+        ctx->index = PGFE_SHA256_BLOCK_SIZE;
         __pgfe_sha256_process_block(ctx);
     }
 
-    while (ctx->index < PGFE_SHA256_BLOCK_SIZE - 8) {
-        ctx->block[ctx->index++] = 0;
+    if (ctx->index < 56) {
+        memset(ctx->block + ctx->index, 0, 56 - ctx->index);
+        ctx->index = 56;
     }
 
     ctx->block[56] = (uint8_t)(ctx->len_high >> 24);
@@ -96,17 +95,13 @@ void __pgfe_sha224n256_digest(
 
     size_t i;
 
-    __pgfe_sha224n256_padding(ctx, 128);
-
-    // Wipe stored data
-    for (i = 0; i < PGFE_SHA256_BLOCK_SIZE; i++) {
-        ctx->block[i] = 0;
-    }
-
-    ctx->len_high = ctx->len_low = 0;
+    __pgfe_sha224n256_padding(ctx);
 
     // Write output
     for (i = 0; i < out_length && i < digest_size; i++) {
         output[i] = (pgfe_encode_t)(ctx->state[i >> 2] >> 8 * (3 - (i & 3)));
     }
+
+    // Wipe sensitive data from the RAM
+    memset(ctx, 0, sizeof(*ctx));
 }

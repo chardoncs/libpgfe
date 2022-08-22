@@ -12,6 +12,8 @@ extern "C" {
 
 #define sha_parity(x, y, z) ((x) ^ (y) ^ (z))
 
+#define __PGFE_PADDING_HEADER 0x80
+
 #ifdef __cplusplus
 }
 #endif
