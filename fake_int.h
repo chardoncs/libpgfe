@@ -8,7 +8,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-#define __PGFE_ARCH_COMPAT
+// For debug only!!! Remove it in release version!
+// #define __PGFE_ARCH_COMPAT
 #ifdef __PGFE_ARCH_COMPAT
 
 typedef struct pgfe_fake_uint64
