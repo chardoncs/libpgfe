@@ -57,6 +57,10 @@ void pgfe_hmac_generic(
 
     func(mid_hash, digest_size, 2, k_i_pad, block_size, data, length);
     func(output, out_length, 2, k_o_pad, block_size, mid_hash, digest_size);
+
+    // Wipe buffers' data from the RAM for security consideration
+    memset(k_i_pad, 0, block_size);
+    memset(k_o_pad, 0, block_size);
 }
 
 __pgfe_hmac_tmpl(md5, md5, MD5);
