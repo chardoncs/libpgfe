@@ -1,7 +1,7 @@
 #ifndef LIBPGFE_MD5_BACKEND_H
 #define LIBPGFE_MD5_BACKEND_H
 
-#include "generic.h"
+#include "generic-internal.h"
 #include "types.h"
 
 #ifdef __cplusplus
