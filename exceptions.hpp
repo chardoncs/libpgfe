@@ -28,6 +28,10 @@ class NotInitializedException : public std::exception
 {
 };
 
+class EncodingCompletedException : public std::exception
+{
+};
+
 } // namespace PGFE
 } // namespace chardon55
 
