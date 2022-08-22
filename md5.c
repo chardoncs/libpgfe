@@ -22,8 +22,8 @@
 #include "md5-backend.h"
 #include "templates.c"
 
-__PGFE_FRONTEND_GEN(md5, md5);
-__PGFE_FRONTEND_DEFAULT_GEN(md5, PGFE_MD5_DIGEST_SIZE);
+__PGFE_FRONTEND_GEN2(md5);
+__PGFE_FRONTEND_DEFAULT_GEN2(md5, MD5);
 
 const pgfe_word_t H0[] = {0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476};
 
@@ -42,20 +42,20 @@ void pgfe_md5_update(struct pgfe_md5_ctx *ctx, const pgfe_encode_t input[], size
 
     index = (ctx->count[0] >> 3) & 0x3F;
 
-    ctx->count[0] += (uint32_t)(length << 3);
+    ctx->count[0] += (uint32_t)length << 3;
     if (ctx->count[0] < (length << 3)) {
         ctx->count[1]++;
     }
 
-    ctx->count[1] += (uint32_t)(length >> 29);
+    ctx->count[1] += (uint32_t)length >> 29;
     part_len = 64 - index;
 
     if (length >= part_len) {
-        memcpy(ctx->block, input, part_len);
+        memcpy(ctx->block + index, input, part_len);
         __pgfe_md5_transform(ctx->state, ctx->block);
 
-        for (i = part_len; i < length - 63; i += 64) {
-            __pgfe_md5_transform(ctx->state, (pgfe_encode_t *)(input + i));
+        for (i = part_len; i + 63 < length; i += 64) {
+            __pgfe_md5_transform(ctx->state, input + i);
         }
 
         index = 0;
@@ -79,7 +79,7 @@ void pgfe_md5_digest(struct pgfe_md5_ctx *ctx, pgfe_encode_t output[], size_t ou
     pgfe_md5_update(ctx, PADDING, padding_len);
     pgfe_md5_update(ctx, chunk, 8);
 
-    __pgfe_md5_encode(ctx->state, 16, output);
+    __pgfe_md5_encode(ctx->state, out_length >= PGFE_MD5_DIGEST_SIZE ? PGFE_MD5_DIGEST_SIZE : out_length, output);
 
     // Wipe sensitive data from the RAM
     memset(ctx, 0, sizeof(*ctx));

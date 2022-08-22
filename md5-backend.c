@@ -53,8 +53,13 @@ void __pgfe_md5_encode(pgfe_word_t input[], size_t length, pgfe_encode_t output[
     }
 }
 
-void __pgfe_md5_transform(pgfe_word_t state[4], pgfe_encode_t block[64]) {
+void __pgfe_md5_transform(pgfe_word_t state[4], const pgfe_encode_t block[64]) {
     pgfe_word_t a, b, c, d, x[16];
+
+    a = state[0];
+    b = state[1];
+    c = state[2];
+    d = state[3];
 
     __pgfe_md5_decode(block, 64, x);
 
