@@ -8,12 +8,12 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
+#define __PGFE_ARCH_COMPAT
 #ifdef __PGFE_ARCH_COMPAT
 
 typedef struct pgfe_fake_uint64
 {
-    uint32_t l, r;
+    uint32_t low, high;
 } pf_uint64_t;
 
 pf_uint64_t pf64_add(pf_uint64_t left, pf_uint64_t right);
@@ -38,7 +38,7 @@ pf_uint64_t pf64_crshift(pf_uint64_t fnum, int count);
 
 pf_uint64_t to_pf64(uint32_t num);
 
-pf_uint64_t to_pf64_2(uint32_t left, uint32_t right);
+pf_uint64_t to_pf64_2(uint32_t high, uint32_t low);
 
 #else
 
