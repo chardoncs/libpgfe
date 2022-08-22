@@ -40,5 +40,5 @@ The standards that are followed in this library are shown below.
 | MD5                 | [RFC 6561](https://www.rfc-editor.org/info/rfc6151) |
 | SHA-1               | [RFC 3174](https://www.rfc-editor.org/info/rfc3174)<br>[RFC 6234](https://www.rfc-editor.org/info/rfc6234) |
 | SHA-2 Family        | [RFC 6234](https://www.rfc-editor.org/info/rfc6234) |
-| SHA-3 Family        |  |
+| SHA-3 Family        | [NIST FIPS 202](https://doi.org/10.6028/NIST.FIPS.202) |
 | TOTP                | [RFC 6238](https://www.rfc-editor.org/info/rfc6238) |
