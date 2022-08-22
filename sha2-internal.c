@@ -101,13 +101,14 @@ void __pgfe_sha224n256_digest(
 
     __pgfe_sha224n256_padding(ctx);
 
+    // Wipe sensitive data from the RAM
+    memset(ctx->block, 0, sizeof(ctx->block));
+    ctx->len_low = ctx->len_high = 0;
+
     // Write output
     for (i = 0; i < out_length && i < digest_size; i++) {
         output[i] = (pgfe_encode_t)(ctx->state[i >> 2] >> 8 * (3 - (i & 3)));
     }
-
-    // Wipe sensitive data from the RAM
-    memset(ctx, 0, sizeof(*ctx));
 }
 
 // SHA-384/512
@@ -261,10 +262,11 @@ void __pgfe_sha384n512_digest(
 
     __pgfe_sha384n512_padding(ctx, __PGFE_PADDING_HEADER);
 
+    // Wipe data from RAM
+    memset(ctx->block, 0, sizeof(ctx->block));
+    ctx->len_high = ctx->len_low = to_pf64(0);
+
     for (i = 0; i < out_length && i < digest_size; i++) {
         output[i] = (uint8_t)pf64_r(pf64_rshift(ctx->state[i >> 3], 8 * (7 - (i % 8))));
     }
-
-    // Wipe data from RAM
-    memset(ctx, 0, sizeof(*ctx));
 }
