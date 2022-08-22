@@ -29,7 +29,7 @@ pgfe_otp_counter_t __pgfe_calc_periodic_counter(
     if (delta_out) {
         *delta_out = interval - time_offset % interval;
     }
-    return time_offset / interval;
+    return _PGFE_CT(time_offset / interval);
 }
 
 // Generic HOTP function suitable for various hash algorithm

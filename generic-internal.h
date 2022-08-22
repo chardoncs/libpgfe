@@ -18,7 +18,6 @@
 #ifndef LIBPGFE_GENERIC_INTERNAL_H
 #define LIBPGFE_GENERIC_INTERNAL_H
 
-#include "architecture.h"
 #include "generic.h"
 
 #ifdef __cplusplus
@@ -32,11 +31,6 @@ extern "C" {
 
 #define clshift(n, c) (((n) << (c)) | ((n) >> (to_bit(sizeof(n)) - (c))))
 #define crshift(n, c) (((n) >> (c)) | ((n) << (to_bit(sizeof(n)) - (c))))
-
-typedef uint32_t pgfe_word_t;
-#ifdef __PGFE_64Bit
-typedef uint64_t pgfe_word64_t;
-#endif
 
 void __pgfe_arrinit(pgfe_encode_t arr[], size_t size);
 

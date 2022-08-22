@@ -39,18 +39,36 @@ pf_uint64_t pf64_NOT(pf_uint64_t fnum) {
 }
 
 pf_uint64_t pf64_lshift(pf_uint64_t fnum, int count) {
+    if (!count) return fnum;
+
     int count32 = 32 - count;
 
-    fnum.high = (fnum.high << count) | (count32 >= 0 ? (fnum.low >> count32) : (fnum.low << -count32));
-    fnum.low <<= count;
+    if (count < 32) {
+        fnum.high = (fnum.high << count) | (fnum.low >> count32);
+        fnum.low <<= count;
+    }
+    else {
+        fnum.high = fnum.low << -count32;
+        fnum.low = 0;
+    }
+
     return fnum;
 }
 
 pf_uint64_t pf64_rshift(pf_uint64_t fnum, int count) {
+    if (!count) return fnum;
+
     int count32 = 32 - count;
 
-    fnum.low = (fnum.low >> count) | (count32 >= 0 ? (fnum.low << count32) : (fnum.low >> -count32));
-    fnum.high >>= count;
+    if (count < 32) {
+        fnum.low = (fnum.low >> count) | (fnum.low << count32);
+        fnum.high >>= count;
+    }
+    else {
+        fnum.low = fnum.high >> -count32;
+        fnum.high = 0;
+    }
+
     return fnum;
 }
 
@@ -60,6 +78,14 @@ pf_uint64_t pf64_clshift(pf_uint64_t fnum, int count) {
 
 pf_uint64_t pf64_crshift(pf_uint64_t fnum, int count) {
     return pf64_OR(pf64_rshift(fnum, count), pf64_lshift(fnum, 64 - count));
+}
+
+inline uint32_t pf64_r(pf_uint64_t fnum) {
+    return fnum.low;
+}
+
+inline uint32_t pf64_l(pf_uint64_t fnum) {
+    return fnum.high;
 }
 
 pf_uint64_t to_pf64(uint32_t num) {

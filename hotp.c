@@ -33,7 +33,7 @@ pgfe_otp_t pgfe_hotp_generic(
     PGFE_ENCODER_DEF_SIG, const pgfe_encode_t secret[], size_t secret_length, pgfe_otp_counter_t counter,
     uint8_t digit_c
 ) {
-    size_t enc_s = sizeof(pgfe_encode_t), counter_len = sizeof(pgfe_otp_counter_t) / enc_s;
+    static const size_t enc_s = 1, counter_len = 8;
     pgfe_encode_t counter_h[counter_len], out_hash[digest_size];
     pgfe_otp_t result;
 
