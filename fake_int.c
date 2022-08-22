@@ -1,5 +1,7 @@
 #include "fake_int.h"
 
+#include <string.h>
+
 #ifdef __PGFE_ARCH_COMPAT
 
 pf_uint64_t pf64_add(pf_uint64_t left, pf_uint64_t right) {
@@ -71,8 +73,8 @@ pf_uint64_t to_pf64(uint32_t num) {
 
 pf_uint64_t to_pf64_2(uint32_t high, uint32_t low) {
     pf_uint64_t n;
-    n.high = left;
-    n.low = right;
+    n.high = high;
+    n.low = low;
     return n;
 }
 
