@@ -9,9 +9,8 @@ extern "C" {
 #endif
 
 typedef uint32_t pgfe_word_t;
-#ifdef __PGFE_64Bit
+
 typedef pf_uint64_t pgfe_word64_t;
-#endif
 
 #ifdef __cplusplus
 }

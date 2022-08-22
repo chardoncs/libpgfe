@@ -179,9 +179,7 @@ extern "C" {
         __pgfe_##name##_padding(ctx);                                                                                  \
                                                                                                                        \
         /* Wipe stored data */                                                                                         \
-        for (i = 0; i < PGFE_##upper##_BLOCK_SIZE; i++) {                                                              \
-            ctx->block[i] = 0;                                                                                         \
-        }                                                                                                              \
+        memset(ctx->block, 0, sizeof(ctx->block));                                                                     \
                                                                                                                        \
         ctx->len_high = ctx->len_low = 0;                                                                              \
                                                                                                                        \

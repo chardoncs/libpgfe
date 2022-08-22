@@ -37,7 +37,7 @@ struct pgfe_md5_ctx
 {
     pgfe_word_t state[4];
     uint32_t count[2];
-    pgfe_encode_t buffer[PGFE_MD5_BLOCK_SIZE];
+    pgfe_encode_t block[PGFE_MD5_BLOCK_SIZE];
 };
 
 void pgfe_md5_encode(const pgfe_encode_t data[], size_t length, pgfe_encode_t output[], size_t out_length);
@@ -54,9 +54,9 @@ void pgfe_md5_encode_multiple(pgfe_encode_t output[], size_t out_length, size_t 
 
 void pgfe_md5_init(struct pgfe_md5_ctx *ctx);
 
-void pgfe_md5_update(struct pgfe_md5_ctx *ctx, pgfe_encode_t input[], size_t length);
+void pgfe_md5_update(struct pgfe_md5_ctx *ctx, const pgfe_encode_t input[], size_t length);
 
-void pgfe_md5_digest(struct pgfe_md5_ctx *ctx, pgfe_encode_t output[]);
+void pgfe_md5_digest(struct pgfe_md5_ctx *ctx, pgfe_encode_t output[], size_t out_length);
 
 #ifdef __cplusplus
 }
