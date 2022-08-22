@@ -142,4 +142,5 @@ void __pgfe_md5_transform(pgfe_word_t state[4], const pgfe_encode_t block[64]) {
 
     // Wipe sensitive data from the RAM
     memset(x, 0, sizeof(x));
+    a = b = c = d = 0;
 }
