@@ -64,13 +64,13 @@ void __pgfe_sha256_process_block(struct pgfe_sha256_ctx *ctx) {
 void __pgfe_sha224n256_padding(struct pgfe_sha256_ctx *ctx) {
     ctx->block[ctx->index++] = __PGFE_PADDING_HEADER;
 
+    // 56 = PGFE_SHA256_BLOCK_SIZE - 8
     if (ctx->index > 56) {
         memset(ctx->block + ctx->index, 0, PGFE_SHA256_BLOCK_SIZE - ctx->index);
         ctx->index = PGFE_SHA256_BLOCK_SIZE;
         __pgfe_sha256_process_block(ctx);
     }
-
-    if (ctx->index < 56) {
+    else if (ctx->index < 56) {
         memset(ctx->block + ctx->index, 0, 56 - ctx->index);
         ctx->index = 56;
     }

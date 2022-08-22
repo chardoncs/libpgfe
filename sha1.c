@@ -18,6 +18,7 @@
 #include "sha1.h"
 
 #include "generic-internal.h"
+#include "sha-internal.h"
 #include "templates.c"
 
 const pgfe_word_t __pgfe_sha1_H0[] = {0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476, 0xC3D2E1F0};
@@ -108,18 +109,17 @@ void __pgfe_sha1_process_block(struct pgfe_sha1_ctx *ctx) {
 }
 
 void __pgfe_sha1_padding(struct pgfe_sha1_ctx *ctx) {
-    ctx->block[ctx->index++] = 128;
+    ctx->block[ctx->index++] = __PGFE_PADDING_HEADER;
 
-    if (ctx->index > PGFE_SHA1_BLOCK_SIZE - 8) {
-        while (ctx->index < PGFE_SHA1_BLOCK_SIZE) {
-            ctx->block[ctx->index++] = 0;
-        }
-
+    // 56 = PGFE_SHA1_BLOCK_SIZE - 8
+    if (ctx->index > 56) {
+        memset(ctx->block + ctx->index, 0, PGFE_SHA1_BLOCK_SIZE - ctx->index);
+        ctx->index = PGFE_SHA1_BLOCK_SIZE;
         __pgfe_sha1_process_block(ctx);
     }
-
-    while (ctx->index < PGFE_SHA1_BLOCK_SIZE - 8) {
-        ctx->block[ctx->index++] = 0;
+    else if (ctx->index < 56) {
+        memset(ctx->block + ctx->index, 0, 56 - ctx->index);
+        ctx->index = 56;
     }
 
     ctx->block[56] = (uint8_t)(ctx->len_high >> 24);
