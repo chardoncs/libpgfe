@@ -54,6 +54,16 @@ void sha256_test(ARGS) {
     pgfe_print_hash(output, PGFE_SHA256_DIGEST_SIZE);
 }
 
+void sha256_file_test(ARGS) {
+    pgfe_encode_t output[PGFE_SHA256_DIGEST_SIZE];
+
+    FILE *fp = fopen("../test/test.txt", "r");
+    pgfe_sha256_encode_default_f(fp, output);
+    fclose(fp);
+
+    pgfe_print_hash(output, PGFE_SHA256_DIGEST_SIZE);
+}
+
 void sha384_test(ARGS) {
     pgfe_encode_t output[PGFE_SHA384_DIGEST_SIZE];
 
@@ -65,6 +75,16 @@ void sha512_test(ARGS) {
     pgfe_encode_t output[PGFE_SHA512_DIGEST_SIZE];
 
     pgfe_sha512_encode_default((pgfe_encode_t *)argv[2], output);
+    pgfe_print_hash(output, PGFE_SHA512_DIGEST_SIZE);
+}
+
+void sha512_file_test(ARGS) {
+    pgfe_encode_t output[PGFE_SHA512_DIGEST_SIZE];
+
+    FILE *fp = fopen("../test/test.txt", "r");
+    pgfe_sha512_encode_default_f(fp, output);
+    fclose(fp);
+
     pgfe_print_hash(output, PGFE_SHA512_DIGEST_SIZE);
 }
 

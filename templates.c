@@ -152,7 +152,7 @@ extern "C" {
     void pgfe_##name##_update(struct pgfe_##name##_ctx *ctx, const pgfe_encode_t input[], size_t length) {             \
         if (!ctx || !input) return;                                                                                    \
                                                                                                                        \
-        pgfe_encode_t *inp = (pgfe_encode_t *)input;                                                                   \
+        const pgfe_encode_t *inp = input;                                                                              \
         int corrupt_flag = 0;                                                                                          \
         uint32_t tmp_low;                                                                                              \
         for (int i = 0; i < length && !corrupt_flag; i++) {                                                            \
@@ -162,7 +162,7 @@ extern "C" {
             ctx->len_low += 8;                                                                                         \
             corrupt_flag = ctx->len_low < tmp_low && !(++ctx->len_high);                                               \
                                                                                                                        \
-            if (ctx->index == PGFE_##upper##_BLOCK_SIZE) {                                                             \
+            if (!corrupt_flag && ctx->index == PGFE_##upper##_BLOCK_SIZE) {                                            \
                 __pgfe_##name##_process_block(ctx);                                                                    \
             }                                                                                                          \
                                                                                                                        \

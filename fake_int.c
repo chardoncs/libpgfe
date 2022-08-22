@@ -38,6 +38,46 @@ pf_uint64_t pf64_NOT(pf_uint64_t fnum) {
     return fnum;
 }
 
+bool pf64_eq(pf_uint64_t left, pf_uint64_t right) {
+    return left.high == right.high && left.low == right.low;
+}
+
+bool pf64_ne(pf_uint64_t left, pf_uint64_t right) {
+    return left.high != right.high || left.low != right.low;
+}
+
+bool pf64_gt(pf_uint64_t left, pf_uint64_t right) {
+    if (left.high == right.high) {
+        return left.low > right.low;
+    }
+
+    return left.high > right.high;
+}
+
+bool pf64_ge(pf_uint64_t left, pf_uint64_t right) {
+    if (left.high == right.high) {
+        return left.low >= right.low;
+    }
+
+    return left.high >= right.high;
+}
+
+bool pf64_lt(pf_uint64_t left, pf_uint64_t right) {
+    if (left.high == right.high) {
+        return left.low < right.low;
+    }
+
+    return left.high < right.high;
+}
+
+bool pf64_le(pf_uint64_t left, pf_uint64_t right) {
+    if (left.high == right.high) {
+        return left.low <= right.low;
+    }
+
+    return left.high <= right.high;
+}
+
 pf_uint64_t pf64_lshift(pf_uint64_t fnum, int count) {
     if (!count) return fnum;
 
@@ -61,7 +101,7 @@ pf_uint64_t pf64_rshift(pf_uint64_t fnum, int count) {
     int count32 = 32 - count;
 
     if (count < 32) {
-        fnum.low = (fnum.low >> count) | (fnum.low << count32);
+        fnum.low = (fnum.low >> count) | (fnum.high << count32);
         fnum.high >>= count;
     }
     else {

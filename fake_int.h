@@ -12,6 +12,8 @@ extern "C" {
 // #define __PGFE_ARCH_COMPAT
 #ifdef __PGFE_ARCH_COMPAT
 
+#include <stdbool.h>
+
 typedef struct pgfe_fake_uint64
 {
     uint32_t low, high;
@@ -28,6 +30,18 @@ pf_uint64_t pf64_OR(pf_uint64_t left, pf_uint64_t right);
 pf_uint64_t pf64_XOR(pf_uint64_t left, pf_uint64_t right);
 
 pf_uint64_t pf64_NOT(pf_uint64_t fnum);
+
+bool pf64_eq(pf_uint64_t left, pf_uint64_t right);
+
+bool pf64_ne(pf_uint64_t left, pf_uint64_t right);
+
+bool pf64_gt(pf_uint64_t left, pf_uint64_t right);
+
+bool pf64_ge(pf_uint64_t left, pf_uint64_t right);
+
+bool pf64_lt(pf_uint64_t left, pf_uint64_t right);
+
+bool pf64_le(pf_uint64_t left, pf_uint64_t right);
 
 pf_uint64_t pf64_lshift(pf_uint64_t fnum, int count);
 
@@ -62,6 +76,18 @@ typedef uint64_t pf_uint64_t;
 #define pf64_XOR(l, r) ((l) ^ (r))
 
 #define pf64_NOT(n) (~(n))
+
+#define pf64_eq(l, r) ((l) == (r))
+
+#define pf64_ne(l, r) ((l) != (r))
+
+#define pf64_gt(l, r) ((l) > (r))
+
+#define pf64_ge(l, r) ((l) >= (r))
+
+#define pf64_lt(l, r) ((l) < (r))
+
+#define pf64_le(l, r) ((l) <= (r))
 
 #define pf64_lshift(n, c) ((n) << (c))
 

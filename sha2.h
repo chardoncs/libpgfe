@@ -55,20 +55,15 @@ extern "C" {
 struct pgfe_sha256_ctx
 {
     pgfe_word_t state[__PGFE_SHA256_BUFHASHSZ];
-    uint32_t len_high, len_low;
+    uint32_t len_low, len_high;
     size_t index;
     pgfe_encode_t block[PGFE_SHA256_BLOCK_SIZE];
 };
 
 struct pgfe_sha512_ctx
 {
-#ifdef __PGFE_64Bit
     pgfe_word64_t state[__PGFE_SHA512_BUFHASHSZ_64];
-    uint64_t len_high, len_low;
-#else
-    pgfe_word_t state[__PGFE_SHA512_BUFHASHSZ];
-    uint32_t lengths[4];
-#endif
+    pf_uint64_t len_low, len_high;
     size_t index;
     pgfe_encode_t block[PGFE_SHA512_BLOCK_SIZE];
 };
@@ -83,6 +78,8 @@ void pgfe_sha224_encode_default(const pgfe_encode_t data_str[], pgfe_encode_t ou
 void pgfe_sha224_encode_default_f(FILE *fp, pgfe_encode_t output[]);
 
 void pgfe_sha224_encode_multiple(pgfe_encode_t output[], size_t out_length, size_t input_c, ...);
+
+// -- Context-based functions
 
 void pgfe_sha224_init(struct pgfe_sha224_ctx *ctx);
 
@@ -101,6 +98,8 @@ void pgfe_sha256_encode_default_f(FILE *fp, pgfe_encode_t output[]);
 
 void pgfe_sha256_encode_multiple(pgfe_encode_t output[], size_t out_length, size_t input_c, ...);
 
+// -- Context-based functions
+
 void pgfe_sha256_init(struct pgfe_sha256_ctx *ctx);
 
 void pgfe_sha256_update(struct pgfe_sha256_ctx *ctx, const pgfe_encode_t input[], size_t length);
@@ -118,6 +117,8 @@ void pgfe_sha384_encode_default_f(FILE *fp, pgfe_encode_t output[]);
 
 void pgfe_sha384_encode_multiple(pgfe_encode_t output[], size_t out_length, size_t input_c, ...);
 
+// -- Context-based functions
+
 void pgfe_sha384_init(struct pgfe_sha384_ctx *ctx);
 
 void pgfe_sha384_update(struct pgfe_sha384_ctx *ctx, const pgfe_encode_t input[], size_t length);
@@ -134,6 +135,8 @@ void pgfe_sha512_encode_default(const pgfe_encode_t data_str[], pgfe_encode_t ou
 void pgfe_sha512_encode_default_f(FILE *fp, pgfe_encode_t output[]);
 
 void pgfe_sha512_encode_multiple(pgfe_encode_t output[], size_t out_length, size_t input_c, ...);
+
+// -- Context-based functions
 
 void pgfe_sha512_init(struct pgfe_sha512_ctx *ctx);
 
@@ -153,6 +156,8 @@ void pgfe_sha512_224_encode_default_f(FILE *fp, pgfe_encode_t output[]);
 
 void pgfe_sha512_224_encode_multiple(pgfe_encode_t output[], size_t out_length, size_t input_c, ...);
 
+// -- Context-based functions
+
 void pgfe_sha512_224_init(struct pgfe_sha512_ctx *ctx);
 
 void pgfe_sha512_224_update(struct pgfe_sha512_ctx *ctx, const pgfe_encode_t input[], size_t length);
@@ -170,6 +175,8 @@ void pgfe_sha512_256_encode_default(const pgfe_encode_t data_str[], pgfe_encode_
 void pgfe_sha512_256_encode_default_f(FILE *fp, pgfe_encode_t output[]);
 
 void pgfe_sha512_256_encode_multiple(pgfe_encode_t output[], size_t out_length, size_t input_c, ...);
+
+// -- Context-based functions
 
 void pgfe_sha512_256_init(struct pgfe_sha512_ctx *ctx);
 
