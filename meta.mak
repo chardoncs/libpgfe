@@ -10,7 +10,7 @@ OBJS := $(addprefix $(OBJS_DIR)/,\
 generic.c.o \
 generic-internal.c.o utils.c.o templates.c.o\
 sha-internal.c\
-sha2-backend.c.o keccak-backend.c.o\
+sha2-backend.c.o keccak.c.o\
 sha1.c.o sha224.c.o sha256.c.o sha384.c.o \
 md5-backend.c.o\
 sha512.c.o sha3-224.c.o sha3-256.c.o sha3-384.c.o sha3-512.c.o md5.c.o hmac.c.o otp-generic.c.o hotp.c.o totp.c.o \
