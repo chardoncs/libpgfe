@@ -8,21 +8,18 @@
 extern "C" {
 #endif
 
-#define sha256_SIGMA0(word) (crshift(word, 2) ^ crshift(word, 13) ^ crshift(word, 22))
-#define sha256_SIGMA1(word) (crshift(word, 6) ^ crshift(word, 11) ^ crshift(word, 25))
-#define sha256_sigma0(word) (crshift(word, 7) ^ crshift(word, 18) ^ ((word) >> 3))
-#define sha256_sigma1(word) (crshift(word, 17) ^ crshift(word, 19) ^ ((word) >> 10))
+#define sha256_SIGMA0(word) (crshift((word), 2) ^ crshift((word), 13) ^ crshift((word), 22))
+#define sha256_SIGMA1(word) (crshift((word), 6) ^ crshift((word), 11) ^ crshift((word), 25))
+#define sha256_sigma0(word) (crshift((word), 7) ^ crshift((word), 18) ^ ((word) >> 3))
+#define sha256_sigma1(word) (crshift((word), 17) ^ crshift((word), 19) ^ ((word) >> 10))
 
-#define sha512_SIGMA0(word)                                                                                            \
-    pf64_XOR(pf64_crshift((word), 28), pf64_XOR(pf64_crshift((word), 34), pf64_crshift((word), 39)))
+#define sha512_SIGMA0(word) (crshift((word), 28) ^ crshift((word), 34) ^ crshift((word), 39))
 
-#define sha512_SIGMA1(word)                                                                                            \
-    pf64_XOR(pf64_crshift((word), 14), pf64_XOR(pf64_crshift((word), 18), pf64_crshift((word), 41)))
+#define sha512_SIGMA1(word) (crshift((word), 14) ^ crshift((word), 18) ^ crshift((word), 41))
 
-#define sha512_sigma0(word) pf64_XOR(pf64_crshift((word), 1), pf64_XOR(pf64_crshift((word), 8), pf64_rshift((word), 7)))
+#define sha512_sigma0(word) (crshift((word), 1) ^ crshift((word), 8) ^ ((word) >> 7))
 
-#define sha512_sigma1(word)                                                                                            \
-    pf64_XOR(pf64_crshift((word), 19), pf64_XOR(pf64_crshift((word), 61), pf64_rshift((word), 6)))
+#define sha512_sigma1(word) (crshift((word), 19) ^ crshift((word), 61) ^ ((word) >> 6))
 
 void __pgfe_sha224n256_init(struct pgfe_sha256_ctx *ctx, const pgfe_word_t H0[]);
 

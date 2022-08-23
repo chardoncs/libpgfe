@@ -9,7 +9,6 @@ OBJS_DIR := $(BUILD_DIR)/obj
 OBJS := $(addprefix $(OBJS_DIR)/,\
 generic.c.o \
 generic-internal.c.o utils.c.o templates.c.o\
-fake_int.c.o\
 sha-internal.c\
 sha2-internal.c.o\
 sha1.c.o sha224.c.o sha256.c.o sha384.c.o \

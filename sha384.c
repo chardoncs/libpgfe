@@ -31,7 +31,7 @@ __PGFE_FRONTEND_DEFAULT_GEN2(sha384, SHA384)
 void pgfe_sha384_init(struct pgfe_sha384_ctx *ctx) {
     if (!ctx) return;
 
-    ctx->len_low = ctx->len_high = to_pf64(0);
+    ctx->len_low = ctx->len_high = 0;
     ctx->index = 0;
 
     memcpy(ctx->state, __pgfe_sha384_H0, sizeof(ctx->state));

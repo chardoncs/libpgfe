@@ -136,19 +136,18 @@ void __pgfe_sha384n512_process_block(struct pgfe_sha512_ctx *ctx) {
     };
 
     int i, ix8, j;
-    pf_uint64_t tmp1, tmp2, tmp, ws[80], A, B, C, D, E, F, G, H;
+    pgfe_word64_t tmp1, tmp2, tmp, ws[80], A, B, C, D, E, F, G, H;
 
     for (i = ix8 = 0; i < 16; i++, ix8 += 8) {
-        ws[i] = to_pf64(0);
+        ws[i] = 0;
 
         for (j = 0; j < 8; j++) {
-            ws[i] = pf64_OR(ws[i], pf64_lshift(to_pf64(ctx->block[ix8 + j]), 56 - j * 8));
+            ws[i] |= (pgfe_word64_t)(ctx->block[ix8 + j]) << (56 - j * 8);
         }
     }
 
     for (; i < 80; i++) {
-        ws[i] = pf64_add(sha512_sigma1(ws[i - 2]), ws[i - 7]);
-        ws[i] = pf64_add(ws[i], pf64_add(sha512_sigma0(ws[i - 15]), ws[i - 16]));
+        ws[i] = sha512_sigma1(ws[i - 2]) + ws[i - 7] + sha512_sigma0(ws[i - 15]) + ws[i - 16];
     }
 
     A = ctx->state[0];
@@ -161,35 +160,33 @@ void __pgfe_sha384n512_process_block(struct pgfe_sha512_ctx *ctx) {
     H = ctx->state[7];
 
     for (i = 0; i < 80; i++) {
-        tmp1 = pf64_add(pf64_add(H, sha512_SIGMA1(E)), sha_ch64(E, F, G));
-        tmp1 = pf64_add(tmp1, ws[i]);
         memcpy(&tmp, &K[i * 2], 8);
-        tmp1 = pf64_add(tmp1, tmp);
+        tmp1 = H + sha512_SIGMA1(E) + sha_ch(E, F, G) + ws[i] + tmp;
 
-        tmp2 = pf64_add(sha512_SIGMA0(A), sha_maj64(A, B, C));
+        tmp2 = sha512_SIGMA0(A) + sha_maj(A, B, C);
         H = G;
         G = F;
         F = E;
-        E = pf64_add(D, tmp1);
+        E = D + tmp1;
         D = C;
         C = B;
         B = A;
-        A = pf64_add(tmp1, tmp2);
+        A = tmp1 + tmp2;
     }
 
-    ctx->state[0] = pf64_add(ctx->state[0], A);
-    ctx->state[1] = pf64_add(ctx->state[1], B);
-    ctx->state[2] = pf64_add(ctx->state[2], C);
-    ctx->state[3] = pf64_add(ctx->state[3], D);
-    ctx->state[4] = pf64_add(ctx->state[4], E);
-    ctx->state[5] = pf64_add(ctx->state[5], F);
-    ctx->state[6] = pf64_add(ctx->state[6], G);
-    ctx->state[7] = pf64_add(ctx->state[7], H);
+    ctx->state[0] += A;
+    ctx->state[1] += B;
+    ctx->state[2] += C;
+    ctx->state[3] += D;
+    ctx->state[4] += E;
+    ctx->state[5] += F;
+    ctx->state[6] += G;
+    ctx->state[7] += H;
 
     ctx->index = 0;
 
     // Wipe data from RAM
-    tmp1 = tmp2 = tmp = A = B = C = D = E = F = G = H = to_pf64(0);
+    tmp1 = tmp2 = tmp = A = B = C = D = E = F = G = H = 0;
     memset(ws, 0, 80);
 }
 
@@ -198,16 +195,16 @@ void __pgfe_sha384n512_update(struct pgfe_sha512_ctx *ctx, const pgfe_encode_t i
 
     const pgfe_encode_t *inp = input;
     int corrupt_flag = 0, tmpflag;
-    pf_uint64_t tmp_low;
+    uint64_t tmp_low;
     for (int i = 0; i < length && !corrupt_flag; i++) {
         ctx->block[ctx->index++] = *inp;
 
         tmp_low = ctx->len_low;
-        ctx->len_low = pf64_add(ctx->len_low, to_pf64(8));
-        tmpflag = pf64_lt(ctx->len_low, tmp_low);
+        ctx->len_low += 8;
+        tmpflag = ctx->len_low < tmp_low;
         if (tmpflag) {
-            ctx->len_high = pf64_add(ctx->len_high, to_pf64(1));
-            corrupt_flag = pf64_eq(ctx->len_high, to_pf64(0));
+            ctx->len_high++;
+            corrupt_flag = !ctx->len_high;
         }
 
         if (!corrupt_flag && ctx->index == PGFE_SHA512_BLOCK_SIZE) {
@@ -232,23 +229,22 @@ void __pgfe_sha384n512_padding(struct pgfe_sha512_ctx *ctx, pgfe_encode_t paddin
         ctx->index = 112;
     }
 
-    ctx->block[112] = (uint8_t)pf64_r(pf64_rshift(ctx->len_high, 56));
-    ctx->block[113] = (uint8_t)pf64_r(pf64_rshift(ctx->len_high, 48));
-    ctx->block[114] = (uint8_t)pf64_r(pf64_rshift(ctx->len_high, 40));
-    ctx->block[115] = (uint8_t)pf64_r(pf64_rshift(ctx->len_high, 32));
-    ctx->block[116] = (uint8_t)pf64_r(pf64_rshift(ctx->len_high, 24));
-    ctx->block[117] = (uint8_t)pf64_r(pf64_rshift(ctx->len_high, 16));
-    ctx->block[118] = (uint8_t)pf64_r(pf64_rshift(ctx->len_high, 8));
-    ctx->block[119] = (uint8_t)pf64_r(ctx->len_high);
-
-    ctx->block[120] = (uint8_t)pf64_r(pf64_rshift(ctx->len_low, 56));
-    ctx->block[121] = (uint8_t)pf64_r(pf64_rshift(ctx->len_low, 48));
-    ctx->block[122] = (uint8_t)pf64_r(pf64_rshift(ctx->len_low, 40));
-    ctx->block[123] = (uint8_t)pf64_r(pf64_rshift(ctx->len_low, 32));
-    ctx->block[124] = (uint8_t)pf64_r(pf64_rshift(ctx->len_low, 24));
-    ctx->block[125] = (uint8_t)pf64_r(pf64_rshift(ctx->len_low, 16));
-    ctx->block[126] = (uint8_t)pf64_r(pf64_rshift(ctx->len_low, 8));
-    ctx->block[127] = (uint8_t)pf64_r(ctx->len_low);
+    ctx->block[112] = (uint8_t)(ctx->len_high >> 56);
+    ctx->block[113] = (uint8_t)(ctx->len_high >> 48);
+    ctx->block[114] = (uint8_t)(ctx->len_high >> 40);
+    ctx->block[115] = (uint8_t)(ctx->len_high >> 32);
+    ctx->block[116] = (uint8_t)(ctx->len_high >> 24);
+    ctx->block[117] = (uint8_t)(ctx->len_high >> 16);
+    ctx->block[118] = (uint8_t)(ctx->len_high >> 8);
+    ctx->block[119] = (uint8_t)ctx->len_high;
+    ctx->block[120] = (uint8_t)(ctx->len_low >> 56);
+    ctx->block[121] = (uint8_t)(ctx->len_low >> 48);
+    ctx->block[122] = (uint8_t)(ctx->len_low >> 40);
+    ctx->block[123] = (uint8_t)(ctx->len_low >> 32);
+    ctx->block[124] = (uint8_t)(ctx->len_low >> 24);
+    ctx->block[125] = (uint8_t)(ctx->len_low >> 16);
+    ctx->block[126] = (uint8_t)(ctx->len_low >> 8);
+    ctx->block[127] = (uint8_t)ctx->len_low;
 
     __pgfe_sha384n512_process_block(ctx);
 }
@@ -264,9 +260,9 @@ void __pgfe_sha384n512_digest(
 
     // Wipe data from RAM
     memset(ctx->block, 0, sizeof(ctx->block));
-    ctx->len_high = ctx->len_low = to_pf64(0);
+    ctx->len_high = ctx->len_low = 0;
 
     for (i = 0; i < out_length && i < digest_size; i++) {
-        output[i] = (uint8_t)pf64_r(pf64_rshift(ctx->state[i >> 3], 8 * (7 - (i % 8))));
+        output[i] = (uint8_t)(ctx->state[i >> 3] >> (8 * (7 - (i % 8))));
     }
 }

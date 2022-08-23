@@ -38,7 +38,7 @@ const pgfe_word_t __pgfe_sha512_256_H0[] = {
 void pgfe_sha512_generic_init(struct pgfe_sha512_ctx *ctx, const pgfe_word_t H0[16]) {
     if (!ctx) return;
 
-    ctx->len_low = ctx->len_high = to_pf64(0);
+    ctx->len_low = ctx->len_high = 0;
     ctx->index = 0;
 
     memcpy(ctx->state, H0, sizeof(ctx->state));

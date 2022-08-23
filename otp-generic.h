@@ -32,11 +32,9 @@ extern "C" {
 
 #define PGFE_OTP_DIGIT_MAX_LIMIT 10
 
-#define _PGFE_CT(counter) to_pf64(counter)
-
 typedef uint32_t pgfe_otp_t;
 
-typedef pf_uint64_t pgfe_otp_counter_t;
+typedef uint64_t pgfe_otp_counter_t;
 
 typedef pgfe_encode_t pgfe_otp_secret_t;
 

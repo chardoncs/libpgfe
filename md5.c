@@ -81,7 +81,7 @@ void pgfe_md5_digest(struct pgfe_md5_ctx *ctx, pgfe_encode_t output[], size_t ou
 
     // Wipe sensitive data from the RAM
     memset(ctx->block, 0, sizeof(ctx->block));
-    ctx->count = 0;
+    ctx->count[0] = ctx->count[1] = 0;
 
     __pgfe_md5_encode(ctx->state, out_length >= PGFE_MD5_DIGEST_SIZE ? PGFE_MD5_DIGEST_SIZE : out_length, output);
 }
