@@ -1,4 +1,4 @@
-#include "sha2-internal.h"
+#include "sha2-backend.h"
 #include "sha2.h"
 #include "templates.c"
 
