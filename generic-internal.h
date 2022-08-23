@@ -32,6 +32,8 @@ extern "C" {
 #define clshift(n, c) (((n) << (c)) | ((n) >> (to_bit(sizeof(n)) - (c))))
 #define crshift(n, c) (((n) >> (c)) | ((n) << (to_bit(sizeof(n)) - (c))))
 
+#define __pgfe_loop for (;;)
+
 void __pgfe_arrinit(pgfe_encode_t arr[], size_t size);
 
 void __pgfe_arrcpy(pgfe_encode_t dest[], size_t dest_s, const pgfe_encode_t src[], size_t src_s);
