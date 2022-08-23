@@ -30,7 +30,7 @@ void hotp_hex_test(ARGS) {
 
     auto sd = utils::sequential_data::from_hex_string(argv[3]);
     hotp.set_secret(sd);
-    hotp.set_counter(_PGFE_CT(1));
+    hotp.set_counter(1);
 
     std::cout << hotp.generate_str(8) << std::endl;
 }

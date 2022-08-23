@@ -180,7 +180,6 @@ extern "C" {
                                                                                                                        \
         /* Wipe stored data */                                                                                         \
         memset(ctx->block, 0, sizeof(ctx->block));                                                                     \
-                                                                                                                       \
         ctx->len_high = ctx->len_low = 0;                                                                              \
                                                                                                                        \
         /* Write output */                                                                                             \

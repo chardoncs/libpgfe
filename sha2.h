@@ -65,7 +65,7 @@ struct pgfe_sha256_ctx
 struct pgfe_sha512_ctx
 {
     pgfe_word64_t state[__PGFE_SHA512_BUFHASHSZ_64];
-    pf_uint64_t len_low, len_high;
+    uint64_t len_low, len_high;
     size_t index;
     pgfe_encode_t block[PGFE_SHA512_BLOCK_SIZE];
 };
