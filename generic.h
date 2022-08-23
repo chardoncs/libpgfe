@@ -29,13 +29,11 @@
 extern "C" {
 #endif
 
+// Common reading buffer size
 #define PGFE_BUFFER_SIZE 1024
 
+// Byte -> Bit (e.g. to_bit(4) = 32)
 #define to_bit(value) (value * 8)
-
-// // File reading behavior options
-// #define PGFE_FR_CURRENT_END 0
-// #define PGFE_FR_START_END -1
 
 #define PGFE_ENCODER_SIG(name, upper)                                                                                  \
     pgfe_##name##_encode_multiple, PGFE_##upper##_BLOCK_SIZE, PGFE_##upper##_DIGEST_SIZE
@@ -53,12 +51,14 @@ extern "C" {
 #define PGFE_ENCODER_SIG_SHA3_384 PGFE_ENCODER_SIG(sha3_384, SHA3_384)
 #define PGFE_ENCODER_SIG_SHA3_512 PGFE_ENCODER_SIG(sha3_512, SHA3_512)
 
+// Common encoding character type in libpgfe
 typedef uint8_t pgfe_encode_t;
 
 typedef void pgfe_encode_func(const pgfe_encode_t input[], pgfe_encode_t output[]);
 
 typedef void pgfe_encode_multi_func(pgfe_encode_t output[], size_t out_length, size_t input_c, ...);
 
+// Common UNIX time type in libpgfe
 typedef time_t pgfe_time_t;
 
 #ifdef __cplusplus
