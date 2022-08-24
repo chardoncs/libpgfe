@@ -15,9 +15,13 @@ Since the version 0.2.0, **libpgfe** has been "self-sufficient" and does not dep
 | Compiler     | LLVM Clang          |
 | License      | LGPL 3.0 (or later) |
 
+## Endianness
+
+The implementation philosophy of this library assumes that systems running this library are **Little Endian**, since most architectures and OS are Little Endian. Therefore, this library should not run properly on Big Endian systems.
+
 ## Tips for compilation
 
-### Selection of compilers
+### Compilers
 
 It is suggested to use latest [LLVM](https://llvm.org/) or [GCC](https://gcc.gnu.org/) to compile this project. **Using [MSVC](https://en.wikipedia.org/wiki/Microsoft_Visual_C++) is not tested and will probably cause compilation failure.**
 
