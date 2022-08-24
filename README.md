@@ -41,6 +41,6 @@ The standards that are followed in this library are shown below.
 | HOTP                | [RFC 4226](https://doi.org/10.17487/RFC4226) |
 | MD5                 | [RFC 1321](https://doi.org/10.17487/RFC1321)<br>RFC 6151 |
 | SHA-1               | [RFC 3174](https://doi.org/10.17487/RFC3174)<br>[RFC 6234](https://doi.org/10.17487/RFC6234) |
-| SHA-2 Family        | RFC 6234<br>[NIST FIPS 180-4 (Aug. 2015)](https://doi.org/10.6028/NIST.FIPS.180-4) |
+| SHA-2 Family        | RFC 6234<br>[NIST FIPS 180-4 (Aug. 2015 ver.)](https://doi.org/10.6028/NIST.FIPS.180-4) |
 | SHA-3 Family        |  |
 | TOTP                | [RFC 6238](https://doi.org/10.17487/RFC6238) |
