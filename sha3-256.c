@@ -22,7 +22,7 @@ __PGFE_FRONTEND_GEN2(sha3_256);
 __PGFE_FRONTEND_DEFAULT_GEN2(sha3_256, SHA3_256);
 
 void pgfe_sha3_256_init(struct pgfe_sha3_256_ctx *ctx) {
-    memset(ctx->S, 0, 200);
+    __pgfe_keccak_init(ctx, 512);
 }
 
 void pgfe_sha3_256_update(struct pgfe_sha3_256_ctx *ctx, const pgfe_encode_t input[], size_t length) {
