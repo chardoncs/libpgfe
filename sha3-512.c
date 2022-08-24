@@ -31,7 +31,5 @@ inline void pgfe_sha3_512_update(struct pgfe_sha3_512_ctx *ctx, const pgfe_encod
 }
 
 inline void pgfe_sha3_512_digest(struct pgfe_sha3_512_ctx *ctx, pgfe_encode_t output[], size_t out_length) {
-    __pgfe_keccak_squeeze_b1600(
-        ctx, output, out_length < PGFE_SHA3_512_DIGEST_SIZE ? out_length : PGFE_SHA3_512_DIGEST_SIZE
-    );
+    __pgfe_keccak_squeeze_b1600(ctx, output, out_length);
 }

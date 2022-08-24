@@ -14,13 +14,15 @@ extern "C" {
 #define __PGFE_KECCAK_b 1600
 #define __PGFE_KECCAK_MAX_RATE 1536
 
-typedef uint64_t pgfe_keccak_lane64_t;
+typedef uint64_t pgfe_keccak_lane_t;
 
-typedef pgfe_keccak_lane64_t pgfe_keccak_bitcube1600_t[5][5];
+typedef pgfe_keccak_lane_t pgfe_keccak_bitcube_t[25];
+
+typedef pgfe_encode_t pgfe_keccak_state_t[200];
 
 struct pgfe_keccak_sponge_ctx
 {
-    pgfe_keccak_bitcube1600_t state;
+    pgfe_keccak_state_t state;
     pgfe_encode_t data_queue[to_byte(__PGFE_KECCAK_MAX_RATE)];
     uint32_t rate, capacity, inqueue_bits, out_length;
     uint16_t nr;
