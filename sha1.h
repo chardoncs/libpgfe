@@ -20,8 +20,6 @@
 
 #include <stdio.h>
 
-#include <nettle/sha1.h>
-
 #include "generic-internal.h"
 #include "types.h"
 

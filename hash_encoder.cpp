@@ -29,27 +29,27 @@
 
 #define __PGFE_CTX_CREATE_CASE(alg, name)                                                                              \
     case alg:                                                                                                          \
-        this->ctx = (void *)new name##_ctx;                                                                            \
+        this->ctx = (void *)new pgfe_##name##_ctx;                                                                     \
         break
 
 #define __PGFE_CTX_DELETE_CASE(alg, name)                                                                              \
     case alg:                                                                                                          \
-        delete (name##_ctx *)ctx;                                                                                      \
+        delete (pgfe_##name##_ctx *)ctx;                                                                               \
         break
 
 #define __PGFE_INIT_FUNC_CALL_CASE(alg, name)                                                                          \
     case alg:                                                                                                          \
-        name##_init((name##_ctx *)ctx);                                                                                \
+        pgfe_##name##_init((pgfe_##name##_ctx *)ctx);                                                                  \
         break
 
 #define __PGFE_UPDATE_FUNC_CALL3_CASE(alg, name)                                                                       \
     case alg:                                                                                                          \
-        name##_update((name##_ctx *)ctx, length, sequence);                                                            \
+        pgfe_##name##_update((pgfe_##name##_ctx *)ctx, sequence, length);                                              \
         break
 
 #define __PGFE_DIGEST_FUNC_CALL_CASE(alg, name)                                                                        \
     case alg:                                                                                                          \
-        name##_digest((name##_ctx *)ctx, digsz, seq);                                                                  \
+        pgfe_##name##_digest((pgfe_##name##_ctx *)ctx, seq, digsz);                                                    \
         break
 
 #define __PGFE_INIT_SIZE_CASE(alg, name)                                                                               \

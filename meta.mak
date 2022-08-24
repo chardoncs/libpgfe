@@ -30,7 +30,7 @@ totp.cpp.o)
 
 TARGET := $(TARGET_DIR)/$(TARGET_FILE)
 TEST_TARGET := $(TARGET_DIR)/$(TEST_BIN)
-LIBS := -lnettle
+LIBS := 
 
 HEADER_DIR := /usr/local/include/libpgfe
 LIB_DIR := /usr/lib

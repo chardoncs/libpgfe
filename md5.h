@@ -20,8 +20,6 @@
 
 #include <stdio.h>
 
-#include <nettle/md5.h>
-
 #include "generic-internal.h"
 #include "generic.h"
 #include "types.h"

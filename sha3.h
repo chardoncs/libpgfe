@@ -20,8 +20,6 @@
 
 #include <stdio.h>
 
-#include <nettle/sha3.h>
-
 #include "generic.h"
 #include "keccak-backend.h"
 
