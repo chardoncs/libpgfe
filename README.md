@@ -17,7 +17,7 @@ Since the version 0.2.0, **libpgfe** has been "self-sufficient" and does not dep
 
 ## Endianness
 
-The implementation philosophy of this library assumes that systems running this library are **Little Endian**, since most architectures and OS are Little Endian. Therefore, this library should not run properly on Big Endian systems.
+The implementation philosophy of *libpgfe* assumes that systems running this library are **Little Endian**, since most architectures and OS are Little Endian. Therefore, this library should not run properly on Big Endian systems.
 
 ## Tips for compilation
 
