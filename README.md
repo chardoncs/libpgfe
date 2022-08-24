@@ -49,7 +49,7 @@ The standards that are followed in this library are shown below.
 
 ### Implementation instances
 
-Beside, many existing implementation codes are referenced for the development.
+Meanwhile, some existing implementation repositories are referenced for the development.
 
 | Algorithm                     | Reference                                           |
 | :---------------------------- | :-------------------------------------------------- |
