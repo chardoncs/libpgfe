@@ -1,6 +1,5 @@
 #include "keccak-backend.h"
 
-#include <limits.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -13,12 +12,12 @@
 
 #define _idx(x, y) (((x) % 5) + 5 * ((y) % 5))
 
-const uint16_t _r[24] = {
-    1, 3, 6, 10, 15, 21, 28, 36, 45, 55, 2, 14, 27, 41, 56, 8, 25, 43, 62, 18, 39, 61, 20, 44,
-};
-
-const uint16_t _piln[24] = {
-    10, 7, 11, 17, 18, 3, 5, 16, 8, 21, 24, 4, 15, 23, 19, 13, 12, 2, 20, 14, 22, 9, 6, 1,
+const uint16_t _r[5][5] = {
+    {0,  36, 3,  41, 18},
+    {1,  44, 10, 45, 2 },
+    {62, 6,  43, 15, 61},
+    {28, 55, 25, 21, 56},
+    {27, 20, 39, 8,  14},
 };
 
 const uint64_t _RC[24] = {0x0000000000000001, 0x0000000000008082, 0x800000000000808a, 0x8000000080008000,
@@ -29,8 +28,9 @@ const uint64_t _RC[24] = {0x0000000000000001, 0x0000000000008082, 0x800000000000
                           0x8000000080008081, 0x8000000000008080, 0x0000000080000001, 0x8000000080008008};
 
 void transform(pgfe_keccak_bitcube_t A, uint64_t RC) {
-    pgfe_keccak_lane_t C[5], t;
-    int x, y, i, j;
+    pgfe_keccak_lane_t C[5], D[5];
+    pgfe_keccak_bitcube_t A2;
+    int x, y, z, t;
 
     // Theta
     for (x = 0; x < 5; x++) {
@@ -38,33 +38,36 @@ void transform(pgfe_keccak_bitcube_t A, uint64_t RC) {
     }
 
     for (x = 0; x < 5; x++) {
-        t = C[(x + 4) % 5] ^ clshift(C[(x + 1) % 5], 1);
-        for (i = 0; i < 25; i += 5) {
-            A[i + x] ^= t;
+        D[x] = C[(x + 4) % 5] ^ clshift(C[(x + 1) % 5], 1);
+    }
+
+    for (x = 0; x < 5; x++) {
+        for (y = 0; y < 5; y++) {
+            A[_idx(x, y)] ^= D[x];
         }
     }
 
     // Rho & Pi
-    t = A[1];
-    for (i = 0; i < 24; i++) {
-        j = _piln[i];
-        C[0] = A[j];
-        A[j] = clshift(t, _r[i]);
-        t = C[0];
+    for (x = 0; x < 5; x++) {
+        for (y = 0; y < 5; y++) {
+            A2[_idx(y, 2 * x + 3 * y)] = clshift(A[_idx(x, y)], _r[x][y]);
+        }
     }
 
     // Chi
-    for (j = 0; j < 25; j += 5) {
-        for (i = 0; i < 5; i++) {
-            C[i] = A[j + i];
+    for (y = 0; y < 5; y++) {
+        for (x = 0; x < 5; x++) {
+            C[x] = A2[_idx(x, y)] ^ (~A2[_idx(x + 1, y)] & A2[_idx(x + 2, y)]);
         }
-        for (i = 0; i < 5; i++) {
-            A[j + i] ^= (~C[(i + 1) % 5] & C[(i + 2) % 5]);
+        for (x = 0; x < 5; x++) {
+            A[_idx(x, y)] = C[x];
         }
     }
 
     // Wipe sensitive data from RAM
+    memset(A2, 0, 200);
     memset(C, 0, 40);
+    memset(D, 0, 40);
 
     // Iota
     A[0] ^= RC;
@@ -73,7 +76,7 @@ void transform(pgfe_keccak_bitcube_t A, uint64_t RC) {
 int __pgfe_keccak_init(struct pgfe_keccak_sponge_ctx *ctx, uint32_t capacity) {
     uint32_t r = _b1600 - capacity;
 
-    if (r >= 1600 || r % 64) {
+    if (r >= _b1600 || r % 64) {
         return EXIT_FAILURE;
     }
 
@@ -134,9 +137,9 @@ void padding(struct pgfe_keccak_sponge_ctx *ctx) {
     ctx->squeezing = 1;
 }
 
-int __pgfe_keccak_absorb_b1600(struct pgfe_keccak_sponge_ctx *ctx, const pgfe_encode_t input[], size_t input_length) {
-    uint64_t i, j, whole_blocks, bit_len = to_bit((uint64_t)input_length);
-    uint32_t partial_block, partial_byte, rate_byte = to_byte(ctx->rate);
+int __pgfe_keccak_absorb_b1600(struct pgfe_keccak_sponge_ctx *ctx, const pgfe_encode_t input[], uint64_t bit_len) {
+    uint64_t i, j, whole_blocks;
+    uint32_t partial_block, partial_byte;
     uint8_t mask;
     const pgfe_encode_t *cur_data;
 
@@ -185,11 +188,13 @@ int __pgfe_keccak_squeeze_b1600(struct pgfe_keccak_sponge_ctx *ctx, pgfe_encode_
     uint64_t i, bit_len = ctx->out_length, act_bit_len = to_bit(output_length), cur_out_len;
     uint32_t partial_block;
 
+    if (ctx->ap_len) {
+        __pgfe_keccak_absorb_b1600(ctx, &ctx->ap, ctx->ap_len);
+    }
+
     if (!ctx->squeezing) {
         padding(ctx);
     }
-
-    if (bit_len % 8) return EXIT_FAILURE;
 
     for (i = 0; i < bit_len;) {
         if (!ctx->squeezable) {

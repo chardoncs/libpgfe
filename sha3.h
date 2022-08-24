@@ -44,6 +44,15 @@ extern "C" {
 #define pgfe_sha3_384_ctx pgfe_keccak_sponge_ctx
 #define pgfe_sha3_512_ctx pgfe_keccak_sponge_ctx
 
+#define PGFE_SHA3_APPENDIX 0b10
+#define PGFE_SHA3_APPENDIX_SIZE 2
+
+#define PGFE_SHAKE_APPENDIX 0b1111
+#define PGFE_SHAKE_APPENDIX_SIZE 4
+
+#define PGFE_RAWSHAKE_APPENDIX 0b11
+#define PGFE_RAWSHAKE_APPENDIX_SIZE 2
+
 // SHA3-224
 void pgfe_sha3_224_encode(const pgfe_encode_t data[], size_t length, pgfe_encode_t output[], size_t out_length);
 
