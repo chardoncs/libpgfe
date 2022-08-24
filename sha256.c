@@ -28,6 +28,6 @@ __PGFE_FRONTEND_DEFAULT_GEN2(sha256, SHA256);
 __PGFE_SHA_INIT(sha256)
 __PGFE_SHA_UPDATE(sha256, SHA256)
 
-inline void pgfe_sha256_digest(struct pgfe_sha256_ctx *ctx, pgfe_encode_t output[], size_t out_length) {
-    __pgfe_sha224n256_digest(ctx, output, out_length, PGFE_SHA256_DIGEST_SIZE);
+inline void pgfe_sha256_digest(struct pgfe_sha256_ctx *ctx, pgfe_encode_t output[]) {
+    __pgfe_sha224n256_digest(ctx, output, PGFE_SHA256_DIGEST_SIZE);
 }

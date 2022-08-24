@@ -49,13 +49,7 @@
 
 #define __PGFE_DIGEST_FUNC_CALL_CASE(alg, name)                                                                        \
     case alg:                                                                                                          \
-        pgfe_##name##_digest((pgfe_##name##_ctx *)ctx, seq, digsz);                                                    \
-        break
-
-#define __PGFE_INIT_SIZE_CASE(alg, name)                                                                               \
-    case alg:                                                                                                          \
-        digsz = PGFE_##alg##_DIGEST_SIZE;                                                                              \
-        blocksz = PGFE_##alg##_BLOCK_SIZE;                                                                             \
+        pgfe_##name##_digest((pgfe_##name##_ctx *)ctx, seq);                                                           \
         break
 
 using namespace chardon55::PGFE;

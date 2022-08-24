@@ -67,7 +67,7 @@ void pgfe_md5_update(struct pgfe_md5_ctx *ctx, const pgfe_encode_t input[], size
     memcpy(ctx->block + index, input + i, length - i);
 }
 
-void pgfe_md5_digest(struct pgfe_md5_ctx *ctx, pgfe_encode_t output[], size_t out_length) {
+void pgfe_md5_digest(struct pgfe_md5_ctx *ctx, pgfe_encode_t output[]) {
     pgfe_encode_t chunk[8];
     size_t i, padding_len;
 
@@ -83,5 +83,5 @@ void pgfe_md5_digest(struct pgfe_md5_ctx *ctx, pgfe_encode_t output[], size_t ou
     memset(ctx->block, 0, sizeof(ctx->block));
     ctx->count[0] = ctx->count[1] = 0;
 
-    __pgfe_md5_encode(ctx->state, out_length >= PGFE_MD5_DIGEST_SIZE ? PGFE_MD5_DIGEST_SIZE : out_length, output);
+    __pgfe_md5_encode(ctx->state, PGFE_MD5_DIGEST_SIZE, output);
 }

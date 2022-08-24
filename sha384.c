@@ -41,6 +41,6 @@ inline void pgfe_sha384_update(struct pgfe_sha384_ctx *ctx, const pgfe_encode_t 
     __pgfe_sha384n512_update(ctx, input, length);
 }
 
-inline void pgfe_sha384_digest(struct pgfe_sha384_ctx *ctx, pgfe_encode_t output[], size_t out_length) {
-    __pgfe_sha384n512_digest(ctx, output, out_length, PGFE_SHA384_DIGEST_SIZE);
+inline void pgfe_sha384_digest(struct pgfe_sha384_ctx *ctx, pgfe_encode_t output[]) {
+    __pgfe_sha384n512_digest(ctx, output, PGFE_SHA384_DIGEST_SIZE);
 }

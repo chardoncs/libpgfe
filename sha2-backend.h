@@ -29,9 +29,7 @@ void __pgfe_sha256_process_block(struct pgfe_sha256_ctx *ctx);
 
 void __pgfe_sha224n256_padding(struct pgfe_sha256_ctx *ctx);
 
-void __pgfe_sha224n256_digest(
-    struct pgfe_sha256_ctx *ctx, pgfe_encode_t output[], size_t out_length, uint8_t digest_size
-);
+void __pgfe_sha224n256_digest(struct pgfe_sha256_ctx *ctx, pgfe_encode_t output[], uint8_t digest_size);
 
 void __pgfe_sha384n512_init(struct pgfe_sha512_ctx *ctx, const pgfe_word_t H0[]);
 
@@ -41,9 +39,7 @@ void __pgfe_sha384n512_process_block(struct pgfe_sha512_ctx *ctx);
 
 void __pgfe_sha384n512_padding(struct pgfe_sha512_ctx *ctx, pgfe_encode_t padding_byte);
 
-void __pgfe_sha384n512_digest(
-    struct pgfe_sha512_ctx *ctx, pgfe_encode_t output[], size_t out_length, uint8_t digest_size
-);
+void __pgfe_sha384n512_digest(struct pgfe_sha512_ctx *ctx, pgfe_encode_t output[], uint8_t digest_size);
 
 #ifdef __cplusplus
 }

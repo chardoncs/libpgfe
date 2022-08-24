@@ -92,9 +92,7 @@ void __pgfe_sha224n256_padding(struct pgfe_sha256_ctx *ctx) {
     __pgfe_sha256_process_block(ctx);
 }
 
-void __pgfe_sha224n256_digest(
-    struct pgfe_sha256_ctx *ctx, pgfe_encode_t output[], size_t out_length, uint8_t digest_size
-) {
+void __pgfe_sha224n256_digest(struct pgfe_sha256_ctx *ctx, pgfe_encode_t output[], uint8_t digest_size) {
     if (!ctx || !output) return;
 
     size_t i;
@@ -106,7 +104,7 @@ void __pgfe_sha224n256_digest(
     ctx->len_low = ctx->len_high = 0;
 
     // Write output
-    for (i = 0; i < out_length && i < digest_size; i++) {
+    for (i = 0; i < digest_size; i++) {
         output[i] = (pgfe_encode_t)(ctx->state[i >> 2] >> 8 * (3 - (i & 3)));
     }
 }
@@ -249,9 +247,7 @@ void __pgfe_sha384n512_padding(struct pgfe_sha512_ctx *ctx, pgfe_encode_t paddin
     __pgfe_sha384n512_process_block(ctx);
 }
 
-void __pgfe_sha384n512_digest(
-    struct pgfe_sha512_ctx *ctx, pgfe_encode_t output[], size_t out_length, uint8_t digest_size
-) {
+void __pgfe_sha384n512_digest(struct pgfe_sha512_ctx *ctx, pgfe_encode_t output[], uint8_t digest_size) {
     if (!ctx || !output) return;
 
     size_t i;
@@ -262,7 +258,7 @@ void __pgfe_sha384n512_digest(
     memset(ctx->block, 0, sizeof(ctx->block));
     ctx->len_high = ctx->len_low = 0;
 
-    for (i = 0; i < out_length && i < digest_size; i++) {
+    for (i = 0; i < digest_size; i++) {
         output[i] = (uint8_t)(ctx->state[i >> 3] >> (8 * (7 - (i % 8))));
     }
 }

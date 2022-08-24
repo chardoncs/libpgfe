@@ -52,15 +52,13 @@ extern "C" {
 #define PGFE_RAWSHAKE_APPENDIX_SIZE 2
 
 // SHA3-224
-void pgfe_sha3_224_encode(const pgfe_encode_t data[], size_t length, pgfe_encode_t output[], size_t out_length);
+void pgfe_sha3_224_encode(const pgfe_encode_t data[], size_t length, pgfe_encode_t output[]);
 
-void pgfe_sha3_224_encode_f(FILE *fp, pgfe_encode_t output[], size_t length);
+void pgfe_sha3_224_encode_f(FILE *fp, pgfe_encode_t output[]);
 
 void pgfe_sha3_224_encode_default(const pgfe_encode_t data_str[], pgfe_encode_t output[]);
 
-void pgfe_sha3_224_encode_default_f(FILE *fp, pgfe_encode_t output[]);
-
-void pgfe_sha3_224_encode_multiple(pgfe_encode_t output[], size_t out_length, size_t input_c, ...);
+void pgfe_sha3_224_encode_multiple(pgfe_encode_t output[], size_t input_c, ...);
 
 // -- Context-based functions
 
@@ -68,18 +66,16 @@ void pgfe_sha3_224_init(struct pgfe_sha3_224_ctx *ctx);
 
 void pgfe_sha3_224_update(struct pgfe_sha3_224_ctx *ctx, const pgfe_encode_t input[], size_t length);
 
-void pgfe_sha3_224_digest(struct pgfe_sha3_224_ctx *ctx, pgfe_encode_t output[], size_t out_length);
+void pgfe_sha3_224_digest(struct pgfe_sha3_224_ctx *ctx, pgfe_encode_t output[]);
 
 // SHA-256
-void pgfe_sha3_256_encode(const pgfe_encode_t data[], size_t length, pgfe_encode_t output[], size_t out_length);
+void pgfe_sha3_256_encode(const pgfe_encode_t data[], size_t length, pgfe_encode_t output[]);
 
-void pgfe_sha3_256_encode_f(FILE *fp, pgfe_encode_t output[], size_t length);
+void pgfe_sha3_256_encode_f(FILE *fp, pgfe_encode_t output[]);
 
 void pgfe_sha3_256_encode_default(const pgfe_encode_t data_str[], pgfe_encode_t output[]);
 
-void pgfe_sha3_256_encode_default_f(FILE *fp, pgfe_encode_t output[]);
-
-void pgfe_sha3_256_encode_multiple(pgfe_encode_t output[], size_t out_length, size_t input_c, ...);
+void pgfe_sha3_256_encode_multiple(pgfe_encode_t output[], size_t input_c, ...);
 
 // -- Context-based functions
 
@@ -87,18 +83,16 @@ void pgfe_sha3_256_init(struct pgfe_sha3_256_ctx *ctx);
 
 void pgfe_sha3_256_update(struct pgfe_sha3_256_ctx *ctx, const pgfe_encode_t input[], size_t length);
 
-void pgfe_sha3_256_digest(struct pgfe_sha3_256_ctx *ctx, pgfe_encode_t output[], size_t out_length);
+void pgfe_sha3_256_digest(struct pgfe_sha3_256_ctx *ctx, pgfe_encode_t output[]);
 
 // SHA3-384
-void pgfe_sha3_384_encode(const pgfe_encode_t data[], size_t length, pgfe_encode_t output[], size_t out_length);
+void pgfe_sha3_384_encode(const pgfe_encode_t data[], size_t length, pgfe_encode_t output[]);
 
-void pgfe_sha3_384_encode_f(FILE *fp, pgfe_encode_t output[], size_t length);
+void pgfe_sha3_384_encode_f(FILE *fp, pgfe_encode_t output[]);
 
 void pgfe_sha3_384_encode_default(const pgfe_encode_t data_str[], pgfe_encode_t output[]);
 
-void pgfe_sha3_384_encode_default_f(FILE *fp, pgfe_encode_t output[]);
-
-void pgfe_sha3_384_encode_multiple(pgfe_encode_t output[], size_t out_length, size_t input_c, ...);
+void pgfe_sha3_384_encode_multiple(pgfe_encode_t output[], size_t input_c, ...);
 
 // -- Context-based functions
 
@@ -106,18 +100,16 @@ void pgfe_sha3_384_init(struct pgfe_sha3_384_ctx *ctx);
 
 void pgfe_sha3_384_update(struct pgfe_sha3_384_ctx *ctx, const pgfe_encode_t input[], size_t length);
 
-void pgfe_sha3_384_digest(struct pgfe_sha3_384_ctx *ctx, pgfe_encode_t output[], size_t out_length);
+void pgfe_sha3_384_digest(struct pgfe_sha3_384_ctx *ctx, pgfe_encode_t output[]);
 
 // SHA3-512
-void pgfe_sha3_512_encode(const pgfe_encode_t data[], size_t length, pgfe_encode_t output[], size_t out_length);
+void pgfe_sha3_512_encode(const pgfe_encode_t data[], size_t length, pgfe_encode_t output[]);
 
-void pgfe_sha3_512_encode_f(FILE *fp, pgfe_encode_t output[], size_t length);
+void pgfe_sha3_512_encode_f(FILE *fp, pgfe_encode_t output[]);
 
 void pgfe_sha3_512_encode_default(const pgfe_encode_t data_str[], pgfe_encode_t output[]);
 
-void pgfe_sha3_512_encode_default_f(FILE *fp, pgfe_encode_t output[]);
-
-void pgfe_sha3_512_encode_multiple(pgfe_encode_t output[], size_t out_length, size_t input_c, ...);
+void pgfe_sha3_512_encode_multiple(pgfe_encode_t output[], size_t input_c, ...);
 
 // -- Context-based functions
 
@@ -125,7 +117,7 @@ void pgfe_sha3_512_init(struct pgfe_sha3_512_ctx *ctx);
 
 void pgfe_sha3_512_update(struct pgfe_sha3_512_ctx *ctx, const pgfe_encode_t input[], size_t length);
 
-void pgfe_sha3_512_digest(struct pgfe_sha3_512_ctx *ctx, pgfe_encode_t output[], size_t out_length);
+void pgfe_sha3_512_digest(struct pgfe_sha3_512_ctx *ctx, pgfe_encode_t output[]);
 
 #ifdef __cplusplus
 }

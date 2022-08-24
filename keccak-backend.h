@@ -37,7 +37,7 @@ int __pgfe_keccak_init(struct pgfe_keccak_sponge_ctx *ctx, uint32_t capacity);
 
 int __pgfe_keccak_absorb_b1600(struct pgfe_keccak_sponge_ctx *ctx, const pgfe_encode_t input[], uint64_t bit_len);
 
-int __pgfe_keccak_squeeze_b1600(struct pgfe_keccak_sponge_ctx *ctx, pgfe_encode_t output[], size_t output_length);
+int __pgfe_keccak_squeeze_b1600(struct pgfe_keccak_sponge_ctx *ctx, pgfe_encode_t output[]);
 
 #ifdef __cplusplus
 }

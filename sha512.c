@@ -55,8 +55,8 @@ inline void pgfe_sha512_update(struct pgfe_sha512_ctx *ctx, const pgfe_encode_t 
     __pgfe_sha384n512_update(ctx, input, length);
 }
 
-inline void pgfe_sha512_digest(struct pgfe_sha512_ctx *ctx, pgfe_encode_t output[], size_t out_length) {
-    __pgfe_sha384n512_digest(ctx, output, out_length, PGFE_SHA512_DIGEST_SIZE);
+inline void pgfe_sha512_digest(struct pgfe_sha512_ctx *ctx, pgfe_encode_t output[]) {
+    __pgfe_sha384n512_digest(ctx, output, PGFE_SHA512_DIGEST_SIZE);
 }
 
 __PGFE_FRONTEND_GEN2(sha512_224);
@@ -70,8 +70,8 @@ inline void pgfe_sha512_224_update(struct pgfe_sha512_ctx *ctx, const pgfe_encod
     __pgfe_sha384n512_update(ctx, input, length);
 }
 
-inline void pgfe_sha512_224_digest(struct pgfe_sha512_ctx *ctx, pgfe_encode_t output[], size_t out_length) {
-    __pgfe_sha384n512_digest(ctx, output, out_length, PGFE_SHA512_224_DIGEST_SIZE);
+inline void pgfe_sha512_224_digest(struct pgfe_sha512_ctx *ctx, pgfe_encode_t output[]) {
+    __pgfe_sha384n512_digest(ctx, output, PGFE_SHA512_224_DIGEST_SIZE);
 }
 
 __PGFE_FRONTEND_GEN2(sha512_256);
@@ -85,6 +85,6 @@ inline void pgfe_sha512_256_update(struct pgfe_sha512_ctx *ctx, const pgfe_encod
     __pgfe_sha384n512_update(ctx, input, length);
 }
 
-inline void pgfe_sha512_256_digest(struct pgfe_sha512_ctx *ctx, pgfe_encode_t output[], size_t out_length) {
-    __pgfe_sha384n512_digest(ctx, output, out_length, PGFE_SHA512_256_DIGEST_SIZE);
+inline void pgfe_sha512_256_digest(struct pgfe_sha512_ctx *ctx, pgfe_encode_t output[]) {
+    __pgfe_sha384n512_digest(ctx, output, PGFE_SHA512_256_DIGEST_SIZE);
 }

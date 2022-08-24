@@ -105,6 +105,22 @@ static std::unordered_map<pgfe_algorithm_choice, size_t> pgfe_digest_length = {
     {MD5,        PGFE_MD5_DIGEST_SIZE       },
 };
 
+static std::unordered_map<pgfe_algorithm_choice, size_t> pgfe_block_length = {
+
+    {SHA1,       PGFE_SHA1_BLOCK_SIZE      },
+    {SHA224,     PGFE_SHA224_BLOCK_SIZE    },
+    {SHA256,     PGFE_SHA256_BLOCK_SIZE    },
+    {SHA384,     PGFE_SHA384_BLOCK_SIZE    },
+    {SHA512,     PGFE_SHA512_BLOCK_SIZE    },
+    {SHA512_224, PGFE_SHA512_224_BLOCK_SIZE},
+    {SHA512_256, PGFE_SHA512_256_BLOCK_SIZE},
+    {SHA3_224,   PGFE_SHA3_224_BLOCK_SIZE  },
+    {SHA3_256,   PGFE_SHA3_256_BLOCK_SIZE  },
+    {SHA3_384,   PGFE_SHA3_384_BLOCK_SIZE  },
+    {SHA3_512,   PGFE_SHA3_512_BLOCK_SIZE  },
+    {MD5,        PGFE_MD5_BLOCK_SIZE       },
+};
+
 } // namespace PGFE
 } // namespace chardon55
 

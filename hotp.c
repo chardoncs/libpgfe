@@ -40,7 +40,7 @@ pgfe_otp_t pgfe_hotp_generic(
     memcpy(counter_h, &counter, counter_len);
     __pgfe_reverse_elements(counter_h, counter_h + counter_len - 1);
 
-    pgfe_hmac_generic(PGFE_ENCODER_CALL_SIG, secret, secret_length, counter_h, counter_len, out_hash, digest_size);
+    pgfe_hmac_generic(PGFE_ENCODER_CALL_SIG, secret, secret_length, counter_h, counter_len, out_hash);
     result = pgfe_dynamically_truncate(out_hash, digest_size);
 
     if (digit_c < PGFE_OTP_DIGIT_MAX_LIMIT) {

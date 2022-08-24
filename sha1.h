@@ -40,21 +40,19 @@ struct pgfe_sha1_ctx
     pgfe_encode_t block[PGFE_SHA1_BLOCK_SIZE]; // Buffer block
 };
 
-void pgfe_sha1_encode(const pgfe_encode_t data[], size_t length, pgfe_encode_t output[], size_t out_length);
+void pgfe_sha1_encode(const pgfe_encode_t data[], size_t length, pgfe_encode_t output[]);
 
-void pgfe_sha1_encode_f(FILE *fp, pgfe_encode_t output[], size_t length);
+void pgfe_sha1_encode_f(FILE *fp, pgfe_encode_t output[]);
 
 void pgfe_sha1_encode_default(const pgfe_encode_t data_str[], pgfe_encode_t output[]);
 
-void pgfe_sha1_encode_default_f(FILE *fp, pgfe_encode_t output[]);
-
-void pgfe_sha1_encode_multiple(pgfe_encode_t output[], size_t out_length, size_t input_c, ...);
+void pgfe_sha1_encode_multiple(pgfe_encode_t output[], size_t input_c, ...);
 
 void pgfe_sha1_init(struct pgfe_sha1_ctx *ctx);
 
 void pgfe_sha1_update(struct pgfe_sha1_ctx *ctx, const pgfe_encode_t input[], size_t length);
 
-void pgfe_sha1_digest(struct pgfe_sha1_ctx *ctx, pgfe_encode_t output[], size_t out_length);
+void pgfe_sha1_digest(struct pgfe_sha1_ctx *ctx, pgfe_encode_t output[]);
 
 // Internal
 

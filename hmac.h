@@ -30,67 +30,55 @@ extern "C" {
 
 void pgfe_hmac_generic(
     PGFE_ENCODER_DEF_SIG, const pgfe_encode_t key[], size_t key_length, const pgfe_encode_t data[], size_t length,
-    pgfe_encode_t output[], size_t out_length
+    pgfe_encode_t output[]
 );
 
 void pgfe_hmac_md5(
-    const pgfe_encode_t key[], size_t key_length, const pgfe_encode_t data[], size_t length, pgfe_encode_t output[],
-    size_t out_length
+    const pgfe_encode_t key[], size_t key_length, const pgfe_encode_t data[], size_t length, pgfe_encode_t output[]
 );
 
 void pgfe_hmac_sha1(
-    const pgfe_encode_t key[], size_t key_length, const pgfe_encode_t data[], size_t length, pgfe_encode_t output[],
-    size_t out_length
+    const pgfe_encode_t key[], size_t key_length, const pgfe_encode_t data[], size_t length, pgfe_encode_t output[]
 );
 
 void pgfe_hmac_sha224(
-    const pgfe_encode_t key[], size_t key_length, const pgfe_encode_t data[], size_t length, pgfe_encode_t output[],
-    size_t out_length
+    const pgfe_encode_t key[], size_t key_length, const pgfe_encode_t data[], size_t length, pgfe_encode_t output[]
 );
 
 void pgfe_hmac_sha256(
-    const pgfe_encode_t key[], size_t key_length, const pgfe_encode_t data[], size_t length, pgfe_encode_t output[],
-    size_t out_length
+    const pgfe_encode_t key[], size_t key_length, const pgfe_encode_t data[], size_t length, pgfe_encode_t output[]
 );
 
 void pgfe_hmac_sha384(
-    const pgfe_encode_t key[], size_t key_length, const pgfe_encode_t data[], size_t length, pgfe_encode_t output[],
-    size_t out_length
+    const pgfe_encode_t key[], size_t key_length, const pgfe_encode_t data[], size_t length, pgfe_encode_t output[]
 );
 
 void pgfe_hmac_sha512(
-    const pgfe_encode_t key[], size_t key_length, const pgfe_encode_t data[], size_t length, pgfe_encode_t output[],
-    size_t out_length
+    const pgfe_encode_t key[], size_t key_length, const pgfe_encode_t data[], size_t length, pgfe_encode_t output[]
 );
 
 void pgfe_hmac_sha512_224(
-    const pgfe_encode_t key[], size_t key_length, const pgfe_encode_t data[], size_t length, pgfe_encode_t output[],
-    size_t out_length
+    const pgfe_encode_t key[], size_t key_length, const pgfe_encode_t data[], size_t length, pgfe_encode_t output[]
 );
 
 void pgfe_hmac_sha512_256(
-    const pgfe_encode_t key[], size_t key_length, const pgfe_encode_t data[], size_t length, pgfe_encode_t output[],
-    size_t out_length
+    const pgfe_encode_t key[], size_t key_length, const pgfe_encode_t data[], size_t length, pgfe_encode_t output[]
 );
 
 void pgfe_hmac_sha3_224(
-    const pgfe_encode_t key[], size_t key_length, const pgfe_encode_t data[], size_t length, pgfe_encode_t output[],
-    size_t out_length
+    const pgfe_encode_t key[], size_t key_length, const pgfe_encode_t data[], size_t length, pgfe_encode_t output[]
 );
 
 void pgfe_hmac_sha3_256(
-    const pgfe_encode_t key[], size_t key_length, const pgfe_encode_t data[], size_t length, pgfe_encode_t output[],
-    size_t out_length
+    const pgfe_encode_t key[], size_t key_length, const pgfe_encode_t data[], size_t length, pgfe_encode_t output[]
 );
 
 void pgfe_hmac_sha3_384(
-    const pgfe_encode_t key[], size_t key_length, const pgfe_encode_t data[], size_t length, pgfe_encode_t output[],
-    size_t out_length
+    const pgfe_encode_t key[], size_t key_length, const pgfe_encode_t data[], size_t length, pgfe_encode_t output[]
 );
 
 void pgfe_hmac_sha3_512(
-    const pgfe_encode_t key[], size_t key_length, const pgfe_encode_t data[], size_t length, pgfe_encode_t output[],
-    size_t out_length
+    const pgfe_encode_t key[], size_t key_length, const pgfe_encode_t data[], size_t length, pgfe_encode_t output[]
 );
 
 #ifdef __cplusplus

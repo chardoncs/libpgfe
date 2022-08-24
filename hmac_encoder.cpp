@@ -113,7 +113,7 @@ SequentialData HMACEncoder::get_digest() {
         throw NotInitializedException();
     }
 
-    pgfe_hmac_generic(this->encode_func, blocksz, digsz, key, key_len, data, data_len, output, digsz);
+    pgfe_hmac_generic(this->encode_func, blocksz, digsz, key, key_len, data, data_len, output);
 
     SequentialData sd(output, digsz);
     return sd;

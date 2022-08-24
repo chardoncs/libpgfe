@@ -184,8 +184,8 @@ int __pgfe_keccak_absorb_b1600(struct pgfe_keccak_sponge_ctx *ctx, const pgfe_en
     return EXIT_SUCCESS;
 }
 
-int __pgfe_keccak_squeeze_b1600(struct pgfe_keccak_sponge_ctx *ctx, pgfe_encode_t output[], size_t output_length) {
-    uint64_t i, bit_len = ctx->out_length, act_bit_len = to_bit(output_length), cur_out_len;
+int __pgfe_keccak_squeeze_b1600(struct pgfe_keccak_sponge_ctx *ctx, pgfe_encode_t output[]) {
+    uint64_t i, bit_len = ctx->out_length;
     uint32_t partial_block;
 
     if (ctx->ap_len) {
@@ -208,12 +208,7 @@ int __pgfe_keccak_squeeze_b1600(struct pgfe_keccak_sponge_ctx *ctx, pgfe_encode_
             partial_block = (uint32_t)(bit_len - i);
         }
 
-        cur_out_len = partial_block;
-        if (cur_out_len + i > act_bit_len) {
-            cur_out_len = act_bit_len - i;
-        }
-
-        memcpy(output + to_byte(i), ctx->data_queue + to_byte(ctx->rate - ctx->squeezable), to_byte(cur_out_len));
+        memcpy(output + to_byte(i), ctx->data_queue + to_byte(ctx->rate - ctx->squeezable), to_byte(partial_block));
         ctx->squeezable -= partial_block;
         i += partial_block;
     }
