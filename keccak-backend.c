@@ -1,9 +1,10 @@
 #include "keccak-backend.h"
 
 #include <limits.h>
+#include <stdlib.h>
 #include <string.h>
 
-#define __PGFE_K_b 1600
+#define __PGFE_K_b __PGFE_KECCAK_b
 #define __PGFE_K_w 64
 
 #define _cmod(x, y) ((x) % (y) + ((x) < 0 ? (y) : 0))
@@ -25,17 +26,7 @@ const uint64_t _RC[24] = {0x0000000000000001, 0x0000000000008082, 0x800000000000
                           0x8000000000008002, 0x8000000000000080, 0x000000000000800A, 0x800000008000000A,
                           0x8000000080008081, 0x8000000000008080, 0x0000000080000001, 0x8000000080008008};
 
-pgfe_keccak_lane64_t v_get(pgfe_keccak_lane64_t lane, uint32_t z);
-void v_set(pgfe_keccak_lane64_t *lane, uint32_t z, pgfe_keccak_lane64_t val_lane, uint32_t z1);
 uint32_t log2i(uint32_t n);
-
-inline pgfe_keccak_lane64_t v_get(pgfe_keccak_lane64_t lane, uint32_t z) {
-    return (lane >> (63 - z)) & 1;
-}
-
-inline void v_set(pgfe_keccak_lane64_t *lane, uint32_t z, pgfe_keccak_lane64_t val_lane, uint32_t z1) {
-    *lane ^= (((*lane >> (63 - z)) & 1) ^ ((val_lane >> (63 - z1)) & 1)) << (63 - z);
-}
 
 inline uint32_t log2i(uint32_t n) {
     uint32_t i, pow = 1;
@@ -47,7 +38,7 @@ inline uint32_t log2i(uint32_t n) {
     return i - (pow > n);
 }
 
-void transform(pgfe_keccak_bitcube1600_t A, uint32_t w, uint64_t RC) {
+void transform(pgfe_keccak_bitcube1600_t A, uint64_t RC) {
     pgfe_keccak_lane64_t C[5], D[5];
     pgfe_keccak_bitcube1600_t A_out;
     int x, y, z, t;
@@ -92,108 +83,165 @@ void transform(pgfe_keccak_bitcube1600_t A, uint32_t w, uint64_t RC) {
     A[0][0] ^= RC;
 }
 
-uint32_t pad101(uint32_t x, int64_t m, pgfe_encode_t output[]) {
-    int j = _cmod(-m - 2, x), i;
-    pgfe_encode_t *outp = output;
-
-    for (i = -2; i < j; outp++) {
-        *outp = 0;
-
-        i += 8;
-        if (i >= j) {
-            *outp |= 1 << (i - j);
-        }
-
-        if (i == 6) {
-            *outp |= 0b10000000;
-        }
+int __pgfe_keccak_init(struct pgfe_keccak_sponge_ctx *ctx, uint32_t capacity) {
+    if (capacity > _b1600) {
+        return EXIT_FAILURE;
     }
 
-    return j + 2;
+    uint32_t r = _b1600 - capacity;
+
+    if (r >= 1600 || r % 64) {
+        return EXIT_FAILURE;
+    }
+
+    memset(ctx, 0, sizeof(*ctx));
+
+    ctx->capacity = capacity;
+    ctx->rate = r;
+    ctx->nr = 24;
+
+    return EXIT_SUCCESS;
 }
 
-void __pgfe_keccak_p_b1600(uint32_t nr, const pgfe_encode_t *input, pgfe_encode_t *output) {
-    const pgfe_encode_t *inp = input;
-    pgfe_encode_t *outp = output;
-    pgfe_keccak_bitcube1600_t A;
-    int x, y, i;
-    static const uint32_t w = 64, l = 6;
+void seq_to_state(const pgfe_encode_t input[], pgfe_keccak_bitcube1600_t A) {
+    uint16_t x, y;
+    int i;
+    const pgfe_encode_t *inp;
 
-    // Convert input into the state array
     for (y = 0; y < 5; y++) {
         for (x = 0; x < 5; x++) {
             A[x][y] = 0;
 
             for (i = 56; i >= 0; i -= 8) {
-                A[x][y] |= (uint64_t)(*(inp++)) << i;
+                A[x][y] ^= (uint64_t)(*(inp++)) << i;
+            }
+        }
+    }
+}
+
+void permutation(struct pgfe_keccak_sponge_ctx *ctx) {
+    for (uint16_t i = 0; i < ctx->nr; i++) {
+        transform(ctx->state, _RC[i]);
+    }
+}
+
+void state_to_seq(const pgfe_keccak_bitcube1600_t A, pgfe_encode_t output[], uint32_t lane_count) {
+    uint16_t x, y, idx;
+    int i;
+    pgfe_encode_t *outp;
+
+    x = y = 0;
+    for (idx = 0; idx < lane_count; idx++) {
+        for (i = 56; i >= 0; i -= 8) {
+            *(outp++) = (pgfe_encode_t)(A[x][y] >> i);
+        }
+
+        if (++x >= 5) {
+            y++;
+            x = 0;
+        }
+    }
+}
+
+void absorb_queue(struct pgfe_keccak_sponge_ctx *ctx) {
+    seq_to_state(ctx->data_queue, ctx->state);
+    permutation(ctx);
+
+    ctx->inqueue_bits = 0;
+}
+
+void padding(struct pgfe_keccak_sponge_ctx *ctx) {
+    if (ctx->inqueue_bits + 1 == ctx->rate) {
+        ctx->data_queue[to_byte(ctx->inqueue_bits)] |= 1 << (ctx->inqueue_bits % 8);
+        absorb_queue(ctx);
+        memset(ctx->data_queue, 0, to_byte(ctx->rate));
+    }
+    else {
+        memset(
+            ctx->data_queue + to_byte(ctx->inqueue_bits + 7), 0, to_byte(ctx->rate) - to_byte(ctx->inqueue_bits + 7)
+        );
+        ctx->data_queue[to_byte(ctx->inqueue_bits)] |= 1 << (ctx->inqueue_bits % 8);
+    }
+
+    ctx->data_queue[to_byte(ctx->rate - 1)] |= 1 << ((ctx->rate - 1) % 8);
+    absorb_queue(ctx);
+
+    state_to_seq(ctx->state, ctx->data_queue, ctx->rate / 64);
+    ctx->squeezable = ctx->rate;
+    ctx->squeezing = 1;
+}
+
+int __pgfe_keccak_absorb_b1600(struct pgfe_keccak_sponge_ctx *ctx, const pgfe_encode_t input[], size_t input_length) {
+    uint64_t i, j, whole_blocks, bit_len = to_bit((uint64_t)input_length);
+    uint32_t partial_block, partial_byte, rate_byte = to_byte(ctx->rate);
+    uint8_t mask;
+    const pgfe_encode_t *cur_data;
+
+    if (ctx->inqueue_bits % 8 || ctx->squeezing) {
+        return EXIT_FAILURE;
+    }
+
+    for (i = 0; i < bit_len;) {
+        if (!ctx->inqueue_bits && bit_len >= ctx->rate && i <= bit_len - ctx->rate) {
+            whole_blocks = (bit_len - i) / ctx->rate;
+            cur_data = input + to_byte(i);
+
+            seq_to_state(cur_data, ctx->state);
+            permutation(ctx);
+            i += whole_blocks * ctx->rate;
+        }
+        else {
+            partial_block = (uint32_t)(bit_len - i);
+            if (partial_block + ctx->inqueue_bits > ctx->rate) {
+                partial_block = ctx->rate - ctx->inqueue_bits;
+            }
+
+            partial_byte = partial_block % 8;
+            partial_block -= partial_byte;
+            memcpy(ctx->data_queue + to_byte(ctx->inqueue_bits), input + to_byte(i), to_byte(partial_block));
+            ctx->inqueue_bits += partial_block;
+            i += partial_block;
+            if (ctx->inqueue_bits == ctx->rate) {
+                absorb_queue(ctx);
+            }
+
+            if (partial_byte) {
+                mask = (1 << partial_byte) - 1;
+                ctx->data_queue[to_byte(ctx->inqueue_bits)] = input[to_byte(i)] & mask;
+                ctx->inqueue_bits += partial_byte;
             }
         }
     }
 
-    // Transform n_r rounds
-    for (i = 12 + 2 * l - nr; i < 12 + 2 * l; i++) {
-        transform(A, w, _RC[i]);
-    }
-
-    // Retrieve result from the state array
-    for (y = 0; y < 5; y++) {
-        for (x = 0; x < 5; x++) {
-            for (i = 56; i >= 0; i -= 8) {
-                *(outp++) = (pgfe_encode_t)(A[x][y] >> i);
-            }
-        }
-    }
-
-    // Wipe sensitive data from RAM
-    memset(A, 0, 200);
+    return EXIT_SUCCESS;
 }
 
-void __pgfe_keccak_sponge_absorb_b1600(
-    struct pgfe_keccak_base_ctx *ctx, const pgfe_encode_t input[], size_t input_length
-) {
-    pgfe_encode_t P[input_length + 256], P_seq[200], *S = ctx->S;
-    uint32_t pad_len, r = _b1600 - ctx->capacity;
-    uint64_t n;
-    size_t new_in_len = input_length;
-    int i, j;
+int __pgfe_keccak_squeeze_b1600(struct pgfe_keccak_sponge_ctx *ctx, pgfe_encode_t output[], size_t output_length) {
+    uint64_t i, bit_len = to_bit((uint64_t)output_length);
+    uint32_t partial_block;
 
-    memcpy(P, input, input_length + 256);
-    pad_len = pad101(r, input_length, P + input_length);
-    new_in_len += to_byte(pad_len);
-    n = to_bit(new_in_len / to_byte(r));
+    if (!ctx->squeezing) {
+        padding(ctx);
+    }
 
-    memset(P_seq, 0, 200);
+    if (bit_len % 8) return EXIT_FAILURE;
 
-    for (i = 0; i < n; i++) {
-        memcpy(P_seq, &P[to_byte(r * i)], to_byte(r));
-
-        for (j = 0; j < 200; j++) {
-            S[j] ^= P_seq[j];
+    for (i = 0; i < bit_len;) {
+        if (!ctx->squeezable) {
+            permutation(ctx);
+            state_to_seq(ctx->state, ctx->data_queue, ctx->rate / 64);
+            ctx->squeezable = ctx->rate;
         }
 
-        __pgfe_keccak_f_b1600(S, S);
-    }
-}
-
-void __pgfe_keccak_sponge_squeeze_b1600(
-    struct pgfe_keccak_base_ctx *ctx, pgfe_encode_t output[], size_t output_length
-) {
-    uint32_t r = _b1600 - ctx->capacity;
-    pgfe_encode_t *S = ctx->S, *outp;
-
-    __pgfe_loop {
-        memcpy(outp, S, to_byte(r));
-        outp += to_byte(r);
-
-        if (output_length <= outp - output) {
-            break;
+        partial_block = ctx->squeezable;
+        if ((uint64_t)partial_block > bit_len - 1) {
+            partial_block = (uint32_t)(bit_len - i);
         }
 
-        __pgfe_keccak_f_b1600(S, S);
+        memcpy(output + to_byte(i), ctx->data_queue + to_byte(ctx->rate - ctx->squeezable), to_byte(partial_block));
+        ctx->squeezable -= partial_block;
+        i += partial_block;
     }
-}
 
-void __pgfe_keccak_init(struct pgfe_keccak_base_ctx *ctx, uint32_t capacity) {
-    memset(ctx, 0, sizeof(*ctx));
-    ctx->capacity = capacity;
+    return EXIT_SUCCESS;
 }

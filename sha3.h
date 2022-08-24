@@ -39,7 +39,7 @@ extern "C" {
 #define PGFE_SHA3_384_BLOCK_SIZE 104
 #define PGFE_SHA3_512_BLOCK_SIZE 72
 
-#define pgfe_sha3_256_ctx pgfe_keccak_base_ctx
+#define pgfe_sha3_256_ctx pgfe_keccak_sponge_ctx
 
 // SHA3-224
 void pgfe_sha3_224_encode(const pgfe_encode_t data[], size_t length, pgfe_encode_t output[], size_t out_length);
