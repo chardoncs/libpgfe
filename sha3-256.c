@@ -18,5 +18,20 @@
 #include "sha3.h"
 #include "templates.c"
 
-__PGFE_FRONTEND_GEN(sha3_256, sha3_256);
-__PGFE_FRONTEND_DEFAULT_GEN(sha3_256, PGFE_SHA3_256_DIGEST_SIZE);
+__PGFE_FRONTEND_GEN2(sha3_256);
+__PGFE_FRONTEND_DEFAULT_GEN2(sha3_256, SHA3_256);
+
+inline void pgfe_sha3_256_init(struct pgfe_sha3_256_ctx *ctx) {
+    __pgfe_keccak_init(ctx, 512);
+    ctx->out_length = 256;
+    ctx->ap = PGFE_SHA3_APPENDIX;
+    ctx->ap_len = PGFE_SHA3_APPENDIX_SIZE;
+}
+
+inline void pgfe_sha3_256_update(struct pgfe_sha3_256_ctx *ctx, const pgfe_encode_t input[], size_t length) {
+    __pgfe_keccak_absorb_b1600(ctx, input, (uint64_t)length * 8);
+}
+
+inline void pgfe_sha3_256_digest(struct pgfe_sha3_256_ctx *ctx, pgfe_encode_t output[], size_t out_length) {
+    __pgfe_keccak_squeeze_b1600(ctx, output, out_length);
+}

@@ -17,7 +17,7 @@
 
 #include "sha2.h"
 
-#include "sha2-internal.h"
+#include "sha2-backend.h"
 #include "templates.c"
 
 const pgfe_word_t __pgfe_sha224_H0[] = {0xC1059ED8, 0x367CD507, 0x3070DD17, 0xF70E5939,
