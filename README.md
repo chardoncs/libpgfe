@@ -15,7 +15,7 @@ Since the version 0.2.0, **libpgfe** has been "self-sufficient" and does not dep
 | Compiler     | LLVM Clang          |
 | License      | LGPL 3.0 (or later) |
 
-## Endianness
+## Endianness (Byte order)
 
 The implementation philosophy of *libpgfe* assumes that systems running this library are **Little Endian**, since most architectures and OS are Little Endian. Therefore, this library should not run properly on Big Endian systems.
 
