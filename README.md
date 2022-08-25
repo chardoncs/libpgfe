@@ -1,6 +1,7 @@
 # libpgfe
 
 ![Version 0.2.0](https://img.shields.io/badge/Version-0.2.0-brightgreen)
+![Files](https://img.shields.io/github/directory-file-count/chardon55/libpgfe)
 
 ## Introduction
 
