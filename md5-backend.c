@@ -1,3 +1,10 @@
+/*
+  libpgfe
+  md5-backend.c
+
+  Copyright (c) 2022 Charles Dong
+*/
+
 #include "md5-backend.h"
 
 #include <string.h>

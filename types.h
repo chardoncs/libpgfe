@@ -1,3 +1,10 @@
+/*
+  libpgfe
+  types.h
+
+  Copyright (c) 2022 Charles Dong
+*/
+
 #ifndef LIBPGFE_TYPES_H
 #define LIBPGFE_TYPES_H
 

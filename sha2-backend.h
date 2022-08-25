@@ -1,3 +1,10 @@
+/*
+  libpgfe
+  sha2-backend.h
+
+  Copyright (c) 2022 Charles Dong
+*/
+
 #ifndef LIBPGFE_SHA2_INTERNAL_H
 #define LIBPGFE_SHA2_INTERNAL_H
 

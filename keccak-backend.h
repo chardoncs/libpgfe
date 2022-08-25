@@ -1,3 +1,10 @@
+/*
+  libpgfe
+  keccak-backend.h
+
+  Copyright (c) 2022 Charles Dong
+*/
+
 #ifndef LIBPGFE_KECCAK_BACKEND_H
 #define LIBPGFE_KECCAK_BACKEND_H
 

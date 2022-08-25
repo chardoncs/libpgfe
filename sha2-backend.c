@@ -1,3 +1,10 @@
+/*
+  libpgfe
+  sha2-backend.c
+
+  Copyright (c) 2022 Charles Dong
+*/
+
 #include "sha2-backend.h"
 #include "sha2.h"
 #include "templates.c"

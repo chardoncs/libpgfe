@@ -1,3 +1,10 @@
+/*
+  libpgfe
+  keccak-backend.c
+
+  Copyright (c) 2022 Charles Dong
+*/
+
 #include "keccak-backend.h"
 
 #include <stdlib.h>

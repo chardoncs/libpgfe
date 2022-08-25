@@ -1,3 +1,10 @@
+/*
+  libpgfe
+  sha-internal.h
+
+  Copyright (c) 2022 Charles Dong
+*/
+
 #ifndef LIBPGFE_SHA_INTERNAL_H
 #define LIBPGFE_SHA_INTERNAL_H
 
