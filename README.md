@@ -11,7 +11,7 @@
 | C Standard   | C11                 |
 | C++ Standard | C++11               |
 | Compiler     | LLVM Clang          |
-| License      | LGPL 3.0 (or later) |
+| License      | BSD 3-Clause        |
 
 ## Tips for compilation
 
