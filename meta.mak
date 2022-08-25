@@ -9,7 +9,7 @@ OBJS_DIR := $(BUILD_DIR)/obj
 OBJS := $(addprefix $(OBJS_DIR)/,\
 generic.c.o \
 generic-internal.c.o utils.c.o templates.c.o\
-sha-internal.c\
+sha-internal.c.o\
 sha2-backend.c.o keccak-backend.c.o\
 sha1.c.o sha224.c.o sha256.c.o sha384.c.o \
 md5-backend.c.o\
@@ -36,7 +36,7 @@ HEADER_DIR := /usr/local/include/libpgfe
 LIB_DIR := /usr/lib
 
 CC := clang
-CPP := clang++
+CXX := clang++
 STD := c11
 STD_CPP := c++11
 
