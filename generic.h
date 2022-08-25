@@ -2,17 +2,7 @@
   libpgfe
   generic.h
 
-  Copyright (C) 2022 Charles Dong
-
-  libpgfe is free software; you can redistribute it and/or
-  modify it under the terms of the GNU Lesser General Public
-  License as published by the Free Software Foundation; either
-  version 3 of the License, or (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  Lesser General Public License for more details.
+  Copyright (c) 2022 Charles Dong
 */
 
 #ifndef LIBPGFE_GENERIC_H
@@ -33,7 +23,9 @@ extern "C" {
 #define PGFE_BUFFER_SIZE 1024
 
 // Byte -> Bit (e.g. to_bit(4) = 32)
-#define to_bit(value) (value * 8)
+#define to_bit(value) ((value)*8)
+// Byte -> Bit (e.g. to_byte(32) = 4)
+#define to_byte(value) ((value) / 8)
 
 #define PGFE_ENCODER_SIG(name, upper)                                                                                  \
     pgfe_##name##_encode_multiple, PGFE_##upper##_BLOCK_SIZE, PGFE_##upper##_DIGEST_SIZE
@@ -56,7 +48,7 @@ typedef uint8_t pgfe_encode_t;
 
 typedef void pgfe_encode_func(const pgfe_encode_t input[], pgfe_encode_t output[]);
 
-typedef void pgfe_encode_multi_func(pgfe_encode_t output[], size_t out_length, size_t input_c, ...);
+typedef void pgfe_encode_multi_func(pgfe_encode_t output[], size_t input_c, ...);
 
 // Common UNIX time type in libpgfe
 typedef time_t pgfe_time_t;

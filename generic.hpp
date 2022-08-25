@@ -2,17 +2,7 @@
   libpgfe
   generic.hpp
 
-  Copyright (C) 2022 Charles Dong
-
-  libpgfe is free software; you can redistribute it and/or
-  modify it under the terms of the GNU Lesser General Public
-  License as published by the Free Software Foundation; either
-  version 3 of the License, or (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  Lesser General Public License for more details.
+  Copyright (c) 2022 Charles Dong
 */
 
 #ifndef LIBPGFE_GENERIC_HPP
@@ -103,6 +93,22 @@ static std::unordered_map<pgfe_algorithm_choice, size_t> pgfe_digest_length = {
     {SHA3_384,   PGFE_SHA3_384_DIGEST_SIZE  },
     {SHA3_512,   PGFE_SHA3_512_DIGEST_SIZE  },
     {MD5,        PGFE_MD5_DIGEST_SIZE       },
+};
+
+static std::unordered_map<pgfe_algorithm_choice, size_t> pgfe_block_length = {
+
+    {SHA1,       PGFE_SHA1_BLOCK_SIZE      },
+    {SHA224,     PGFE_SHA224_BLOCK_SIZE    },
+    {SHA256,     PGFE_SHA256_BLOCK_SIZE    },
+    {SHA384,     PGFE_SHA384_BLOCK_SIZE    },
+    {SHA512,     PGFE_SHA512_BLOCK_SIZE    },
+    {SHA512_224, PGFE_SHA512_224_BLOCK_SIZE},
+    {SHA512_256, PGFE_SHA512_256_BLOCK_SIZE},
+    {SHA3_224,   PGFE_SHA3_224_BLOCK_SIZE  },
+    {SHA3_256,   PGFE_SHA3_256_BLOCK_SIZE  },
+    {SHA3_384,   PGFE_SHA3_384_BLOCK_SIZE  },
+    {SHA3_512,   PGFE_SHA3_512_BLOCK_SIZE  },
+    {MD5,        PGFE_MD5_BLOCK_SIZE       },
 };
 
 } // namespace PGFE

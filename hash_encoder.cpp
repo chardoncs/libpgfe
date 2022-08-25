@@ -2,17 +2,7 @@
   libpgfe
   hash_encoder.cpp
 
-  Copyright (C) 2022 Charles Dong
-
-  libpgfe is free software; you can redistribute it and/or
-  modify it under the terms of the GNU Lesser General Public
-  License as published by the Free Software Foundation; either
-  version 3 of the License, or (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  Lesser General Public License for more details.
+  Copyright (c) 2022 Charles Dong
 */
 
 #include "hash_encoder.hpp"
@@ -29,33 +19,27 @@
 
 #define __PGFE_CTX_CREATE_CASE(alg, name)                                                                              \
     case alg:                                                                                                          \
-        this->ctx = (void *)new name##_ctx;                                                                            \
+        this->ctx = (void *)new pgfe_##name##_ctx;                                                                     \
         break
 
 #define __PGFE_CTX_DELETE_CASE(alg, name)                                                                              \
     case alg:                                                                                                          \
-        delete (name##_ctx *)ctx;                                                                                      \
+        delete (pgfe_##name##_ctx *)ctx;                                                                               \
         break
 
 #define __PGFE_INIT_FUNC_CALL_CASE(alg, name)                                                                          \
     case alg:                                                                                                          \
-        name##_init((name##_ctx *)ctx);                                                                                \
+        pgfe_##name##_init((pgfe_##name##_ctx *)ctx);                                                                  \
         break
 
 #define __PGFE_UPDATE_FUNC_CALL3_CASE(alg, name)                                                                       \
     case alg:                                                                                                          \
-        name##_update((name##_ctx *)ctx, length, sequence);                                                            \
+        pgfe_##name##_update((pgfe_##name##_ctx *)ctx, sequence, length);                                              \
         break
 
 #define __PGFE_DIGEST_FUNC_CALL_CASE(alg, name)                                                                        \
     case alg:                                                                                                          \
-        name##_digest((name##_ctx *)ctx, digsz, seq);                                                                  \
-        break
-
-#define __PGFE_INIT_SIZE_CASE(alg, name)                                                                               \
-    case alg:                                                                                                          \
-        digsz = PGFE_##alg##_DIGEST_SIZE;                                                                              \
-        blocksz = PGFE_##alg##_BLOCK_SIZE;                                                                             \
+        pgfe_##name##_digest((pgfe_##name##_ctx *)ctx, seq);                                                           \
         break
 
 using namespace chardon55::PGFE;

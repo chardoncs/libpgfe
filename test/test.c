@@ -2,17 +2,7 @@
   libpgfe
   test.c
 
-  Copyright (C) 2022 Charles Dong
-
-  libpgfe is free software; you can redistribute it and/or
-  modify it under the terms of the GNU Lesser General Public
-  License as published by the Free Software Foundation; either
-  version 3 of the License, or (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  Lesser General Public License for more details.
+  Copyright (c) 2022 Charles Dong
 */
 
 #include <stdio.h>
@@ -36,14 +26,20 @@ int main(ARGS) {
     TEST_CASE("sha1_file", sha1_file_test)
     TEST_CASE("sha224", sha224_test)
     TEST_CASE("sha256", sha256_test)
+    TEST_CASE("sha256_file", sha256_file_test)
     TEST_CASE("sha384", sha384_test)
     TEST_CASE("sha512", sha512_test)
+    TEST_CASE("sha512_file", sha512_file_test)
     TEST_CASE("sha512_224", sha512_224_test)
     TEST_CASE("sha512_256", sha512_256_test)
     TEST_CASE("sha3_224", sha3_224_test)
+    TEST_CASE("sha3_224_file", sha3_224_file_test)
     TEST_CASE("sha3_256", sha3_256_test)
+    TEST_CASE("sha3_256_file", sha3_256_file_test)
     TEST_CASE("sha3_384", sha3_384_test)
+    TEST_CASE("sha3_384_file", sha3_384_file_test)
     TEST_CASE("sha3_512", sha3_512_test)
+    TEST_CASE("sha3_512_file", sha3_512_file_test)
 
     TEST_CASE("fe-sha256", sha256_fe_test)
 

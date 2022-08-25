@@ -1,8 +1,8 @@
 /*
   libpgfe
-  generic.c
+  sha-internal.c
 
   Copyright (c) 2022 Charles Dong
 */
 
-#include "generic.h"
+#include "sha-internal.h"

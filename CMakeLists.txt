@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.0)
-project(libpgfe VERSION 0.1.4)
+project(libpgfe VERSION 0.2.0)
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 11)
@@ -15,6 +15,10 @@ add_library(pgfe SHARED
     generic-internal.c
     templates.c
     utils.c
+    sha-internal.c
+    sha2-backend.c
+    keccak-backend.c
+    md5-backend.c
     sha1.c sha224.c sha256.c sha384.c sha512.c sha3-224.c sha3-256.c sha3-384.c sha3-512.c 
     md5.c 
     hmac.c
@@ -39,7 +43,6 @@ add_executable(pgfetest test/test.c)
 
 add_executable(pgfetestcpp test/test.cpp)
 
-target_link_libraries(pgfe nettle)
 target_link_libraries(pgfetest pgfe)
 # target_link_libraries(totptest pgfe)
 target_link_libraries(pgfetestcpp pgfe)

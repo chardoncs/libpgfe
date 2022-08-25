@@ -1,3 +1,10 @@
+/*
+  libpgfe
+  base_multithread.hpp
+
+  Copyright (c) 2022 Charles Dong
+*/
+
 #include "test.h"
 
 #include <cstring>

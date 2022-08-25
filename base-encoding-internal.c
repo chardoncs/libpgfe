@@ -2,25 +2,19 @@
   libpgfe
   base-encoding-internal.c
 
-  Copyright (C) 2022 Charles Dong
-
-  libpgfe is free software; you can redistribute it and/or
-  modify it under the terms of the GNU Lesser General Public
-  License as published by the Free Software Foundation; either
-  version 3 of the License, or (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  Lesser General Public License for more details.
+  Copyright (c) 2022 Charles Dong
 */
 
 #include "base-encoding-internal.h"
 
+#include <limits.h>
+
 #include "generic-internal.h"
 
-inline pgfe_mask_t __pgfe_build_mask(uint8_t digit_c) {
-    return ((pgfe_mask_t)-1) >> (to_bit(sizeof(pgfe_mask_t)) - digit_c);
+uint8_t __pgfe_build_mask(uint8_t digit_c);
+
+inline uint8_t __pgfe_build_mask(uint8_t digit_c) {
+    return UINT8_MAX >> (to_bit(sizeof(uint8_t)) - digit_c);
 }
 
 size_t __pgfe_transform_codes(const pgfe_encode_t input[], size_t length, uint8_t chunk_size, pgfe_encode_t out[]) {
@@ -28,7 +22,7 @@ size_t __pgfe_transform_codes(const pgfe_encode_t input[], size_t length, uint8_
     pgfe_encode_t *inp = (pgfe_encode_t *)input, *op = out;
     size_t low, high, mv_sz, sz_diff;
 
-    const pgfe_mask_t chunk_mask = __pgfe_build_mask(chunk_size);
+    const uint8_t chunk_mask = __pgfe_build_mask(chunk_size);
 
     for (low = 0, high = chunk_size % bitsz; inp - input <= length; inp++, op++) {
         if (low < high) {
@@ -117,11 +111,12 @@ size_t __pgfe_decode_generic(
     char *sp = (char *)basexx_cs;
     size_t i = 0, j;
     uint64_t u;
-    const pgfe_mask_t mask = __pgfe_build_mask(bit_size);
+    const uint8_t mask = __pgfe_build_mask(bit_size);
 
+    u = 0;
     op = output;
     while (*sp) {
-        for (i = 0, u = 0; *sp && i < chunk_count; sp++) {
+        for (i = 0; *sp && i < chunk_count; sp++) {
             ch = func(*sp);
             sig = ch & 0xC0;
 
@@ -129,8 +124,7 @@ size_t __pgfe_decode_generic(
                 continue;
             }
 
-            u <<= bit_size;
-            u |= ch & mask;
+            u = (u << bit_size) | (ch & mask);
 
             i++;
         }
