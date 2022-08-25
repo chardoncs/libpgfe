@@ -99,10 +99,30 @@ void sha3_224_test(ARGS) {
     pgfe_print_hash(output, PGFE_SHA3_224_DIGEST_SIZE);
 }
 
+void sha3_224_file_test(ARGS) {
+    pgfe_encode_t output[PGFE_SHA3_224_DIGEST_SIZE];
+
+    FILE *fp = fopen("../test/test.txt", "r");
+    pgfe_sha3_224_encode_f(fp, output);
+    fclose(fp);
+
+    pgfe_print_hash(output, PGFE_SHA3_224_DIGEST_SIZE);
+}
+
 void sha3_256_test(ARGS) {
     pgfe_encode_t output[PGFE_SHA3_256_DIGEST_SIZE];
 
     pgfe_sha3_256_encode_default((pgfe_encode_t *)argv[2], output);
+    pgfe_print_hash(output, PGFE_SHA3_256_DIGEST_SIZE);
+}
+
+void sha3_256_file_test(ARGS) {
+    pgfe_encode_t output[PGFE_SHA3_256_DIGEST_SIZE];
+
+    FILE *fp = fopen("../test/test.txt", "r");
+    pgfe_sha3_256_encode_f(fp, output);
+    fclose(fp);
+
     pgfe_print_hash(output, PGFE_SHA3_256_DIGEST_SIZE);
 }
 
@@ -113,10 +133,30 @@ void sha3_384_test(ARGS) {
     pgfe_print_hash(output, PGFE_SHA3_384_DIGEST_SIZE);
 }
 
+void sha3_384_file_test(ARGS) {
+    pgfe_encode_t output[PGFE_SHA3_384_DIGEST_SIZE];
+
+    FILE *fp = fopen("../test/test.txt", "r");
+    pgfe_sha3_384_encode_f(fp, output);
+    fclose(fp);
+
+    pgfe_print_hash(output, PGFE_SHA3_384_DIGEST_SIZE);
+}
+
 void sha3_512_test(ARGS) {
     pgfe_encode_t output[PGFE_SHA3_512_DIGEST_SIZE];
 
     pgfe_sha3_512_encode_default((pgfe_encode_t *)argv[2], output);
+    pgfe_print_hash(output, PGFE_SHA3_512_DIGEST_SIZE);
+}
+
+void sha3_512_file_test(ARGS) {
+    pgfe_encode_t output[PGFE_SHA3_512_DIGEST_SIZE];
+
+    FILE *fp = fopen("../test/test.txt", "r");
+    pgfe_sha3_512_encode_f(fp, output);
+    fclose(fp);
+
     pgfe_print_hash(output, PGFE_SHA3_512_DIGEST_SIZE);
 }
 
