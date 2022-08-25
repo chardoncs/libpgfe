@@ -1,6 +1,6 @@
 # libpgfe
 
-![Version 0.1.4](.github/info/version.svg)
+![Version 0.2.0](https://img.shields.io/badge/Version-0.2.0-brightgreen)
 
 ## Introduction
 
