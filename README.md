@@ -1,6 +1,6 @@
 # libpgfe
 
-![Version](https://img.shields.io/github/v/tag/chardon55/libpgfe?label=version)
+![Version](https://img.shields.io/github/v/tag/chardon55/libpgfe?color=brightgreen&label=version)
 ![License](https://img.shields.io/github/license/chardon55/libpgfe)
 ![Files](https://img.shields.io/github/directory-file-count/chardon55/libpgfe)
 ![File size](https://img.shields.io/github/repo-size/chardon55/libpgfe)
