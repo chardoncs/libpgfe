@@ -1,5 +1,5 @@
 PROJECT := libpgfe
-VERSION := 0.3.0
+VERSION := 0.2.1
 
 BUILD_DIR := build
 TARGET_DIR := $(BUILD_DIR)
