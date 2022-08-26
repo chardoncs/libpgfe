@@ -38,7 +38,7 @@ LIB_DIR := /usr/lib
 CC := clang
 CXX := clang++
 STD := c11
-STD_CPP := c++11
+STD_CPP := c++14
 
 STD_OPTION := -std=$(STD)
 STD_CPP_OPTION := -std=$(STD_CPP)

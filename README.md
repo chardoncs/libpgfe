@@ -16,7 +16,7 @@ Since v0.2.0, **libpgfe** has been "self-sufficient" and does not depend on any 
 | Item         | Content             |
 | :----------- | :------------------ |
 | C Standard   | [C11 (ISO/IEC 9899:2011)](https://en.wikipedia.org/wiki/C11_(C_standard_revision))  |
-| C++ Standard | [C++11 (ISO/IEC 14882:2011)](https://en.wikipedia.org/wiki/C%2B%2B11) |
+| C++ Standard | [C++14 (ISO/IEC 14882:2014)](https://en.wikipedia.org/wiki/C++14) |
 | Compiler     | LLVM Clang          |
 | License      | BSD 3-Clause        |
 
