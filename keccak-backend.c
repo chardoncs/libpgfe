@@ -17,15 +17,7 @@
 
 #define _b1600 1600
 
-#define _idx(x, y) (((x) % 5) + 5 * ((y) % 5))
-
-const uint16_t _r[5][5] = {
-    {0,  36, 3,  41, 18},
-    {1,  44, 10, 45, 2 },
-    {62, 6,  43, 15, 61},
-    {28, 55, 25, 21, 56},
-    {27, 20, 39, 8,  14},
-};
+const uint16_t _r[24] = {1, 3, 6, 10, 15, 21, 28, 36, 45, 55, 2, 14, 27, 41, 56, 8, 25, 43, 62, 18, 39, 61, 20, 44};
 
 const uint64_t _RC[24] = {0x0000000000000001, 0x0000000000008082, 0x800000000000808a, 0x8000000080008000,
                           0x000000000000808b, 0x0000000080000001, 0x8000000080008081, 0x8000000000008009,
@@ -34,50 +26,51 @@ const uint64_t _RC[24] = {0x0000000000000001, 0x0000000000008082, 0x800000000000
                           0x8000000000008002, 0x8000000000000080, 0x000000000000800a, 0x800000008000000a,
                           0x8000000080008081, 0x8000000000008080, 0x0000000080000001, 0x8000000080008008};
 
+static const uint16_t _piln[24] = {10, 7,  11, 17, 18, 3, 5,  16, 8,  21, 24, 4,
+                                   15, 23, 19, 13, 12, 2, 20, 14, 22, 9,  6,  1};
+
 void transform(pgfe_keccak_bitcube_t A, uint64_t RC) {
-    pgfe_keccak_lane_t C[5], D[5];
-    pgfe_keccak_bitcube_t A2;
-    int x, y, z, t;
+    pgfe_keccak_lane_t C[5];
+    uint64_t t;
+    uint16_t j;
+    int x, y, z;
 
     // Theta
     for (x = 0; x < 5; x++) {
-        C[x] = A[_idx(x, 0)] ^ A[_idx(x, 1)] ^ A[_idx(x, 2)] ^ A[_idx(x, 3)] ^ A[_idx(x, 4)];
+        C[x] = A[x][0] ^ A[x][1] ^ A[x][2] ^ A[x][3] ^ A[x][4];
     }
 
     for (x = 0; x < 5; x++) {
-        D[x] = C[(x + 4) % 5] ^ clshift(C[(x + 1) % 5], 1);
-    }
-
-    for (x = 0; x < 5; x++) {
+        t = C[(x + 4) % 5] ^ clshift(C[(x + 1) % 5], 1);
         for (y = 0; y < 5; y++) {
-            A[_idx(x, y)] ^= D[x];
+            A[x][y] ^= t;
         }
     }
 
     // Rho & Pi
-    for (x = 0; x < 5; x++) {
-        for (y = 0; y < 5; y++) {
-            A2[_idx(y, 2 * x + 3 * y)] = clshift(A[_idx(x, y)], _r[x][y]);
-        }
+    t = A[1][0];
+    for (x = 0; x < 24; x++) {
+        j = _piln[x];
+        C[0] = A[j % 5][j / 5];
+        A[j % 5][j / 5] = clshift(t, _r[x]);
+        t = C[0];
     }
 
     // Chi
     for (y = 0; y < 5; y++) {
         for (x = 0; x < 5; x++) {
-            C[x] = A2[_idx(x, y)] ^ (~A2[_idx(x + 1, y)] & A2[_idx(x + 2, y)]);
+            C[x] = A[x][y];
         }
         for (x = 0; x < 5; x++) {
-            A[_idx(x, y)] = C[x];
+            A[x][y] ^= ~C[(x + 1) % 5] & C[(x + 2) % 5];
         }
     }
 
     // Wipe sensitive data from RAM
-    memset(A2, 0, 200);
     memset(C, 0, 40);
-    memset(D, 0, 40);
 
     // Iota
-    A[0] ^= RC;
+    A[0][0] ^= RC;
 }
 
 int __pgfe_keccak_init(struct pgfe_keccak_sponge_ctx *ctx, uint32_t capacity) {
@@ -96,10 +89,25 @@ int __pgfe_keccak_init(struct pgfe_keccak_sponge_ctx *ctx, uint32_t capacity) {
     return EXIT_SUCCESS;
 }
 
-void seq_to_state(const pgfe_encode_t input[], pgfe_keccak_state_t A, size_t length) {
-    for (size_t i = 0; i < length; i++) {
-        A[i] ^= input[i];
+void seq_to_state(const pgfe_encode_t input[], pgfe_keccak_bitcube_t A, size_t length) {
+    pgfe_keccak_lane_t tmp;
+    static const uint16_t lane_size = sizeof(pgfe_keccak_lane_t);
+    int x, y;
+    size_t i = 0;
+
+    for (y = 0; y < 5; y++) {
+        for (x = 0; x < 5; x++) {
+            memcpy(&tmp, &input[i], lane_size);
+            A[x][y] ^= tmp;
+            i += lane_size;
+
+            if (i >= length) {
+                goto seq_to_state_jump_end;
+            }
+        }
     }
+
+seq_to_state_jump_end:;
 }
 
 void permutation(pgfe_keccak_bitcube_t A, uint16_t nr) {
@@ -108,14 +116,29 @@ void permutation(pgfe_keccak_bitcube_t A, uint16_t nr) {
     }
 }
 
-void state_to_seq(const pgfe_keccak_state_t A, pgfe_encode_t output[], uint32_t lane_count) {
-    memcpy(output, A, lane_count * 8);
+void state_to_seq(const pgfe_keccak_bitcube_t A, pgfe_encode_t output[], uint32_t lane_count) {
+    pgfe_encode_t *outp = output;
+    static const uint16_t lane_size = sizeof(pgfe_keccak_lane_t);
+    int x, y, i = 0;
+
+    for (y = 0; y < 5; y++) {
+        for (x = 0; x < 5; x++) {
+            memcpy(outp, &A[x][y], lane_size);
+            outp += lane_size;
+
+            if (++i >= lane_count) {
+                goto state_to_seq_jump_end;
+            }
+        }
+    }
+
+state_to_seq_jump_end:;
 }
 
-void absorb(pgfe_keccak_state_t state, const pgfe_encode_t input[], uint32_t lane_count, uint16_t nr) {
+void absorb(pgfe_keccak_bitcube_t state, const pgfe_encode_t input[], uint32_t lane_count, uint16_t nr) {
     seq_to_state(input, state, lane_count * 8);
     // For little endian
-    permutation((pgfe_keccak_lane_t *)state, nr);
+    permutation(state, nr);
 }
 
 void absorb_queue(struct pgfe_keccak_sponge_ctx *ctx) {
@@ -205,7 +228,7 @@ int __pgfe_keccak_squeeze_b1600(struct pgfe_keccak_sponge_ctx *ctx, pgfe_encode_
 
     for (i = 0; i < bit_len;) {
         if (!ctx->squeezable) {
-            permutation((pgfe_keccak_lane_t *)ctx->state, ctx->nr);
+            permutation(ctx->state, ctx->nr);
             state_to_seq(ctx->state, ctx->data_queue, ctx->rate / 64);
             ctx->squeezable = ctx->rate;
         }

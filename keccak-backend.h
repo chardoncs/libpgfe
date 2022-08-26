@@ -23,14 +23,12 @@ extern "C" {
 
 typedef uint64_t pgfe_keccak_lane_t;
 
-typedef pgfe_keccak_lane_t pgfe_keccak_bitcube_t[25];
-
-typedef pgfe_encode_t pgfe_keccak_state_t[200];
+typedef pgfe_keccak_lane_t pgfe_keccak_bitcube_t[5][5];
 
 // Generic Keccak Sponge Context
 struct pgfe_keccak_sponge_ctx
 {
-    pgfe_keccak_state_t state;                                 // Keccak sponge state array
+    pgfe_keccak_bitcube_t state;                               // Keccak sponge state array
     pgfe_encode_t data_queue[to_byte(__PGFE_KECCAK_MAX_RATE)]; // Data queue
     uint32_t rate, capacity, inqueue_bits, out_length;         // Rate, capacity, bits in queue, output bit length
     uint16_t nr;                                               // Number of rounds (Usually 24)
