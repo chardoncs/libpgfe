@@ -1,7 +1,9 @@
 # libpgfe
 
-![Version 0.2.0](https://img.shields.io/badge/Version-0.2.0-brightgreen)
+![Version](https://img.shields.io/github/v/tag/chardon55/libpgfe?label=version)
+![License](https://img.shields.io/github/license/chardon55/libpgfe)
 ![Files](https://img.shields.io/github/directory-file-count/chardon55/libpgfe)
+![File size](https://img.shields.io/github/repo-size/chardon55/libpgfe)
 
 ## Introduction
 
@@ -9,7 +11,7 @@
 
 The name "*libpgfe*" used to be an abbreviation of "**Lib**rary of **P**assword **G**eneration **F**ront-**e**nd". Because it is initially designed to be just a boring functional port to [Nettle](https://www.lysator.liu.se/~nisse/nettle/). But during the development period, more and more algorithms have been directly implemented in this library, so its full name may mislead viewers and has been deprecated.
 
-Since the version 0.2.0, **libpgfe** has been "self-sufficient" and does not depend on any library.
+Since the version 0.3.0, **libpgfe** has been "self-sufficient" and does not depend on any library.
 
 | Item         | Content             |
 | :----------- | :------------------ |
