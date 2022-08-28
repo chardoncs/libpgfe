@@ -14,6 +14,7 @@ sha2-backend.c.o keccak-backend.c.o\
 sha1.c.o sha224.c.o sha256.c.o sha384.c.o \
 md5-backend.c.o\
 sha512.c.o sha3-224.c.o sha3-256.c.o sha3-384.c.o sha3-512.c.o md5.c.o hmac.c.o otp-generic.c.o hotp.c.o totp.c.o \
+shake.c.o\
 base-encoding-internal.c.o base64.c.o base32.c.o base16.c.o\
 pgfe.c.o\
 sequential_data.cpp.o\

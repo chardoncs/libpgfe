@@ -21,6 +21,7 @@ add_library(pgfe SHARED
     md5-backend.c
     sha1.c sha224.c sha256.c sha384.c sha512.c sha3-224.c sha3-256.c sha3-384.c sha3-512.c 
     md5.c 
+    shake.c
     hmac.c
     otp-generic.c
     hotp.c totp.c
