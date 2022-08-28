@@ -11,7 +11,7 @@
 
 The name "*libpgfe*" used to be an abbreviation of "**Lib**rary of **P**assword **G**eneration **F**ront-**e**nd". Because it is initially designed to be just an HOTP/TOTP library ported to [Nettle](https://www.lysator.liu.se/~nisse/nettle/). But during the development period, more and more algorithms have been directly implemented in this library, so its full name may mislead viewers and has been deprecated.
 
-Since v0.2.0, **libpgfe** has been "self-sufficient" and does not depend on any third-party library.
+Since v0.2.0, *libpgfe* has been "self-sufficient" and does not depend on any third-party library.
 
 | Item         | Content             |
 | :----------- | :------------------ |
@@ -45,16 +45,16 @@ It is suggested to use CMake GUI or [VSCode](https://code.visualstudio.com/)'s C
 
 The standards that are followed in this library are shown below.
 
-| Algorithm                     | Standard                                            |
-| :---------------------------- | :-------------------------------------------------- |
-| Base 16/32/64                 | [RFC 4648](https://doi.org/10.17487/RFC4648) |
-| HMAC                          | [RFC 2104](https://doi.org/10.17487/RFC2104)<br>[RFC 6151](https://doi.org/10.17487/RFC6151) |
-| HOTP                          | [RFC 4226](https://doi.org/10.17487/RFC4226) |
-| MD5                           | [RFC 1321](https://doi.org/10.17487/RFC1321)<br>RFC 6151 |
-| SHA-1                         | [RFC 3174](https://doi.org/10.17487/RFC3174)<br>[RFC 6234](https://doi.org/10.17487/RFC6234) |
-| SHA-2 Family                  | RFC 6234<br>[NIST FIPS 180-4 (Aug. 2015 ver.)](https://doi.org/10.6028/NIST.FIPS.180-4) |
-| SHA-3 Family (Revised [Keccak](https://keccak.team/keccak.html)) | [NIST FIPS 202](https://doi.org/10.6028/NIST.FIPS.202) |
-| TOTP                          | [RFC 6238](https://doi.org/10.17487/RFC6238) |
+| Algorithm                     | Standard                                            | *libpgfe* support version |
+| :---------------------------- | :-------------------------------------------------- | :----------------- |
+| Base 16/32/64                 | [RFC 4648](https://doi.org/10.17487/RFC4648) | v0.1.3+<br>v0.1.4+ (C++) |
+| HMAC                          | [RFC 2104](https://doi.org/10.17487/RFC2104)<br>[RFC 6151](https://doi.org/10.17487/RFC6151) | v0.1.1+<br>v0.1.4+ (C++) |
+| HOTP                          | [RFC 4226](https://doi.org/10.17487/RFC4226) | v0.1.2+<br>v0.1.4+ (C++) |
+| MD5                           | [RFC 1321](https://doi.org/10.17487/RFC1321)<br>RFC 6151 | v0.1.0~v0.1.4 (Nettle port)<br>v0.2.0+ (Native)<br>v0.1.4+ (C++) |
+| SHA-1                         | [RFC 3174](https://doi.org/10.17487/RFC3174)<br>[RFC 6234](https://doi.org/10.17487/RFC6234) | v0.1.0~v0.1.4 (Nettle port)<br>v0.2.0+ (Native)<br>v0.1.4+ (C++) |
+| SHA-2 Family                  | RFC 6234<br>[NIST FIPS 180-4 (Aug. 2015 ver.)](https://doi.org/10.6028/NIST.FIPS.180-4) | v0.1.0~v0.1.4 (Nettle port)<br>v0.2.0+ (Native)<br>v0.1.4+ (C++) |
+| SHA-3 Family (Revised [Keccak](https://keccak.team/keccak.html)) | [NIST FIPS 202](https://doi.org/10.6028/NIST.FIPS.202) | v0.1.0~v0.1.4 (Nettle port)<br>v0.2.0+ (Native)<br>v0.1.4+ (C++) |
+| TOTP                          | [RFC 6238](https://doi.org/10.17487/RFC6238) | v0.1.2+<br>v0.1.4+ (C++) |
 
 ### Implementation instances
 
