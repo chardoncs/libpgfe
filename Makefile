@@ -1,19 +1,20 @@
 include meta.mak
 
 all: 
+	@echo 'Building...'
 	@cmake . -B $(BUILD_DIR)
 	@cmake --build $(BUILD_DIR)
+	@echo 'Building done'
 
 rebuild: clean all
 
 $(BUILD_DIR):
 	@mkdir -v $(BUILD_DIR)
 
-	@echo 'Compiling...'
-
 clean:
 	@echo 'Cleaning...'
-	@rm -rfv ./$(BUILD_DIR)
+	@rm -rf ./$(BUILD_DIR)
+	@echo 'Cleaning done'
 
 install: 
 	@mkdir -v $(HEADER_DIR) 
