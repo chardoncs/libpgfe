@@ -5,3 +5,8 @@ BUILD_DIR := build
 
 HEADER_DIR := /usr/local/include/libpgfe
 LIB_DIR := /usr/lib
+TARGET_DIR := $(BUILD_DIR)
+TARGET_FILE := $(PROJECT).so
+
+TARGET := $(TARGET_DIR)/$(TARGET_FILE)
+TEST_TARGET := $(TARGET_DIR)/$(TEST_BIN)
