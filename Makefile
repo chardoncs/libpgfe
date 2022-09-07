@@ -27,14 +27,22 @@ clean:
 	@rm -rfv ./$(BUILD_DIR)
 
 install: 
+	@echo 'Installing headers...'
 	@mkdir -v $(HEADER_DIR) 
 	@cp -v *.h $(HEADER_DIR) 
 	@cp -v *.hpp $(HEADER_DIR) 
+	@echo done
+	@echo 'Installing shared library...'
 	@cp -v $(TARGET) $(LIB_DIR)
+	@echo 'done'
 
 uninstall:
-	@rm -vrf $(HEADER_DIR)
-	@rm -vrf $(LIB_DIR)/$(TARGET_FILE)
+	@echo 'Removing headers...'
+	@rm -rf $(HEADER_DIR)
+	@echo done
+	@echo 'Removing shared library...'
+	@rm -rf $(LIB_DIR)/$(TARGET_FILE)
+	@echo done
 
 # update-meta:
 	# @python3 ./scripts/update_meta.py ./project.json
