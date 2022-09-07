@@ -19,18 +19,6 @@ VERSION := {version}
 
 BUILD_DIR := build
 TARGET_DIR := $(BUILD_DIR)/bin
-
-OBJS_DIR := $(BUILD_DIR)/obj
-OBJS := $(OBJS_DIR)/*.o
-
-TARGET := $(TARGET_DIR)/$(PROJECT).so
-TEST_TARGET := $(TARGET_DIR)/$(TEST_BIN)
-LIBS := {" ".join(p['libs'])}
-
-CC := {p['compiler_binary']}
-STD := {p['standard']['c']}
-
-STD_OPTION := -std=$(STD)
 ''')
 
     nameuc = name.upper()
