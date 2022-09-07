@@ -1,24 +1,13 @@
 include meta.mak
 
-all: clean $(TARGET)
-	@echo 'All done'
+all: 
+	@cmake . -B $(BUILD_DIR)
+	@cmake --build $(BUILD_DIR)
 
-$(TARGET): $(OBJS) $(LIBS)
-	@echo 'Linking...'
-	$(CXX) -v -shared $^ $(OUTPUT_OPTION)
-
-$(OBJS): $(BUILD_DIR)
-
-$(OBJS_DIR)/%.c.o: %.c
-	$(CC) -v -c $(OUTPUT_OPTION) $< $(STD_OPTION)
-
-$(OBJS_DIR)/%.cpp.o: %.cpp
-	$(CXX) -v -c $(OUTPUT_OPTION) $< $(STD_CPP_OPTION)
+rebuild: clean all
 
 $(BUILD_DIR):
 	@mkdir -v $(BUILD_DIR)
-	@mkdir -vp $(OBJS_DIR)
-	@mkdir -vp $(TARGET_DIR)
 
 	@echo 'Compiling...'
 
@@ -35,6 +24,3 @@ install:
 uninstall:
 	@rm -vrf $(HEADER_DIR)
 	@rm -vrf $(LIB_DIR)/$(TARGET_FILE)
-
-# update-meta:
-	# @python3 ./scripts/update_meta.py ./project.json
