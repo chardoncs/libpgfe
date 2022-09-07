@@ -16,7 +16,10 @@ clean:
 	@rm -rf ./$(BUILD_DIR)
 	@echo 'Cleaning done'
 
-install: 
+ctest: all
+	@ctest --test-dir $(BUILD_DIR)
+
+install: all
 	@echo 'Installing headers...'
 	@mkdir -v $(HEADER_DIR) 
 	@cp -v *.h $(HEADER_DIR) 
