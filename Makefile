@@ -38,10 +38,10 @@ install:
 
 uninstall:
 	@echo 'Removing headers...'
-	@rm -rf $(HEADER_DIR)
+	@rm -vrf $(HEADER_DIR)
 	@echo done
 	@echo 'Removing shared library...'
-	@rm -rf $(LIB_DIR)/$(TARGET_FILE)
+	@rm -vrf $(LIB_DIR)/$(TARGET_FILE)
 	@echo done
 
 # update-meta:
