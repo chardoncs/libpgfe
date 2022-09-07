@@ -37,7 +37,7 @@ It is suggested to use latest [LLVM](https://llvm.org/) or [GCC](https://gcc.gnu
 
 ### Build tools
 
-It is suggested to use CMake GUI or [VSCode](https://code.visualstudio.com/)'s CMake extension. The local Makefile is poorly written and does not function properly on compilation, but it is still available for clean, installation and uninstallation.
+CMake is needed to compile the project.
 
 ## Implementation reference
 
