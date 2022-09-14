@@ -27,13 +27,15 @@ extern "C" {
 #define PGFE_SHA3_384_BLOCK_SIZE 104
 #define PGFE_SHA3_512_BLOCK_SIZE 72
 
-#define pgfe_sha3_224_ctx pgfe_keccak_sponge_ctx
-#define pgfe_sha3_256_ctx pgfe_keccak_sponge_ctx
-#define pgfe_sha3_384_ctx pgfe_keccak_sponge_ctx
-#define pgfe_sha3_512_ctx pgfe_keccak_sponge_ctx
+#define pgfe_sha3_generic_ctx pgfe_keccak_sponge_ctx
 
-#define pgfe_shake128_ctx pgfe_keccak_sponge_ctx
-#define pgfe_shake256_ctx pgfe_keccak_sponge_ctx
+#define pgfe_sha3_224_ctx pgfe_sha3_generic_ctx
+#define pgfe_sha3_256_ctx pgfe_sha3_generic_ctx
+#define pgfe_sha3_384_ctx pgfe_sha3_generic_ctx
+#define pgfe_sha3_512_ctx pgfe_sha3_generic_ctx
+
+#define pgfe_shake128_ctx pgfe_sha3_generic_ctx
+#define pgfe_shake256_ctx pgfe_sha3_generic_ctx
 
 #define pgfe_rawshake128_ctx pgfe_shake128_ctx
 #define pgfe_rawshake256_ctx pgfe_shake256_ctx
