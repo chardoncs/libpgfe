@@ -67,16 +67,18 @@ extern "C" {
     }
 
 #define __PGFE_FRONTEND_GEN3(name, upper)                                                                              \
-    void pgfe_##name##_encode(const pgfe_encode_t data[], size_t length, pgfe_encode_t output[], size_t out_length) {  \
+    void pgfe_##name##_encode(                                                                                         \
+        const pgfe_encode_t data[], size_t length, pgfe_encode_t output[], size_t out_bitlength                        \
+    ) {                                                                                                                \
         struct pgfe_##name##_ctx ctx;                                                                                  \
                                                                                                                        \
         pgfe_##name##_init(&ctx);                                                                                      \
         pgfe_##name##_update(&ctx, data, length);                                                                      \
                                                                                                                        \
-        pgfe_##name##_digest(&ctx, output, to_bit((uint64_t)out_length));                                              \
+        pgfe_##name##_digest(&ctx, output, (uint64_t)out_bitlength);                                                   \
     }                                                                                                                  \
                                                                                                                        \
-    void pgfe_##name##_encode_f(FILE *fp, pgfe_encode_t output[], size_t out_length) {                                 \
+    void pgfe_##name##_encode_f(FILE *fp, pgfe_encode_t output[], size_t out_bitlength) {                              \
         pgfe_encode_t buf[PGFE_BUFFER_SIZE];                                                                           \
         size_t size;                                                                                                   \
                                                                                                                        \
@@ -89,9 +91,9 @@ extern "C" {
             pgfe_##name##_update(&ctx, buf, size);                                                                     \
         } while (size >= PGFE_BUFFER_SIZE);                                                                            \
                                                                                                                        \
-        pgfe_##name##_digest(&ctx, output, to_bit((uint64_t)out_length));                                              \
+        pgfe_##name##_digest(&ctx, output, (uint64_t)out_bitlength);                                                   \
     }                                                                                                                  \
-    void pgfe_##name##_encode_multiple(pgfe_encode_t output[], size_t out_length, size_t input_c, ...) {               \
+    void pgfe_##name##_encode_multiple(pgfe_encode_t output[], size_t out_bitlength, size_t input_c, ...) {            \
         va_list vl;                                                                                                    \
         va_start(vl, input_c);                                                                                         \
                                                                                                                        \
@@ -110,12 +112,12 @@ extern "C" {
         }                                                                                                              \
                                                                                                                        \
         va_end(vl);                                                                                                    \
-        pgfe_##name##_digest(&ctx, output, to_bit((uint64_t)out_length));                                              \
+        pgfe_##name##_digest(&ctx, output, (uint64_t)out_bitlength);                                                   \
     }                                                                                                                  \
     inline void pgfe_##name##_encode_default(                                                                          \
-        const pgfe_encode_t data_str[], pgfe_encode_t output[], size_t out_length                                      \
+        const pgfe_encode_t data_str[], pgfe_encode_t output[], size_t out_bitlength                                   \
     ) {                                                                                                                \
-        pgfe_##name##_encode(data_str, strlen((char *)data_str), output, out_length);                                  \
+        pgfe_##name##_encode(data_str, strlen((char *)data_str), output, out_bitlength);                               \
     }
 
 #define __PGFE_SHA_INIT(name)                                                                                          \

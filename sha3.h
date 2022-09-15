@@ -119,13 +119,13 @@ void pgfe_sha3_512_digest(struct pgfe_sha3_512_ctx *ctx, pgfe_encode_t output[])
 
 // RawSHAKE128
 
-void pgfe_rawshake128_encode(const pgfe_encode_t data[], size_t length, pgfe_encode_t output[], size_t out_length);
+void pgfe_rawshake128_encode(const pgfe_encode_t data[], size_t length, pgfe_encode_t output[], size_t out_bitlength);
 
-void pgfe_rawshake128_encode_f(FILE *fp, pgfe_encode_t output[], size_t out_length);
+void pgfe_rawshake128_encode_f(FILE *fp, pgfe_encode_t output[], size_t out_bitlength);
 
-void pgfe_rawshake128_encode_default(const pgfe_encode_t data_str[], pgfe_encode_t output[], size_t out_length);
+void pgfe_rawshake128_encode_default(const pgfe_encode_t data_str[], pgfe_encode_t output[], size_t out_bitlength);
 
-void pgfe_rawshake128_encode_multiple(pgfe_encode_t output[], size_t out_length, size_t input_c, ...);
+void pgfe_rawshake128_encode_multiple(pgfe_encode_t output[], size_t out_bitlength, size_t input_c, ...);
 
 // -- Context-based functions
 
@@ -137,13 +137,13 @@ void pgfe_rawshake128_digest(struct pgfe_shake128_ctx *ctx, pgfe_encode_t output
 
 // SHAKE128
 
-void pgfe_shake128_encode(const pgfe_encode_t data[], size_t length, pgfe_encode_t output[], size_t out_length);
+void pgfe_shake128_encode(const pgfe_encode_t data[], size_t length, pgfe_encode_t output[], size_t out_bitlength);
 
-void pgfe_shake128_encode_f(FILE *fp, pgfe_encode_t output[], size_t out_length);
+void pgfe_shake128_encode_f(FILE *fp, pgfe_encode_t output[], size_t out_bitlength);
 
-void pgfe_shake128_encode_default(const pgfe_encode_t data_str[], pgfe_encode_t output[], size_t out_length);
+void pgfe_shake128_encode_default(const pgfe_encode_t data_str[], pgfe_encode_t output[], size_t out_bitlength);
 
-void pgfe_shake128_encode_multiple(pgfe_encode_t output[], size_t out_length, size_t input_c, ...);
+void pgfe_shake128_encode_multiple(pgfe_encode_t output[], size_t out_bitlength, size_t input_c, ...);
 
 // -- Context-based functions
 
@@ -155,13 +155,13 @@ void pgfe_shake128_digest(struct pgfe_shake128_ctx *ctx, pgfe_encode_t output[],
 
 // RawSHAKE256
 
-void pgfe_rawshake256_encode(const pgfe_encode_t data[], size_t length, pgfe_encode_t output[], size_t out_length);
+void pgfe_rawshake256_encode(const pgfe_encode_t data[], size_t length, pgfe_encode_t output[], size_t out_bitlength);
 
-void pgfe_rawshake256_encode_f(FILE *fp, pgfe_encode_t output[], size_t out_length);
+void pgfe_rawshake256_encode_f(FILE *fp, pgfe_encode_t output[], size_t out_bitlength);
 
-void pgfe_rawshake256_encode_default(const pgfe_encode_t data_str[], pgfe_encode_t output[], size_t out_length);
+void pgfe_rawshake256_encode_default(const pgfe_encode_t data_str[], pgfe_encode_t output[], size_t out_bitlength);
 
-void pgfe_rawshake256_encode_multiple(pgfe_encode_t output[], size_t out_length, size_t input_c, ...);
+void pgfe_rawshake256_encode_multiple(pgfe_encode_t output[], size_t out_bitlength, size_t input_c, ...);
 
 // -- Context-based functions
 
@@ -173,13 +173,13 @@ void pgfe_rawshake256_digest(struct pgfe_shake256_ctx *ctx, pgfe_encode_t output
 
 // SHAKE256
 
-void pgfe_shake256_encode(const pgfe_encode_t data[], size_t length, pgfe_encode_t output[], size_t out_length);
+void pgfe_shake256_encode(const pgfe_encode_t data[], size_t length, pgfe_encode_t output[], size_t out_bitlength);
 
-void pgfe_shake256_encode_f(FILE *fp, pgfe_encode_t output[], size_t out_length);
+void pgfe_shake256_encode_f(FILE *fp, pgfe_encode_t output[], size_t out_bitlength);
 
-void pgfe_shake256_encode_default(const pgfe_encode_t data_str[], pgfe_encode_t output[], size_t out_length);
+void pgfe_shake256_encode_default(const pgfe_encode_t data_str[], pgfe_encode_t output[], size_t out_bitlength);
 
-void pgfe_shake256_encode_multiple(pgfe_encode_t output[], size_t out_length, size_t input_c, ...);
+void pgfe_shake256_encode_multiple(pgfe_encode_t output[], size_t out_bitlength, size_t input_c, ...);
 
 // -- Context-based functions
 

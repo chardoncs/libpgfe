@@ -11,7 +11,6 @@ set(test_text_sha3_256 "3338be694f50c5f338814986cdf0686453a888b84f424d792af4b920
 set(test_text_sha3_384 "720aea11019ef06440fbf05d87aa24680a2153df3907b23631e7177ce620fa1330ff07c0fddee54699a4c3ee0ee9d887")
 set(test_text_sha3_512 "75d527c368f2efe848ecf6b073a36767800805e9eef2b1857d5f984f036eb6df891d75f72d9b154518c1cd58835286d1da9a38deba3de98b5a53e5ed78a84976")
 
-
 add_test(
     NAME SHA1_string1
     COMMAND pgfetest sha1 ${test_text}
@@ -209,6 +208,7 @@ add_test(
     COMMAND pgfetest base64-decode "aG93IGFyZSB5b3U/"
 )
 
+include(test/shake_tests.cmake)
 
 set_property(TEST SHA1_string1 PROPERTY PASS_REGULAR_EXPRESSION ${test_text_sha1})
 set_property(TEST SHA1_file1 PROPERTY PASS_REGULAR_EXPRESSION "65d7d52df994f64a0e993794222124645242e00f")
