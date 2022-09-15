@@ -19,7 +19,7 @@ inline void pgfe_sha3_512_init(struct pgfe_sha3_512_ctx *ctx) {
 }
 
 inline void pgfe_sha3_512_update(struct pgfe_sha3_512_ctx *ctx, const pgfe_encode_t input[], size_t length) {
-    __pgfe_keccak_absorb_b1600(ctx, input, (uint64_t)length * 8);
+    __pgfe_keccak_absorb_b1600(ctx, input, to_bit((uint64_t)length));
 }
 
 inline void pgfe_sha3_512_digest(struct pgfe_sha3_512_ctx *ctx, pgfe_encode_t output[]) {
