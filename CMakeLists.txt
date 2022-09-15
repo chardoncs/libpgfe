@@ -34,6 +34,7 @@ add_library(pgfe SHARED
     pgfe.c
     sequential_data.cpp
     utils.cpp
+    algorithm_selectable.cpp
     hash_encoder.cpp
     hmac_encoder.cpp
     abstract_base_encoding.cpp

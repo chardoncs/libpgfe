@@ -38,6 +38,17 @@
         break;                                                                                                         \
     }
 
+#define __PGFE_BATCH_SHAKE_CASES(name)                                                                                 \
+    switch (cur) {                                                                                                     \
+        __PGFE_##name##_CASE(RawSHAKE128, rawshake128);                                                                \
+        __PGFE_##name##_CASE(SHAKE128, shake128);                                                                      \
+        __PGFE_##name##_CASE(RawSHAKE256, rawshake256);                                                                \
+        __PGFE_##name##_CASE(SHAKE256, shake256);                                                                      \
+    default:                                                                                                           \
+        throw std::invalid_argument("Unknown option");                                                                 \
+        break;                                                                                                         \
+    }
+
 #define __PGFE_MTFUNC_SET_CASE(alg, name)                                                                              \
     case alg:                                                                                                          \
         encode_func = pgfe_##name##_encode_multiple;                                                                   \
@@ -53,30 +64,33 @@ namespace chardon55 {
 namespace PGFE {
 
 static std::unordered_map<std::string, pgfe_algorithm_choice> pgfe_option_map = {
-    {"sha1",       SHA1      },
-    {"SHA1",       SHA1      },
-    {"sha224",     SHA224    },
-    {"SHA224",     SHA224    },
-    {"sha256",     SHA256    },
-    {"SHA256",     SHA256    },
-    {"sha384",     SHA384    },
-    {"SHA384",     SHA384    },
-    {"sha512",     SHA512    },
-    {"SHA512",     SHA512    },
-    {"sha512_224", SHA512_224},
-    {"SHA512_224", SHA512_224},
-    {"sha512_256", SHA512_256},
-    {"SHA512_256", SHA512_256},
-    {"sha3_224",   SHA3_224  },
-    {"SHA3_224",   SHA3_224  },
-    {"sha3_256",   SHA3_256  },
-    {"SHA3_256",   SHA3_256  },
-    {"sha3_384",   SHA3_384  },
-    {"SHA3_384",   SHA3_384  },
-    {"sha3_512",   SHA3_512  },
-    {"SHA3_512",   SHA3_512  },
-    {"md5",        MD5       },
-    {"MD5",        MD5       },
+    {"sha1",        SHA1       },
+    {"SHA1",        SHA1       },
+    {"sha224",      SHA224     },
+    {"SHA224",      SHA224     },
+    {"sha256",      SHA256     },
+    {"SHA256",      SHA256     },
+    {"sha384",      SHA384     },
+    {"SHA384",      SHA384     },
+    {"sha512",      SHA512     },
+    {"SHA512",      SHA512     },
+    {"sha512_224",  SHA512_224 },
+    {"SHA512_224",  SHA512_224 },
+    {"sha512_256",  SHA512_256 },
+    {"SHA512_256",  SHA512_256 },
+    {"sha3_224",    SHA3_224   },
+    {"SHA3_224",    SHA3_224   },
+    {"sha3_256",    SHA3_256   },
+    {"SHA3_256",    SHA3_256   },
+    {"sha3_384",    SHA3_384   },
+    {"SHA3_384",    SHA3_384   },
+    {"sha3_512",    SHA3_512   },
+    {"SHA3_512",    SHA3_512   },
+    {"shake128",    SHAKE128   },
+    {"SHAKE128",    SHAKE128   },
+    {"rawshake128", RawSHAKE128},
+    {"md5",         MD5        },
+    {"MD5",         MD5        },
 };
 
 static std::unordered_map<pgfe_algorithm_choice, size_t> pgfe_digest_length = {

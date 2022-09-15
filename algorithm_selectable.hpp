@@ -22,32 +22,17 @@ class AlgorithmSelectable
   protected:
     pgfe_algorithm_choice cur;
 
-    pgfe_algorithm_choice convert_choice(std::string ch_s) {
-        return pgfe_option_map[ch_s];
-    }
+    pgfe_algorithm_choice convert_choice(std::string ch_s);
 
     virtual void before_change_alg() {}
     virtual void after_change_alg() {}
 
   public:
-    void select_algorithm(pgfe_algorithm_choice choice) {
-        if (choice == cur) return;
+    void select_algorithm(pgfe_algorithm_choice choice);
+    void select_algorithm(const char *cs);
+    void select_algorithm(std::string &s);
 
-        before_change_alg();
-        cur = choice;
-        after_change_alg();
-    }
-    void select_algorithm(const char *cs) {
-        std::string s(cs);
-        return select_algorithm(convert_choice(s));
-    }
-    void select_algorithm(std::string &s) {
-        return select_algorithm(convert_choice(s));
-    }
-
-    pgfe_algorithm_choice get_algorithm() {
-        return cur;
-    }
+    pgfe_algorithm_choice get_algorithm();
 };
 } // namespace PGFE
 } // namespace chardon55

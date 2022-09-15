@@ -42,6 +42,11 @@
         pgfe_##name##_digest((pgfe_##name##_ctx *)ctx, seq);                                                           \
         break
 
+#define __PGFE_DIGEST_FUNC_CALL_LIMIT_CASE(alg, name)                                                                  \
+    case alg:                                                                                                          \
+        pgfe_##name##_digest((pgfe_##name##_ctx *)ctx, seq, bitlength);                                                \
+        break
+
 using namespace chardon55::PGFE;
 
 void HashEncoder::destroy_context() {
@@ -111,10 +116,28 @@ inline void HashEncoder::update(SequentialData &sd) {
     return this->AbstractHashEncoder::update(sd);
 }
 
-SequentialData HashEncoder::get_digest() {
-    __PGFE_BATCH_CASES(DIGEST_FUNC_CALL)
-    seq[digsz] = 0;
+SequentialData HashEncoder::get_digest(uint64_t bitlength) {
+    bool shake_flag = false;
+    uint64_t in_len = to_byte(bitlength) + bitlength % 8;
 
-    SequentialData sd(seq, digsz);
+    if (!bitlength) {
+        if (this->cur == SHAKE128 || this->cur == RawSHAKE128) {
+            bitlength = 256;
+            shake_flag = true;
+        }
+        else if (this->cur == SHAKE256 || this->cur == RawSHAKE256) {
+            bitlength = 512;
+            shake_flag = true;
+        }
+    }
+
+    if (shake_flag) {
+        __PGFE_BATCH_SHAKE_CASES(DIGEST_FUNC_CALL_LIMIT)
+    }
+    else {
+        __PGFE_BATCH_CASES(DIGEST_FUNC_CALL)
+    }
+
+    SequentialData sd(seq, shake_flag ? in_len : in_len < digsz && bitlength ? in_len : digsz);
     return sd;
 }

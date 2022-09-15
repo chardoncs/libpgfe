@@ -56,6 +56,8 @@ class SequentialData
 
     bool is_apparent_str();
 
+    SequentialData *truncate(size_t start, size_t length, bool inplace = false);
+
     friend std::ostream &operator<<(std::ostream &os, const SequentialData &sd) {
         if (sd._is_str) {
             os << (char *)sd.seq;
