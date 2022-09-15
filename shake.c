@@ -1,3 +1,10 @@
+/*
+  libpgfe
+  shake.c
+
+  Copyright (c) 2022 Charles Dong
+*/
+
 #include "sha3.h"
 
 #include "templates.c"

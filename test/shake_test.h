@@ -1,3 +1,10 @@
+/*
+  libpgfe
+  shake_test.h
+
+  Copyright (c) 2022 Charles Dong
+*/
+
 #include "test.h"
 
 #include <stdio.h>
