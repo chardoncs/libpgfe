@@ -46,8 +46,6 @@ int main(ARGS) {
     TEST_CASE("shake-test", shake_test);
     TEST_CASE("shake-test_file", shake_test_file);
 
-    TEST_CASE("fe-sha256", sha256_fe_test)
-
     TEST_CASE("md5", md5test)
 
     TEST_CASE("hmac-md5", hmac_md5_test)

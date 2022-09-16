@@ -88,10 +88,6 @@ add_test(
     COMMAND pgfetest md5 ${test_text}
 )
 add_test(
-    NAME SHA256_frontend
-    COMMAND pgfetest fe-sha256 ${test_text}
-)
-add_test(
     NAME string_to_hash_normal
     COMMAND pgfetest string2hash "aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d"
 )
@@ -230,8 +226,6 @@ set_property(TEST SHA3_512_string1 PROPERTY PASS_REGULAR_EXPRESSION ${test_text_
 set_property(TEST SHA3_512_file1 PROPERTY PASS_REGULAR_EXPRESSION "031d1ef133d02f1dbf9387354a4b8c805401bdfc2be86d522471b1905cb308c1fa8a4ed96498a4e671353bab55f517de8dc2ecd1fbde3e10e88efcc4344ca014")
 
 set_property(TEST MD5_string1 PROPERTY PASS_REGULAR_EXPRESSION "5d41402abc4b2a76b9719d911017c592")
-
-set_property(TEST SHA256_frontend PROPERTY PASS_REGULAR_EXPRESSION "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824")
 
 set_property(TEST string_to_hash_normal PROPERTY PASS_REGULAR_EXPRESSION ${test_text_sha1})
 set_property(TEST string_to_hash_odd_length PROPERTY PASS_REGULAR_EXPRESSION "0?aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434")

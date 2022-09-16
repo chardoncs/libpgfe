@@ -7,7 +7,6 @@
 
 #include "test.h"
 
-#include "../pgfe.h"
 #include "../sha1.h"
 #include "../sha2.h"
 #include "../sha3.h"
@@ -158,11 +157,4 @@ void sha3_512_file_test(ARGS) {
     fclose(fp);
 
     pgfe_print_hash(output, PGFE_SHA3_512_DIGEST_SIZE);
-}
-
-void sha256_fe_test(ARGS) {
-    pgfe_encode_t output[PGFE_SHA256_DIGEST_SIZE];
-
-    pgfe_encode(SHA256, (pgfe_encode_t *)argv[2], output);
-    pgfe_print_hash(output, PGFE_SHA256_DIGEST_SIZE);
 }

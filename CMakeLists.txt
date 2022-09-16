@@ -31,7 +31,6 @@ add_library(pgfe SHARED
     hotp.c totp.c
     base-encoding-internal.c
     base64.c base32.c base16.c
-    pgfe.c
     sequential_data.cpp
     utils.cpp
     hash_encoder.cpp
