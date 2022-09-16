@@ -39,11 +39,9 @@ It is suggested to use latest [LLVM](https://llvm.org/) or [GCC](https://gcc.gnu
 
 CMake is needed to compile the project.
 
-## Algorithm Implementation
+## Implementation Reference
 
-### Reference
-
-#### Standards
+### Standards
 
 The standards that are followed in this library are shown below.
 
@@ -58,7 +56,7 @@ The standards that are followed in this library are shown below.
 | SHA-3/SHAKE Family (Revised [Keccak](https://keccak.team/keccak.html)) | [NIST FIPS 202](https://doi.org/10.6028/NIST.FIPS.202) |
 | TOTP                          | [RFC 6238](https://doi.org/10.17487/RFC6238) |
 
-#### Implementation instances
+### Implementation instances
 
 Meanwhile, some existing implementation repositories are referenced for the development.
 
