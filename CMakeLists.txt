@@ -33,6 +33,7 @@ add_library(pgfe SHARED
     base64.c base32.c base16.c
     sequential_data.cpp
     utils.cpp
+    algorithm_selectable.cpp
     hash_encoder.cpp
     hmac_encoder.cpp
     abstract_base_encoding.cpp

@@ -13,6 +13,8 @@
 
 #include "generic.hpp"
 
+#define __pgfe_placeholder 0
+
 namespace chardon55 {
 namespace PGFE {
 
@@ -48,7 +50,7 @@ class HashEncoder : public AbstractHashEncoder
     void update(std::string &cpp_s);
     void update(SequentialData &sd);
 
-    SequentialData get_digest();
+    SequentialData get_digest(uint64_t bitlength = __pgfe_placeholder);
 
     size_t digest_size() {
         return digsz;

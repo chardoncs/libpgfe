@@ -92,3 +92,17 @@ bool SequentialData::determine_ascii_str() {
 
     return true;
 }
+
+SequentialData *SequentialData::truncate(size_t start, size_t length, bool inplace) {
+    if (inplace) {
+        if (start) {
+            memcpy(seq, seq + start, length);
+        }
+
+        memset(seq + length, 0, sz - length);
+        sz = length;
+        return nullptr;
+    }
+
+    return new SequentialData(&seq[start], length);
+}

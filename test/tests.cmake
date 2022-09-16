@@ -205,6 +205,7 @@ add_test(
 )
 
 include(test/shake_tests.cmake)
+include(test/shake_tests_cpp.cmake)
 
 set_property(TEST SHA1_string1 PROPERTY PASS_REGULAR_EXPRESSION ${test_text_sha1})
 set_property(TEST SHA1_file1 PROPERTY PASS_REGULAR_EXPRESSION "65d7d52df994f64a0e993794222124645242e00f")

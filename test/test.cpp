@@ -36,13 +36,11 @@ int main(ARGS) {
         TEST_CASE("base64url_decode", base64url_decode_test)
         TEST_CASE("base_multithread1", base_multithread1)
 
-            ;
+        TEST_END;
     }
     catch (std::exception) {
         return EXIT_FAILURE;
     }
-
-    printf("\n");
 
     return EXIT_SUCCESS;
 }
