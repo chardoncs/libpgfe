@@ -15,6 +15,7 @@
 #include "hmactest.h"
 #include "mdtest.h"
 #include "otptest.h"
+#include "shake_test.h"
 #include "shatest.h"
 #include "utilstest.h"
 
@@ -24,6 +25,7 @@ int main(ARGS) {
 
     TEST_CASE("sha1", sha1_test)
     TEST_CASE("sha1_file", sha1_file_test)
+
     TEST_CASE("sha224", sha224_test)
     TEST_CASE("sha256", sha256_test)
     TEST_CASE("sha256_file", sha256_file_test)
@@ -32,6 +34,7 @@ int main(ARGS) {
     TEST_CASE("sha512_file", sha512_file_test)
     TEST_CASE("sha512_224", sha512_224_test)
     TEST_CASE("sha512_256", sha512_256_test)
+
     TEST_CASE("sha3_224", sha3_224_test)
     TEST_CASE("sha3_224_file", sha3_224_file_test)
     TEST_CASE("sha3_256", sha3_256_test)
@@ -40,8 +43,8 @@ int main(ARGS) {
     TEST_CASE("sha3_384_file", sha3_384_file_test)
     TEST_CASE("sha3_512", sha3_512_test)
     TEST_CASE("sha3_512_file", sha3_512_file_test)
-
-    TEST_CASE("fe-sha256", sha256_fe_test)
+    TEST_CASE("shake-test", shake_test);
+    TEST_CASE("shake-test_file", shake_test_file);
 
     TEST_CASE("md5", md5test)
 
@@ -65,9 +68,7 @@ int main(ARGS) {
     TEST_CASE("base64url-encode", base64url_encode_test)
     TEST_CASE("base64-decode", base64_decode_test)
 
-        ;
-
-    printf("\n");
+    TEST_END;
 
     return EXIT_SUCCESS;
 }

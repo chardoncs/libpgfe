@@ -37,7 +37,15 @@ enum pgfe_algorithm_choice {
     // SHA3-384
     SHA3_384,
     // SHA3-512
-    SHA3_512
+    SHA3_512,
+    // RawSHAKE-128
+    RawSHAKE128,
+    // SHAKE-128
+    SHAKE128,
+    // RawSHAKE-256
+    RawSHAKE256,
+    // SHAKE-256
+    SHAKE256,
 };
 
 #ifdef __cplusplus

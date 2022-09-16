@@ -20,4 +20,8 @@
     }                                                                                                                  \
     else
 
+#define TEST_END                                                                                                       \
+    ;                                                                                                                  \
+    printf("\n")
+
 #endif

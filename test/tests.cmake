@@ -11,7 +11,6 @@ set(test_text_sha3_256 "3338be694f50c5f338814986cdf0686453a888b84f424d792af4b920
 set(test_text_sha3_384 "720aea11019ef06440fbf05d87aa24680a2153df3907b23631e7177ce620fa1330ff07c0fddee54699a4c3ee0ee9d887")
 set(test_text_sha3_512 "75d527c368f2efe848ecf6b073a36767800805e9eef2b1857d5f984f036eb6df891d75f72d9b154518c1cd58835286d1da9a38deba3de98b5a53e5ed78a84976")
 
-
 add_test(
     NAME SHA1_string1
     COMMAND pgfetest sha1 ${test_text}
@@ -87,10 +86,6 @@ add_test(
 add_test(
     NAME MD5_string1
     COMMAND pgfetest md5 ${test_text}
-)
-add_test(
-    NAME SHA256_frontend
-    COMMAND pgfetest fe-sha256 ${test_text}
 )
 add_test(
     NAME string_to_hash_normal
@@ -209,6 +204,8 @@ add_test(
     COMMAND pgfetest base64-decode "aG93IGFyZSB5b3U/"
 )
 
+include(test/shake_tests.cmake)
+include(test/shake_tests_cpp.cmake)
 
 set_property(TEST SHA1_string1 PROPERTY PASS_REGULAR_EXPRESSION ${test_text_sha1})
 set_property(TEST SHA1_file1 PROPERTY PASS_REGULAR_EXPRESSION "65d7d52df994f64a0e993794222124645242e00f")
@@ -230,8 +227,6 @@ set_property(TEST SHA3_512_string1 PROPERTY PASS_REGULAR_EXPRESSION ${test_text_
 set_property(TEST SHA3_512_file1 PROPERTY PASS_REGULAR_EXPRESSION "031d1ef133d02f1dbf9387354a4b8c805401bdfc2be86d522471b1905cb308c1fa8a4ed96498a4e671353bab55f517de8dc2ecd1fbde3e10e88efcc4344ca014")
 
 set_property(TEST MD5_string1 PROPERTY PASS_REGULAR_EXPRESSION "5d41402abc4b2a76b9719d911017c592")
-
-set_property(TEST SHA256_frontend PROPERTY PASS_REGULAR_EXPRESSION "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824")
 
 set_property(TEST string_to_hash_normal PROPERTY PASS_REGULAR_EXPRESSION ${test_text_sha1})
 set_property(TEST string_to_hash_odd_length PROPERTY PASS_REGULAR_EXPRESSION "0?aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434")
