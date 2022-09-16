@@ -16,11 +16,18 @@ using namespace std;
 using namespace chardon55::PGFE;
 
 void hash_encoder_test(ARGS) {
-    string option(argv[2]);
+    int i = 2;
+    string option(argv[i++]);
+    uint64_t len_flag = 0UL;
+
     HashEncoder encoder(option);
 
-    encoder.update(argv[3]);
-    auto sd = encoder.get_digest();
+    if (argc >= 5) {
+        sscanf(argv[i++], "%lu", &len_flag);
+    }
+
+    encoder.update(argv[i++]);
+    auto sd = encoder.get_digest(len_flag);
 
     // puts(sd.to_hex_cs());
     cout << sd << endl;
