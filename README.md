@@ -65,19 +65,3 @@ Meanwhile, some existing implementation repositories are referenced for the deve
 | Algorithm                     | Reference                                           |
 | :---------------------------- | :-------------------------------------------------- |
 | SHA-3/SHAKE Family            | [Keccak-NIST Reference Implementation](https://csrc.nist.gov/projects/hash-functions/sha-3-project)<br>[Fackelmann/SHA3](https://github.com/Fackelmann/SHA3)<br>[brainhub/SHU3IUF](https://github.com/brainhub/SHA3IUF)<br>[mjosaarinen/tiny_sha3](https://github.com/mjosaarinen/tiny_sha3) |
-
-
-### Support Version
-
-| Algorithm                          | Support Version                                |
-| :--------------------------------- | :--------------------------------------------- |
-| Base 16/32/64                      | ^0.1.3                                         |
-| HMAC                               | ^0.1.1                                         |
-| HOTP                               | ^0.1.2                                         |
-| MD5                                | 0.1.0 ~ 0.1.3 (Nettle port)<br>^0.2.0 (Native) |
-| SHA-1                              | 0.1.0 ~ 0.1.3 (Nettle port)<br>^0.2.0 (Native) |
-| SHA-2 Family                       | 0.1.0 ~ 0.1.3 (Nettle port)<br>^0.2.0 (Native) |
-| SHA-3 Family (Except SHAKE series) | 0.1.0 ~ 0.1.3 (Nettle port)<br>^0.2.0 (Native) |
-| SHAKE Series                       | ^0.3.0                                         |
-| TOTP                               | ^0.1.2                                         |
-
