@@ -7,9 +7,9 @@
 
 ## Introduction
 
-**libpgfe** (IPA: /ˌlɪbˈpɪɡfiː/, like "lib-pig-fee") is a simple and easy-to-use C/C++ library for hash encoding, HOTP/TOTP generation and base encoding/decoding.
+**libpgfe** (IPA: /ˌlɪbˈpɪɡfiː/, like "lib-pig-fee") is an open-source "[middle-high level](.github/middle-high.md)" cryptographic library providing hash encoding, HOTP/TOTP generation and base encoding/decoding. It is written in [C](https://en.wikipedia.org/wiki/C_(programming_language)) and [C++](https://en.wikipedia.org/wiki/C%2B%2B).
 
-The name "*libpgfe*" used to be an abbreviation of "**Lib**rary of **P**assword **G**eneration **F**ront-**e**nd". Because it is initially designed to be just an HOTP/TOTP library ported to [Nettle](https://www.lysator.liu.se/~nisse/nettle/). But during the development period, more and more algorithms have been directly implemented in this library, so its full name may mislead viewers and has been deprecated.
+The name "*libpgfe*" used to be an abbreviation of "**Lib**rary of **P**assword **G**eneration **F**ront-**e**nd". Because it is initially designed to be just an HOTP/TOTP library ported to [Nettle](https://www.lysator.liu.se/~nisse/nettle/). But during the development period, more and more algorithms have been directly implemented in this library, so its full name has been deprecated since it may mislead viewers.
 
 Since v0.2.0, *libpgfe* has been "self-sufficient" and does not depend on any third-party library.
 
