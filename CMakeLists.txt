@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0.0)
+cmake_minimum_required(VERSION 3.16.0)
 
 set(CMAKE_C_COMPILER clang)
 set(CMAKE_CXX_COMPILER clang++)
@@ -7,6 +7,8 @@ project(libpgfe VERSION 0.3.0)
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 14)
+
+set(CMAKE_BUILD_TYPE Release)
 
 include(CTest)
 enable_testing()
