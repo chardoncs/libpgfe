@@ -3,7 +3,7 @@ include meta.mak
 all: 
 	@echo 'Building...'
 	@cmake . -B $(BUILD_DIR)
-	@cmake --build $(BUILD_DIR) -j18
+	@cmake --build $(BUILD_DIR) --config Release -j18
 	@echo 'Building done'
 
 rebuild: clean all
@@ -17,7 +17,7 @@ clean:
 	@echo 'Cleaning done'
 
 ctest: all
-	@ctest --test-dir $(BUILD_DIR)
+	@ctest --test-dir $(BUILD_DIR) -C Release
 
 install: all
 	@echo 'Installing headers...'
