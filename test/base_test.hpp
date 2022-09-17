@@ -7,9 +7,9 @@
 
 #include "test.h"
 
-#include "../base16.cpp"
-#include "../base32.hpp"
-#include "../base64.hpp"
+#include "../include/base16.hpp"
+#include "../include/base32.hpp"
+#include "../include/base64.hpp"
 
 using namespace std;
 using namespace chardon55::PGFE;

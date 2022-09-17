@@ -9,8 +9,8 @@
 
 #include <iostream>
 
-#include "../hotp.hpp"
-#include "../utils.hpp"
+#include "../include/hotp.hpp"
+#include "../include/utils.hpp"
 
 using namespace chardon55::PGFE;
 

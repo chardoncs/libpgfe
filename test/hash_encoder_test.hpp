@@ -9,8 +9,8 @@
 
 #include <string>
 
-#include "../hash_encoder.hpp"
-#include "../utils.h"
+#include "../include/hash_encoder.hpp"
+#include "../include/utils.h"
 
 using namespace std;
 using namespace chardon55::PGFE;

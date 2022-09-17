@@ -22,8 +22,7 @@ ctest: all
 install: all
 	@echo 'Installing headers...'
 	@mkdir -v $(HEADER_DIR) 
-	@cp -v *.h $(HEADER_DIR) 
-	@cp -v *.hpp $(HEADER_DIR) 
+	@cp -v $(INCLUDE_DIR)/* $(HEADER_DIR) 
 	@echo done
 	@echo 'Installing shared library...'
 	@cp -v $(TARGET) $(LIB_DIR)
