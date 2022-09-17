@@ -11,7 +11,7 @@ HEADER_STR = '''\
 */
 '''
 
-INCLUDE_SUBDIR = ['test']
+INCLUDE_SUBDIR = ['include', 'src', 'test']
 EXTS = ['c', 'h', 'cpp', 'hpp']
 
 
