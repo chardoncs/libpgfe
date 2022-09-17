@@ -7,8 +7,8 @@
 
 #include "test.h"
 
-#include "../hmac_encoder.hpp"
-#include "../utils.h"
+#include "../include/hmac_encoder.hpp"
+#include "../include/utils.h"
 
 using namespace chardon55::PGFE;
 

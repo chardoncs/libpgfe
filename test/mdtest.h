@@ -7,8 +7,8 @@
 
 #include "test.h"
 
-#include "../md5.h"
-#include "../utils.h"
+#include "../include/md5.h"
+#include "../include/utils.h"
 
 void md5test(ARGS) {
     pgfe_encode_t output[PGFE_MD5_DIGEST_SIZE];

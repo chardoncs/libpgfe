@@ -14,36 +14,41 @@ include(CTest)
 enable_testing()
 
 add_library(pgfe SHARED 
-    generic.c 
-    generic-internal.c
-    templates.c
-    utils.c
-    sha-internal.c
-    sha2-backend.c
-    keccak-backend.c
-    md5-backend.c
-    sha1.c sha224.c sha256.c sha384.c sha512.c sha3-224.c sha3-256.c sha3-384.c sha3-512.c 
-    md5.c 
-    shake.c
-    hmac.c
-    otp-generic.c
-    hotp.c totp.c
-    base-encoding-internal.c
-    base64.c base32.c base16.c
-    sequential_data.cpp
-    utils.cpp
-    algorithm_selectable.cpp
-    hash_encoder.cpp
-    hmac_encoder.cpp
-    abstract_base_encoding.cpp
-    base16.cpp
-    base32.cpp
-    base64.cpp
-    abstract_otp.cpp
-    hotp.cpp totp.cpp)
+    src/generic.c 
+    src/generic-internal.c
+    src/templates.c
+    src/utils.c
+    src/sha-internal.c
+    src/sha2-backend.c
+    src/keccak-backend.c
+    src/md5-backend.c
+    src/sha1.c src/sha224.c src/sha256.c src/sha384.c src/sha512.c src/sha3-224.c src/sha3-256.c src/sha3-384.c src/sha3-512.c 
+    src/md5.c 
+    src/shake.c
+    src/hmac.c
+    src/otp-generic.c
+    src/hotp.c src/totp.c
+    src/base-encoding-internal.c
+    src/base64.c src/base32.c src/base16.c
+    src/sequential_data.cpp
+    src/utils.cpp
+    src/algorithm_selectable.cpp
+    src/hash_encoder.cpp
+    src/hmac_encoder.cpp
+    src/abstract_base_encoding.cpp
+    src/base16.cpp
+    src/base32.cpp
+    src/base64.cpp
+    src/abstract_otp.cpp
+    src/hotp.cpp src/totp.cpp)
 add_executable(pgfetest test/test.c)
 # add_executable(totptest test/totptest.c)
 # add_executable(totptestcpp test/totptest.cpp)
+
+target_include_directories(pgfe PRIVATE
+  src
+  include
+)
 
 add_executable(pgfetestcpp test/test.cpp)
 

@@ -7,9 +7,9 @@
 
 #include "test.h"
 
-#include "../hmac.h"
-#include "../md5.h"
-#include "../utils.h"
+#include "../include/hmac.h"
+#include "../include/md5.h"
+#include "../include/utils.h"
 
 void hmac_md5_test(ARGS) {
     char *key_s = argv[2], *data = argv[3];
