@@ -9,7 +9,7 @@ all:
 rebuild: clean all
 
 $(BUILD_DIR):
-	@mkdir -v $(BUILD_DIR)
+	@mkdir -vp $(BUILD_DIR)
 
 clean:
 	@echo 'Cleaning...'
@@ -21,7 +21,7 @@ ctest: all
 
 install: all
 	@echo 'Installing headers...'
-	@mkdir -v $(HEADER_DIR) 
+	@mkdir -vp $(HEADER_DIR) 
 	@cp -v $(INCLUDE_DIR)/* $(HEADER_DIR) 
 	@echo done
 	@echo 'Installing shared library...'
