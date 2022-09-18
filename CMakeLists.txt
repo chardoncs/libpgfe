@@ -23,6 +23,7 @@ add_library(pgfe SHARED
     src/sha1.c src/sha224.c src/sha256.c src/sha384.c src/sha512.c src/sha3-224.c src/sha3-256.c src/sha3-384.c src/sha3-512.c 
     src/md5.c 
     src/shake.c
+    src/blowfish_classic.c
     src/hmac.c
     src/otp-generic.c
     src/hotp.c src/totp.c
