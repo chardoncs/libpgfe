@@ -3,7 +3,7 @@ include meta.mak
 all: 
 	@echo 'Building...'
 	@cmake . -B $(BUILD_DIR)
-	@cmake --build $(BUILD_DIR) --config Release -j18
+	@cmake --build $(BUILD_DIR) --config Release -j18 --
 	@echo 'Building done'
 
 rebuild: clean all
