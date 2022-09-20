@@ -24,7 +24,7 @@ void shake_test(ARGS) {
 
     size_t byte_size = to_byte(bitsize);
 
-    pgfe_encode_t out[byte_size + bitsize % 8];
+    pgfe_encode_t out[byte_size + bit_rem(bitsize)];
     void (*func)(const pgfe_encode_t data_str[], pgfe_encode_t output[], size_t out_bitlength);
 
     alg[3] = 0;
@@ -72,7 +72,7 @@ void shake_test_file(ARGS) {
 
     size_t byte_size = to_byte(bitsize);
 
-    pgfe_encode_t out[byte_size + bitsize % 8];
+    pgfe_encode_t out[byte_size + bit_rem(bitsize)];
     void (*func)(FILE * fp, pgfe_encode_t output[], size_t out_bitlength);
     func = NULL;
 

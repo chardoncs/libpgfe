@@ -19,7 +19,9 @@ extern "C" {
 #define PGFE_ENCODER_DEF_SIG pgfe_encode_multi_func *func, size_t block_size, size_t digest_size
 #define PGFE_ENCODER_CALL_SIG func, block_size, digest_size
 
+// Circular left shift
 #define clshift(n, c) (((n) << (c)) | ((n) >> (to_bit(sizeof(n)) - (c))))
+// Circular right shift
 #define crshift(n, c) (((n) >> (c)) | ((n) << (to_bit(sizeof(n)) - (c))))
 
 #define __pgfe_loop for (;;)

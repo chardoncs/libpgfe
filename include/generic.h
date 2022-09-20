@@ -26,6 +26,8 @@ extern "C" {
 #define to_bit(value) ((value)*8)
 // Byte -> Bit (e.g. to_byte(32) = 4)
 #define to_byte(value) ((value) / 8)
+// Remainder of bit
+#define bit_rem(value) ((value) % 8)
 
 #define PGFE_ENCODER_SIG(name, upper)                                                                                  \
     pgfe_##name##_encode_multiple, PGFE_##upper##_BLOCK_SIZE, PGFE_##upper##_DIGEST_SIZE

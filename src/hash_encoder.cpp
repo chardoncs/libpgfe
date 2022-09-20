@@ -119,7 +119,7 @@ inline void HashEncoder::update(SequentialData &sd) {
 SequentialData HashEncoder::get_digest(uint64_t bitlength) {
     bool shake_flag =
         this->cur == SHAKE128 || this->cur == RawSHAKE128 || this->cur == SHAKE256 || this->cur == RawSHAKE256;
-    uint64_t in_len = to_byte(bitlength) + bitlength % 8;
+    uint64_t in_len = to_byte(bitlength) + bit_rem(bitlength);
 
     if (!bitlength) {
         if (this->cur == SHAKE128 || this->cur == RawSHAKE128) {

@@ -147,7 +147,7 @@ void absorb_queue(struct pgfe_keccak_sponge_ctx *ctx) {
 
 void padding(struct pgfe_keccak_sponge_ctx *ctx) {
     if (ctx->inqueue_bits + 1 == ctx->rate) {
-        ctx->data_queue[to_byte(ctx->inqueue_bits)] |= 1 << (ctx->inqueue_bits % 8);
+        ctx->data_queue[to_byte(ctx->inqueue_bits)] |= 1 << bit_rem(ctx->inqueue_bits);
         absorb_queue(ctx);
         memset(ctx->data_queue, 0, to_byte(ctx->rate));
     }
@@ -155,7 +155,7 @@ void padding(struct pgfe_keccak_sponge_ctx *ctx) {
         memset(
             ctx->data_queue + to_byte(ctx->inqueue_bits + 7), 0, to_byte(ctx->rate) - to_byte(ctx->inqueue_bits + 7)
         );
-        ctx->data_queue[to_byte(ctx->inqueue_bits)] |= 1 << (ctx->inqueue_bits % 8);
+        ctx->data_queue[to_byte(ctx->inqueue_bits)] |= 1 << bit_rem(ctx->inqueue_bits);
     }
 
     ctx->data_queue[to_byte(ctx->rate - 1)] |= 1 << ((ctx->rate - 1) % 8);
@@ -172,7 +172,7 @@ int __pgfe_keccak_absorb_b1600(struct pgfe_keccak_sponge_ctx *ctx, const pgfe_en
     uint8_t mask;
     const pgfe_encode_t *cur_data;
 
-    if (ctx->inqueue_bits % 8 || ctx->squeezing) {
+    if (bit_rem(ctx->inqueue_bits) || ctx->squeezing) {
         return EXIT_FAILURE;
     }
 
@@ -192,7 +192,7 @@ int __pgfe_keccak_absorb_b1600(struct pgfe_keccak_sponge_ctx *ctx, const pgfe_en
                 partial_block = ctx->rate - ctx->inqueue_bits;
             }
 
-            partial_byte = partial_block % 8;
+            partial_byte = bit_rem(partial_block);
             partial_block -= partial_byte;
             memcpy(ctx->data_queue + to_byte(ctx->inqueue_bits), input + to_byte(i), to_byte(partial_block));
             ctx->inqueue_bits += partial_block;
