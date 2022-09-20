@@ -22,9 +22,9 @@ extern "C" {
 // Common reading buffer size
 #define PGFE_BUFFER_SIZE 1024
 
-// Byte -> Bit (e.g. to_bit(4) = 32)
+// byte -> bit (e.g. to_bit(4) = 32)
 #define to_bit(value) ((value)*8)
-// Byte -> Bit (e.g. to_byte(32) = 4)
+// bit -> byte (e.g. to_byte(32) = 4)
 #define to_byte(value) ((value) / 8)
 // Remainder of bit
 #define bit_rem(value) ((value) % 8)
