@@ -21,11 +21,8 @@ extern "C" {
 #define sha256_sigma1(word) (crshift((word), 17) ^ crshift((word), 19) ^ ((word) >> 10))
 
 #define sha512_SIGMA0(word) (crshift((word), 28) ^ crshift((word), 34) ^ crshift((word), 39))
-
 #define sha512_SIGMA1(word) (crshift((word), 14) ^ crshift((word), 18) ^ crshift((word), 41))
-
 #define sha512_sigma0(word) (crshift((word), 1) ^ crshift((word), 8) ^ ((word) >> 7))
-
 #define sha512_sigma1(word) (crshift((word), 19) ^ crshift((word), 61) ^ ((word) >> 6))
 
 void __pgfe_sha224n256_init(struct pgfe_sha256_ctx *ctx, const pgfe_word_t H0[]);

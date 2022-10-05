@@ -16,8 +16,6 @@
 extern "C" {
 #endif
 
-#define __pgfe_keccak_f_b1600(input, output) __pgfe_keccak_p_b1600(24, (input), (output))
-
 #define __PGFE_KECCAK_b 1600
 #define __PGFE_KECCAK_MAX_RATE 1536
 
