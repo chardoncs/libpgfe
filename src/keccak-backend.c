@@ -10,12 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define __PGFE_K_b __PGFE_KECCAK_b
-#define __PGFE_K_w 64
-
 #define _cmod(x, y) ((x) % (y) + ((x) < 0 ? (y) : 0))
-
-#define _b1600 1600
 
 const uint16_t _r[24] = {1, 3, 6, 10, 15, 21, 28, 36, 45, 55, 2, 14, 27, 41, 56, 8, 25, 43, 62, 18, 39, 61, 20, 44};
 
@@ -73,9 +68,9 @@ void transform(pgfe_keccak_bitcube_t A, uint64_t RC) {
 }
 
 int __pgfe_keccak_init(struct pgfe_keccak_sponge_ctx *ctx, uint32_t capacity) {
-    uint32_t r = _b1600 - capacity;
+    uint32_t r = __PGFE_KECCAK_b - capacity;
 
-    if (r >= _b1600 || r % 64) {
+    if (r >= __PGFE_KECCAK_b || r % 64) {
         return EXIT_FAILURE;
     }
 
