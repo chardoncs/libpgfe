@@ -52,7 +52,7 @@ using namespace chardon55::PGFE;
 void HashEncoder::destroy_context() {
     if (!ctx) return;
 
-    __PGFE_BATCH_ALL_CASES(CTX_DELETE)
+    __PGFE_BATCH_CASES(CTX_DELETE)
 }
 
 void HashEncoder::before_change_alg() {
@@ -64,9 +64,9 @@ void HashEncoder::after_change_alg() {
 }
 
 void HashEncoder::load_algorithm() {
-    __PGFE_BATCH_ALL_CASES(CTX_CREATE)
-    __PGFE_BATCH_ALL_CASES(INIT_FUNC_CALL)
-    __PGFE_BATCH_ALL_CASES(INIT_SIZE)
+    __PGFE_BATCH_CASES(CTX_CREATE)
+    __PGFE_BATCH_CASES(INIT_FUNC_CALL)
+    __PGFE_BATCH_CASES(INIT_SIZE)
 
     if (seq) {
         delete[] seq;
@@ -101,7 +101,7 @@ HashEncoder::~HashEncoder() {
 }
 
 void HashEncoder::update(const pgfe_encode_t sequence[], size_t length) {
-    __PGFE_BATCH_ALL_CASES(UPDATE_FUNC_CALL3)
+    __PGFE_BATCH_CASES(UPDATE_FUNC_CALL3)
 }
 
 inline void HashEncoder::update(const char cs[]) {
@@ -134,7 +134,7 @@ SequentialData *HashEncoder::get_digest(uint64_t bitlength) {
         __PGFE_BATCH_SHAKE_CASES(DIGEST_FUNC_CALL_LIMIT)
     }
     else {
-        __PGFE_BATCH_CASES(DIGEST_FUNC_CALL)
+        __PGFE_BATCH_CASES_SP(DIGEST_FUNC_CALL)
     }
 
     return new SequentialData(seq, shake_flag ? in_len : in_len < digsz && bitlength ? in_len : digsz);

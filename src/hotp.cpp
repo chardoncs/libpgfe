@@ -51,7 +51,6 @@ HOTP::~HOTP() {
 }
 
 void HOTP::after_change_alg() {
-    __PGFE_BATCH_CASES(MTFUNC_SET)
     __PGFE_BATCH_CASES(INIT_SIZE)
 }
 
@@ -80,11 +79,11 @@ void HOTP::set_counter(pgfe_otp_counter_t c) {
 }
 
 pgfe_otp_t HOTP::generate(uint8_t digit_count) {
-    if (!secret || !encode_func) {
+    if (!secret) {
         throw NotInitializedException();
     }
 
-    return pgfe_hotp_generic(encode_func, blocksz, digsz, secret, selen, co, digit_count);
+    return pgfe_hotp_generic(cur, secret, selen, co, digit_count);
 }
 
 std::string HOTP::generate_str(uint8_t digit_count) {

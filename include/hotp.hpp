@@ -18,8 +18,6 @@ namespace PGFE {
 class HOTP : public AbstractOTP
 {
   private:
-    pgfe_encode_multi_func *encode_func = nullptr;
-
     pgfe_encode_t *secret;
     size_t selen, digsz, blocksz;
 

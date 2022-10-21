@@ -68,11 +68,7 @@ HMACEncoder::~HMACEncoder() {
     destroy_key();
     destroy_data();
     destroy_output();
-    try {
-        __PGFE_BATCH_CASES(FREE_CTXP)
-    }
-    catch (std::invalid_argument) {
-    }
+    __PGFE_BATCH_CASES(FREE_CTXP)
 }
 
 void HMACEncoder::after_change_alg() {
@@ -123,10 +119,10 @@ SequentialData *HMACEncoder::get_digest() {
     }
 
     if (!output) {
-        __PGFE_BATCH_CASES(INIT_CTXP)
-        __PGFE_BATCH_CASES(HMAC_SET_KEY)
-        __PGFE_BATCH_CASES(HMAC_ADD_DATA)
-        __PGFE_BATCH_CASES(HMAC_DIGEST)
+        __PGFE_BATCH_CASES_SP(INIT_CTXP)
+        __PGFE_BATCH_CASES_SP(HMAC_SET_KEY)
+        __PGFE_BATCH_CASES_SP(HMAC_ADD_DATA)
+        __PGFE_BATCH_CASES_SP(HMAC_DIGEST)
     }
 
     return output->copy();

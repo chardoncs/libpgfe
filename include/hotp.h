@@ -17,7 +17,7 @@ extern "C" {
 
 // Generic HOTP function suitable for various hash algorithm
 pgfe_otp_t pgfe_hotp_generic(
-    PGFE_ENCODER_DEF_SIG, const pgfe_encode_t secret[], size_t secret_length, pgfe_otp_counter_t counter,
+    enum pgfe_algorithm_choice alg, const pgfe_encode_t secret[], size_t secret_length, pgfe_otp_counter_t counter,
     uint8_t digit_c
 );
 
