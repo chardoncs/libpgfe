@@ -9,6 +9,8 @@
 #define LIBPGFE_HMAC_ENCODER_HPP
 #ifdef __cplusplus
 
+#include <vector>
+
 #include "abstract_hash_encoder.hpp"
 #include "generic.h"
 #include "generic.hpp"
@@ -19,13 +21,16 @@ namespace PGFE {
 class HMACEncoder : public AbstractHashEncoder
 {
   private:
-    pgfe_encode_multi_func *encode_func;
+    void *ctx;
 
-    pgfe_encode_t *key, *data, *output;
-    size_t key_len, data_len, digsz, blocksz;
+    size_t digsz, blocksz;
+
+    SequentialData *key, *output;
+    std::vector<SequentialData *> *data_vec;
 
     void destroy_key();
     void destroy_data();
+    void destroy_output();
 
   protected:
     void after_change_alg();
@@ -44,7 +49,7 @@ class HMACEncoder : public AbstractHashEncoder
     void update(std::string &cpp_s);
     void update(SequentialData &sd);
 
-    SequentialData get_digest();
+    SequentialData *get_digest();
 
     size_t block_size() {
         return blocksz;

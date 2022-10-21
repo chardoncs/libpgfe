@@ -11,6 +11,25 @@
 
 #include "hmac.h"
 
+#define __PGFE_HMAC_DIGEST_CASE(alg, name)                                                                             \
+    case alg: {                                                                                                        \
+        pgfe_encode_t out[PGFE_##alg##_DIGEST_SIZE];                                                                   \
+        pgfe_hmac_##name##_digest((pgfe_hmac_##name##_ctx *)ctx, out);                                                 \
+        output = new SequentialData(out, PGFE_##alg##_DIGEST_SIZE);                                                    \
+    } break
+
+#define __PGFE_HMAC_SET_KEY_CASE(alg, name)                                                                            \
+    case alg:                                                                                                          \
+        pgfe_hmac_##name##_set_key((pgfe_hmac_##name##_ctx *)ctx, key->to_pgfe_seq(), key->length());                  \
+        break
+
+#define __PGFE_HMAC_ADD_DATA_CASE(alg, name)                                                                           \
+    case alg:                                                                                                          \
+        for (SequentialData * item : *data_vec) {                                                                      \
+            pgfe_hmac_##name##_update((pgfe_hmac_##name##_ctx *)ctx, item->to_pgfe_seq(), item->length());             \
+        }                                                                                                              \
+        break
+
 using namespace chardon55::PGFE;
 
 void HMACEncoder::destroy_key() {
@@ -18,21 +37,29 @@ void HMACEncoder::destroy_key() {
 
     delete[] key;
     key = nullptr;
-    key_len = 0;
 }
 
 void HMACEncoder::destroy_data() {
-    if (!data) return;
+    if (!data_vec) return;
 
-    delete[] data;
-    data = nullptr;
-    data_len = 0;
+    while (data_vec->size()) {
+        delete data_vec->back();
+        data_vec->pop_back();
+    }
+    delete data_vec;
+    data_vec = nullptr;
+}
+
+void HMACEncoder::destroy_output() {
+    if (output) {
+        delete output;
+    }
 }
 
 HMACEncoder::HMACEncoder() {
-    key = data = output = nullptr;
-    key_len = data_len = 0;
-    encode_func = nullptr;
+    key = output = nullptr;
+    data_vec = new std::vector<SequentialData *>();
+    __PGFE_BATCH_CASES(SET_CTXP)
 
     select_algorithm(SHA1);
 }
@@ -40,29 +67,24 @@ HMACEncoder::HMACEncoder() {
 HMACEncoder::~HMACEncoder() {
     destroy_key();
     destroy_data();
-
-    if (output) {
-        delete[] output;
+    destroy_output();
+    try {
+        __PGFE_BATCH_CASES(FREE_CTXP)
+    }
+    catch (std::invalid_argument) {
     }
 }
 
 void HMACEncoder::after_change_alg() {
-    __PGFE_BATCH_CASES(MTFUNC_SET)
     __PGFE_BATCH_CASES(INIT_SIZE)
 
-    if (output) {
-        delete[] output;
-    }
-
-    output = new pgfe_encode_t[digsz + 1];
+    destroy_output();
 }
 
 void HMACEncoder::set_key(const pgfe_encode_t sequence[], size_t length) {
     destroy_key();
-    key = new pgfe_encode_t[length + 1];
-    memcpy(key, sequence, length);
-    key[length] = 0;
-    key_len = length;
+    key = new SequentialData(sequence, length);
+    destroy_output();
 }
 
 void HMACEncoder::set_key(const char cs[]) {
@@ -79,11 +101,8 @@ void HMACEncoder::set_key(SequentialData &sd) {
 }
 
 void HMACEncoder::update(const pgfe_encode_t sequence[], size_t length) {
-    destroy_data();
-    data = new pgfe_encode_t[length + 1];
-    memcpy(data, sequence, length);
-    data[length] = 0;
-    data_len = length;
+    data_vec->push_back(new SequentialData(sequence, length));
+    destroy_output();
 }
 
 inline void HMACEncoder::update(const char cs[]) {
@@ -98,13 +117,17 @@ inline void HMACEncoder::update(SequentialData &sd) {
     this->AbstractHashEncoder::update(sd);
 }
 
-SequentialData HMACEncoder::get_digest() {
-    if (!encode_func || !key || !data) {
-        throw NotInitializedException();
+SequentialData *HMACEncoder::get_digest() {
+    if (!key || !data_vec) {
+        throw new NotInitializedException();
     }
 
-    pgfe_hmac_generic(this->encode_func, blocksz, digsz, key, key_len, data, data_len, output);
+    if (!output) {
+        __PGFE_BATCH_CASES(INIT_CTXP)
+        __PGFE_BATCH_CASES(HMAC_SET_KEY)
+        __PGFE_BATCH_CASES(HMAC_ADD_DATA)
+        __PGFE_BATCH_CASES(HMAC_DIGEST)
+    }
 
-    SequentialData sd(output, digsz);
-    return sd;
+    return output->copy();
 }

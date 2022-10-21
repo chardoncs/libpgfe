@@ -27,7 +27,8 @@ void hmac_encoder_test(ARGS) {
     }
 
     auto sd = encoder.get_digest();
-    puts(sd.to_hex_cs());
+    puts(sd->to_hex_cs());
+    delete sd;
 }
 
 void hmac_encoder_hex_test(ARGS) {
@@ -46,5 +47,6 @@ void hmac_encoder_hex_test(ARGS) {
     }
 
     auto sd = encoder.get_digest();
-    puts(sd.to_hex_cs());
+    puts(sd->to_hex_cs());
+    delete sd;
 }

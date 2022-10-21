@@ -58,6 +58,8 @@ class SequentialData
 
     SequentialData *truncate(size_t start, size_t length, bool inplace = false);
 
+    SequentialData *copy();
+
     friend std::ostream &operator<<(std::ostream &os, const SequentialData &sd) {
         if (sd._is_str) {
             os << (char *)sd.seq;

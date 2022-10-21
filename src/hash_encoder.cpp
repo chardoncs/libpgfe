@@ -116,7 +116,7 @@ inline void HashEncoder::update(SequentialData &sd) {
     return this->AbstractHashEncoder::update(sd);
 }
 
-SequentialData HashEncoder::get_digest(uint64_t bitlength) {
+SequentialData *HashEncoder::get_digest(uint64_t bitlength) {
     bool shake_flag =
         this->cur == SHAKE128 || this->cur == RawSHAKE128 || this->cur == SHAKE256 || this->cur == RawSHAKE256;
     uint64_t in_len = to_byte(bitlength) + bitlength % 8;
@@ -137,6 +137,5 @@ SequentialData HashEncoder::get_digest(uint64_t bitlength) {
         __PGFE_BATCH_CASES(DIGEST_FUNC_CALL)
     }
 
-    SequentialData sd(seq, shake_flag ? in_len : in_len < digsz && bitlength ? in_len : digsz);
-    return sd;
+    return new SequentialData(seq, shake_flag ? in_len : in_len < digsz && bitlength ? in_len : digsz);
 }

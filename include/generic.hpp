@@ -83,6 +83,26 @@
         blocksz = PGFE_##alg##_BLOCK_SIZE;                                                                             \
         break
 
+#define __PGFE_INIT_CTXP_CASE(alg, name)                                                                               \
+    case alg:                                                                                                          \
+        pgfe_##name##_init((pgfe_##name##_ctx *)ctx);                                                                  \
+        break
+
+#define __PGFE_INIT_CTX_CASE(alg, name)                                                                                \
+    case alg:                                                                                                          \
+        pgfe_##name##_init(&ctx);                                                                                      \
+        break
+
+#define __PGFE_SET_CTXP_CASE(alg, name)                                                                                \
+    case alg:                                                                                                          \
+        ctx = new pgfe_##name##_ctx;                                                                                   \
+        break
+
+#define __PGFE_FREE_CTXP_CASE(alg, name)                                                                               \
+    case alg:                                                                                                          \
+        delete (pgfe_##name##_ctx *)ctx;                                                                               \
+        break
+
 namespace chardon55 {
 namespace PGFE {
 

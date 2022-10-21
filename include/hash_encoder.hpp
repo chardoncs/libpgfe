@@ -50,7 +50,7 @@ class HashEncoder : public AbstractHashEncoder
     void update(std::string &cpp_s);
     void update(SequentialData &sd);
 
-    SequentialData get_digest(uint64_t bitlength = __pgfe_placeholder);
+    SequentialData *get_digest(uint64_t bitlength = __pgfe_placeholder);
 
     size_t digest_size() {
         return digsz;
