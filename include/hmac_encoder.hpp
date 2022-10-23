@@ -14,6 +14,7 @@
 #include "abstract_hash_encoder.hpp"
 #include "generic.h"
 #include "generic.hpp"
+#include "hmac.h"
 
 namespace chardon55 {
 namespace PGFE {
@@ -21,7 +22,21 @@ namespace PGFE {
 class HMACEncoder : public AbstractHashEncoder
 {
   private:
-    void *ctx;
+    union
+    {
+        pgfe_hmac_md5_ctx md5;
+        pgfe_hmac_sha1_ctx sha1;
+        pgfe_hmac_sha224_ctx sha224;
+        pgfe_hmac_sha256_ctx sha256;
+        pgfe_hmac_sha384_ctx sha384;
+        pgfe_hmac_sha512_ctx sha512;
+        pgfe_hmac_sha512_224_ctx sha512_224;
+        pgfe_hmac_sha512_256_ctx sha512_256;
+        pgfe_hmac_sha3_224_ctx sha3_224;
+        pgfe_hmac_sha3_256_ctx sha3_256;
+        pgfe_hmac_sha3_384_ctx sha3_384;
+        pgfe_hmac_sha3_512_ctx sha3_512;
+    } ctx;
 
     size_t digsz, blocksz;
 

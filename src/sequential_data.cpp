@@ -108,5 +108,5 @@ SequentialData *SequentialData::truncate(size_t start, size_t length, bool inpla
 }
 
 SequentialData *SequentialData::copy() {
-    return new SequentialData((pgfe_encode_t *)seq, sz);
+    return new SequentialData((const pgfe_encode_t *)seq, sz);
 }

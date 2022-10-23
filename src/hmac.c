@@ -28,7 +28,9 @@
         pgfe_##name##_init(&ctx->hash_ctx);                                                                            \
         pgfe_##name##_update(&ctx->hash_ctx, ctx->k_i_pad, PGFE_##upper##_BLOCK_SIZE);                                 \
     }                                                                                                                  \
-    void pgfe_hmac_##name##_update(struct pgfe_hmac_##name##_ctx *ctx, const pgfe_encode_t data[], size_t length) {    \
+    inline void pgfe_hmac_##name##_update(                                                                             \
+        struct pgfe_hmac_##name##_ctx *ctx, const pgfe_encode_t data[], size_t length                                  \
+    ) {                                                                                                                \
         pgfe_##name##_update(&ctx->hash_ctx, data, length);                                                            \
     }                                                                                                                  \
     void pgfe_hmac_##name##_digest(struct pgfe_hmac_##name##_ctx *ctx, pgfe_encode_t output[]) {                       \

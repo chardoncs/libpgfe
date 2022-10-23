@@ -9,24 +9,27 @@
 
 #include <cstring>
 
-#include "hmac.h"
+#define __PGFE_HMAC_INIT_CTX_CASE(alg, name)                                                                           \
+    case alg:                                                                                                          \
+        pgfe_hmac_##name##_init(&ctx.name);                                                                            \
+        break
 
 #define __PGFE_HMAC_DIGEST_CASE(alg, name)                                                                             \
     case alg: {                                                                                                        \
         pgfe_encode_t out[PGFE_##alg##_DIGEST_SIZE];                                                                   \
-        pgfe_hmac_##name##_digest((pgfe_hmac_##name##_ctx *)ctx, out);                                                 \
+        pgfe_hmac_##name##_digest(&ctx.name, out);                                                                     \
         output = new SequentialData(out, PGFE_##alg##_DIGEST_SIZE);                                                    \
     } break
 
 #define __PGFE_HMAC_SET_KEY_CASE(alg, name)                                                                            \
     case alg:                                                                                                          \
-        pgfe_hmac_##name##_set_key((pgfe_hmac_##name##_ctx *)ctx, key->to_pgfe_seq(), key->length());                  \
+        pgfe_hmac_##name##_set_key(&ctx.name, key->to_pgfe_seq(), key->length());                                      \
         break
 
 #define __PGFE_HMAC_ADD_DATA_CASE(alg, name)                                                                           \
     case alg:                                                                                                          \
         for (SequentialData * item : *data_vec) {                                                                      \
-            pgfe_hmac_##name##_update((pgfe_hmac_##name##_ctx *)ctx, item->to_pgfe_seq(), item->length());             \
+            pgfe_hmac_##name##_update(&ctx.name, item->to_pgfe_seq(), item->length());                                 \
         }                                                                                                              \
         break
 
@@ -35,7 +38,7 @@ using namespace chardon55::PGFE;
 void HMACEncoder::destroy_key() {
     if (!key) return;
 
-    delete[] key;
+    delete key;
     key = nullptr;
 }
 
@@ -59,7 +62,6 @@ void HMACEncoder::destroy_output() {
 HMACEncoder::HMACEncoder() {
     key = output = nullptr;
     data_vec = new std::vector<SequentialData *>();
-    __PGFE_BATCH_CASES(SET_CTXP)
 
     select_algorithm(SHA1);
 }
@@ -68,11 +70,10 @@ HMACEncoder::~HMACEncoder() {
     destroy_key();
     destroy_data();
     destroy_output();
-    __PGFE_BATCH_CASES(FREE_CTXP)
 }
 
 void HMACEncoder::after_change_alg() {
-    __PGFE_BATCH_CASES(INIT_SIZE)
+    __PGFE_BATCH_CASES_SP(INIT_SIZE)
 
     destroy_output();
 }
@@ -119,7 +120,7 @@ SequentialData *HMACEncoder::get_digest() {
     }
 
     if (!output) {
-        __PGFE_BATCH_CASES_SP(INIT_CTXP)
+        __PGFE_BATCH_CASES_SP(HMAC_INIT_CTX)
         __PGFE_BATCH_CASES_SP(HMAC_SET_KEY)
         __PGFE_BATCH_CASES_SP(HMAC_ADD_DATA)
         __PGFE_BATCH_CASES_SP(HMAC_DIGEST)
