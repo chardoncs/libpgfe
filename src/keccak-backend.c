@@ -10,8 +10,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define _cmod(x, y) ((x) % (y) + ((x) < 0 ? (y) : 0))
-
 const uint16_t _r[24] = {1, 3, 6, 10, 15, 21, 28, 36, 45, 55, 2, 14, 27, 41, 56, 8, 25, 43, 62, 18, 39, 61, 20, 44};
 
 const uint64_t _RC[24] = {0x0000000000000001, 0x0000000000008082, 0x800000000000808a, 0x8000000080008000,
@@ -212,8 +210,9 @@ int __pgfe_keccak_squeeze_b1600(struct pgfe_keccak_sponge_ctx *ctx, pgfe_encode_
     uint64_t i, bit_len = ctx->out_length;
     uint32_t partial_block;
 
-    if (ctx->ap_len) {
+    if (ctx->ap_len && !ctx->ap_added) {
         __pgfe_keccak_absorb_b1600(ctx, &ctx->ap, ctx->ap_len);
+        ctx->ap_added = 1;
     }
 
     if (!ctx->squeezing) {

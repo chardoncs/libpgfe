@@ -34,6 +34,7 @@ struct pgfe_keccak_sponge_ctx
     unsigned int squeezable;                                   // Size of squeezable bits
     pgfe_encode_t ap;                                          // Reserved appendix for adapting SHA-3
     uint8_t ap_len;                                            // Bit length of appendix
+    int ap_added;                                              // Is appendix added
 };
 
 int __pgfe_keccak_init(struct pgfe_keccak_sponge_ctx *ctx, uint32_t capacity);
