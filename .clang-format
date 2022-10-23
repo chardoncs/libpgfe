@@ -1,5 +1,6 @@
 #
 # Komorebi clang-format file
+# v0.2.0
 #
 
 ---
@@ -48,6 +49,8 @@ BitFieldColonSpacing: After
 Language: Cpp
 
 AlwaysBreakTemplateDeclarations: Yes
+IndentAccessModifiers: false
+AccessModifierOffset: -4
 
 BraceWrapping:
   AfterClass: true
