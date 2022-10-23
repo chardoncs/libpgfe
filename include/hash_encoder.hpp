@@ -13,8 +13,6 @@
 
 #include "generic.hpp"
 
-#define __pgfe_placeholder 0
-
 namespace chardon55 {
 namespace PGFE {
 
@@ -50,7 +48,7 @@ public:
     void update(std::string &cpp_s);
     void update(SequentialData &sd);
 
-    SequentialData *get_digest(uint64_t bitlength = __pgfe_placeholder);
+    SequentialData *get_digest(uint64_t bitlength = 0);
 
     size_t digest_size() {
         return digsz;
