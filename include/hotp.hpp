@@ -41,8 +41,8 @@ public:
     ~HOTP();
 
     void set_secret(const pgfe_encode_t *, size_t);
-    void set_secret(const char *cs);
-    void set_secret(std::string &);
+    void set_secret(const char *cs, bool is_base32 = false);
+    void set_secret(std::string &, bool is_base32 = false);
     void set_secret(SequentialData &);
 
     void set_secret_from_base32(const char *);

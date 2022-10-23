@@ -62,12 +62,22 @@ void HOTP::set_secret(const pgfe_encode_t *seq, size_t length) {
     selen = length;
 }
 
-void HOTP::set_secret(const char *cs) {
-    this->AbstractOTP::set_secret(cs);
+void HOTP::set_secret(const char *cs, bool is_base32) {
+    if (is_base32) {
+        set_secret_from_base32(cs);
+    }
+    else {
+        this->AbstractOTP::set_secret(cs);
+    }
 }
 
-void HOTP::set_secret(std::string &cpp_s) {
-    this->AbstractOTP::set_secret(cpp_s);
+void HOTP::set_secret(std::string &cpp_s, bool is_base32) {
+    if (is_base32) {
+        set_secret_from_base32(cpp_s);
+    }
+    else {
+        this->AbstractOTP::set_secret(cpp_s);
+    }
 }
 
 void HOTP::set_secret(SequentialData &sd) {
