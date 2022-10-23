@@ -15,6 +15,8 @@
 #include <string.h>
 #include <time.h>
 
+#include "algorithm-choice.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -44,6 +46,56 @@ extern "C" {
 #define PGFE_ENCODER_SIG_SHA3_256 PGFE_ENCODER_SIG(sha3_256, SHA3_256)
 #define PGFE_ENCODER_SIG_SHA3_384 PGFE_ENCODER_SIG(sha3_384, SHA3_384)
 #define PGFE_ENCODER_SIG_SHA3_512 PGFE_ENCODER_SIG(sha3_512, SHA3_512)
+
+#define __PGFE_BATCH_CASES_C(target, name)                                                                             \
+    switch (target) {                                                                                                  \
+        __PGFE_##name##_CASE_C(MD5, md5);                                                                              \
+        __PGFE_##name##_CASE_C(SHA1, sha1);                                                                            \
+        __PGFE_##name##_CASE_C(SHA224, sha224);                                                                        \
+        __PGFE_##name##_CASE_C(SHA256, sha256);                                                                        \
+        __PGFE_##name##_CASE_C(SHA384, sha384);                                                                        \
+        __PGFE_##name##_CASE_C(SHA512, sha512);                                                                        \
+        __PGFE_##name##_CASE_C(SHA512_224, sha512_224);                                                                \
+        __PGFE_##name##_CASE_C(SHA512_256, sha512_256);                                                                \
+        __PGFE_##name##_CASE_C(SHA3_224, sha3_224);                                                                    \
+        __PGFE_##name##_CASE_C(SHA3_256, sha3_256);                                                                    \
+        __PGFE_##name##_CASE_C(SHA3_384, sha3_384);                                                                    \
+        __PGFE_##name##_CASE_C(SHA3_512, sha3_512);                                                                    \
+        __PGFE_##name##_CASE_C(RawSHAKE128, rawshake128);                                                              \
+        __PGFE_##name##_CASE_C(SHAKE128, shake128);                                                                    \
+        __PGFE_##name##_CASE_C(RawSHAKE256, rawshake256);                                                              \
+        __PGFE_##name##_CASE_C(SHAKE256, shake256);                                                                    \
+    default:                                                                                                           \
+        break;                                                                                                         \
+    }
+
+#define __PGFE_BATCH_CASES_SP_C(target, name)                                                                          \
+    switch (target) {                                                                                                  \
+        __PGFE_##name##_CASE_C(MD5, md5);                                                                              \
+        __PGFE_##name##_CASE_C(SHA1, sha1);                                                                            \
+        __PGFE_##name##_CASE_C(SHA224, sha224);                                                                        \
+        __PGFE_##name##_CASE_C(SHA256, sha256);                                                                        \
+        __PGFE_##name##_CASE_C(SHA384, sha384);                                                                        \
+        __PGFE_##name##_CASE_C(SHA512, sha512);                                                                        \
+        __PGFE_##name##_CASE_C(SHA512_224, sha512_224);                                                                \
+        __PGFE_##name##_CASE_C(SHA512_256, sha512_256);                                                                \
+        __PGFE_##name##_CASE_C(SHA3_224, sha3_224);                                                                    \
+        __PGFE_##name##_CASE_C(SHA3_256, sha3_256);                                                                    \
+        __PGFE_##name##_CASE_C(SHA3_384, sha3_384);                                                                    \
+        __PGFE_##name##_CASE_C(SHA3_512, sha3_512);                                                                    \
+    default:                                                                                                           \
+        break;                                                                                                         \
+    }
+
+#define __PGFE_BATCH_CASES_SHAKE_C(target, name)                                                                       \
+    switch (target) {                                                                                                  \
+        __PGFE_##name##_CASE_C(RawSHAKE128, rawshake128);                                                              \
+        __PGFE_##name##_CASE_C(SHAKE128, shake128);                                                                    \
+        __PGFE_##name##_CASE_C(RawSHAKE256, rawshake256);                                                              \
+        __PGFE_##name##_CASE_C(SHAKE256, shake256);                                                                    \
+    default:                                                                                                           \
+        break;                                                                                                         \
+    }
 
 // Common encoding character type in libpgfe
 typedef uint8_t pgfe_encode_t;

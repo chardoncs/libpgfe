@@ -37,7 +37,7 @@ class AbstractEncoder
         update(sd.to_pgfe_seq(sz), sz);
     }
 
-    virtual SequentialData get_digest() {
+    virtual SequentialData *get_digest() {
         return nullptr;
     }
 }; // namespace AbstractEncoder
