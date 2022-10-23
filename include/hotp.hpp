@@ -17,7 +17,7 @@ namespace PGFE {
 
 class HOTP : public AbstractOTP
 {
-  private:
+private:
     pgfe_encode_t *secret;
     size_t selen, digsz, blocksz;
 
@@ -27,12 +27,12 @@ class HOTP : public AbstractOTP
 
     void destroy_secret();
 
-  protected:
+protected:
     void after_change_alg();
 
     void init();
 
-  public:
+public:
     HOTP();
     HOTP(const pgfe_encode_t *, size_t);
     HOTP(const char *);

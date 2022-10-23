@@ -22,7 +22,7 @@ namespace PGFE {
 class HashEncoder : public AbstractHashEncoder
 {
 
-  private:
+private:
     void *ctx = nullptr;
 
     size_t digsz, blocksz;
@@ -34,11 +34,11 @@ class HashEncoder : public AbstractHashEncoder
 
     void init();
 
-  protected:
+protected:
     void before_change_alg();
     void after_change_alg();
 
-  public:
+public:
     HashEncoder(pgfe_algorithm_choice choice = SHA1);
     HashEncoder(std::string &choice);
     ~HashEncoder();

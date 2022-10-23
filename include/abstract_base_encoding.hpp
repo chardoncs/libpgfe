@@ -25,7 +25,7 @@ typedef unsigned short base_short_size_t;
 
 class AbstractBaseEncoding
 {
-  private:
+private:
     pgfe_encode_t *de_cache = nullptr;
     char *en_cache = nullptr;
     size_t encsz = 0, decsz = 0;
@@ -37,7 +37,7 @@ class AbstractBaseEncoding
     void destroy_encode_cache();
     void destroy_decode_cache();
 
-  protected:
+protected:
     base_encode_func *encode_f;
     base_decode_func *decode_f;
 
@@ -49,7 +49,7 @@ class AbstractBaseEncoding
 
     void init();
 
-  public:
+public:
     // AbstractBaseEncoding();
     ~AbstractBaseEncoding();
 

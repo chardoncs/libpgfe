@@ -21,7 +21,7 @@ namespace PGFE {
 
 class AbstractEncoder
 {
-  public:
+public:
     virtual void reset() {}
 
     virtual void update(const pgfe_encode_t sequence[], size_t length) {}

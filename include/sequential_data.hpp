@@ -24,7 +24,7 @@ typedef pgfe_encode_t seqdata_t;
 
 class SequentialData
 {
-  private:
+private:
     seqdata_t *seq = nullptr;
     size_t sz = 0, hex_sz = 0;
 
@@ -34,7 +34,7 @@ class SequentialData
 
     bool determine_ascii_str();
 
-  public:
+public:
     SequentialData(const pgfe_encode_t *, size_t);
     SequentialData(const char *);
     SequentialData(std::string &);

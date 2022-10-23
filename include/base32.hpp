@@ -16,14 +16,14 @@ namespace PGFE {
 
 class Base32 : public AbstractBaseEncoding
 {
-  private:
+private:
     bool hexm;
 
-  protected:
+protected:
     void init_base_function(base_encode_func *&, base_decode_func *&);
     void init_size(base_short_size_t &, base_short_size_t &, base_short_size_t &, base_short_size_t &);
 
-  public:
+public:
     Base32(bool hex_mode = false);
 
     bool is_hex_mode() {

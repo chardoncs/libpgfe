@@ -21,7 +21,7 @@ namespace PGFE {
 
 class HMACEncoder : public AbstractHashEncoder
 {
-  private:
+private:
     union
     {
         pgfe_hmac_md5_ctx md5;
@@ -47,10 +47,10 @@ class HMACEncoder : public AbstractHashEncoder
     void destroy_data();
     void destroy_output();
 
-  protected:
+protected:
     void after_change_alg();
 
-  public:
+public:
     HMACEncoder();
     ~HMACEncoder();
 

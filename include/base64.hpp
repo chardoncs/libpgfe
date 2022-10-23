@@ -16,14 +16,14 @@ namespace PGFE {
 
 class Base64 : public AbstractBaseEncoding
 {
-  private:
+private:
     bool _url_safe_mode;
 
-  protected:
+protected:
     void init_base_function(base_encode_func *&, base_decode_func *&);
     void init_size(base_short_size_t &, base_short_size_t &, base_short_size_t &, base_short_size_t &);
 
-  public:
+public:
     Base64(bool url_safe_mode = false);
 
     bool is_url_safe_mode() {

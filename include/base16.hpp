@@ -16,11 +16,11 @@ namespace PGFE {
 
 class Base16 : public AbstractBaseEncoding
 {
-  protected:
+protected:
     void init_base_function(base_encode_func *&, base_decode_func *&);
     void init_size(base_short_size_t &, base_short_size_t &, base_short_size_t &, base_short_size_t &);
 
-  public:
+public:
     Base16();
 };
 

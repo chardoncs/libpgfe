@@ -17,13 +17,13 @@ namespace PGFE {
 
 class TOTP : public HOTP
 {
-  private:
+private:
     pgfe_totp_interval_t interval;
     pgfe_time_t initial_time = 0, update_time = 0;
 
     pgfe_totp_delta_t delta;
 
-  public:
+public:
     TOTP(pgfe_totp_interval_t = 30);
     TOTP(const pgfe_encode_t *, size_t, pgfe_totp_interval_t = 30);
     TOTP(const char *, pgfe_totp_interval_t = 30);

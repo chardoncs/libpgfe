@@ -21,7 +21,7 @@ namespace PGFE {
 
 class AbstractOTP : public AlgorithmSelectable
 {
-  public:
+public:
     virtual void set_secret(const pgfe_encode_t *, size_t) {}
     virtual void set_secret(const char *cs);
     virtual void set_secret(std::string &);

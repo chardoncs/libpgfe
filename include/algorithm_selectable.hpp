@@ -19,7 +19,7 @@ namespace PGFE {
 
 class AlgorithmSelectable
 {
-  protected:
+protected:
     pgfe_algorithm_choice cur;
 
     pgfe_algorithm_choice convert_choice(std::string ch_s);
@@ -27,7 +27,7 @@ class AlgorithmSelectable
     virtual void before_change_alg() {}
     virtual void after_change_alg() {}
 
-  public:
+public:
     void select_algorithm(pgfe_algorithm_choice choice);
     void select_algorithm(const char *cs);
     void select_algorithm(std::string &s);
