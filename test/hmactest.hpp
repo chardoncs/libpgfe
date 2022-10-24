@@ -20,27 +20,13 @@ void hmac_encoder_test(ARGS) {
         encoder.select_algorithm(argv[c++ - 1]);
     }
     if (argc >= c) {
-        encoder.set_key(argv[c++ - 1]);
-    }
-    if (argc >= c) {
-        encoder.update(argv[c++ - 1]);
-    }
-
-    auto sd = encoder.get_digest();
-    puts(sd->to_hex_cs());
-    delete sd;
-}
-
-void hmac_encoder_hex_test(ARGS) {
-    HMACEncoder encoder;
-
-    int c = 3;
-    if (argc >= c) {
-        encoder.select_algorithm(argv[c++ - 1]);
-    }
-    if (argc >= c) {
-        auto sd = utils::sequential_data::from_hex_string(argv[c++ - 1]);
-        encoder.set_key(sd);
+        if (argv[c - 1][0] == '0' || argv[c - 1][1] == 'x') {
+            auto sd = utils::sequential_data::from_hex_string(argv[c++ - 1]);
+            encoder.set_key(sd);
+        }
+        else {
+            encoder.set_key(argv[c++ - 1]);
+        }
     }
     if (argc >= c) {
         encoder.update(argv[c++ - 1]);

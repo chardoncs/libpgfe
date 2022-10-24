@@ -37,15 +37,6 @@ add_test(
 )
 
 add_test(
-    NAME hmac_encoder_md5_1
-    COMMAND pgfetestcpp hmac_encoder_hex "md5" "0x0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b" "Hi There"
-)
-add_test(
-    NAME hmac_encoder_md5_2
-    COMMAND pgfetestcpp hmac_encoder "md5" "Jefe" "what do ya want for nothing?"
-)
-
-add_test(
     NAME hotp_sha1
     COMMAND pgfetestcpp hotp_hex sha1 "3132333435363738393031323334353637383930"
 )
@@ -130,9 +121,6 @@ set_property(TEST hash_encoder_SHA3_224 PROPERTY PASS_REGULAR_EXPRESSION ${test_
 set_property(TEST hash_encoder_SHA3_256 PROPERTY PASS_REGULAR_EXPRESSION ${test_text_sha3_256})
 set_property(TEST hash_encoder_SHA3_384 PROPERTY PASS_REGULAR_EXPRESSION ${test_text_sha3_384})
 set_property(TEST hash_encoder_SHA3_512 PROPERTY PASS_REGULAR_EXPRESSION ${test_text_sha3_512})
-
-set_property(TEST hmac_encoder_md5_1 PROPERTY PASS_REGULAR_EXPRESSION "9294727a3638bb1c13f48ef8158bfc9d")
-set_property(TEST hmac_encoder_md5_2 PROPERTY PASS_REGULAR_EXPRESSION "750c783e6ab0b503eaa86e310a5db738")
 
 set_property(TEST hotp_sha1 PROPERTY PASS_REGULAR_EXPRESSION "94287082")
 set_property(TEST hotp_sha256 PROPERTY PASS_REGULAR_EXPRESSION "46119246")
