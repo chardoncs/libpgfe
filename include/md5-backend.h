@@ -9,7 +9,6 @@
 #define LIBPGFE_MD5_BACKEND_H
 
 #include "generic-internal.h"
-#include "types.h"
 
 #ifdef __cplusplus
 extern "C" {

@@ -12,7 +12,6 @@
 
 #include "generic.h"
 #include "hmac.h"
-#include "types.h"
 
 #ifdef __cplusplus
 extern "C" {

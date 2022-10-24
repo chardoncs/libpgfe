@@ -100,6 +100,10 @@ extern "C" {
 // Common encoding character type in libpgfe
 typedef uint8_t pgfe_encode_t;
 
+typedef uint32_t pgfe_word_t;
+
+typedef uint64_t pgfe_word64_t;
+
 typedef void pgfe_encode_func(const pgfe_encode_t input[], pgfe_encode_t output[]);
 
 typedef void pgfe_encode_multi_func(pgfe_encode_t output[], size_t input_c, ...);

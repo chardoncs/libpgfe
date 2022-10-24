@@ -11,7 +11,6 @@
 #include <stdio.h>
 
 #include "generic-internal.h"
-#include "types.h"
 
 #ifdef __cplusplus
 extern "C" {

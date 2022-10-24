@@ -12,7 +12,6 @@
 
 #include "generic-internal.h"
 #include "generic.h"
-#include "types.h"
 
 #ifdef __cplusplus
 extern "C" {
