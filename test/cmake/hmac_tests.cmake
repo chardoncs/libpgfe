@@ -21,8 +21,7 @@ list(APPEND HMAC_results "164b7a7bfcf819e2e395fbe73b56e0a387bd64222e831fd610270c
 
 set(i 0)
 foreach(alg IN LISTS HMAC_alglist)
-    set(j 0)
-    set(jp1 0)
+    set(jp1 1)
     foreach(tup IN ZIP_LISTS HMAC_keys HMAC_data)
         set(test_name_c "hmac_${alg}_${jp1}")
         set(test_name_cpp "hmac_encoder_${alg}_${jp1}")
@@ -37,12 +36,11 @@ foreach(alg IN LISTS HMAC_alglist)
 
         add_test(
             NAME ${test_name_cpp}
-            COMMAND pgfetestcpp hash_encoder ${alg} ${tup_0} ${tup_1}
+            COMMAND pgfetestcpp hmac_encoder ${alg} ${tup_0} ${tup_1}
         )
         set_property(TEST ${test_name_cpp} PROPERTY PASS_REGULAR_EXPRESSION ${result})
     
         math(EXPR i "${i} + 1" OUTPUT_FORMAT DECIMAL)
-        math(EXPR j "${j} + 1" OUTPUT_FORMAT DECIMAL)
         math(EXPR jp1 "${jp1} + 1" OUTPUT_FORMAT DECIMAL)
     endforeach()
 endforeach()

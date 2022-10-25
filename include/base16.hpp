@@ -7,7 +7,9 @@
 
 #ifndef LIBPGFE_BASE16_HPP
 #define LIBPGFE_BASE16_HPP
-#ifdef __cplusplus
+#ifndef __cplusplus
+#error libpgfe error: C++ headers are not compatible with C source
+#endif
 
 #include "abstract_base_encoding.hpp"
 
@@ -27,5 +29,4 @@ public:
 } // namespace PGFE
 } // namespace chardon55
 
-#endif
 #endif

@@ -7,7 +7,9 @@
 
 #ifndef LIBPGFE_TOTP_HPP
 #define LIBPGFE_TOTP_HPP
-#ifdef __cplusplus
+#ifndef __cplusplus
+#error libpgfe error: C++ headers are not compatible with C source
+#endif
 
 #include "hotp.hpp"
 #include "totp.h"
@@ -24,11 +26,11 @@ private:
     pgfe_totp_delta_t delta;
 
 public:
-    TOTP(pgfe_totp_interval_t = 30);
-    TOTP(const pgfe_encode_t *, size_t, pgfe_totp_interval_t = 30);
-    TOTP(const char *, pgfe_totp_interval_t = 30);
-    TOTP(std::string &, pgfe_totp_interval_t = 30);
-    TOTP(SequentialData &, pgfe_totp_interval_t = 30);
+    TOTP(pgfe_totp_interval_t = 30, pgfe_algorithm_choice = SHA1);
+    TOTP(const pgfe_encode_t *, size_t, pgfe_totp_interval_t = 30, pgfe_algorithm_choice = SHA1);
+    TOTP(const char *, pgfe_totp_interval_t = 30, pgfe_algorithm_choice = SHA1);
+    TOTP(std::string &, pgfe_totp_interval_t = 30, pgfe_algorithm_choice = SHA1);
+    TOTP(SequentialData &, pgfe_totp_interval_t = 30, pgfe_algorithm_choice = SHA1);
     ~TOTP();
 
     void update_counter();
@@ -47,5 +49,4 @@ public:
 } // namespace PGFE
 } // namespace chardon55
 
-#endif
 #endif

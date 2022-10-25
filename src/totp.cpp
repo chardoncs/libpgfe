@@ -40,22 +40,27 @@ pgfe_time_t TOTP::get_remain_time() {
     return delta - (pgfe_curtime() - update_time);
 }
 
-TOTP::TOTP(pgfe_totp_interval_t interval) {
+TOTP::TOTP(pgfe_totp_interval_t interval, pgfe_algorithm_choice algorithm) : HOTP(algorithm) {
     set_interval(interval);
 }
 
-TOTP::TOTP(const pgfe_encode_t *secret_seq, size_t length, pgfe_totp_interval_t interval) : HOTP(secret_seq, length) {
+TOTP::TOTP(
+    const pgfe_encode_t *secret_seq, size_t length, pgfe_totp_interval_t interval, pgfe_algorithm_choice algorithm
+)
+    : HOTP(secret_seq, length, algorithm) {
     set_interval(interval);
 }
-TOTP::TOTP(const char *secret_cs, pgfe_totp_interval_t interval) : HOTP(secret_cs) {
+TOTP::TOTP(const char *secret_cs, pgfe_totp_interval_t interval, pgfe_algorithm_choice algorithm)
+    : HOTP(secret_cs, algorithm) {
     set_interval(interval);
 }
 
-TOTP::TOTP(std::string &secret_cpp_s, pgfe_totp_interval_t interval) : HOTP(secret_cpp_s) {
+TOTP::TOTP(std::string &secret_cpp_s, pgfe_totp_interval_t interval, pgfe_algorithm_choice algorithm)
+    : HOTP(secret_cpp_s, algorithm) {
     set_interval(interval);
 }
 
-TOTP::TOTP(SequentialData &sd, pgfe_totp_interval_t interval) : HOTP(sd) {
+TOTP::TOTP(SequentialData &sd, pgfe_totp_interval_t interval, pgfe_algorithm_choice algorithm) : HOTP(sd, algorithm) {
     set_interval(interval);
 }
 

@@ -7,7 +7,9 @@
 
 #ifndef LIBPGFE_ABSTRACT_BASE_ENCODING
 #define LIBPGFE_ABSTRACT_BASE_ENCODING
-#ifdef __cplusplus
+#ifndef __cplusplus
+#error libpgfe error: C++ headers are not compatible with C source
+#endif
 
 #include <mutex>
 #include <string>
@@ -70,5 +72,4 @@ public:
 } // namespace PGFE
 } // namespace chardon55
 
-#endif
 #endif

@@ -7,7 +7,9 @@
 
 #ifndef LIBPGFE_HOTP_HPP
 #define LIBPGFE_HOTP_HPP
-#ifdef __cplusplus
+#ifndef __cplusplus
+#error libpgfe error: C++ headers are not compatible with C source
+#endif
 
 #include "abstract_otp.hpp"
 #include "base32.hpp"
@@ -18,8 +20,8 @@ namespace PGFE {
 class HOTP : public AbstractOTP
 {
 private:
-    pgfe_encode_t *secret;
-    size_t selen, digsz, blocksz;
+    SequentialData *secret;
+    size_t digsz, blocksz;
 
     pgfe_otp_counter_t co;
 
@@ -30,14 +32,12 @@ private:
 protected:
     void after_change_alg();
 
-    void init();
-
 public:
-    HOTP();
-    HOTP(const pgfe_encode_t *, size_t);
-    HOTP(const char *);
-    HOTP(std::string &);
-    HOTP(SequentialData &);
+    HOTP(pgfe_algorithm_choice algorithm = SHA1);
+    HOTP(const pgfe_encode_t *, size_t, pgfe_algorithm_choice = SHA1);
+    HOTP(const char *, pgfe_algorithm_choice = SHA1);
+    HOTP(std::string &, pgfe_algorithm_choice = SHA1);
+    HOTP(SequentialData &, pgfe_algorithm_choice = SHA1);
     ~HOTP();
 
     void set_secret(const pgfe_encode_t *, size_t);
@@ -57,5 +57,4 @@ public:
 } // namespace PGFE
 } // namespace chardon55
 
-#endif
 #endif

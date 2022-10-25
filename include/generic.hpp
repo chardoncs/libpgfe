@@ -7,7 +7,9 @@
 
 #ifndef LIBPGFE_GENERIC_HPP
 #define LIBPGFE_GENERIC_HPP
-#ifdef __cplusplus
+#ifndef __cplusplus
+#error libpgfe error: C++ headers are not compatible with C source
+#endif
 
 #include <string>
 #include <unordered_map>
@@ -18,6 +20,8 @@
 #include "sha1.h"
 #include "sha2.h"
 #include "sha3.h"
+
+#define USE_PGFE_CPP using namespace chardon55::PGFE;
 
 #define __PGFE_BATCH_CASES(name)                                                                                       \
     switch (cur) {                                                                                                     \
@@ -174,5 +178,4 @@ static std::unordered_map<pgfe_algorithm_choice, size_t> pgfe_block_length = {
 } // namespace PGFE
 } // namespace chardon55
 
-#endif
 #endif

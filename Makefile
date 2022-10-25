@@ -1,5 +1,7 @@
 include meta.mak
 
+.PHONY: all rebuild clean test install uninstall
+
 all: 
 	@echo 'Building...'
 	@cmake . -B $(BUILD_DIR)
@@ -13,10 +15,10 @@ $(BUILD_DIR):
 
 clean:
 	@echo 'Cleaning...'
-	@rm -rf ./$(BUILD_DIR)
+	@rm -rfv ./$(BUILD_DIR)
 	@echo 'Cleaning done'
 
-ctest: all
+test: all
 	@ctest --test-dir $(BUILD_DIR) -C Release
 
 install: all

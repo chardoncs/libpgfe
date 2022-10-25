@@ -7,7 +7,9 @@
 
 #ifndef LIBPGFE_HMAC_ENCODER_HPP
 #define LIBPGFE_HMAC_ENCODER_HPP
-#ifdef __cplusplus
+#ifndef __cplusplus
+#error libpgfe error: C++ headers are not compatible with C source
+#endif
 
 #include <vector>
 
@@ -40,24 +42,24 @@ private:
 
     size_t digsz, blocksz;
 
-    SequentialData *key, *output;
-    std::vector<SequentialData *> *data_vec;
+    SequentialData *output;
 
-    void destroy_key();
-    void destroy_data();
     void destroy_output();
-
-protected:
-    void after_change_alg();
-
-public:
-    HMACEncoder();
-    ~HMACEncoder();
 
     void set_key(const pgfe_encode_t sequence[], size_t length);
     void set_key(const char cs[]);
     void set_key(std::string &cpp_s);
     void set_key(SequentialData &sd);
+
+protected:
+    void after_change_alg();
+
+public:
+    HMACEncoder(pgfe_algorithm_choice algorithm, const pgfe_encode_t sequence[], size_t length);
+    HMACEncoder(pgfe_algorithm_choice algorithm, const char cs[]);
+    HMACEncoder(pgfe_algorithm_choice algorithm, std::string &cpp_s);
+    HMACEncoder(pgfe_algorithm_choice algorithm, SequentialData &sd);
+    ~HMACEncoder();
 
     void update(const pgfe_encode_t sequence[], size_t length);
     void update(const char cs[]);
@@ -78,5 +80,4 @@ public:
 } // namespace PGFE
 } // namespace chardon55
 
-#endif
 #endif

@@ -7,7 +7,9 @@
 
 #ifndef LIBPGFE_GENERIC_HASH_ENCODER_HPP
 #define LIBPGFE_GENERIC_HASH_ENCODER_HPP
-#ifdef __cplusplus
+#ifndef __cplusplus
+#error libpgfe error: C++ headers are not compatible with C source
+#endif
 
 #include <string>
 
@@ -27,5 +29,4 @@ class AbstractHashEncoder : public AbstractEncoder, public AlgorithmSelectable
 } // namespace PGFE
 } // namespace chardon55
 
-#endif
 #endif

@@ -9,30 +9,27 @@
 
 #include "../include/hmac_encoder.hpp"
 #include "../include/utils.h"
-
-using namespace chardon55::PGFE;
+#include "../include/utils.hpp"
 
 void hmac_encoder_test(ARGS) {
-    HMACEncoder encoder;
+    USE_PGFE_CPP
+    USE_PGFE_CPP_UTILS
 
-    int c = 3;
-    if (argc >= c) {
-        encoder.select_algorithm(argv[c++ - 1]);
+    HMACEncoder *encoder;
+
+    if (argv[3][0] == '0' && argv[3][1] == 'x') {
+        auto sd = utils::sequential_data::from_hex_string(argv[3]);
+        encoder = new HMACEncoder(_algstr(argv[2]), *sd);
+        delete sd;
     }
-    if (argc >= c) {
-        if (argv[c - 1][0] == '0' || argv[c - 1][1] == 'x') {
-            auto sd = utils::sequential_data::from_hex_string(argv[c++ - 1]);
-            encoder.set_key(sd);
-        }
-        else {
-            encoder.set_key(argv[c++ - 1]);
-        }
-    }
-    if (argc >= c) {
-        encoder.update(argv[c++ - 1]);
+    else {
+        encoder = new HMACEncoder(_algstr(argv[2]), argv[3]);
     }
 
-    auto sd = encoder.get_digest();
+    encoder->update(argv[4]);
+
+    auto sd = encoder->get_digest();
     puts(sd->to_hex_cs());
     delete sd;
+    delete encoder;
 }

@@ -7,7 +7,9 @@
 
 #ifndef LIBPGFE_GENERIC_OTP_HPP
 #define LIBPGFE_GENERIC_OTP_HPP
-#ifdef __cplusplus
+#ifndef __cplusplus
+#error libpgfe error: C++ headers are not compatible with C source
+#endif
 
 #include <string>
 
@@ -39,5 +41,4 @@ public:
 } // namespace PGFE
 } // namespace chardon55
 
-#endif
 #endif

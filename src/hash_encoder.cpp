@@ -85,12 +85,6 @@ void HashEncoder::init() {
 
 HashEncoder::HashEncoder(pgfe_algorithm_choice choice) {
     select_algorithm(choice);
-    init();
-}
-
-HashEncoder::HashEncoder(std::string &choice) {
-    select_algorithm(choice);
-    init();
 }
 
 HashEncoder::~HashEncoder() {

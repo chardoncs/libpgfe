@@ -17,33 +17,29 @@ using namespace chardon55::PGFE;
 void HOTP::destroy_secret() {
     if (!secret) return;
 
-    delete[] secret;
+    delete secret;
     secret = nullptr;
-    selen = 0;
 }
 
-void HOTP::init() {
-    select_algorithm(SHA1);
-}
-
-HOTP::HOTP() {
+HOTP::HOTP(pgfe_algorithm_choice algorithm) {
     secret = nullptr;
-    init();
+    select_algorithm(algorithm);
 }
 
-HOTP::HOTP(const pgfe_encode_t *secret_seq, size_t length) : HOTP() {
-    set_secret(secret_seq, length);
+HOTP::HOTP(const pgfe_encode_t *secret, size_t length, pgfe_algorithm_choice algorithm) : HOTP(algorithm) {
+    set_secret(secret, length);
 }
 
-HOTP::HOTP(const char *secret_cs) : HOTP() {
-    set_secret(secret_cs);
+HOTP::HOTP(const char *secret, pgfe_algorithm_choice algorithm) : HOTP(algorithm) {
+    set_secret(secret);
 }
 
-HOTP::HOTP(std::string &secret_cpp_s) : HOTP() {
-    set_secret(secret_cpp_s);
+HOTP::HOTP(std::string &secret, pgfe_algorithm_choice algorithm) : HOTP(algorithm) {
+    set_secret(secret);
 }
-HOTP::HOTP(SequentialData &sd) : HOTP() {
-    set_secret(sd);
+
+HOTP::HOTP(SequentialData &secret, pgfe_algorithm_choice algorithm) : HOTP(algorithm) {
+    set_secret(secret);
 }
 
 HOTP::~HOTP() {
@@ -56,10 +52,7 @@ void HOTP::after_change_alg() {
 
 void HOTP::set_secret(const pgfe_encode_t *seq, size_t length) {
     destroy_secret();
-    secret = new pgfe_encode_t[length + 1];
-    memcpy(secret, seq, length);
-    secret[length] = 0;
-    selen = length;
+    secret = new SequentialData(seq, length);
 }
 
 void HOTP::set_secret(const char *cs, bool is_base32) {
@@ -93,7 +86,7 @@ pgfe_otp_t HOTP::generate(uint8_t digit_count) {
         throw NotInitializedException();
     }
 
-    return pgfe_hotp_generic(cur, secret, selen, co, digit_count);
+    return pgfe_hotp_generic(cur, secret->to_pgfe_seq(), secret->length(), co, digit_count);
 }
 
 std::string HOTP::generate_str(uint8_t digit_count) {

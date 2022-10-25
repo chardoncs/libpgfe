@@ -23,35 +23,15 @@
 
 #define __PGFE_HMAC_SET_KEY_CASE(alg, name)                                                                            \
     case alg:                                                                                                          \
-        pgfe_hmac_##name##_set_key(&ctx.name, key->to_pgfe_seq(), key->length());                                      \
+        pgfe_hmac_##name##_set_key(&ctx.name, sequence, length);                                                       \
         break
 
 #define __PGFE_HMAC_ADD_DATA_CASE(alg, name)                                                                           \
     case alg:                                                                                                          \
-        for (SequentialData * item : *data_vec) {                                                                      \
-            pgfe_hmac_##name##_update(&ctx.name, item->to_pgfe_seq(), item->length());                                 \
-        }                                                                                                              \
+        pgfe_hmac_##name##_update(&ctx.name, sequence, length);                                                        \
         break
 
 using namespace chardon55::PGFE;
-
-void HMACEncoder::destroy_key() {
-    if (!key) return;
-
-    delete key;
-    key = nullptr;
-}
-
-void HMACEncoder::destroy_data() {
-    if (!data_vec) return;
-
-    while (data_vec->size()) {
-        delete data_vec->back();
-        data_vec->pop_back();
-    }
-    delete data_vec;
-    data_vec = nullptr;
-}
 
 void HMACEncoder::destroy_output() {
     if (output) {
@@ -59,29 +39,37 @@ void HMACEncoder::destroy_output() {
     }
 }
 
-HMACEncoder::HMACEncoder() {
-    key = output = nullptr;
-    data_vec = new std::vector<SequentialData *>();
+HMACEncoder::HMACEncoder(pgfe_algorithm_choice algorithm, const pgfe_encode_t sequence[], size_t length) {
+    select_algorithm(algorithm);
+    set_key(sequence, length);
+}
 
-    select_algorithm(SHA1);
+HMACEncoder::HMACEncoder(pgfe_algorithm_choice algorithm, const char cs[]) {
+    select_algorithm(algorithm);
+    set_key(cs);
+}
+
+HMACEncoder::HMACEncoder(pgfe_algorithm_choice algorithm, std::string &cpp_s) {
+    select_algorithm(algorithm);
+    set_key(cpp_s);
+}
+
+HMACEncoder::HMACEncoder(pgfe_algorithm_choice algorithm, SequentialData &sd) {
+    select_algorithm(algorithm);
+    set_key(sd);
 }
 
 HMACEncoder::~HMACEncoder() {
-    destroy_key();
-    destroy_data();
     destroy_output();
 }
 
 void HMACEncoder::after_change_alg() {
+    __PGFE_BATCH_CASES_SP(HMAC_INIT_CTX)
     __PGFE_BATCH_CASES_SP(INIT_SIZE)
-
-    destroy_output();
 }
 
 void HMACEncoder::set_key(const pgfe_encode_t sequence[], size_t length) {
-    destroy_key();
-    key = new SequentialData(sequence, length);
-    destroy_output();
+    __PGFE_BATCH_CASES_SP(HMAC_SET_KEY)
 }
 
 void HMACEncoder::set_key(const char cs[]) {
@@ -98,8 +86,7 @@ void HMACEncoder::set_key(SequentialData &sd) {
 }
 
 void HMACEncoder::update(const pgfe_encode_t sequence[], size_t length) {
-    data_vec->push_back(new SequentialData(sequence, length));
-    destroy_output();
+    __PGFE_BATCH_CASES_SP(HMAC_ADD_DATA)
 }
 
 inline void HMACEncoder::update(const char cs[]) {
@@ -115,14 +102,7 @@ inline void HMACEncoder::update(SequentialData &sd) {
 }
 
 SequentialData *HMACEncoder::get_digest() {
-    if (!key || !data_vec) {
-        throw new NotInitializedException();
-    }
-
     if (!output) {
-        __PGFE_BATCH_CASES_SP(HMAC_INIT_CTX)
-        __PGFE_BATCH_CASES_SP(HMAC_SET_KEY)
-        __PGFE_BATCH_CASES_SP(HMAC_ADD_DATA)
         __PGFE_BATCH_CASES_SP(HMAC_DIGEST)
     }
 

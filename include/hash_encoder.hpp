@@ -7,7 +7,9 @@
 
 #ifndef LIBPGFE_HASH_ENCODER_HPP
 #define LIBPGFE_HASH_ENCODER_HPP
-#ifdef __cplusplus
+#ifndef __cplusplus
+#error libpgfe error: C++ headers are not compatible with C source
+#endif
 
 #include "abstract_hash_encoder.hpp"
 
@@ -37,8 +39,7 @@ protected:
     void after_change_alg();
 
 public:
-    HashEncoder(pgfe_algorithm_choice choice = SHA1);
-    HashEncoder(std::string &choice);
+    HashEncoder(pgfe_algorithm_choice algorithm);
     ~HashEncoder();
 
     void reset();
@@ -61,5 +62,5 @@ public:
 
 } // namespace PGFE
 } // namespace chardon55
-#endif
+
 #endif
