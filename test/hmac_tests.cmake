@@ -27,17 +27,19 @@ foreach(alg IN LISTS HMAC_alglist)
         set(test_name_c "hmac_${alg}_${jp1}")
         set(test_name_cpp "hmac_encoder_${alg}_${jp1}")
 
+        list(GET HMAC_results ${i} result)
+
         add_test(
             NAME ${test_name_c}
             COMMAND pgfetest hmac ${alg} ${tup_0} ${tup_1}
         )    
-        set_property(TEST ${test_name_c} PROPERTY PASS_REGULAR_EXPRESSION ${HMAC_results_${i}})
+        set_property(TEST ${test_name_c} PROPERTY PASS_REGULAR_EXPRESSION ${result})
 
         add_test(
             NAME ${test_name_cpp}
             COMMAND pgfetestcpp hash_encoder ${alg} ${tup_0} ${tup_1}
         )
-        set_property(TEST ${test_name_cpp} PROPERTY PASS_REGULAR_EXPRESSION ${HMAC_results_${i}})
+        set_property(TEST ${test_name_cpp} PROPERTY PASS_REGULAR_EXPRESSION ${result})
     
         math(EXPR i "${i} + 1" OUTPUT_FORMAT DECIMAL)
         math(EXPR j "${j} + 1" OUTPUT_FORMAT DECIMAL)

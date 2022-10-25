@@ -82,7 +82,7 @@ void hmac_test(ARGS) {
         memcpy(key, raw_key, key_len);
     }
 
-    pgfe_hmac(get_alg_choice(argv[2]), key, key_len, data, strlen(data), out);
+    pgfe_hmac(get_alg_choice(argv[2]), key, key_len, (const pgfe_encode_t *)data, strlen(data), out);
 
     pgfe_print_hash(out, size);
 }
