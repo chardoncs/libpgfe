@@ -82,12 +82,7 @@ void hmac_test(ARGS) {
         memcpy(key, raw_key, key_len);
     }
 
-    // pgfe_hmac(get_alg_choice(argv[2]), key, key_len, (const pgfe_encode_t *)data, strlen(data), out);
-    struct pgfe_hmac_sha256_ctx ctx;
-    pgfe_hmac_sha256_init(&ctx);
-    pgfe_hmac_sha256_set_key(&ctx, key, key_len);
-    pgfe_hmac_sha256_update(&ctx, (const pgfe_encode_t *)data, strlen(data));
-    pgfe_hmac_sha256_digest(&ctx, out);
+    pgfe_hmac(get_alg_choice(argv[2]), key, key_len, (const pgfe_encode_t *)data, strlen(data), out);
 
     pgfe_print_hash(out, size);
 }

@@ -31,7 +31,7 @@ SequentialData *sequential_data::from_hex_string(const char *hex_cs) {
     size_t s_sz = strlen(hex_cs), sz = s_sz / 2 + s_sz % 2;
     pgfe_encode_t h_out[sz + 1];
 
-    pgfe_hex_string_to_hash(hex_cs, h_out);
+    sz = pgfe_hex_string_to_hash(hex_cs, h_out);
     h_out[sz] = 0;
 
     return to_sequential_data(h_out, sz);
