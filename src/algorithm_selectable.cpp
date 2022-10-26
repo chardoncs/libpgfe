@@ -3,13 +3,13 @@
 using namespace chardon55::PGFE;
 
 void AlgorithmSelectable::select_algorithm(pgfe_algorithm_choice choice) {
-    if (choice == cur) return;
+    if (choice == cur_alg) return;
 
     before_change_alg();
-    cur = choice;
+    cur_alg = choice;
     after_change_alg();
 }
 
 pgfe_algorithm_choice AlgorithmSelectable::algorithm() {
-    return cur;
+    return cur_alg;
 }

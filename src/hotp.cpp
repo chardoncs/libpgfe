@@ -86,7 +86,7 @@ pgfe_otp_t HOTP::generate(uint8_t digit_count) {
         throw NotInitializedException();
     }
 
-    return pgfe_hotp_generic(cur, secret->to_pgfe_seq(), secret->length(), co, digit_count);
+    return pgfe_hotp_generic(cur_alg, secret->to_pgfe_seq(), secret->length(), co, digit_count);
 }
 
 std::string HOTP::generate_str(uint8_t digit_count) {

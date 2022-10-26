@@ -20,7 +20,7 @@ namespace PGFE {
 class AlgorithmSelectable
 {
 protected:
-    pgfe_algorithm_choice cur;
+    pgfe_algorithm_choice cur_alg;
 
     virtual void before_change_alg() {}
     virtual void after_change_alg() {}

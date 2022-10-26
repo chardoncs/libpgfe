@@ -24,7 +24,7 @@
 #define USE_PGFE_CPP using namespace chardon55::PGFE;
 
 #define __PGFE_BATCH_CASES(name)                                                                                       \
-    switch (cur) {                                                                                                     \
+    switch (cur_alg) {                                                                                                 \
         __PGFE_##name##_CASE(MD5, md5);                                                                                \
         __PGFE_##name##_CASE(SHA1, sha1);                                                                              \
         __PGFE_##name##_CASE(SHA224, sha224);                                                                          \
@@ -46,7 +46,7 @@
     }
 
 #define __PGFE_BATCH_CASES_SP(name)                                                                                    \
-    switch (cur) {                                                                                                     \
+    switch (cur_alg) {                                                                                                 \
         __PGFE_##name##_CASE(MD5, md5);                                                                                \
         __PGFE_##name##_CASE(SHA1, sha1);                                                                              \
         __PGFE_##name##_CASE(SHA224, sha224);                                                                          \
@@ -64,7 +64,7 @@
     }
 
 #define __PGFE_BATCH_SHAKE_CASES(name)                                                                                 \
-    switch (cur) {                                                                                                     \
+    switch (cur_alg) {                                                                                                 \
         __PGFE_##name##_CASE(RawSHAKE128, rawshake128);                                                                \
         __PGFE_##name##_CASE(SHAKE128, shake128);                                                                      \
         __PGFE_##name##_CASE(RawSHAKE256, rawshake256);                                                                \
