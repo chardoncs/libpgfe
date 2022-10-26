@@ -24,6 +24,17 @@ namespace PGFE {
 
 class AbstractHashEncoder : public AbstractEncoder, public AlgorithmSelectable
 {
+protected:
+    size_t digsz, blocksz;
+
+public:
+    size_t digest_size() const {
+        return digsz;
+    }
+
+    size_t block_size() const {
+        return blocksz;
+    }
 };
 
 } // namespace PGFE

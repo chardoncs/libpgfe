@@ -25,12 +25,12 @@ class HashEncoder : public AbstractHashEncoder
 private:
     void *ctx = nullptr;
 
-    size_t digsz, blocksz;
-    pgfe_encode_t *seq = nullptr;
+    SequentialData *out = nullptr;
 
     void load_algorithm();
 
     void destroy_context();
+    void destroy_output();
 
     void init();
 
@@ -49,15 +49,7 @@ public:
     void update(std::string &cpp_s);
     void update(SequentialData &sd);
 
-    SequentialData *get_digest(uint64_t bitlength = 0);
-
-    size_t digest_size() {
-        return digsz;
-    }
-
-    size_t block_size() {
-        return blocksz;
-    }
+    const SequentialData *get_digest(uint64_t bitlength = 0);
 };
 
 } // namespace PGFE

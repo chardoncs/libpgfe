@@ -39,7 +39,7 @@ public:
         update(sd.to_pgfe_seq(sz), sz);
     }
 
-    virtual SequentialData *get_digest() {
+    virtual const SequentialData *get_digest() {
         return nullptr;
     }
 }; // namespace AbstractEncoder

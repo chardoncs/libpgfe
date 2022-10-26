@@ -32,5 +32,4 @@ void hash_encoder_test(ARGS) {
 
     // puts(sd.to_hex_cs());
     cout << *sd << endl;
-    delete sd;
 }

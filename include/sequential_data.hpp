@@ -40,27 +40,30 @@ public:
     SequentialData(const pgfe_encode_t *, size_t);
     SequentialData(const char *);
     SequentialData(std::string &);
+    SequentialData(const SequentialData *);
+    SequentialData(SequentialData *, bool delete_current);
     ~SequentialData();
 
-    const char *to_cs();
-    std::string to_str();
+    const char *to_cs() const;
+    std::string to_str() const;
 
     const char *to_hex_cs();
-    std::string to_hex_str();
+    std::string to_hex_str() const;
 
-    const pgfe_encode_t *to_pgfe_seq();
-    const pgfe_encode_t *to_pgfe_seq(size_t &);
+    const pgfe_encode_t *to_pgfe_seq() const;
+    const pgfe_encode_t *to_pgfe_seq(size_t &) const;
 
-    size_t length();
+    size_t length() const;
 
-    bool is_str();
+    bool is_str() const;
     void set_is_str(bool);
 
-    bool is_apparent_str();
+    bool is_apparent_str() const;
 
-    SequentialData *truncate(size_t start, size_t length, bool inplace = false);
+    SequentialData *truncate(size_t start, size_t length, bool inplace);
+    SequentialData *truncate(size_t start, size_t length) const;
 
-    SequentialData *copy();
+    SequentialData *copy() const;
 
     friend std::ostream &operator<<(std::ostream &os, const SequentialData &sd) {
         if (sd._is_str) {
