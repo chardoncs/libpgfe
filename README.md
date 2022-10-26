@@ -26,6 +26,21 @@
 
 The implementation philosophy of *libpgfe* assumes that the systems running this library are **Little Endian**, since it is widely used by architectures and OS. Therefore, this library should not run properly on Big Endian systems.
 
+## Tips for compilation
+
+### Compilers
+
+It is suggested to use latest [LLVM](https://llvm.org/) or [GCC](https://gcc.gnu.org/) to compile this project. **Using [MSVC](https://en.wikipedia.org/wiki/Microsoft_Visual_C++) is not tested and will probably cause compilation failure.**
+
+| Compiler   | Suggested version |
+| :--------- | :---------------- |
+| LLVM Clang | 11.0+             |
+| GCC        | 9.0+              |
+
+### Build tools
+
+CMake is needed to compile the project.
+
 ## Implementation Reference
 
 ### Standards
@@ -50,18 +65,3 @@ Meanwhile, some existing implementation repositories are referenced for the deve
 | Algorithm                     | Reference                                           |
 | :---------------------------- | :-------------------------------------------------- |
 | SHA-3/SHAKE Family            | [Keccak-NIST Reference Implementation](https://csrc.nist.gov/projects/hash-functions/sha-3-project)<br>[Fackelmann/SHA3](https://github.com/Fackelmann/SHA3)<br>[brainhub/SHU3IUF](https://github.com/brainhub/SHA3IUF)<br>[mjosaarinen/tiny_sha3](https://github.com/mjosaarinen/tiny_sha3) |
-
-## Tips for compilation
-
-### Compilers
-
-It is suggested to use latest [LLVM](https://llvm.org/) or [GCC](https://gcc.gnu.org/) to compile this project. **Using [MSVC](https://en.wikipedia.org/wiki/Microsoft_Visual_C++) is not tested and will probably cause compilation failure.**
-
-| Compiler   | Suggested version |
-| :--------- | :---------------- |
-| LLVM Clang | 11.0+             |
-| GCC        | 9.0+              |
-
-### Build tools
-
-CMake is needed to compile the project.
