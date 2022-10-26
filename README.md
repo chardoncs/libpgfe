@@ -22,6 +22,8 @@
 
 ## Endianness (Byte order)
 
+> [*What is it anyway??*](https://en.wikipedia.org/wiki/Endianness)
+
 The implementation philosophy of *libpgfe* assumes that the systems running this library are **Little Endian**, since it is widely used by architectures and OS. Therefore, this library should not run properly on Big Endian systems.
 
 ## Tips for compilation
