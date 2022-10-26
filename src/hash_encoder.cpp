@@ -60,7 +60,7 @@ void HashEncoder::before_change_alg() {
 }
 
 void HashEncoder::after_change_alg() {
-    load_algorithm();
+    // load_algorithm();
 }
 
 void HashEncoder::load_algorithm() {
@@ -85,6 +85,7 @@ void HashEncoder::init() {
 
 HashEncoder::HashEncoder(pgfe_algorithm_choice choice) {
     select_algorithm(choice);
+    init();
 }
 
 HashEncoder::~HashEncoder() {
