@@ -17,7 +17,7 @@ and I currently don't have enough time or effort to tackle it. Also, I do not ha
 
 Firstly, this library prioritizes POSIX compatibility, instead of Windows compatibility.
 
-Secondly, *libpgfe* need some necessary features that are not included in *MSVC*. For instance, like the C code below:
+Secondly, *libpgfe* needs some necessary features that are not included in *MSVC*. For instance, like the C code below:
 
 ```c
 int main() {
@@ -28,4 +28,4 @@ int main() {
 }
 ```
 
-*MSVC* will refuse to compile that code, because of a variable is used as the array's size, while *Clang* and *GCC* are OK with it.
+*MSVC* will refuse to compile that code, because a variable is used as the array's size, while *Clang* and *GCC* are OK with it.
