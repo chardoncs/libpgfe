@@ -63,10 +63,10 @@ public:
     SequentialData decode(const char *);
     SequentialData decode(std::string &);
 
-    base_short_size_t unit_size();
-    base_short_size_t chunk_size();
-    base_short_size_t bit_size();
-    base_short_size_t alphabet_size();
+    base_short_size_t unit_size() const;
+    base_short_size_t chunk_size() const;
+    base_short_size_t bit_size() const;
+    base_short_size_t alphabet_size() const;
 };
 
 } // namespace PGFE

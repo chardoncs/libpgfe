@@ -28,7 +28,7 @@ protected:
     void select_algorithm(pgfe_algorithm_choice choice);
 
 public:
-    pgfe_algorithm_choice algorithm();
+    pgfe_algorithm_choice algorithm() const;
 };
 } // namespace PGFE
 } // namespace chardon55

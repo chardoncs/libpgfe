@@ -10,6 +10,6 @@ void AlgorithmSelectable::select_algorithm(pgfe_algorithm_choice choice) {
     after_change_alg();
 }
 
-pgfe_algorithm_choice AlgorithmSelectable::algorithm() {
+pgfe_algorithm_choice AlgorithmSelectable::algorithm() const {
     return cur_alg;
 }

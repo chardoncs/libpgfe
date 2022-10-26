@@ -31,11 +31,11 @@ public:
 
     virtual void set_counter(pgfe_otp_counter_t){};
 
-    virtual pgfe_otp_t generate(uint8_t digit_count = 6) {
+    virtual pgfe_otp_t generate(uint8_t digit_count = 6) const {
         return 0;
     }
 
-    virtual std::string generate_str(uint8_t digit_count = 6);
+    virtual std::string generate_str(uint8_t digit_count = 6) const;
 };
 
 } // namespace PGFE

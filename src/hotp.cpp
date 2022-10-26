@@ -81,7 +81,7 @@ void HOTP::set_counter(pgfe_otp_counter_t c) {
     this->co = c;
 }
 
-pgfe_otp_t HOTP::generate(uint8_t digit_count) {
+pgfe_otp_t HOTP::generate(uint8_t digit_count) const {
     if (!secret) {
         throw NotInitializedException();
     }
@@ -89,7 +89,7 @@ pgfe_otp_t HOTP::generate(uint8_t digit_count) {
     return pgfe_hotp_generic(cur_alg, secret->to_pgfe_seq(), secret->length(), co, digit_count);
 }
 
-std::string HOTP::generate_str(uint8_t digit_count) {
+std::string HOTP::generate_str(uint8_t digit_count) const {
     return this->AbstractOTP::generate_str(digit_count);
 }
 
