@@ -61,6 +61,7 @@ include(test/cmake/hmac_tests.cmake)
 include(test/cmake/util_tests.cmake)
 include(test/cmake/base_tests.cmake)
 include(test/cmake/otp_tests.cmake)
+include(test/cmake/shake_tests.cmake)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})

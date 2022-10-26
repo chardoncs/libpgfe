@@ -1,6 +1,5 @@
 list(APPEND Base_algorithms base16 base32 base32hex base64)
 
-list(APPEND Base_plains ${test_text} ${test_text2})
 # Base 16
 list(APPEND Base_cipher "68656C6C6F" "686F772061726520796F753F")
 # Base 32
@@ -12,7 +11,7 @@ list(APPEND Base_cipher "aGVsbG8=" "aG93IGFyZSB5b3U/")
 set(i 0)
 foreach(alg IN LISTS Base_algorithms)
     set(jp1 1)
-    foreach(test_item IN LISTS Base_plains)
+    foreach(test_item IN LISTS test_texts)
         set(test_name1 "${alg}_encode${jp1}")
         set(test_name2 "${alg}_decode${jp1}")
 
@@ -45,8 +44,8 @@ foreach(alg IN LISTS Base_algorithms)
         )
         set_property(TEST ${test_name2_cpp} PROPERTY PASS_REGULAR_EXPRESSION ${test_item})
 
-        math(EXPR jp1 "${jp1} + 1" OUTPUT_FORMAT DECIMAL)
-        math(EXPR i "${i} + 1" OUTPUT_FORMAT DECIMAL)
+        math(EXPR jp1 "${jp1} + 1")
+        math(EXPR i "${i} + 1")
     endforeach()
 endforeach()
 
