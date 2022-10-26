@@ -36,6 +36,7 @@ using namespace chardon55::PGFE;
 void HMACEncoder::destroy_output() {
     if (output) {
         delete output;
+        output = nullptr;
     }
 }
 
