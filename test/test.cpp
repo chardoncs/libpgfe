@@ -22,7 +22,6 @@ int main(ARGS) {
     try {
         TEST_CASE("hash_encoder", hash_encoder_test)
         TEST_CASE("hmac_encoder", hmac_encoder_test)
-        TEST_CASE("hmac_encoder_hex", hmac_encoder_hex_test)
         TEST_CASE("hotp_hex", hotp_hex_test)
         TEST_CASE("base16_encode", base16_encode_test)
         TEST_CASE("base16_decode", base16_decode_test)

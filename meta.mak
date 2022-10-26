@@ -1,7 +1,10 @@
 PROJECT := libpgfe
-VERSION := 0.3.2
+VERSION := 0.4.0
 
 BUILD_DIR := build
+
+INCLUDE_DIR := include
+SRC_DIR := src
 
 HEADER_DIR := /usr/local/include/libpgfe
 LIB_DIR := /usr/lib

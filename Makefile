@@ -1,29 +1,30 @@
 include meta.mak
 
+.PHONY: all rebuild clean test install uninstall
+
 all: 
 	@echo 'Building...'
 	@cmake . -B $(BUILD_DIR)
-	@cmake --build $(BUILD_DIR)
+	@cmake --build $(BUILD_DIR) --config Release -j18 --
 	@echo 'Building done'
 
 rebuild: clean all
 
 $(BUILD_DIR):
-	@mkdir -v $(BUILD_DIR)
+	@mkdir -vp $(BUILD_DIR)
 
 clean:
 	@echo 'Cleaning...'
-	@rm -rf ./$(BUILD_DIR)
+	@rm -rfv ./$(BUILD_DIR)
 	@echo 'Cleaning done'
 
-ctest: all
-	@ctest --test-dir $(BUILD_DIR)
+test: all
+	@ctest --test-dir $(BUILD_DIR) -C Release
 
 install: all
 	@echo 'Installing headers...'
-	@mkdir -v $(HEADER_DIR) 
-	@cp -v *.h $(HEADER_DIR) 
-	@cp -v *.hpp $(HEADER_DIR) 
+	@mkdir -vp $(HEADER_DIR) 
+	@cp -v $(INCLUDE_DIR)/* $(HEADER_DIR) 
 	@echo done
 	@echo 'Installing shared library...'
 	@cp -v $(TARGET) $(LIB_DIR)

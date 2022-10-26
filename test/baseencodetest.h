@@ -9,7 +9,7 @@
 
 #include <string.h>
 
-#include "../base-encoding.h"
+#include "../include/base-encoding.h"
 
 void base16_encode_test(ARGS) {
     char cs_out[700];

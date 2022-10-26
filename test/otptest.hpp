@@ -7,20 +7,24 @@
 
 #include "test.h"
 
+#include <cstdio>
 #include <iostream>
 
-#include "../hotp.hpp"
-#include "../utils.hpp"
-
-using namespace chardon55::PGFE;
+#include "../include/hotp.hpp"
+#include "../include/utils.hpp"
 
 void hotp_hex_test(ARGS) {
-    HOTP hotp;
-    hotp.select_algorithm(argv[2]);
+    USE_PGFE_CPP_UTILS
+
+    HOTP hotp{_algstr(argv[2])};
+
+    int counter;
+    sscanf(argv[4], "%i", &counter);
 
     auto sd = utils::sequential_data::from_hex_string(argv[3]);
-    hotp.set_secret(sd);
-    hotp.set_counter(1);
+    hotp.set_secret(*sd);
+    hotp.set_counter((pgfe_otp_counter_t)counter);
 
     std::cout << hotp.generate_str(8) << std::endl;
+    delete sd;
 }

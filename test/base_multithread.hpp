@@ -12,8 +12,8 @@
 #include <stdexcept>
 #include <thread>
 
-#include "../base-encoding.h"
-#include "../base64.hpp"
+#include "../include/base-encoding.h"
+#include "../include/base64.hpp"
 
 using namespace chardon55::PGFE;
 

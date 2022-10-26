@@ -48,13 +48,12 @@ int main(ARGS) {
 
     TEST_CASE("md5", md5test)
 
-    TEST_CASE("hmac-md5", hmac_md5_test)
-    TEST_CASE("hmac-md5-str", hmac_md5_str_test)
+    TEST_CASE("hmac", hmac_test)
 
     TEST_CASE("string2hash", string2hash)
     TEST_CASE("hash_string_clean", hash_string_clean)
     TEST_CASE("hash_string_clean_inplace", hash_string_clean_inplace)
-    TEST_CASE("hotp_hex", hotp_hex)
+    TEST_CASE("hotp_hex_sha1", hotp_hex)
     TEST_CASE("hotp_hex_sha256", hotp_hex_sha256)
     TEST_CASE("hotp_hex_sha512", hotp_hex_sha512)
 
