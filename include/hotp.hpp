@@ -50,8 +50,8 @@ public:
 
     void set_counter(pgfe_otp_counter_t);
 
-    pgfe_otp_t generate(uint8_t digit_count = 6);
-    std::string generate_str(uint8_t digit_count = 6);
+    pgfe_otp_t generate(uint8_t digit_count = 6) const;
+    std::string generate_str(uint8_t digit_count = 6) const;
 };
 
 } // namespace PGFE

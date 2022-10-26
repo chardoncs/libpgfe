@@ -36,6 +36,7 @@ using namespace chardon55::PGFE;
 void HMACEncoder::destroy_output() {
     if (output) {
         delete output;
+        output = nullptr;
     }
 }
 
@@ -101,10 +102,8 @@ inline void HMACEncoder::update(SequentialData &sd) {
     this->AbstractHashEncoder::update(sd);
 }
 
-SequentialData *HMACEncoder::get_digest() {
-    if (!output) {
-        __PGFE_BATCH_CASES_SP(HMAC_DIGEST)
-    }
-
-    return output->copy();
+const SequentialData *HMACEncoder::get_digest() {
+    destroy_output();
+    __PGFE_BATCH_CASES_SP(HMAC_DIGEST)
+    return output;
 }

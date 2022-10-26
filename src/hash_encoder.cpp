@@ -55,6 +55,13 @@ void HashEncoder::destroy_context() {
     __PGFE_BATCH_CASES(CTX_DELETE)
 }
 
+void HashEncoder::destroy_output() {
+    if (!out) return;
+
+    delete out;
+    out = nullptr;
+}
+
 void HashEncoder::before_change_alg() {
     destroy_context();
 }
@@ -67,11 +74,6 @@ void HashEncoder::load_algorithm() {
     __PGFE_BATCH_CASES(CTX_CREATE)
     __PGFE_BATCH_CASES(INIT_FUNC_CALL)
     __PGFE_BATCH_CASES(INIT_SIZE)
-
-    if (seq) {
-        delete[] seq;
-    }
-    seq = new pgfe_encode_t[digsz + 1];
 }
 
 void HashEncoder::reset() {
@@ -90,9 +92,7 @@ HashEncoder::HashEncoder(pgfe_algorithm_choice choice) {
 
 HashEncoder::~HashEncoder() {
     destroy_context();
-    if (seq) {
-        delete[] seq;
-    }
+    destroy_output();
 }
 
 void HashEncoder::update(const pgfe_encode_t sequence[], size_t length) {
@@ -111,7 +111,7 @@ inline void HashEncoder::update(SequentialData &sd) {
     return this->AbstractHashEncoder::update(sd);
 }
 
-SequentialData *HashEncoder::get_digest(uint64_t bitlength) {
+const SequentialData *HashEncoder::get_digest(uint64_t bitlength) {
     bool shake_flag = this->cur_alg == SHAKE128 || this->cur_alg == RawSHAKE128 || this->cur_alg == SHAKE256 ||
                       this->cur_alg == RawSHAKE256;
     uint64_t in_len = to_byte(bitlength) + bit_rem(bitlength);
@@ -125,6 +125,9 @@ SequentialData *HashEncoder::get_digest(uint64_t bitlength) {
         }
     }
 
+    size_t length = shake_flag ? in_len : in_len < digsz && bitlength ? in_len : digsz;
+    pgfe_encode_t seq[length];
+
     if (shake_flag) {
         __PGFE_BATCH_SHAKE_CASES(DIGEST_FUNC_CALL_LIMIT)
     }
@@ -132,5 +135,7 @@ SequentialData *HashEncoder::get_digest(uint64_t bitlength) {
         __PGFE_BATCH_CASES_SP(DIGEST_FUNC_CALL)
     }
 
-    return new SequentialData(seq, shake_flag ? in_len : in_len < digsz && bitlength ? in_len : digsz);
+    destroy_output();
+    out = new SequentialData(seq, length);
+    return out;
 }

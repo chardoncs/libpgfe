@@ -35,15 +35,15 @@ public:
 
     void update_counter();
 
-    pgfe_totp_interval_t get_interval();
+    pgfe_totp_interval_t get_interval() const;
     void set_interval(pgfe_totp_interval_t);
 
-    pgfe_time_t get_initial_time();
+    pgfe_time_t get_initial_time() const;
     void set_initial_time(pgfe_time_t);
 
-    pgfe_time_t get_update_time();
+    pgfe_time_t get_update_time() const;
 
-    pgfe_time_t get_remain_time();
+    pgfe_time_t get_remain_time() const;
 };
 
 } // namespace PGFE

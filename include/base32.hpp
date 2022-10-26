@@ -28,7 +28,7 @@ protected:
 public:
     Base32(bool hex_mode = false);
 
-    bool is_hex_mode() {
+    bool is_hex_mode() const {
         return hexm;
     }
 };

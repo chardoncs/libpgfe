@@ -28,7 +28,7 @@ protected:
 public:
     Base64(bool url_safe_mode = false);
 
-    bool is_url_safe_mode() {
+    bool is_url_safe_mode() const {
         return _url_safe_mode;
     }
 };

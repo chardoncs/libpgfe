@@ -47,7 +47,7 @@ pgfe_algorithm_choice string_to_algorithm_choice(const char *cs) {
 }
 
 pgfe_algorithm_choice string_to_algorithm_choice(std::string cpp_s) {
-    return pgfe_option_map[cpp_s];
+    return pgfe_option_map.at(cpp_s);
 }
 
 } // namespace utils

@@ -94,18 +94,18 @@ SequentialData AbstractBaseEncoding::decode(std::string &cpp_s) {
     return decode(cpp_s.c_str());
 }
 
-base_short_size_t AbstractBaseEncoding::unit_size() {
+base_short_size_t AbstractBaseEncoding::unit_size() const {
     return unitsz;
 }
 
-base_short_size_t AbstractBaseEncoding::chunk_size() {
+base_short_size_t AbstractBaseEncoding::chunk_size() const {
     return chunksz;
 }
 
-base_short_size_t AbstractBaseEncoding::bit_size() {
+base_short_size_t AbstractBaseEncoding::bit_size() const {
     return bitsz;
 }
 
-base_short_size_t AbstractBaseEncoding::alphabet_size() {
+base_short_size_t AbstractBaseEncoding::alphabet_size() const {
     return alphabetsz;
 }
