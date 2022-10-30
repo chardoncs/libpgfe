@@ -52,7 +52,7 @@ const char *SequentialData::to_cs() const {
 }
 
 std::string SequentialData::to_str() const {
-    std::string s((char *)seq);
+    std::string s{(char *)seq};
     return s;
 }
 
