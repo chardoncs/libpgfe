@@ -70,6 +70,10 @@ void __pgfe_sha256_process_block(struct pgfe_sha256_ctx *ctx) {
     ctx->state[7] += H;
 
     ctx->index = 0;
+
+    // Wipe data from RAM
+    tmp1 = tmp2 = A = B = C = D = E = F = G = H = 0;
+    memset(ws, 0, PGFE_SHA256_BLOCK_SIZE);
 }
 
 void __pgfe_sha224n256_padding(struct pgfe_sha256_ctx *ctx) {
