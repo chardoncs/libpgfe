@@ -9,7 +9,7 @@ Since v0.2.0, *libpgfe* has been "self-sufficient" and does not depend on any th
 ## Q2: Interested in supporting Big Endian?
 
 I will think about it eventually, but not now! Because byte order compatibility will dramatically increase complexity of the code,
-and I currently don't have enough time or effort to tackle it. Also, I do not have Big Endian machines or virtual machines, so the additional code would be left untested, which is what I don't want to happen.
+and I currently don't have enough time or effort to tackle it. Also, I do not have Big Endian machines or virtual machines, so the additional code would be left untested, which is what I don't expect.
 
 ## Q3: Why not [Assembly Language](https://en.wikipedia.org/wiki/Assembly_language)?
 
