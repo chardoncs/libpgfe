@@ -1,3 +1,10 @@
+/*
+  libpgfe
+  generic.cpp
+
+  Copyright (c) 2022 Charles Dong
+*/
+
 #ifndef LIBPGFE_GENERIC_CPP
 #define LIBPGFE_GENERIC_CPP
 

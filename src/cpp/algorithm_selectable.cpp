@@ -1,3 +1,10 @@
+/*
+  libpgfe
+  algorithm_selectable.cpp
+
+  Copyright (c) 2022 Charles Dong
+*/
+
 #include "algorithm_selectable.hpp"
 
 using namespace chardon55::PGFE;
