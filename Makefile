@@ -1,4 +1,4 @@
-include meta.mak
+include metadata.mak
 
 .PHONY: all rebuild clean test install uninstall
 
