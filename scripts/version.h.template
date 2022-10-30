@@ -4,7 +4,7 @@
 #define LIBPGFE_MAJOR_VERSION {major_version}
 #define LIBPGFE_MINOR_VERSION {minor_version}
 #define LIBPGFE_REVISION {revision}
-#define LIBPGFE_VARIANT {variant}
+#define LIBPGFE_VARIANT "{variant}"
 
 #define LIBPGFE_VERSION "{version}"
 
