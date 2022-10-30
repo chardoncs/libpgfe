@@ -8,8 +8,8 @@
 #ifndef LIBPGFE_UTILS_H
 #define LIBPGFE_UTILS_H
 
+#include "backend/otp-generic.h"
 #include "generic.h"
-#include "otp-generic.h"
 
 #include <time.h>
 

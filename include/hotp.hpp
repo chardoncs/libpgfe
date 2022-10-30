@@ -7,9 +7,11 @@
 
 #ifndef LIBPGFE_HOTP_HPP
 #define LIBPGFE_HOTP_HPP
-#ifdef __cplusplus
+#ifndef __cplusplus
+#error libpgfe error: C++ headers are not compatible with C source
+#endif
 
-#include "abstract_otp.hpp"
+#include "backend_cpp/abstract_otp.hpp"
 #include "base32.hpp"
 
 namespace chardon55 {
@@ -17,11 +19,9 @@ namespace PGFE {
 
 class HOTP : public AbstractOTP
 {
-  private:
-    pgfe_encode_multi_func *encode_func = nullptr;
-
-    pgfe_encode_t *secret;
-    size_t selen, digsz, blocksz;
+private:
+    SequentialData *secret;
+    size_t digsz, blocksz;
 
     pgfe_otp_counter_t co;
 
@@ -29,22 +29,20 @@ class HOTP : public AbstractOTP
 
     void destroy_secret();
 
-  protected:
+protected:
     void after_change_alg();
 
-    void init();
-
-  public:
-    HOTP();
-    HOTP(const pgfe_encode_t *, size_t);
-    HOTP(const char *);
-    HOTP(std::string &);
-    HOTP(SequentialData &);
+public:
+    HOTP(pgfe_algorithm_choice algorithm = SHA1);
+    HOTP(const pgfe_encode_t *, size_t, pgfe_algorithm_choice = SHA1);
+    HOTP(const char *, pgfe_algorithm_choice = SHA1);
+    HOTP(std::string &, pgfe_algorithm_choice = SHA1);
+    HOTP(SequentialData &, pgfe_algorithm_choice = SHA1);
     ~HOTP();
 
     void set_secret(const pgfe_encode_t *, size_t);
-    void set_secret(const char *cs);
-    void set_secret(std::string &);
+    void set_secret(const char *cs, bool is_base32 = false);
+    void set_secret(std::string &, bool is_base32 = false);
     void set_secret(SequentialData &);
 
     void set_secret_from_base32(const char *);
@@ -52,12 +50,11 @@ class HOTP : public AbstractOTP
 
     void set_counter(pgfe_otp_counter_t);
 
-    pgfe_otp_t generate(uint8_t digit_count = 6);
-    std::string generate_str(uint8_t digit_count = 6);
+    pgfe_otp_t generate(uint8_t digit_count = 6) const;
+    std::string generate_str(uint8_t digit_count = 6) const;
 };
 
 } // namespace PGFE
 } // namespace chardon55
 
-#endif
 #endif

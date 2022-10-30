@@ -7,26 +7,28 @@
 
 #ifndef LIBPGFE_BASE64_HPP
 #define LIBPGFE_BASE64_HPP
-#ifdef __cplusplus
+#ifndef __cplusplus
+#error libpgfe error: C++ headers are not compatible with C source
+#endif
 
-#include "abstract_base_encoding.hpp"
+#include "backend_cpp/abstract_base_encoding.hpp"
 
 namespace chardon55 {
 namespace PGFE {
 
 class Base64 : public AbstractBaseEncoding
 {
-  private:
+private:
     bool _url_safe_mode;
 
-  protected:
+protected:
     void init_base_function(base_encode_func *&, base_decode_func *&);
     void init_size(base_short_size_t &, base_short_size_t &, base_short_size_t &, base_short_size_t &);
 
-  public:
+public:
     Base64(bool url_safe_mode = false);
 
-    bool is_url_safe_mode() {
+    bool is_url_safe_mode() const {
         return _url_safe_mode;
     }
 };
@@ -34,5 +36,4 @@ class Base64 : public AbstractBaseEncoding
 } // namespace PGFE
 } // namespace chardon55
 
-#endif
 #endif

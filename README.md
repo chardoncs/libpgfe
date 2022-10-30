@@ -7,22 +7,24 @@
 
 ## Introduction
 
-**libpgfe** (IPA: /ˌlɪbˈpɪɡfiː/, like "lib-pig-fee") is an open-source "[middle-high level](.github/middle-high.md)" cryptographic library providing hash encoding, HOTP/TOTP generation and base encoding/decoding. It is written in [C](https://en.wikipedia.org/wiki/C_(programming_language)) and [C++](https://en.wikipedia.org/wiki/C%2B%2B).
+**libpgfe** (IPA: /ˌlɪbˈpɪɡfiː/, like "lib-pig-fee") is a free and open-source cryptographic library focusing on flexibility and easy-to-access interfaces, which is written in [C](https://en.wikipedia.org/wiki/C_(programming_language)) and [C++](https://en.wikipedia.org/wiki/C%2B%2B).
 
-The name "*libpgfe*" used to be an abbreviation of "**Lib**rary of **P**assword **G**eneration **F**ront-**e**nd". Because it is initially designed to be just an HOTP/TOTP library ported to [Nettle](https://www.lysator.liu.se/~nisse/nettle/). But during the development period, more and more algorithms have been directly implemented in this library, so its full name has been deprecated since it may mislead viewers.
+*libpgfe* currently supports hash encoding (e.g. SHA256, MD5), HMAC encoding, HOTP/TOTP and Base 16/32/64.
 
-Since v0.2.0, *libpgfe* has been "self-sufficient" and does not depend on any third-party library.
+*libpgfe* is currently under heavy development, more features and optimization will be added in the future.
 
-| Item         | Content             |
+| Entry        | Info                |
 | :----------- | :------------------ |
 | C Standard   | [C11 (ISO/IEC 9899:2011)](https://en.wikipedia.org/wiki/C11_(C_standard_revision))  |
 | C++ Standard | [C++14 (ISO/IEC 14882:2014)](https://en.wikipedia.org/wiki/C++14) |
 | Compiler     | LLVM Clang          |
 | License      | BSD 3-Clause        |
 
-## Endianness (Byte order)
+[*Any questions?*](.github/qna.md)
 
-The implementation philosophy of *libpgfe* assumes that systems running this library are **Little Endian**, since most architectures and OS are Little Endian. Therefore, this library should not run properly on Big Endian systems.
+## [Endianness (Byte order)](https://en.wikipedia.org/wiki/Endianness)
+
+The implementation philosophy of *libpgfe* assumes that the systems running this library are **Little Endian**, since it is widely used by architectures and OS. Therefore, this library should not run properly on Big Endian systems.
 
 ## Tips for compilation
 

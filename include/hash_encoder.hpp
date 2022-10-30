@@ -7,13 +7,13 @@
 
 #ifndef LIBPGFE_HASH_ENCODER_HPP
 #define LIBPGFE_HASH_ENCODER_HPP
-#ifdef __cplusplus
+#ifndef __cplusplus
+#error libpgfe error: C++ headers are not compatible with C source
+#endif
 
-#include "abstract_hash_encoder.hpp"
+#include "backend_cpp/abstract_hash_encoder.hpp"
 
 #include "generic.hpp"
-
-#define __pgfe_placeholder 0
 
 namespace chardon55 {
 namespace PGFE {
@@ -22,25 +22,24 @@ namespace PGFE {
 class HashEncoder : public AbstractHashEncoder
 {
 
-  private:
+private:
     void *ctx = nullptr;
 
-    size_t digsz, blocksz;
-    pgfe_encode_t *seq = nullptr;
+    SequentialData *out = nullptr;
 
     void load_algorithm();
 
     void destroy_context();
+    void destroy_output();
 
     void init();
 
-  protected:
+protected:
     void before_change_alg();
     void after_change_alg();
 
-  public:
-    HashEncoder(pgfe_algorithm_choice choice = SHA1);
-    HashEncoder(std::string &choice);
+public:
+    HashEncoder(pgfe_algorithm_choice algorithm);
     ~HashEncoder();
 
     void reset();
@@ -50,18 +49,10 @@ class HashEncoder : public AbstractHashEncoder
     void update(std::string &cpp_s);
     void update(SequentialData &sd);
 
-    SequentialData get_digest(uint64_t bitlength = __pgfe_placeholder);
-
-    size_t digest_size() {
-        return digsz;
-    }
-
-    size_t block_size() {
-        return blocksz;
-    }
+    const SequentialData *get_digest(uint64_t bitlength = 0);
 };
 
 } // namespace PGFE
 } // namespace chardon55
-#endif
+
 #endif

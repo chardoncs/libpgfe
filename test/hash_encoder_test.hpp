@@ -7,28 +7,29 @@
 
 #include "test.h"
 
+#include <iostream>
 #include <string>
 
 #include "../include/hash_encoder.hpp"
 #include "../include/utils.h"
-
-using namespace std;
-using namespace chardon55::PGFE;
+#include "../include/utils.hpp"
 
 void hash_encoder_test(ARGS) {
-    int i = 2;
-    string option(argv[i++]);
-    uint64_t len_flag = 0UL;
+    using namespace std;
+    USE_PGFE_CPP
+    USE_PGFE_CPP_UTILS
 
-    HashEncoder encoder(option);
+    unsigned long len_flag = 0UL;
+    HashEncoder encoder{_algstr(argv[2])};
 
     if (argc >= 5) {
-        sscanf(argv[i++], "%lu", &len_flag);
+        sscanf(argv[3], "%lu", &len_flag);
     }
 
-    encoder.update(argv[i++]);
-    auto sd = encoder.get_digest(len_flag);
+    encoder.update(argv[argc - 1]);
+
+    auto sd = encoder.get_digest((uint64_t)len_flag);
 
     // puts(sd.to_hex_cs());
-    cout << sd << endl;
+    cout << *sd << endl;
 }

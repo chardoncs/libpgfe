@@ -10,8 +10,8 @@
 
 #include <stdio.h>
 
+#include "backend/keccak-backend.h"
 #include "generic.h"
-#include "keccak-backend.h"
 
 #ifdef __cplusplus
 extern "C" {
