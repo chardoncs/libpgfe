@@ -10,7 +10,7 @@
 
 #include <stdio.h>
 
-#include "generic-internal.h"
+#include "backend/generic-internal.h"
 
 #ifdef __cplusplus
 extern "C" {

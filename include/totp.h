@@ -9,7 +9,7 @@
 #ifndef LIBPGFE_TOTP_H
 #define LIBPGFE_TOTP_H
 
-#include "otp-generic.h"
+#include "backend/otp-generic.h"
 
 #ifdef __cplusplus
 extern "C" {

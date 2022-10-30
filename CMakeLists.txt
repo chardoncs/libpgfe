@@ -16,35 +16,34 @@ set(include_dir "include")
 set(test_dir "test")
 
 add_library(pgfe SHARED 
-    ${src_dir}/generic.c 
-    ${src_dir}/generic-internal.c
-    ${src_dir}/templates.c
-    ${src_dir}/utils.c
-    ${src_dir}/sha-internal.c
-    ${src_dir}/sha2-backend.c
-    ${src_dir}/keccak-backend.c
-    ${src_dir}/md5-backend.c
-    ${src_dir}/sha1.c ${src_dir}/sha224.c ${src_dir}/sha256.c ${src_dir}/sha384.c ${src_dir}/sha512.c
-    ${src_dir}/sha3-224.c ${src_dir}/sha3-256.c ${src_dir}/sha3-384.c ${src_dir}/sha3-512.c 
-    ${src_dir}/md5.c 
-    ${src_dir}/shake.c
-    ${src_dir}/hmac.c
-    ${src_dir}/otp-generic.c
-    ${src_dir}/hotp.c ${src_dir}/totp.c
-    ${src_dir}/base-encoding-internal.c
-    ${src_dir}/base64.c ${src_dir}/base32.c ${src_dir}/base16.c
-    ${src_dir}/generic.cpp
-    ${src_dir}/sequential_data.cpp
-    ${src_dir}/utils.cpp
-    ${src_dir}/algorithm_selectable.cpp
-    ${src_dir}/hash_encoder.cpp
-    ${src_dir}/hmac_encoder.cpp
-    ${src_dir}/abstract_base_encoding.cpp
-    ${src_dir}/base16.cpp
-    ${src_dir}/base32.cpp
-    ${src_dir}/base64.cpp
-    ${src_dir}/abstract_otp.cpp
-    ${src_dir}/hotp.cpp ${src_dir}/totp.cpp)
+    ${src_dir}/c/generic.c 
+    ${src_dir}/c/generic-internal.c
+    ${src_dir}/c/utils.c
+    ${src_dir}/c/hash/sha-internal.c
+    ${src_dir}/c/hash/sha2-backend.c
+    ${src_dir}/c/hash/keccak-backend.c
+    ${src_dir}/c/hash/md5-backend.c
+    ${src_dir}/c/hash/sha1.c ${src_dir}/c/hash/sha224.c ${src_dir}/c/hash/sha256.c ${src_dir}/c/hash/sha384.c ${src_dir}/c/hash/sha512.c
+    ${src_dir}/c/hash/sha3-224.c ${src_dir}/c/hash/sha3-256.c ${src_dir}/c/hash/sha3-384.c ${src_dir}/c/hash/sha3-512.c 
+    ${src_dir}/c/hash/md5.c 
+    ${src_dir}/c/hash/shake.c
+    ${src_dir}/c/hmac/hmac.c
+    ${src_dir}/c/otp/otp-generic.c
+    ${src_dir}/c/otp/hotp.c ${src_dir}/c/otp/totp.c
+    ${src_dir}/c/base_encoding/base-encoding-internal.c
+    ${src_dir}/c/base_encoding/base64.c ${src_dir}/c/base_encoding/base32.c ${src_dir}/c/base_encoding/base16.c
+    ${src_dir}/cpp/generic.cpp
+    ${src_dir}/cpp/sequential_data.cpp
+    ${src_dir}/cpp/utils.cpp
+    ${src_dir}/cpp/algorithm_selectable.cpp
+    ${src_dir}/cpp/hash/hash_encoder.cpp
+    ${src_dir}/cpp/hmac/hmac_encoder.cpp
+    ${src_dir}/cpp/base_encoding/abstract_base_encoding.cpp
+    ${src_dir}/cpp/base_encoding/base16.cpp
+    ${src_dir}/cpp/base_encoding/base32.cpp
+    ${src_dir}/cpp/base_encoding/base64.cpp
+    ${src_dir}/cpp/otp/abstract_otp.cpp
+    ${src_dir}/cpp/otp/hotp.cpp ${src_dir}/cpp/otp/totp.cpp)
 add_executable(pgfetest ${test_dir}/test.c)
 # add_executable(totptest ${test_dir}/totptest.c)
 # add_executable(totptestcpp ${test_dir}/totptest.cpp)

@@ -11,7 +11,7 @@
 #error libpgfe error: C++ headers are not compatible with C source
 #endif
 
-#include "abstract_otp.hpp"
+#include "backend_cpp/abstract_otp.hpp"
 #include "base32.hpp"
 
 namespace chardon55 {

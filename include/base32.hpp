@@ -11,7 +11,7 @@
 #error libpgfe error: C++ headers are not compatible with C source
 #endif
 
-#include "abstract_base_encoding.hpp"
+#include "backend_cpp/abstract_base_encoding.hpp"
 
 namespace chardon55 {
 namespace PGFE {

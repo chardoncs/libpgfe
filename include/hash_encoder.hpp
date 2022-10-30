@@ -11,7 +11,7 @@
 #error libpgfe error: C++ headers are not compatible with C source
 #endif
 
-#include "abstract_hash_encoder.hpp"
+#include "backend_cpp/abstract_hash_encoder.hpp"
 
 #include "generic.hpp"
 

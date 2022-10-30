@@ -13,7 +13,7 @@
 
 #include <vector>
 
-#include "abstract_hash_encoder.hpp"
+#include "backend_cpp/abstract_hash_encoder.hpp"
 #include "generic.h"
 #include "generic.hpp"
 #include "hmac.h"
