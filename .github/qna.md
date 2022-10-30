@@ -11,13 +11,21 @@ Since v0.2.0, *libpgfe* has been "self-sufficient" and does not depend on any th
 I will think about it eventually, but not now! Because byte order compatibility will dramatically increase complexity of the code,
 and I currently don't have enough time or effort to tackle it. Also, I do not have Big Endian machines or virtual machines, so the additional code would be left untested, which is what I don't want to happen.
 
-## Q3: Why not MSVC?
+## Q3: Why not [Assembly Language](https://en.wikipedia.org/wiki/Assembly_language)?
+
+1. I'm not familiar with Assembly.
+
+2. Assembly is machine-dependent.
+
+3. C is fast enough for *libpgfe*. It's no need to use Assembly to do those optimizations.
+
+## Q4: Why not MSVC?
 
 > ***PS:** MSVC = Microsoft Visual C++*
 
-Firstly, this library prioritizes POSIX compatibility, instead of Windows compatibility.
+1. This library prioritizes POSIX compatibility, instead of Windows compatibility.
 
-Secondly, *libpgfe* needs some necessary features that are not included in *MSVC*. For instance, like the C code below:
+2. *libpgfe* needs some necessary features that are not included in *MSVC*. For instance, like the C code below:
 
 ```c
 int main() {
