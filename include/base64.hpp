@@ -11,7 +11,7 @@
 #error libpgfe error: C++ headers are not compatible with C source
 #endif
 
-#include "abstract_base_encoding.hpp"
+#include "backend_cpp/abstract_base_encoding.hpp"
 
 namespace chardon55 {
 namespace PGFE {
@@ -28,7 +28,7 @@ protected:
 public:
     Base64(bool url_safe_mode = false);
 
-    bool is_url_safe_mode() {
+    bool is_url_safe_mode() const {
         return _url_safe_mode;
     }
 };

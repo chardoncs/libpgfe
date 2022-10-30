@@ -102,7 +102,7 @@
 namespace chardon55 {
 namespace PGFE {
 
-static std::unordered_map<std::string, pgfe_algorithm_choice> pgfe_option_map = {
+static const std::unordered_map<std::string, pgfe_algorithm_choice> pgfe_option_map = {
     {"sha1",        SHA1       },
     {"SHA1",        SHA1       },
     {"sha224",      SHA224     },
@@ -137,7 +137,7 @@ static std::unordered_map<std::string, pgfe_algorithm_choice> pgfe_option_map = 
     {"MD5",         MD5        },
 };
 
-static std::unordered_map<pgfe_algorithm_choice, size_t> pgfe_digest_length = {
+static const std::unordered_map<pgfe_algorithm_choice, size_t> pgfe_digest_length = {
     {SHA1,        PGFE_SHA1_DIGEST_SIZE       },
     {SHA224,      PGFE_SHA224_DIGEST_SIZE     },
     {SHA256,      PGFE_SHA256_DIGEST_SIZE     },
@@ -156,7 +156,7 @@ static std::unordered_map<pgfe_algorithm_choice, size_t> pgfe_digest_length = {
     {RawSHAKE256, PGFE_RawSHAKE256_DIGEST_SIZE},
 };
 
-static std::unordered_map<pgfe_algorithm_choice, size_t> pgfe_block_length = {
+static const std::unordered_map<pgfe_algorithm_choice, size_t> pgfe_block_length = {
     {SHA1,        PGFE_SHA1_BLOCK_SIZE       },
     {SHA224,      PGFE_SHA224_BLOCK_SIZE     },
     {SHA256,      PGFE_SHA256_BLOCK_SIZE     },
@@ -174,6 +174,11 @@ static std::unordered_map<pgfe_algorithm_choice, size_t> pgfe_block_length = {
     {SHAKE256,    PGFE_SHAKE256_BLOCK_SIZE   },
     {RawSHAKE256, PGFE_RawSHAKE256_BLOCK_SIZE},
 };
+
+// String to algorithm choice type
+
+pgfe_algorithm_choice string_to_algorithm_choice(const char *cs);
+pgfe_algorithm_choice string_to_algorithm_choice(std::string cpp_s);
 
 } // namespace PGFE
 } // namespace chardon55

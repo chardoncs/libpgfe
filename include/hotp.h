@@ -8,8 +8,8 @@
 #ifndef LIBPGFE_HOTP_H
 #define LIBPGFE_HOTP_H
 
-#include "generic-internal.h"
-#include "otp-generic.h"
+#include "backend/generic-internal.h"
+#include "backend/otp-generic.h"
 
 #ifdef __cplusplus
 extern "C" {

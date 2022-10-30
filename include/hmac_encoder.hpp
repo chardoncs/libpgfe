@@ -13,7 +13,7 @@
 
 #include <vector>
 
-#include "abstract_hash_encoder.hpp"
+#include "backend_cpp/abstract_hash_encoder.hpp"
 #include "generic.h"
 #include "generic.hpp"
 #include "hmac.h"
@@ -40,8 +40,6 @@ private:
         pgfe_hmac_sha3_512_ctx sha3_512;
     } ctx;
 
-    size_t digsz, blocksz;
-
     SequentialData *output;
 
     void destroy_output();
@@ -66,15 +64,7 @@ public:
     void update(std::string &cpp_s);
     void update(SequentialData &sd);
 
-    SequentialData *get_digest();
-
-    size_t block_size() {
-        return blocksz;
-    }
-
-    size_t digest_size() {
-        return digsz;
-    }
+    const SequentialData *get_digest();
 };
 
 } // namespace PGFE

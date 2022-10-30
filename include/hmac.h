@@ -8,7 +8,7 @@
 #ifndef LIBPGFE_HMAC_H
 #define LIBPGFE_HMAC_H
 
-#include "generic-internal.h"
+#include "backend/generic-internal.h"
 #include "generic.h"
 #include "md5.h"
 #include "sha1.h"

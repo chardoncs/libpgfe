@@ -13,7 +13,6 @@
 
 void hmac_encoder_test(ARGS) {
     USE_PGFE_CPP
-    USE_PGFE_CPP_UTILS
 
     HMACEncoder *encoder;
 
@@ -28,8 +27,8 @@ void hmac_encoder_test(ARGS) {
 
     encoder->update(argv[4]);
 
-    auto sd = encoder->get_digest();
-    puts(sd->to_hex_cs());
-    delete sd;
+    SequentialData sd{encoder->get_digest()};
+    puts(sd.to_hex_cs());
+
     delete encoder;
 }

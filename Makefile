@@ -1,6 +1,6 @@
-include meta.mak
+include metadata.mak
 
-.PHONY: all rebuild clean test install uninstall
+.PHONY: all rebuild clean test install uninstall init-scripts
 
 all: 
 	@echo 'Building...'
@@ -37,3 +37,6 @@ uninstall:
 	@echo 'Removing shared library...'
 	@rm -vrf $(LIB_DIR)/$(TARGET_FILE)
 	@echo done
+
+init-scripts:
+	@chmod u+x ./scripts/{comment_header,update_meta,deploy}

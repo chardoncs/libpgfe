@@ -11,7 +11,9 @@
 
 *libpgfe* currently supports hash encoding (e.g. SHA256, MD5), HMAC encoding, HOTP/TOTP and Base 16/32/64.
 
-| Item         | Content             |
+*libpgfe* is currently under heavy development, more features and optimization will be added in the future.
+
+| Entry        | Info                |
 | :----------- | :------------------ |
 | C Standard   | [C11 (ISO/IEC 9899:2011)](https://en.wikipedia.org/wiki/C11_(C_standard_revision))  |
 | C++ Standard | [C++14 (ISO/IEC 14882:2014)](https://en.wikipedia.org/wiki/C++14) |
@@ -20,9 +22,7 @@
 
 [*Any questions?*](.github/qna.md)
 
-## Endianness (Byte order)
-
-> [*What is it anyway??*](https://en.wikipedia.org/wiki/Endianness)
+## [Endianness (Byte order)](https://en.wikipedia.org/wiki/Endianness)
 
 The implementation philosophy of *libpgfe* assumes that the systems running this library are **Little Endian**, since it is widely used by architectures and OS. Therefore, this library should not run properly on Big Endian systems.
 
