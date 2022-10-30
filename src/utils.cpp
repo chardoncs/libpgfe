@@ -41,15 +41,6 @@ SequentialData *sequential_data::from_hex_string(std::string &hex_cpps) {
     return from_hex_string(hex_cpps.c_str());
 }
 
-pgfe_algorithm_choice string_to_algorithm_choice(const char *cs) {
-    std::string s{cs};
-    return string_to_algorithm_choice(s);
-}
-
-pgfe_algorithm_choice string_to_algorithm_choice(std::string cpp_s) {
-    return pgfe_option_map.at(cpp_s);
-}
-
 } // namespace utils
 } // namespace PGFE
 } // namespace chardon55

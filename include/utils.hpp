@@ -28,9 +28,6 @@ SequentialData *to_sequential_data(const pgfe_encode_t *pgfe_c_seq, size_t);
 SequentialData *to_sequential_data(const char *cs);
 SequentialData *to_sequential_data(std::string &);
 
-pgfe_algorithm_choice string_to_algorithm_choice(const char *cs);
-pgfe_algorithm_choice string_to_algorithm_choice(std::string cpp_s);
-
 namespace sequential_data {
 
 SequentialData *from_hex_string(const char *hex_cs);

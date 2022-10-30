@@ -12,9 +12,7 @@
 using namespace chardon55::PGFE;
 
 SequentialData::~SequentialData() {
-    if (seq) {
-        delete[] seq;
-    }
+    delete[] seq;
 
     if (hex_str) {
         delete[] hex_str;

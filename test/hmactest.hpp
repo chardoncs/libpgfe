@@ -13,7 +13,6 @@
 
 void hmac_encoder_test(ARGS) {
     USE_PGFE_CPP
-    USE_PGFE_CPP_UTILS
 
     HMACEncoder *encoder;
 

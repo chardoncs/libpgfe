@@ -175,6 +175,11 @@ static const std::unordered_map<pgfe_algorithm_choice, size_t> pgfe_block_length
     {RawSHAKE256, PGFE_RawSHAKE256_BLOCK_SIZE},
 };
 
+// String to algorithm choice type
+
+pgfe_algorithm_choice string_to_algorithm_choice(const char *cs);
+pgfe_algorithm_choice string_to_algorithm_choice(std::string cpp_s);
+
 } // namespace PGFE
 } // namespace chardon55
 
