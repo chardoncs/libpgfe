@@ -33,6 +33,7 @@ add_library(pgfe SHARED
     ${src_dir}/hotp.c ${src_dir}/totp.c
     ${src_dir}/base-encoding-internal.c
     ${src_dir}/base64.c ${src_dir}/base32.c ${src_dir}/base16.c
+    ${src_dir}/generic.cpp
     ${src_dir}/sequential_data.cpp
     ${src_dir}/utils.cpp
     ${src_dir}/algorithm_selectable.cpp
