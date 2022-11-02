@@ -4,7 +4,7 @@
 extern "C" {
 #endif
 
-#include "generic-internal.h"
+#include "backend/generic-internal.h"
 
 #define __PGFE_BF_N 16
 #define __PGFE_BF_Np2 18

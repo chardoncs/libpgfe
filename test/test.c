@@ -12,6 +12,7 @@
 #include "test.h"
 
 #include "baseencodetest.h"
+#include "blowfish_test.h"
 #include "hmactest.h"
 #include "mdtest.h"
 #include "otptest.h"
@@ -66,6 +67,9 @@ int main(ARGS) {
     TEST_CASE("base64-encode", base64_encode_test)
     TEST_CASE("base64url-encode", base64url_encode_test)
     TEST_CASE("base64-decode", base64_decode_test)
+
+    TEST_CASE("blowfish_enc", blowfish_encrypt_test)
+    TEST_CASE("blowfish_dec", blowfish_decrypt_test)
 
     TEST_END;
 

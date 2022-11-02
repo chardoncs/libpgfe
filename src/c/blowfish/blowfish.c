@@ -1,10 +1,11 @@
 #include "blowfish.h"
 
-static const uint32_t P0[] = {0x243F6A88U, 0x85A308D3U, 0x13198A2EU, 0x03707344U, 0xA4093822U, 0x299F31D0U,
-                              0x082EFA98U, 0xEC4E6C89U, 0x452821E6U, 0x38D01377U, 0xBE5466CFU, 0x34E90C6CU,
-                              0xC0AC29B7U, 0xC97C50DDU, 0x3F84D5B5U, 0xB5470917U, 0x9216D5D9U, 0x8979FB1BU};
+static const pgfe_blowfish_block_t P0[] = {
+    0x243F6A88U, 0x85A308D3U, 0x13198A2EU, 0x03707344U, 0xA4093822U, 0x299F31D0U, 0x082EFA98U, 0xEC4E6C89U, 0x452821E6U,
+    0x38D01377U, 0xBE5466CFU, 0x34E90C6CU, 0xC0AC29B7U, 0xC97C50DDU, 0x3F84D5B5U, 0xB5470917U, 0x9216D5D9U, 0x8979FB1BU,
+};
 
-static const uint32_t S0[][256] = {
+static const pgfe_blowfish_block_t S0[][256] = {
     {0xD1310BA6U, 0x98DFB5ACU, 0x2FFD72DBU, 0xD01ADFB7U, 0xB8E1AFEDU, 0x6A267E96U, 0xBA7C9045U, 0xF12C7F99U,
      0x24A19947U, 0xB3916CF7U, 0x0801F2E2U, 0x858EFC16U, 0x636920D8U, 0x71574E69U, 0xA458FEA3U, 0xF4933D7EU,
      0x0D95748FU, 0x728EB658U, 0x718BCD58U, 0x82154AEEU, 0x7B54A41DU, 0xC25A59B5U, 0x9C30D539U, 0x2AF26013U,
@@ -135,16 +136,101 @@ static const uint32_t S0[][256] = {
      0x90D4F869U, 0xA65CDEA0U, 0x3F09252DU, 0xC208E69FU, 0xB74E6132U, 0xCE77E25BU, 0x578FDFE3U, 0x3AC372E6U}
 };
 
+struct __blowfish_numparts
+{
+    // Little endian
+    uint8_t d, c, b, a;
+};
+
+struct __blowfish_parts64
+{
+    // Little endian
+    uint32_t right, left;
+};
+
 static uint32_t F(struct pgfe_blowfish_ctx *ctx, uint32_t x) {
-    uint8_t a, b, c, d;
+    struct __blowfish_numparts p;
+    memcpy(&p, &x, 4);
 
-    d = (uint8_t)(x & 0xFF);
-    x >>= 8;
-    c = (uint8_t)(x & 0xFF);
-    x >>= 8;
-    b = (uint8_t)(x & 0xFF);
-    x >>= 8;
-    a = (uint8_t)(x & 0xFF);
+    return ((ctx->S[0][p.a] + ctx->S[1][p.b]) ^ ctx->S[2][p.c]) + ctx->S[3][p.d];
+}
 
-    return ((ctx->S[0][a] + ctx->S[1][b]) ^ ctx->S[2][c]) + ctx->S[3][d];
+inline void __uint32_swap(uint32_t *a, uint32_t *b) {
+    uint32_t tmp = *a;
+    *a = *b;
+    *b = tmp;
+}
+
+void pgfe_blowfish_init(struct pgfe_blowfish_ctx *ctx, pgfe_encode_t key[], size_t key_length) {
+    int i, j, k;
+    uint32_t data;
+    struct __blowfish_parts64 dp;
+    static const block_size = sizeof(pgfe_blowfish_block_t);
+
+    memset(&dp, 0, sizeof(dp));
+    memcpy(ctx->S, S0, block_size * __PGFE_BF_S_ROW * __PGFE_BF_S_ENTRY);
+
+    for (i = j = 0; i < __PGFE_BF_Np2; i++) {
+        data = 0;
+        for (k = 0; k < 4; k++) {
+            data = (data << 8) | key[j++];
+            j %= key_length;
+        }
+
+        ctx->P[i] = P0[i] ^ data;
+    }
+
+    for (i = 0; i < __PGFE_BF_Np2; i += 2) {
+        pgfe_blowfish_encrypt(ctx, (uint64_t *)(&dp));
+        ctx->P[i] = dp.left;
+        ctx->P[i + 1] = dp.right;
+    }
+
+    for (i = 0; i < __PGFE_BF_S_ROW; i++) {
+        for (j = 0; j < __PGFE_BF_S_ENTRY; j += 2) {
+            pgfe_blowfish_encrypt(ctx, (uint64_t *)(&dp));
+            ctx->S[i][j] = dp.left;
+            ctx->S[i][j + 1] = dp.right;
+        }
+    }
+}
+
+void pgfe_blowfish_encrypt(struct pgfe_blowfish_ctx *ctx, uint64_t *input) {
+    struct __blowfish_parts64 dp;
+
+    memcpy(&dp, input, 8);
+
+    for (short i = 0; i < __PGFE_BF_N; i++) {
+        dp.left ^= ctx->P[i];
+        dp.right ^= F(ctx, dp.left);
+
+        __uint32_swap(&dp.left, &dp.right);
+    }
+
+    __uint32_swap(&dp.left, &dp.right);
+
+    dp.right ^= ctx->P[__PGFE_BF_N];
+    dp.left ^= ctx->P[__PGFE_BF_N + 1];
+
+    memcpy(input, &dp, 8);
+}
+
+void pgfe_blowfish_decrypt(struct pgfe_blowfish_ctx *ctx, uint64_t *input) {
+    struct __blowfish_parts64 dp;
+
+    memcpy(&dp, input, 8);
+
+    for (short i = __PGFE_BF_N + 1; i > 1; i--) {
+        dp.left ^= ctx->P[i];
+        dp.right ^= F(ctx, dp.left);
+
+        __uint32_swap(&dp.left, &dp.right);
+    }
+
+    __uint32_swap(&dp.left, &dp.right);
+
+    dp.right ^= ctx->P[1];
+    dp.left ^= ctx->P[0];
+
+    memcpy(input, &dp, 8);
 }
