@@ -159,7 +159,7 @@ void pgfe_blowfish_init(struct pgfe_blowfish_ctx *ctx, pgfe_encode_t key[], size
     int i, j, k;
     uint32_t data;
     pgfe_fake_uint64 dp;
-    static const block_size = sizeof(pgfe_blowfish_block_t);
+    static const size_t block_size = sizeof(pgfe_blowfish_block_t);
 
     memset(&dp, 0, sizeof(dp));
     memcpy(ctx->S, S0, block_size * __PGFE_BF_S_ROW * __PGFE_BF_S_ENTRY);
