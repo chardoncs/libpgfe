@@ -158,7 +158,7 @@ inline void __uint32_swap(uint32_t *a, uint32_t *b) {
 void pgfe_blowfish_init(struct pgfe_blowfish_ctx *ctx, pgfe_encode_t key[], size_t key_length) {
     int i, j, k;
     uint32_t data;
-    pgfe_fake_uint64 dp;
+    pgfe_fake_uint64_t dp;
     static const size_t block_size = sizeof(pgfe_blowfish_block_t);
 
     memset(&dp, 0, sizeof(dp));
@@ -175,24 +175,22 @@ void pgfe_blowfish_init(struct pgfe_blowfish_ctx *ctx, pgfe_encode_t key[], size
     }
 
     for (i = 0; i < __PGFE_BF_Np2; i += 2) {
-        pgfe_blowfish_encrypt(ctx, (uint64_t *)(&dp));
+        pgfe_blowfish_encrypt(ctx, &dp);
         ctx->P[i] = dp.left;
         ctx->P[i + 1] = dp.right;
     }
 
     for (i = 0; i < __PGFE_BF_S_ROW; i++) {
         for (j = 0; j < __PGFE_BF_S_ENTRY; j += 2) {
-            pgfe_blowfish_encrypt(ctx, (uint64_t *)(&dp));
+            pgfe_blowfish_encrypt(ctx, &dp);
             ctx->S[i][j] = dp.left;
             ctx->S[i][j + 1] = dp.right;
         }
     }
 }
 
-void pgfe_blowfish_encrypt(struct pgfe_blowfish_ctx *ctx, uint64_t *input) {
-    pgfe_fake_uint64 dp;
-
-    memcpy(&dp, input, 8);
+void pgfe_blowfish_encrypt(struct pgfe_blowfish_ctx *ctx, pgfe_fake_uint64_t *input) {
+    pgfe_fake_uint64_t dp = *input;
 
     for (short i = 0; i < __PGFE_BF_N; i++) {
         dp.left ^= ctx->P[i];
@@ -206,13 +204,11 @@ void pgfe_blowfish_encrypt(struct pgfe_blowfish_ctx *ctx, uint64_t *input) {
     dp.right ^= ctx->P[__PGFE_BF_N];
     dp.left ^= ctx->P[__PGFE_BF_N + 1];
 
-    memcpy(input, &dp, 8);
+    *input = dp;
 }
 
-void pgfe_blowfish_decrypt(struct pgfe_blowfish_ctx *ctx, uint64_t *input) {
-    pgfe_fake_uint64 dp;
-
-    memcpy(&dp, input, 8);
+void pgfe_blowfish_decrypt(struct pgfe_blowfish_ctx *ctx, pgfe_fake_uint64_t *input) {
+    pgfe_fake_uint64_t dp = *input;
 
     for (short i = __PGFE_BF_N + 1; i > 1; i--) {
         dp.left ^= ctx->P[i];
@@ -226,5 +222,5 @@ void pgfe_blowfish_decrypt(struct pgfe_blowfish_ctx *ctx, uint64_t *input) {
     dp.right ^= ctx->P[1];
     dp.left ^= ctx->P[0];
 
-    memcpy(input, &dp, 8);
+    *input = dp;
 }

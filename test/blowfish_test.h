@@ -9,7 +9,7 @@ void blowfish_encrypt_test(ARGS) {
     sscanf(argv[3], "%lu", &input);
     pgfe_blowfish_init(&ctx, (pgfe_encode_t *)argv[2], strlen(argv[2]));
 
-    pgfe_blowfish_encrypt(&ctx, &input);
+    pgfe_blowfish_encrypt(&ctx, (pgfe_fake_uint64_t *)&input);
 
     printf("%lX\n", input);
 }
@@ -21,7 +21,7 @@ void blowfish_decrypt_test(ARGS) {
     sscanf(argv[3], "%lx", &input);
     pgfe_blowfish_init(&ctx, (pgfe_encode_t *)argv[2], strlen(argv[2]));
 
-    pgfe_blowfish_decrypt(&ctx, &input);
+    pgfe_blowfish_decrypt(&ctx, (pgfe_fake_uint64_t *)&input);
 
     printf("%lu\n", input);
 }

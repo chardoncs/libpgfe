@@ -50,7 +50,7 @@ typedef struct
 {
     // Little endian
     uint32_t right, left;
-} pgfe_fake_uint64;
+} pgfe_fake_uint64_t;
 
 #ifdef __cplusplus
 }
