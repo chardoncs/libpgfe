@@ -14,7 +14,7 @@
 *.mak           text eol=lf
 *.json          text eol=lf
 *.cmake         text eol=lf
-*.text          text eol=lf
+*.txt          text eol=lf
 *.py            text eol=lf
 
 *.png           -text
