@@ -142,12 +142,6 @@ struct __blowfish_numparts
     uint8_t d, c, b, a;
 };
 
-struct __blowfish_parts64
-{
-    // Little endian
-    uint32_t right, left;
-};
-
 static uint32_t F(struct pgfe_blowfish_ctx *ctx, uint32_t x) {
     struct __blowfish_numparts p;
     memcpy(&p, &x, 4);
@@ -164,7 +158,7 @@ inline void __uint32_swap(uint32_t *a, uint32_t *b) {
 void pgfe_blowfish_init(struct pgfe_blowfish_ctx *ctx, pgfe_encode_t key[], size_t key_length) {
     int i, j, k;
     uint32_t data;
-    struct __blowfish_parts64 dp;
+    pgfe_fake_uint64 dp;
     static const block_size = sizeof(pgfe_blowfish_block_t);
 
     memset(&dp, 0, sizeof(dp));
@@ -196,7 +190,7 @@ void pgfe_blowfish_init(struct pgfe_blowfish_ctx *ctx, pgfe_encode_t key[], size
 }
 
 void pgfe_blowfish_encrypt(struct pgfe_blowfish_ctx *ctx, uint64_t *input) {
-    struct __blowfish_parts64 dp;
+    pgfe_fake_uint64 dp;
 
     memcpy(&dp, input, 8);
 
