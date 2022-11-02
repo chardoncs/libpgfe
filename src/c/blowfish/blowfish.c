@@ -210,7 +210,7 @@ void pgfe_blowfish_encrypt(struct pgfe_blowfish_ctx *ctx, uint64_t *input) {
 }
 
 void pgfe_blowfish_decrypt(struct pgfe_blowfish_ctx *ctx, uint64_t *input) {
-    struct __blowfish_parts64 dp;
+    pgfe_fake_uint64 dp;
 
     memcpy(&dp, input, 8);
 
