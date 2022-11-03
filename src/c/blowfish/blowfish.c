@@ -175,21 +175,21 @@ void pgfe_blowfish_init(struct pgfe_blowfish_ctx *ctx, pgfe_encode_t key[], size
     }
 
     for (i = 0; i < __PGFE_BF_Np2; i += 2) {
-        pgfe_blowfish_encrypt(ctx, &dp);
+        pgfe_blowfish_encrypt_unit(ctx, &dp);
         ctx->P[i] = dp.left;
         ctx->P[i + 1] = dp.right;
     }
 
     for (i = 0; i < __PGFE_BF_S_ROW; i++) {
         for (j = 0; j < __PGFE_BF_S_ENTRY; j += 2) {
-            pgfe_blowfish_encrypt(ctx, &dp);
+            pgfe_blowfish_encrypt_unit(ctx, &dp);
             ctx->S[i][j] = dp.left;
             ctx->S[i][j + 1] = dp.right;
         }
     }
 }
 
-void pgfe_blowfish_encrypt(const struct pgfe_blowfish_ctx *ctx, pgfe_fake_uint64_t *input) {
+void pgfe_blowfish_encrypt_unit(const struct pgfe_blowfish_ctx *ctx, pgfe_fake_uint64_t *input) {
     pgfe_fake_uint64_t dp = *input;
 
     for (short i = 0; i < __PGFE_BF_N; i++) {
@@ -207,7 +207,7 @@ void pgfe_blowfish_encrypt(const struct pgfe_blowfish_ctx *ctx, pgfe_fake_uint64
     *input = dp;
 }
 
-void pgfe_blowfish_decrypt(const struct pgfe_blowfish_ctx *ctx, pgfe_fake_uint64_t *input) {
+void pgfe_blowfish_decrypt_unit(const struct pgfe_blowfish_ctx *ctx, pgfe_fake_uint64_t *input) {
     pgfe_fake_uint64_t dp = *input;
 
     for (short i = __PGFE_BF_N + 1; i > 1; i--) {
@@ -223,4 +223,53 @@ void pgfe_blowfish_decrypt(const struct pgfe_blowfish_ctx *ctx, pgfe_fake_uint64
     dp.left ^= ctx->P[0];
 
     *input = dp;
+}
+
+size_t __blowfish_en_decrypt_generic(
+    const struct pgfe_blowfish_ctx *ctx, const pgfe_encode_t input[], size_t length, pgfe_encode_t output[],
+    void (*unit_func)(const struct pgfe_blowfish_ctx *, pgfe_fake_uint64_t *)
+) {
+    pgfe_fake_uint64_t unit;
+    pgfe_encode_t *unp = (pgfe_encode_t *)&unit;
+    size_t i, j;
+
+    for (i = 0; i < length; i++) {
+        // Little endian
+        unp[7 - i % 8] = input[i];
+
+        if (i % 8 == 7) {
+            unit_func(ctx, &unit);
+
+            for (j = i - 7; j <= i; j++) {
+                // Little endian
+                output[j] = unp[7 - j % 8];
+            }
+        }
+    }
+
+    if (i % 8) {
+        int rem = 8 - i % 8;
+        memset(unp, 0, 8 - i % 8);
+        unit_func(ctx, &unit);
+
+        i += rem;
+        for (j = i - 7; j <= i; j++) {
+            // Little endian
+            output[j] = unp[7 - j % 8];
+        }
+    }
+
+    return i;
+}
+
+size_t pgfe_blowfish_encrypt(
+    const struct pgfe_blowfish_ctx *ctx, const pgfe_encode_t input[], size_t length, pgfe_encode_t output[]
+) {
+    return __blowfish_en_decrypt_generic(ctx, input, length, output, pgfe_blowfish_encrypt_unit);
+}
+
+size_t pgfe_blowfish_decrypt(
+    const struct pgfe_blowfish_ctx *ctx, const pgfe_encode_t input[], size_t length, pgfe_encode_t output[]
+) {
+    return __blowfish_en_decrypt_generic(ctx, input, length, output, pgfe_blowfish_decrypt_unit);
 }

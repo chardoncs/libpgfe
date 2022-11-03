@@ -68,8 +68,8 @@ int main(ARGS) {
     TEST_CASE("base64url-encode", base64url_encode_test)
     TEST_CASE("base64-decode", base64_decode_test)
 
-    TEST_CASE("blowfish_enc", blowfish_encrypt_test)
-    TEST_CASE("blowfish_dec", blowfish_decrypt_test)
+    TEST_CASE("blowfish_enc_unit", blowfish_encrypt_unit_test)
+    TEST_CASE("blowfish_dec_unit", blowfish_decrypt_unit_test)
 
     TEST_END;
 

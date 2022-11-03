@@ -20,9 +20,17 @@ struct pgfe_blowfish_ctx
 
 void pgfe_blowfish_init(struct pgfe_blowfish_ctx *ctx, pgfe_encode_t key[], size_t key_length);
 
-void pgfe_blowfish_encrypt(const struct pgfe_blowfish_ctx *ctx, pgfe_fake_uint64_t *input);
+void pgfe_blowfish_encrypt_unit(const struct pgfe_blowfish_ctx *ctx, pgfe_fake_uint64_t *input);
 
-void pgfe_blowfish_decrypt(const struct pgfe_blowfish_ctx *ctx, pgfe_fake_uint64_t *input);
+void pgfe_blowfish_decrypt_unit(const struct pgfe_blowfish_ctx *ctx, pgfe_fake_uint64_t *input);
+
+size_t pgfe_blowfish_encrypt(
+    const struct pgfe_blowfish_ctx *ctx, const pgfe_encode_t input[], size_t length, pgfe_encode_t output[]
+);
+
+size_t pgfe_blowfish_decrypt(
+    const struct pgfe_blowfish_ctx *ctx, const pgfe_encode_t input[], size_t length, pgfe_encode_t output[]
+);
 
 #ifdef __cplusplus
 }
