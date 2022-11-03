@@ -142,7 +142,7 @@ struct __blowfish_numparts
     uint8_t d, c, b, a;
 };
 
-static uint32_t F(struct pgfe_blowfish_ctx *ctx, uint32_t x) {
+static uint32_t F(const struct pgfe_blowfish_ctx *ctx, uint32_t x) {
     struct __blowfish_numparts p;
     memcpy(&p, &x, 4);
 
@@ -189,7 +189,7 @@ void pgfe_blowfish_init(struct pgfe_blowfish_ctx *ctx, pgfe_encode_t key[], size
     }
 }
 
-void pgfe_blowfish_encrypt(struct pgfe_blowfish_ctx *ctx, pgfe_fake_uint64_t *input) {
+void pgfe_blowfish_encrypt(const struct pgfe_blowfish_ctx *ctx, pgfe_fake_uint64_t *input) {
     pgfe_fake_uint64_t dp = *input;
 
     for (short i = 0; i < __PGFE_BF_N; i++) {
@@ -207,7 +207,7 @@ void pgfe_blowfish_encrypt(struct pgfe_blowfish_ctx *ctx, pgfe_fake_uint64_t *in
     *input = dp;
 }
 
-void pgfe_blowfish_decrypt(struct pgfe_blowfish_ctx *ctx, pgfe_fake_uint64_t *input) {
+void pgfe_blowfish_decrypt(const struct pgfe_blowfish_ctx *ctx, pgfe_fake_uint64_t *input) {
     pgfe_fake_uint64_t dp = *input;
 
     for (short i = __PGFE_BF_N + 1; i > 1; i--) {
