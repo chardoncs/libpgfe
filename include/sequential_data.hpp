@@ -28,20 +28,23 @@ class SequentialData
 {
 private:
     seqdata_t *seq = nullptr;
+    char *hex_str = nullptr;
     size_t sz = 0, hex_sz = 0;
 
-    char *hex_str = nullptr;
-
-    bool _is_str, _apstr;
+    bool _is_str = false, _apstr = false;
 
     bool determine_ascii_str();
+
+    void check_range(size_t &start, size_t &length) const;
 
 public:
     SequentialData(const pgfe_encode_t *, size_t);
     SequentialData(const char *);
     SequentialData(std::string &);
     SequentialData(const SequentialData *);
+    SequentialData(const SequentialData &);
     SequentialData(SequentialData *, bool delete_current);
+
     ~SequentialData();
 
     const char *to_cs() const;
