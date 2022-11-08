@@ -43,29 +43,23 @@ static const uint32_t __ac[4][16] = {
      0xfe2ce6e0, 0xa3014314, 0x4e0811a1, 0xf7537e82, 0xbd3af235, 0x2ad7d2bb, 0xeb86d391},
 };
 
-void __F(
-    uint8_t r, pgfe_word_t *a, pgfe_word_t b, pgfe_word_t c, pgfe_word_t d, pgfe_word_t x, uint8_t s, uint32_t ac
-) {
-    switch (r) {
-    case 0:
-        _ROUND_TRAN(*a, F(b, c, d), b, x, s, ac);
-        break;
-    case 1:
-        _ROUND_TRAN(*a, G(b, c, d), b, x, s, ac);
-        break;
-
-    case 2:
-        _ROUND_TRAN(*a, H(b, c, d), b, x, s, ac);
-        break;
-
-    case 3:
-        _ROUND_TRAN(*a, I(b, c, d), b, x, s, ac);
-        break;
-
-    default:
-        break;
+#define __F(r, a, b, c, d, x, s, ac)                                                                                   \
+    switch (r) {                                                                                                       \
+    case 0:                                                                                                            \
+        _ROUND_TRAN((a), F((b), (c), (d)), (b), (x), (s), (ac));                                                       \
+        break;                                                                                                         \
+    case 1:                                                                                                            \
+        _ROUND_TRAN((a), G((b), (c), (d)), (b), (x), (s), (ac));                                                       \
+        break;                                                                                                         \
+    case 2:                                                                                                            \
+        _ROUND_TRAN((a), H((b), (c), (d)), (b), (x), (s), (ac));                                                       \
+        break;                                                                                                         \
+    case 3:                                                                                                            \
+        _ROUND_TRAN((a), I((b), (c), (d)), (b), (x), (s), (ac));                                                       \
+        break;                                                                                                         \
+    default:                                                                                                           \
+        break;                                                                                                         \
     }
-}
 
 void __pgfe_md5_decode(const pgfe_encode_t input[], size_t length, pgfe_word_t output[]) {
     size_t i, ix4;
@@ -93,25 +87,27 @@ void __pgfe_md5_transform(pgfe_word_t state[4], const pgfe_encode_t block[64]) {
     pgfe_word_t x[16], buf[4];
     uint16_t r, i;
 
-    buf[3] = state[0];
-    buf[2] = state[1];
-    buf[1] = state[2];
-    buf[0] = state[3];
+    // Copy to the buffer reversely
+    buf[3] = state[0]; // a
+    buf[2] = state[1]; // b
+    buf[1] = state[2]; // c
+    buf[0] = state[3]; // d
 
     __pgfe_md5_decode(block, 64, x);
 
     // Round 1 - 4
     for (r = 0; r < 4; r++) {
         for (i = 0; i < 16; i++) {
-            __F(r, &buf[_O(i, 3, 4)], buf[_O(i, 2, 4)], buf[_O(i, 1, 4)], buf[_O(i, 0, 4)], x[__idx[r][i]],
+            __F(r, buf[_O(i, 3, 4)], buf[_O(i, 2, 4)], buf[_O(i, 1, 4)], buf[_O(i, 0, 4)], x[__idx[r][i]],
                 __S[r][i % 4], __ac[r][i]);
         }
     }
 
-    state[0] += buf[3];
-    state[1] += buf[2];
-    state[2] += buf[1];
-    state[3] += buf[0];
+    // Add back
+    state[0] += buf[3]; // a
+    state[1] += buf[2]; // b
+    state[2] += buf[1]; // c
+    state[3] += buf[0]; // d
 
     // Wipe sensitive data from the RAM
     memset(x, 0, sizeof(x));
