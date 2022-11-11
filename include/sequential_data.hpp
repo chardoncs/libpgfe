@@ -27,9 +27,9 @@ typedef std::basic_string<pgfe_encode_t> pgfe_seqdata_t;
 class SequentialData : public pgfe_seqdata_t
 {
 private:
-    bool _is_str = false, _apstr = false;
+    bool _is_str = false, _str_deter_overwrite = false;
 
-    void determine_ascii_str();
+    bool determine_ascii_str() const;
 
 public:
     SequentialData();
