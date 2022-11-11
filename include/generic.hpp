@@ -177,8 +177,8 @@ static const std::unordered_map<pgfe_algorithm_choice, size_t> pgfe_block_length
 
 // String to algorithm choice type
 
-pgfe_algorithm_choice string_to_algorithm_choice(const char *cs);
-pgfe_algorithm_choice string_to_algorithm_choice(std::string cpp_s);
+pgfe_algorithm_choice _algstr(const char *cs);
+pgfe_algorithm_choice _algstr(std::string cpp_s);
 
 } // namespace PGFE
 } // namespace chardon55

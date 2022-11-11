@@ -18,8 +18,6 @@
 
 #define LIBPGFE_UTILS_NAMESPACE using namespace chardon55::PGFE::utils;
 
-#define _algstr(str) string_to_algorithm_choice(str)
-
 namespace chardon55 {
 namespace PGFE {
 namespace utils {
