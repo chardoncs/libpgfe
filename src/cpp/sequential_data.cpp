@@ -78,9 +78,11 @@ void SequentialData::determine_ascii_str() {
     pgfe_encode_t ch;
     for (const_iterator iter = begin(); iter != end(); iter++) {
         ch = *iter;
-        _is_str = ch >= 0x20 && ch <= 0x7F;
-        if (!_is_str) {
-            return;
+        _apstr = ch >= 0x20 && ch <= 0x7F;
+        if (!_apstr) {
+            break;
         }
     }
+
+    _is_str = _apstr;
 }
