@@ -33,9 +33,9 @@ inline pgfe_encode_t pgfe_decode_base16_char(char base16_c) {
 }
 
 inline size_t pgfe_encode_base16(const pgfe_encode_t input[], size_t input_length, char cs_out[]) {
-    return __pgfe_encode_generic(PGFE_BASE_PARAMS(BASE16), BASE16_ALPHABET, input, input_length, cs_out);
+    return __pgfe_encode_base_generic(PGFE_BASE_PARAMS(BASE16), BASE16_ALPHABET, input, input_length, cs_out);
 }
 
 size_t pgfe_decode_base16(const char base16_cs[], pgfe_encode_t output[]) {
-    return __pgfe_decode_generic(PGFE_BASE_PARAMS(BASE16), pgfe_decode_base16_char, base16_cs, output);
+    return __pgfe_decode_base_generic(PGFE_BASE_PARAMS(BASE16), pgfe_decode_base16_char, base16_cs, output);
 }

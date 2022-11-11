@@ -11,38 +11,36 @@
 
 #include "backend/generic-internal.h"
 
-uint8_t __pgfe_build_mask(uint8_t digit_c);
+#define __bitsz 8
 
-inline uint8_t __pgfe_build_mask(uint8_t digit_c) {
-    return UINT8_MAX >> (to_bit(sizeof(uint8_t)) - digit_c);
-}
+#define __mkmask(digit) (UINT8_MAX >> (__bitsz - (digit)))
 
 size_t __pgfe_transform_codes(const pgfe_encode_t input[], size_t length, uint8_t chunk_size, pgfe_encode_t out[]) {
-    const uint16_t bitsz = to_bit(sizeof(pgfe_encode_t));
-    pgfe_encode_t *inp = (pgfe_encode_t *)input, *op = out;
+    const pgfe_encode_t *inp = input;
+    pgfe_encode_t *op = out;
     size_t low, high, mv_sz, sz_diff;
 
-    const uint8_t chunk_mask = __pgfe_build_mask(chunk_size);
+    const uint8_t chunk_mask = __mkmask(chunk_size);
 
-    for (low = 0, high = chunk_size % bitsz; inp - input <= length; inp++, op++) {
+    for (low = 0, high = chunk_size % __bitsz; inp - input <= length; inp++, op++) {
         if (low < high) {
-            *op = ((*inp) >> (bitsz - high)) & chunk_mask;
+            *op = ((*inp) >> (__bitsz - high)) & chunk_mask;
             inp--;
         }
         else if (!high) {
             *op = (*inp) & chunk_mask;
         }
         else {
-            sz_diff = bitsz - low;
+            sz_diff = __bitsz - low;
             mv_sz = chunk_size - sz_diff;
-            *op = ((*inp) & __pgfe_build_mask(sz_diff)) << mv_sz;
+            *op = ((*inp) & __mkmask(sz_diff)) << mv_sz;
             if (inp - input + 1 < length) {
-                *op |= ((*(inp + 1)) >> (bitsz - high)) & __pgfe_build_mask(high);
+                *op |= ((*(inp + 1)) >> (__bitsz - high)) & __mkmask(high);
             }
         }
 
-        low = (low + chunk_size) % bitsz;
-        high = (high + chunk_size) % bitsz;
+        low = (low + chunk_size) % __bitsz;
+        high = (high + chunk_size) % __bitsz;
     }
 
     return op - out;
@@ -75,10 +73,11 @@ size_t __pgfe_unittostr(
     return chunk_count;
 }
 
-size_t __pgfe_encode_generic(
+size_t __pgfe_encode_base_generic(
     PGFE_BASE_PARAMS_DEF, const char alphabet[], const pgfe_encode_t input[], size_t input_length, char cs_out[]
 ) {
-    pgfe_encode_t input_unit[unit_size], *inp = (pgfe_encode_t *)input;
+    pgfe_encode_t input_unit[unit_size];
+    const pgfe_encode_t *inp = input;
     size_t i, remain;
     char *sp = cs_out;
 
@@ -103,15 +102,14 @@ size_t __pgfe_encode_generic(
     return sp - cs_out;
 }
 
-size_t __pgfe_decode_generic(
+size_t __pgfe_decode_base_generic(
     PGFE_BASE_PARAMS_DEF, pgfe_encode_t (*func)(char), const char basexx_cs[], pgfe_encode_t output[]
 ) {
     pgfe_encode_t *op, ch, sig, o_unit[unit_size];
-    const size_t sz_ou = to_bit(sizeof(pgfe_encode_t));
-    char *sp = (char *)basexx_cs;
-    size_t i = 0, j;
+    const char *sp = basexx_cs;
+    size_t i, j;
     uint64_t u;
-    const uint8_t mask = __pgfe_build_mask(bit_size);
+    const uint8_t mask = __mkmask(bit_size);
 
     u = 0;
     op = output;
@@ -134,7 +132,7 @@ size_t __pgfe_decode_generic(
         }
 
         for (j = 0; j < unit_size; j++) {
-            o_unit[j] = (pgfe_encode_t)((u >> (sz_ou * (unit_size - j - 1))) & 0xFF);
+            o_unit[j] = (pgfe_encode_t)((u >> (__bitsz * (unit_size - j - 1))) & 0xFF);
         }
 
         memcpy(op, o_unit, unit_size);

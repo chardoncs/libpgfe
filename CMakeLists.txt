@@ -3,7 +3,12 @@ cmake_minimum_required(VERSION 3.16.0)
 set(CMAKE_C_COMPILER clang)
 set(CMAKE_CXX_COMPILER clang++)
 
-project(libpgfe VERSION 0.6.0 LANGUAGES C CXX)
+project(libpgfe
+  VERSION 0.5.1
+  DESCRIPTION "Cryptographic library"
+  HOMEPAGE_URL "https://github.com/chardon55/libpgfe"
+  LANGUAGES C CXX
+)
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 14)
@@ -52,7 +57,6 @@ add_executable(pgfetestcpp ${test_dir}/test.cpp)
 # add_executable(totptestcpp ${test_dir}/totptest.cpp)
 
 target_include_directories(pgfe PRIVATE
-  ${src_dir}
   ${include_dir}
 )
 

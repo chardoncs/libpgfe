@@ -8,6 +8,7 @@
 #include "sequential_data.hpp"
 
 #include <cstring>
+#include <stdexcept>
 
 using namespace chardon55::PGFE;
 
@@ -33,6 +34,8 @@ SequentialData::SequentialData(std::string &cpp_s)
     : SequentialData((const pgfe_encode_t *)cpp_s.c_str(), cpp_s.length()) {}
 
 SequentialData::SequentialData(const SequentialData *sd) : SequentialData((const pgfe_encode_t *)sd->seq, sd->sz) {}
+
+SequentialData::SequentialData(const SequentialData &sd) : SequentialData(&sd) {}
 
 SequentialData::SequentialData(SequentialData *sd, bool delete_current)
     : SequentialData((const pgfe_encode_t *)sd->seq, sd->sz) {
@@ -72,7 +75,7 @@ std::string SequentialData::to_hex_str() const {
 }
 
 const pgfe_encode_t *SequentialData::to_pgfe_seq() const {
-    return seq;
+    return (const pgfe_encode_t *)seq;
 }
 
 const pgfe_encode_t *SequentialData::to_pgfe_seq(size_t &length_out) const {
@@ -102,16 +105,24 @@ bool SequentialData::determine_ascii_str() {
     return true;
 }
 
+inline void SequentialData::check_range(size_t &start, size_t &length) const {
+    if (start >= sz) {
+        throw new std::out_of_range("Parameter 'start' is larger than the size");
+    }
+
+    if (length > sz - start) {
+        length = sz - start;
+    }
+}
+
 SequentialData *SequentialData::truncate(size_t start, size_t length) const {
+    check_range(start, length);
     return new SequentialData(&seq[start], length);
 }
 
 SequentialData *SequentialData::truncate(size_t start, size_t length, bool inplace) {
     if (inplace) {
-        if (start) {
-            memcpy(seq, seq + start, length);
-        }
-
+        check_range(start, length);
         memset(seq + length, 0, sz - length);
         sz = length;
         return nullptr;
