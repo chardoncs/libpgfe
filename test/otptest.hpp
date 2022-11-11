@@ -14,7 +14,7 @@
 #include "../include/utils.hpp"
 
 void hotp_hex_test(ARGS) {
-    USE_PGFE_CPP_UTILS
+    LIBPGFE_UTILS_NAMESPACE
 
     HOTP hotp{_algstr(argv[2])};
 

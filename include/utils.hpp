@@ -16,7 +16,7 @@
 #include "generic.hpp"
 #include "sequential_data.hpp"
 
-#define USE_PGFE_CPP_UTILS using namespace chardon55::PGFE::utils;
+#define LIBPGFE_UTILS_NAMESPACE using namespace chardon55::PGFE::utils;
 
 #define _algstr(str) string_to_algorithm_choice(str)
 

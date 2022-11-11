@@ -12,7 +12,7 @@
 #include "../include/utils.hpp"
 
 void hmac_encoder_test(ARGS) {
-    USE_PGFE_CPP
+    LIBPGFE_NAMESPACE
 
     HMACEncoder *encoder;
 

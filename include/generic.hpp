@@ -21,7 +21,7 @@
 #include "sha2.h"
 #include "sha3.h"
 
-#define USE_PGFE_CPP using namespace chardon55::PGFE;
+#define LIBPGFE_NAMESPACE using namespace chardon55::PGFE;
 
 #define __PGFE_BATCH_CASES(name)                                                                                       \
     switch (cur_alg) {                                                                                                 \
