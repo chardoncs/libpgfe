@@ -13,6 +13,8 @@
 
 #include "backend_cpp/abstract_hash_encoder.hpp"
 
+#include <memory>
+
 #include "generic.hpp"
 
 namespace chardon55 {
@@ -25,18 +27,16 @@ class HashEncoder : public AbstractHashEncoder
 private:
     void *ctx = nullptr;
 
-    SequentialData *out = nullptr;
+    std::unique_ptr<SequentialData> out;
 
     void load_algorithm();
 
     void destroy_context();
-    void destroy_output();
 
     void init();
 
 protected:
     void before_change_alg();
-    void after_change_alg();
 
 public:
     HashEncoder(pgfe_algorithm_choice algorithm);

@@ -41,11 +41,11 @@ std::string AbstractBaseEncoding::encode(const char *cs) {
     return encode((pgfe_encode_t *)cs, strlen(cs));
 }
 
-std::string AbstractBaseEncoding::encode(std::string &cpp_s) {
+std::string AbstractBaseEncoding::encode(const std::string &cpp_s) {
     return encode((pgfe_encode_t *)cpp_s.c_str(), cpp_s.length());
 }
 
-std::string AbstractBaseEncoding::encode(SequentialData &sd) {
+std::string AbstractBaseEncoding::encode(const SequentialData &sd) {
     return encode(sd.to_pgfe_seq(), sd.length());
 }
 
@@ -68,7 +68,7 @@ SequentialData AbstractBaseEncoding::decode(const char *base_cs) {
     return sd;
 }
 
-SequentialData AbstractBaseEncoding::decode(std::string &cpp_s) {
+SequentialData AbstractBaseEncoding::decode(const std::string &cpp_s) {
     return decode(cpp_s.c_str());
 }
 

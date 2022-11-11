@@ -52,11 +52,11 @@ protected:
 public:
     std::string encode(const pgfe_encode_t *, size_t);
     std::string encode(const char *);
-    std::string encode(std::string &);
-    std::string encode(SequentialData &);
+    std::string encode(const std::string &);
+    std::string encode(const SequentialData &);
 
     SequentialData decode(const char *);
-    SequentialData decode(std::string &);
+    SequentialData decode(const std::string &);
 
     base_short_size_t unit_size() const;
     base_short_size_t chunk_size() const;

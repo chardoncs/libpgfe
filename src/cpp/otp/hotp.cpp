@@ -14,15 +14,7 @@
 
 using namespace chardon55::PGFE;
 
-void HOTP::destroy_secret() {
-    if (!secret) return;
-
-    delete secret;
-    secret = nullptr;
-}
-
 HOTP::HOTP(pgfe_algorithm_choice algorithm) {
-    secret = nullptr;
     select_algorithm(algorithm);
 }
 
@@ -42,17 +34,12 @@ HOTP::HOTP(SequentialData &secret, pgfe_algorithm_choice algorithm) : HOTP(algor
     set_secret(secret);
 }
 
-HOTP::~HOTP() {
-    destroy_secret();
-}
-
 void HOTP::after_change_alg() {
     __PGFE_BATCH_CASES(INIT_SIZE)
 }
 
 void HOTP::set_secret(const pgfe_encode_t *seq, size_t length) {
-    destroy_secret();
-    secret = new SequentialData(seq, length);
+    secret.reset(new SequentialData(seq, length));
 }
 
 void HOTP::set_secret(const char *cs, bool is_base32) {
@@ -64,7 +51,7 @@ void HOTP::set_secret(const char *cs, bool is_base32) {
     }
 }
 
-void HOTP::set_secret(std::string &cpp_s, bool is_base32) {
+void HOTP::set_secret(const std::string &cpp_s, bool is_base32) {
     if (is_base32) {
         set_secret_from_base32(cpp_s);
     }
@@ -73,7 +60,7 @@ void HOTP::set_secret(std::string &cpp_s, bool is_base32) {
     }
 }
 
-void HOTP::set_secret(SequentialData &sd) {
+void HOTP::set_secret(const SequentialData &sd) {
     this->AbstractOTP::set_secret(sd);
 }
 
@@ -82,7 +69,7 @@ void HOTP::set_counter(pgfe_otp_counter_t c) {
 }
 
 pgfe_otp_t HOTP::generate(uint8_t digit_count) const {
-    if (!secret) {
+    if (!secret.get()) {
         throw NotInitializedException();
     }
 
@@ -98,7 +85,7 @@ void HOTP::set_secret_from_base32(const char *cs) {
     set_secret(sd);
 }
 
-void HOTP::set_secret_from_base32(std::string &cpp_s) {
+void HOTP::set_secret_from_base32(const std::string &cpp_s) {
     auto sd = base32.decode(cpp_s);
     set_secret(sd);
 }
