@@ -180,8 +180,8 @@ static const std::unordered_map<pgfe_algorithm_choice, size_t> pgfe_block_length
 pgfe_algorithm_choice _algstr(const char *cs);
 pgfe_algorithm_choice _algstr(std::string cpp_s);
 
-inline pgfe_algorithm_choice operator"" _pgfe_alg(const char *str, size_t size) noexcept {
-    return _algstr(str, size);
+inline pgfe_algorithm_choice operator"" _pgfe_alg(const char *str, size_t size) {
+    return _algstr(str);
 }
 
 } // namespace PGFE
