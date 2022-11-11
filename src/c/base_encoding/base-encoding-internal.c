@@ -11,9 +11,9 @@
 
 #include "backend/generic-internal.h"
 
-#define __mkmask(digit) (UINT8_MAX >> (8 - (digit)))
-
 #define __bitsz 8
+
+#define __mkmask(digit) (UINT8_MAX >> (__bitsz - (digit)))
 
 size_t __pgfe_transform_codes(const pgfe_encode_t input[], size_t length, uint8_t chunk_size, pgfe_encode_t out[]) {
     const pgfe_encode_t *inp = input;
