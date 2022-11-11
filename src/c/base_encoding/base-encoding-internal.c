@@ -18,8 +18,9 @@ inline uint8_t __pgfe_build_mask(uint8_t digit_c) {
 }
 
 size_t __pgfe_transform_codes(const pgfe_encode_t input[], size_t length, uint8_t chunk_size, pgfe_encode_t out[]) {
-    const uint16_t bitsz = to_bit(sizeof(pgfe_encode_t));
-    pgfe_encode_t *inp = (pgfe_encode_t *)input, *op = out;
+    static const uint16_t bitsz = to_bit(sizeof(pgfe_encode_t));
+    const pgfe_encode_t *inp = input;
+    pgfe_encode_t *op = out;
     size_t low, high, mv_sz, sz_diff;
 
     const uint8_t chunk_mask = __pgfe_build_mask(chunk_size);
