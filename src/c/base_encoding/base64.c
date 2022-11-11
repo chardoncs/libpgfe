@@ -56,13 +56,13 @@ inline pgfe_encode_t pgfe_decode_base64_char(char base64_c) {
 }
 
 inline size_t pgfe_encode_base64(const pgfe_encode_t input[], size_t input_length, char cs_out[]) {
-    return __pgfe_encode_generic(PGFE_BASE_PARAMS(BASE64), BASE64_ALPHABET, input, input_length, cs_out);
+    return __pgfe_encode_base_generic(PGFE_BASE_PARAMS(BASE64), BASE64_ALPHABET, input, input_length, cs_out);
 }
 
 inline size_t pgfe_encode_base64_url(const pgfe_encode_t input[], size_t input_length, char cs_out[]) {
-    return __pgfe_encode_generic(PGFE_BASE_PARAMS(BASE64), BASE64_ALPHABET_FS, input, input_length, cs_out);
+    return __pgfe_encode_base_generic(PGFE_BASE_PARAMS(BASE64), BASE64_ALPHABET_FS, input, input_length, cs_out);
 }
 
 inline size_t pgfe_decode_base64(const char base64_cs[], pgfe_encode_t output[]) {
-    return __pgfe_decode_generic(PGFE_BASE_PARAMS(BASE64), pgfe_decode_base64_char, base64_cs, output);
+    return __pgfe_decode_base_generic(PGFE_BASE_PARAMS(BASE64), pgfe_decode_base64_char, base64_cs, output);
 }
