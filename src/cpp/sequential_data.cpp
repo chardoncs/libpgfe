@@ -12,23 +12,23 @@
 
 using namespace chardon55::PGFE;
 
-SequentialData::SequentialData() : seqdata_t() {
+SequentialData::SequentialData() : pgfe_seqdata_t() {
     determine_ascii_str();
 }
 
-SequentialData::SequentialData(const SequentialData &sd) : seqdata_t(sd) {
+SequentialData::SequentialData(const SequentialData &sd) : pgfe_seqdata_t(sd) {
     determine_ascii_str();
 }
 
-SequentialData::SequentialData(const SequentialData *sdp) : seqdata_t(*sdp) {
+SequentialData::SequentialData(const SequentialData *sdp) : pgfe_seqdata_t(*sdp) {
     determine_ascii_str();
 }
 
-SequentialData::SequentialData(SequentialData &&sd) : seqdata_t(sd) {
+SequentialData::SequentialData(SequentialData &&sd) : pgfe_seqdata_t(sd) {
     determine_ascii_str();
 }
 
-SequentialData::SequentialData(const pgfe_encode_t pgfe_seq[], size_t size) : seqdata_t(pgfe_seq, size) {
+SequentialData::SequentialData(const pgfe_encode_t pgfe_seq[], size_t size) : pgfe_seqdata_t(pgfe_seq, size) {
     determine_ascii_str();
 }
 
@@ -53,7 +53,7 @@ std::string SequentialData::hex_str() const {
     return s;
 }
 
-inline const pgfe_encode_t *SequentialData::to_pgfe_seq() const {
+const pgfe_encode_t *SequentialData::to_pgfe_seq() const {
     return this->c_str();
 }
 

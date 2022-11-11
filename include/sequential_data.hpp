@@ -22,9 +22,9 @@
 namespace chardon55 {
 namespace PGFE {
 
-typedef std::basic_string<pgfe_encode_t> seqdata_t;
+typedef std::basic_string<pgfe_encode_t> pgfe_seqdata_t;
 
-class SequentialData : public seqdata_t
+class SequentialData : public pgfe_seqdata_t
 {
 private:
     bool _is_str = false, _apstr = false;
