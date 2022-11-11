@@ -19,43 +19,20 @@ void AbstractBaseEncoding::init() {
     init_size(unitsz, chunksz, bitsz, alphabetsz);
 }
 
-void AbstractBaseEncoding::destroy_encode_cache() {
-    if (en_cache) {
-        delete[] en_cache;
-        en_cache = nullptr;
-    }
-}
-
-void AbstractBaseEncoding::destroy_decode_cache() {
-    if (de_cache) {
-        delete[] de_cache;
-        de_cache = nullptr;
-    }
-}
-
-// AbstractBaseEncoding::AbstractBaseEncoding() {
-//     init();
-// }
-
-AbstractBaseEncoding::~AbstractBaseEncoding() {
-    destroy_encode_cache();
-    destroy_decode_cache();
-}
-
 std::string AbstractBaseEncoding::encode(const pgfe_encode_t *pgfe_c_seq, size_t length) {
     size_t sz = (size_t)ceil(length * ((double)to_bit(sizeof(pgfe_encode_t)) / (double)bitsz) * PGFE_SPACE_MULTIPLE);
 
     enc_mutex.lock();
-    if (!en_cache || encsz <= sz) {
-        destroy_encode_cache();
-        en_cache = new char[sz + 1];
+    if (encsz <= sz) {
+        en_cache = std::make_unique<char[]>(sz + 1);
         encsz = sz;
     }
 
-    sz = encode_f(pgfe_c_seq, length, en_cache);
+    char *p = en_cache.get();
+    sz = encode_f(pgfe_c_seq, length, p);
     en_cache[sz] = 0;
 
-    std::string str(en_cache);
+    std::string str(p);
     enc_mutex.unlock();
     return str;
 }
@@ -77,15 +54,16 @@ SequentialData AbstractBaseEncoding::decode(const char *base_cs) {
         (size_t)ceil(strlen(base_cs) * ((double)bitsz / (double)to_bit(sizeof(pgfe_encode_t))) * PGFE_SPACE_MULTIPLE);
 
     dec_mutex.lock();
-    if (!de_cache || decsz <= sz) {
-        destroy_decode_cache();
-        de_cache = new pgfe_encode_t[sz + 1];
+    if (decsz <= sz) {
+        de_cache = std::make_unique<pgfe_encode_t[]>(sz);
         decsz = sz;
     }
-    sz = decode_f(base_cs, de_cache);
+
+    pgfe_encode_t *p = de_cache.get();
+    sz = decode_f(base_cs, p);
     de_cache[sz] = 0;
 
-    SequentialData sd(de_cache, sz);
+    SequentialData sd(p, sz);
     dec_mutex.unlock();
     return sd;
 }
