@@ -29,7 +29,5 @@ void hash_encoder_test(ARGS) {
     encoder.update(argv[argc - 1]);
 
     auto sd = encoder.get_digest((uint64_t)len_flag);
-
-    // puts(sd.to_hex_cs());
     cout << *sd << endl;
 }

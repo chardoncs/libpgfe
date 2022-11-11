@@ -12,74 +12,53 @@
 
 using namespace chardon55::PGFE;
 
-SequentialData::~SequentialData() {
-    delete[] seq;
+SequentialData::SequentialData() : seqdata_t() {
+    determine_ascii_str();
+}
 
-    if (hex_str) {
-        delete[] hex_str;
+SequentialData::SequentialData(const SequentialData &sd) : seqdata_t(sd) {
+    determine_ascii_str();
+}
+
+SequentialData::SequentialData(const SequentialData *sdp) : seqdata_t(*sdp) {
+    determine_ascii_str();
+}
+
+SequentialData::SequentialData(SequentialData &&sd) : seqdata_t(sd) {
+    determine_ascii_str();
+}
+
+SequentialData::SequentialData(const pgfe_encode_t pgfe_seq[], size_t size) : seqdata_t(pgfe_seq, size) {
+    determine_ascii_str();
+}
+
+SequentialData::SequentialData(const char c_str[]) : SequentialData((const pgfe_encode_t *)c_str, strlen(c_str)) {}
+SequentialData::SequentialData(const std::string cpp_str)
+    : SequentialData((const pgfe_encode_t *)cpp_str.c_str(), cpp_str.length()) {}
+
+std::string SequentialData::to_str(bool auto_hex) const {
+    if (!_is_str && auto_hex) {
+        return hex_str();
     }
-}
 
-SequentialData::SequentialData(const pgfe_encode_t *pgfe_seq, size_t length) {
-    seq = new pgfe_encode_t[length + 1];
-    memcpy(seq, pgfe_seq, length);
-    seq[length] = 0;
-    sz = length;
-    _is_str = _apstr = determine_ascii_str();
-}
-
-SequentialData::SequentialData(const char *cs) : SequentialData((const pgfe_encode_t *)cs, strlen(cs)) {}
-
-SequentialData::SequentialData(std::string &cpp_s)
-    : SequentialData((const pgfe_encode_t *)cpp_s.c_str(), cpp_s.length()) {}
-
-SequentialData::SequentialData(const SequentialData *sd) : SequentialData((const pgfe_encode_t *)sd->seq, sd->sz) {}
-
-SequentialData::SequentialData(const SequentialData &sd) : SequentialData(&sd) {}
-
-SequentialData::SequentialData(SequentialData *sd, bool delete_current)
-    : SequentialData((const pgfe_encode_t *)sd->seq, sd->sz) {
-    if (delete_current) {
-        delete sd;
-    }
-}
-
-size_t SequentialData::length() const {
-    return sz;
-}
-
-const char *SequentialData::to_cs() const {
-    return (const char *)seq;
-}
-
-std::string SequentialData::to_str() const {
-    std::string s{(char *)seq};
+    std::string s((const char *)this->c_str(), this->length());
     return s;
 }
 
-const char *SequentialData::to_hex_cs() {
-    if (!hex_str) {
-        hex_sz = sz * 2;
-        hex_str = new char[hex_sz + 1];
-    }
-
-    pgfe_hash_to_hex_string(seq, sz, hex_str);
-    return hex_str;
-}
-
-std::string SequentialData::to_hex_str() const {
+std::string SequentialData::hex_str() const {
+    size_t sz = this->length();
     char hex_str[sz * 2 + 1];
-    pgfe_hash_to_hex_string(seq, sz, hex_str);
+    pgfe_hash_to_hex_string(this->c_str(), sz, hex_str);
     std::string s(hex_str);
     return s;
 }
 
-const pgfe_encode_t *SequentialData::to_pgfe_seq() const {
-    return (const pgfe_encode_t *)seq;
+inline const pgfe_encode_t *SequentialData::to_pgfe_seq() const {
+    return this->c_str();
 }
 
 const pgfe_encode_t *SequentialData::to_pgfe_seq(size_t &length_out) const {
-    length_out = sz;
+    length_out = this->length();
     return to_pgfe_seq();
 }
 
@@ -95,42 +74,13 @@ bool SequentialData::is_apparent_str() const {
     return _apstr;
 }
 
-bool SequentialData::determine_ascii_str() {
-    for (size_t i = 0; i < sz; i++) {
-        if (seq[i] > 0x7F || seq[i] < 0x20) {
-            return false;
+void SequentialData::determine_ascii_str() {
+    pgfe_encode_t ch;
+    for (const_iterator iter = begin(); iter != end(); iter++) {
+        ch = *iter;
+        _is_str = ch >= 0x20 && ch <= 0x7F;
+        if (!_is_str) {
+            return;
         }
     }
-
-    return true;
-}
-
-inline void SequentialData::check_range(size_t &start, size_t &length) const {
-    if (start >= sz) {
-        throw new std::out_of_range("Parameter 'start' is larger than the size");
-    }
-
-    if (length > sz - start) {
-        length = sz - start;
-    }
-}
-
-SequentialData *SequentialData::truncate(size_t start, size_t length) const {
-    check_range(start, length);
-    return new SequentialData(&seq[start], length);
-}
-
-SequentialData *SequentialData::truncate(size_t start, size_t length, bool inplace) {
-    if (inplace) {
-        check_range(start, length);
-        memset(seq + length, 0, sz - length);
-        sz = length;
-        return nullptr;
-    }
-
-    return truncate(start, length);
-}
-
-SequentialData *SequentialData::copy() const {
-    return new SequentialData((const pgfe_encode_t *)seq, sz);
 }

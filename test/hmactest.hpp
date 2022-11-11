@@ -28,7 +28,7 @@ void hmac_encoder_test(ARGS) {
     encoder->update(argv[4]);
 
     SequentialData sd{encoder->get_digest()};
-    puts(sd.to_hex_cs());
+    std::cout << sd << std::endl;
 
     delete encoder;
 }
