@@ -15,12 +15,12 @@
 namespace chardon55 {
 namespace PGFE {
 
-pgfe_algorithm_choice string_to_algorithm_choice(const char *cs) {
+pgfe_algorithm_choice _algstr(const char *cs) {
     std::string s{cs};
-    return string_to_algorithm_choice(s);
+    return _algstr(s);
 }
 
-pgfe_algorithm_choice string_to_algorithm_choice(std::string cpp_s) {
+pgfe_algorithm_choice _algstr(std::string cpp_s) {
     return pgfe_option_map.at(cpp_s);
 }
 

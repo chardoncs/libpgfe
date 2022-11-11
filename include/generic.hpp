@@ -21,7 +21,7 @@
 #include "sha2.h"
 #include "sha3.h"
 
-#define USE_PGFE_CPP using namespace chardon55::PGFE;
+#define LIBPGFE_NAMESPACE using namespace chardon55::PGFE;
 
 #define __PGFE_BATCH_CASES(name)                                                                                       \
     switch (cur_alg) {                                                                                                 \
@@ -177,8 +177,12 @@ static const std::unordered_map<pgfe_algorithm_choice, size_t> pgfe_block_length
 
 // String to algorithm choice type
 
-pgfe_algorithm_choice string_to_algorithm_choice(const char *cs);
-pgfe_algorithm_choice string_to_algorithm_choice(std::string cpp_s);
+pgfe_algorithm_choice _algstr(const char *cs);
+pgfe_algorithm_choice _algstr(std::string cpp_s);
+
+inline pgfe_algorithm_choice operator"" _pgfe_alg(const char *str, size_t size) {
+    return _algstr(str);
+}
 
 } // namespace PGFE
 } // namespace chardon55
