@@ -13,33 +13,34 @@
 
 #define __mkmask(digit) (UINT8_MAX >> (8 - (digit)))
 
+#define __bitsz 8
+
 size_t __pgfe_transform_codes(const pgfe_encode_t input[], size_t length, uint8_t chunk_size, pgfe_encode_t out[]) {
-    static const uint16_t bitsz = to_bit(sizeof(pgfe_encode_t));
     const pgfe_encode_t *inp = input;
     pgfe_encode_t *op = out;
     size_t low, high, mv_sz, sz_diff;
 
     const uint8_t chunk_mask = __mkmask(chunk_size);
 
-    for (low = 0, high = chunk_size % bitsz; inp - input <= length; inp++, op++) {
+    for (low = 0, high = chunk_size % __bitsz; inp - input <= length; inp++, op++) {
         if (low < high) {
-            *op = ((*inp) >> (bitsz - high)) & chunk_mask;
+            *op = ((*inp) >> (__bitsz - high)) & chunk_mask;
             inp--;
         }
         else if (!high) {
             *op = (*inp) & chunk_mask;
         }
         else {
-            sz_diff = bitsz - low;
+            sz_diff = __bitsz - low;
             mv_sz = chunk_size - sz_diff;
             *op = ((*inp) & __mkmask(sz_diff)) << mv_sz;
             if (inp - input + 1 < length) {
-                *op |= ((*(inp + 1)) >> (bitsz - high)) & __mkmask(high);
+                *op |= ((*(inp + 1)) >> (__bitsz - high)) & __mkmask(high);
             }
         }
 
-        low = (low + chunk_size) % bitsz;
-        high = (high + chunk_size) % bitsz;
+        low = (low + chunk_size) % __bitsz;
+        high = (high + chunk_size) % __bitsz;
     }
 
     return op - out;
