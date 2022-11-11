@@ -11,11 +11,7 @@
 
 #include "backend/generic-internal.h"
 
-uint8_t __pgfe_build_mask(uint8_t digit_c);
-
-inline uint8_t __pgfe_build_mask(uint8_t digit_c) {
-    return UINT8_MAX >> (to_bit(sizeof(uint8_t)) - digit_c);
-}
+#define __mkmask(digit) (UINT8_MAX >> (8 - (digit)))
 
 size_t __pgfe_transform_codes(const pgfe_encode_t input[], size_t length, uint8_t chunk_size, pgfe_encode_t out[]) {
     static const uint16_t bitsz = to_bit(sizeof(pgfe_encode_t));
@@ -23,7 +19,7 @@ size_t __pgfe_transform_codes(const pgfe_encode_t input[], size_t length, uint8_
     pgfe_encode_t *op = out;
     size_t low, high, mv_sz, sz_diff;
 
-    const uint8_t chunk_mask = __pgfe_build_mask(chunk_size);
+    const uint8_t chunk_mask = __mkmask(chunk_size);
 
     for (low = 0, high = chunk_size % bitsz; inp - input <= length; inp++, op++) {
         if (low < high) {
@@ -36,9 +32,9 @@ size_t __pgfe_transform_codes(const pgfe_encode_t input[], size_t length, uint8_
         else {
             sz_diff = bitsz - low;
             mv_sz = chunk_size - sz_diff;
-            *op = ((*inp) & __pgfe_build_mask(sz_diff)) << mv_sz;
+            *op = ((*inp) & __mkmask(sz_diff)) << mv_sz;
             if (inp - input + 1 < length) {
-                *op |= ((*(inp + 1)) >> (bitsz - high)) & __pgfe_build_mask(high);
+                *op |= ((*(inp + 1)) >> (bitsz - high)) & __mkmask(high);
             }
         }
 
@@ -112,7 +108,7 @@ size_t __pgfe_decode_generic(
     char *sp = (char *)basexx_cs;
     size_t i = 0, j;
     uint64_t u;
-    const uint8_t mask = __pgfe_build_mask(bit_size);
+    const uint8_t mask = __mkmask(bit_size);
 
     u = 0;
     op = output;
