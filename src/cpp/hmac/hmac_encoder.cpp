@@ -18,7 +18,7 @@
     case alg: {                                                                                                        \
         pgfe_encode_t out[PGFE_##alg##_DIGEST_SIZE];                                                                   \
         pgfe_hmac_##name##_digest(&ctx.name, out);                                                                     \
-        output.reset(new SequentialData(out, PGFE_##alg##_DIGEST_SIZE));                                               \
+        output = std::make_unique<SequentialData>((const pgfe_encode_t *)out, PGFE_##alg##_DIGEST_SIZE);               \
     } break
 
 #define __PGFE_HMAC_SET_KEY_CASE(alg, name)                                                                            \

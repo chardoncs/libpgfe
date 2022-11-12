@@ -39,7 +39,7 @@ void HOTP::after_change_alg() {
 }
 
 void HOTP::set_secret(const pgfe_encode_t *seq, size_t length) {
-    secret.reset(new SequentialData(seq, length));
+    secret = std::make_unique<SequentialData>(seq, length);
 }
 
 void HOTP::set_secret(const char *cs, bool is_base32) {

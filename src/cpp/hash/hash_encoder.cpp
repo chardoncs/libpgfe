@@ -123,6 +123,6 @@ const SequentialData *HashEncoder::get_digest(uint64_t bitlength) {
         __PGFE_BATCH_CASES_SP(DIGEST_FUNC_CALL)
     }
 
-    out.reset(new SequentialData(seq, length));
+    out = std::make_unique<SequentialData>((const pgfe_encode_t *)seq, length);
     return (const SequentialData *)out.get();
 }
