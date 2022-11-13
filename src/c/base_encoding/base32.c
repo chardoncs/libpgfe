@@ -69,17 +69,17 @@ inline pgfe_encode_t pgfe_decode_base32hex_char(char base32_c) {
 }
 
 inline size_t pgfe_encode_base32(const pgfe_encode_t input[], size_t input_length, char cs_out[]) {
-    return __pgfe_encode_generic(PGFE_BASE_PARAMS(BASE32), BASE32_ALPHABET, input, input_length, cs_out);
+    return __pgfe_encode_base_generic(PGFE_BASE_PARAMS(BASE32), BASE32_ALPHABET, input, input_length, cs_out);
 }
 
 inline size_t pgfe_encode_base32hex(const pgfe_encode_t input[], size_t input_length, char cs_out[]) {
-    return __pgfe_encode_generic(PGFE_BASE_PARAMS(BASE32), BASE32_ALPHABET_EXTHEX, input, input_length, cs_out);
+    return __pgfe_encode_base_generic(PGFE_BASE_PARAMS(BASE32), BASE32_ALPHABET_EXTHEX, input, input_length, cs_out);
 }
 
 inline size_t pgfe_decode_base32(const char base32_cs[], pgfe_encode_t output[]) {
-    return __pgfe_decode_generic(PGFE_BASE_PARAMS(BASE32), pgfe_decode_base32_char, base32_cs, output);
+    return __pgfe_decode_base_generic(PGFE_BASE_PARAMS(BASE32), pgfe_decode_base32_char, base32_cs, output);
 }
 
 inline size_t pgfe_decode_base32hex(const char base32_cs[], pgfe_encode_t output[]) {
-    return __pgfe_decode_generic(PGFE_BASE_PARAMS(BASE32), pgfe_decode_base32hex_char, base32_cs, output);
+    return __pgfe_decode_base_generic(PGFE_BASE_PARAMS(BASE32), pgfe_decode_base32hex_char, base32_cs, output);
 }

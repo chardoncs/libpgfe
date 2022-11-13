@@ -11,6 +11,7 @@
 #error libpgfe error: C++ headers are not compatible with C source
 #endif
 
+#include <memory>
 #include <mutex>
 #include <string>
 
@@ -28,16 +29,13 @@ typedef unsigned short base_short_size_t;
 class AbstractBaseEncoding
 {
 private:
-    pgfe_encode_t *de_cache = nullptr;
-    char *en_cache = nullptr;
-    size_t encsz = 0, decsz = 0;
+    std::unique_ptr<pgfe_encode_t[]> de_cache = std::make_unique<pgfe_encode_t[]>(64);
+    std::unique_ptr<char[]> en_cache = std::make_unique<char[]>(128);
+    size_t encsz = 127, decsz = 64;
 
     std::mutex enc_mutex, dec_mutex;
 
     base_short_size_t unitsz, chunksz, bitsz, alphabetsz;
-
-    void destroy_encode_cache();
-    void destroy_decode_cache();
 
 protected:
     base_encode_func *encode_f;
@@ -52,16 +50,13 @@ protected:
     void init();
 
 public:
-    // AbstractBaseEncoding();
-    ~AbstractBaseEncoding();
-
     std::string encode(const pgfe_encode_t *, size_t);
     std::string encode(const char *);
-    std::string encode(std::string &);
-    std::string encode(SequentialData &);
+    std::string encode(const std::string &);
+    std::string encode(const SequentialData &);
 
     SequentialData decode(const char *);
-    SequentialData decode(std::string &);
+    SequentialData decode(const std::string &);
 
     base_short_size_t unit_size() const;
     base_short_size_t chunk_size() const;

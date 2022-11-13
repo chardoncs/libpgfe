@@ -1,0 +1,25 @@
+*               text=auto
+
+# C
+*.h             text eol=lf
+*.c             text eol=lf
+
+# C++
+*.hpp           text eol=lf
+*.cpp           text eol=lf
+
+# Other
+*.md            text eol=lf
+*.clang-format  text eol=lf
+*.mak           text eol=lf
+*.json          text eol=lf
+*.cmake         text eol=lf
+*.txt          text eol=lf
+*.py            text eol=lf
+
+*.png           -text
+*.jpg           -text
+*.jpeg          -text
+*.webp          -text
+
+Makefile        text eol=lf

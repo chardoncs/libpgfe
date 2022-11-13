@@ -11,6 +11,7 @@
 #error libpgfe error: C++ headers are not compatible with C source
 #endif
 
+#include <memory>
 #include <vector>
 
 #include "backend_cpp/abstract_hash_encoder.hpp"
@@ -40,9 +41,7 @@ private:
         pgfe_hmac_sha3_512_ctx sha3_512;
     } ctx;
 
-    SequentialData *output;
-
-    void destroy_output();
+    std::unique_ptr<SequentialData> output;
 
     void set_key(const pgfe_encode_t sequence[], size_t length);
     void set_key(const char cs[]);
@@ -57,7 +56,6 @@ public:
     HMACEncoder(pgfe_algorithm_choice algorithm, const char cs[]);
     HMACEncoder(pgfe_algorithm_choice algorithm, std::string &cpp_s);
     HMACEncoder(pgfe_algorithm_choice algorithm, SequentialData &sd);
-    ~HMACEncoder();
 
     void update(const pgfe_encode_t sequence[], size_t length);
     void update(const char cs[]);

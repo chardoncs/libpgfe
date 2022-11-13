@@ -18,7 +18,7 @@
     case alg: {                                                                                                        \
         pgfe_encode_t out[PGFE_##alg##_DIGEST_SIZE];                                                                   \
         pgfe_hmac_##name##_digest(&ctx.name, out);                                                                     \
-        output = new SequentialData(out, PGFE_##alg##_DIGEST_SIZE);                                                    \
+        output = std::make_unique<SequentialData>((const pgfe_encode_t *)out, PGFE_##alg##_DIGEST_SIZE);               \
     } break
 
 #define __PGFE_HMAC_SET_KEY_CASE(alg, name)                                                                            \
@@ -32,13 +32,6 @@
         break
 
 using namespace chardon55::PGFE;
-
-void HMACEncoder::destroy_output() {
-    if (output) {
-        delete output;
-        output = nullptr;
-    }
-}
 
 HMACEncoder::HMACEncoder(pgfe_algorithm_choice algorithm, const pgfe_encode_t sequence[], size_t length) {
     select_algorithm(algorithm);
@@ -58,10 +51,6 @@ HMACEncoder::HMACEncoder(pgfe_algorithm_choice algorithm, std::string &cpp_s) {
 HMACEncoder::HMACEncoder(pgfe_algorithm_choice algorithm, SequentialData &sd) {
     select_algorithm(algorithm);
     set_key(sd);
-}
-
-HMACEncoder::~HMACEncoder() {
-    destroy_output();
 }
 
 void HMACEncoder::after_change_alg() {
@@ -103,7 +92,6 @@ inline void HMACEncoder::update(SequentialData &sd) {
 }
 
 const SequentialData *HMACEncoder::get_digest() {
-    destroy_output();
     __PGFE_BATCH_CASES_SP(HMAC_DIGEST)
-    return output;
+    return (const SequentialData *)output.get();
 }

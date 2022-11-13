@@ -26,8 +26,8 @@ class AbstractOTP : public AlgorithmSelectable
 public:
     virtual void set_secret(const pgfe_encode_t *, size_t) {}
     virtual void set_secret(const char *cs);
-    virtual void set_secret(std::string &);
-    virtual void set_secret(SequentialData &);
+    virtual void set_secret(const std::string &);
+    virtual void set_secret(const SequentialData &);
 
     virtual void set_counter(pgfe_otp_counter_t){};
 

@@ -7,28 +7,28 @@
 
 #include "test.h"
 
+#include <memory>
+
 #include "../include/hmac_encoder.hpp"
 #include "../include/utils.h"
 #include "../include/utils.hpp"
 
 void hmac_encoder_test(ARGS) {
-    USE_PGFE_CPP
+    LIBPGFE_NAMESPACE
 
-    HMACEncoder *encoder;
+    std::unique_ptr<HMACEncoder> encoder;
+    std::unique_ptr<SequentialData> sd;
 
     if (argv[3][0] == '0' && argv[3][1] == 'x') {
-        auto sd = utils::sequential_data::from_hex_string(argv[3]);
-        encoder = new HMACEncoder(_algstr(argv[2]), *sd);
-        delete sd;
+        sd.reset(utils::sequential_data::from_hex_string(argv[3]));
+        encoder = std::make_unique<HMACEncoder>(_algstr(argv[2]), *sd);
     }
     else {
-        encoder = new HMACEncoder(_algstr(argv[2]), argv[3]);
+        encoder = std::make_unique<HMACEncoder>(_algstr(argv[2]), (const char *)argv[3]);
     }
 
     encoder->update(argv[4]);
 
-    SequentialData sd{encoder->get_digest()};
-    puts(sd.to_hex_cs());
-
-    delete encoder;
+    sd = std::make_unique<SequentialData>(encoder->get_digest());
+    std::cout << *sd << std::endl;
 }

@@ -11,7 +11,7 @@
 #include "backend/sha-internal.h"
 #include "backend/templates.h"
 
-const pgfe_word_t __pgfe_sha1_H0[] = {0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476, 0xC3D2E1F0};
+static const pgfe_word_t __pgfe_sha1_H0[] = {0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476, 0xC3D2E1F0};
 
 __PGFE_FRONTEND_GEN2(sha1)
 __PGFE_FRONTEND_DEFAULT_GEN2(sha1, SHA1)
@@ -22,12 +22,7 @@ __PGFE_SHA_DIGEST(sha1, SHA1)
 
 void __pgfe_sha1_process_block(struct pgfe_sha1_ctx *ctx) {
     // Constants in SHA1
-    static const pgfe_word_t K[] = {
-        0x5A827999,
-        0x6ED9EBA1,
-        0x8F1BBCDC,
-        0xCA62C1D6,
-    };
+    static const pgfe_word_t K[] = {0x5A827999, 0x6ED9EBA1, 0x8F1BBCDC, 0xCA62C1D6};
 
     uint8_t i, ix4;
     pgfe_word_t tmp, ws[80], A, B, C, D, E;

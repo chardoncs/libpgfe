@@ -10,7 +10,7 @@
 #include "backend/sha2-backend.h"
 #include "backend/templates.h"
 
-const pgfe_word_t __pgfe_sha384_H0[] = {
+static const pgfe_word_t __pgfe_sha384_H0[] = {
     0xC1059ED8, 0xCBBB9D5D, 0x367CD507, 0x629A292A, 0x3070DD17, 0x9159015A, 0xF70E5939, 0x152FECD8,
     0xFFC00B31, 0x67332667, 0x68581511, 0x8EB44A87, 0x64F98FA7, 0xDB0C2E0D, 0xBEFA4FA4, 0x47B5481D,
 };

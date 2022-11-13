@@ -37,11 +37,11 @@ size_t __pgfe_transform_codes(const pgfe_encode_t input[], size_t length, uint8_
 size_t
 __pgfe_unittostr(PGFE_BASE_PARAMS_DEF, const char alphabet[], const pgfe_encode_t unit[], char out[], bool padding);
 
-size_t __pgfe_encode_generic(
+size_t __pgfe_encode_base_generic(
     PGFE_BASE_PARAMS_DEF, const char alphabet[], const pgfe_encode_t input[], size_t input_length, char cs_out[]
 );
 
-size_t __pgfe_decode_generic(
+size_t __pgfe_decode_base_generic(
     PGFE_BASE_PARAMS_DEF, pgfe_encode_t (*func)(char), const char basexx_cs[], pgfe_encode_t output[]
 );
 

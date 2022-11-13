@@ -55,19 +55,8 @@ void HashEncoder::destroy_context() {
     __PGFE_BATCH_CASES(CTX_DELETE)
 }
 
-void HashEncoder::destroy_output() {
-    if (!out) return;
-
-    delete out;
-    out = nullptr;
-}
-
 void HashEncoder::before_change_alg() {
     destroy_context();
-}
-
-void HashEncoder::after_change_alg() {
-    // load_algorithm();
 }
 
 void HashEncoder::load_algorithm() {
@@ -92,7 +81,6 @@ HashEncoder::HashEncoder(pgfe_algorithm_choice choice) {
 
 HashEncoder::~HashEncoder() {
     destroy_context();
-    destroy_output();
 }
 
 void HashEncoder::update(const pgfe_encode_t sequence[], size_t length) {
@@ -135,7 +123,6 @@ const SequentialData *HashEncoder::get_digest(uint64_t bitlength) {
         __PGFE_BATCH_CASES_SP(DIGEST_FUNC_CALL)
     }
 
-    destroy_output();
-    out = new SequentialData(seq, length);
-    return out;
+    out = std::make_unique<SequentialData>((const pgfe_encode_t *)seq, length);
+    return (const SequentialData *)out.get();
 }
