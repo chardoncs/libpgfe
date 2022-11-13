@@ -142,12 +142,14 @@ struct __blowfish_numparts
     uint8_t d, c, b, a;
 };
 
-static uint32_t F(const struct pgfe_blowfish_ctx *ctx, uint32_t x) {
-    struct __blowfish_numparts p;
-    memcpy(&p, &x, 4);
+uint32_t F(const struct pgfe_blowfish_ctx *ctx, uint32_t x);
 
-    return ((ctx->S[0][p.a] + ctx->S[1][p.b]) ^ ctx->S[2][p.c]) + ctx->S[3][p.d];
+inline uint32_t F(const struct pgfe_blowfish_ctx *ctx, uint32_t x) {
+    struct __blowfish_numparts *p = (struct __blowfish_numparts *)&x;
+    return ((ctx->S[0][p->a] + ctx->S[1][p->b]) ^ ctx->S[2][p->c]) + ctx->S[3][p->d];
 }
+
+void __uint32_swap(uint32_t *a, uint32_t *b);
 
 inline void __uint32_swap(uint32_t *a, uint32_t *b) {
     uint32_t tmp = *a;
@@ -156,10 +158,10 @@ inline void __uint32_swap(uint32_t *a, uint32_t *b) {
 }
 
 void pgfe_blowfish_init(struct pgfe_blowfish_ctx *ctx, pgfe_encode_t key[], size_t key_length) {
-    int i, j, k;
+    uint16_t i, j, k;
     uint32_t data;
     pgfe_fake_uint64_t dp;
-    static const size_t S_size = sizeof(pgfe_blowfish_block_t) * __PGFE_BF_S_ROW * __PGFE_BF_S_ENTRY;
+    static const size_t S_size = sizeof(ctx->S);
 
     memset(&dp, 0, sizeof(dp));
     memcpy(ctx->S, S0, S_size);
@@ -249,7 +251,7 @@ size_t __blowfish_en_decrypt_generic(
 
     if (i % 8) {
         int rem = 8 - i % 8;
-        memset(unp, 0, 8 - i % 8);
+        memset(unp, 0, rem);
         unit_func(ctx, &unit);
 
         i += rem;
