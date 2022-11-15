@@ -17,8 +17,10 @@
         digest_size = PGFE_##upper##_DIGEST_SIZE;                                                                      \
         break
 
-//                 10 ^          0   1    2     3      4       5        6         7          8           9
-const pgfe_otp_t DIGITS_POW[] = {1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000};
+//                        10 ^          0   1    2     3      4       5        6         7          8           9
+static const pgfe_otp_t DIGITS_POW[] = {1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000};
+
+pgfe_otp_t __pgfe_10pow(uint8_t p);
 
 inline pgfe_otp_t __pgfe_10pow(uint8_t p) {
     return DIGITS_POW[p];
