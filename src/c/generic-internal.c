@@ -8,9 +8,7 @@
 #include "backend/generic-internal.h"
 
 inline void __pgfe_arrinit(pgfe_encode_t arr[], size_t size) {
-    for (int i = 0; i < size; i++) {
-        arr[i] = 0;
-    }
+    memset(arr, 0, size);
 }
 
 inline void __pgfe_arrcpy(pgfe_encode_t dest[], size_t dest_s, const pgfe_encode_t src[], size_t src_s) {
