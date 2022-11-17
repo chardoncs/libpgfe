@@ -35,14 +35,17 @@ pgfe_otp_t pgfe_totp(
     pgfe_totp_delta_t *delta_out
 );
 
+// Common TOTP/HMAC-SHA1 in 4 digits
 pgfe_otp_t pgfe_totp_4digits(
     const pgfe_encode_t secret[], size_t secret_length, pgfe_totp_interval_t interval, pgfe_totp_delta_t *delta_out
 );
 
+// Common TOTP/HMAC-SHA1 in 6 digits
 pgfe_otp_t pgfe_totp_6digits(
     const pgfe_encode_t secret[], size_t secret_length, pgfe_totp_interval_t interval, pgfe_totp_delta_t *delta_out
 );
 
+// Common TOTP/HMAC-SHA1 in 8 digits
 pgfe_otp_t pgfe_totp_8digits(
     const pgfe_encode_t secret[], size_t secret_length, pgfe_totp_interval_t interval, pgfe_totp_delta_t *delta_out
 );

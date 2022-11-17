@@ -22,7 +22,6 @@ pgfe_otp_counter_t __pgfe_calc_periodic_counter(
     return time_offset / interval;
 }
 
-// Generic HOTP function suitable for various hash algorithm
 pgfe_otp_t pgfe_totp_generic(
     enum pgfe_algorithm_choice alg, const pgfe_encode_t secret[], size_t secret_length, uint8_t digit_c,
     pgfe_totp_interval_t interval, pgfe_time_t initial_time, pgfe_totp_delta_t *delta_out
@@ -31,7 +30,6 @@ pgfe_otp_t pgfe_totp_generic(
     return pgfe_hotp_generic(alg, secret, secret_length, counter, digit_c);
 }
 
-// Common HOTP using HMAC-SHA1 algorithm
 inline pgfe_otp_t pgfe_totp(
     const pgfe_encode_t secret[], size_t secret_length, uint8_t digit_c, pgfe_totp_interval_t interval,
     pgfe_totp_delta_t *delta_out
