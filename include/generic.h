@@ -8,12 +8,8 @@
 #ifndef LIBPGFE_GENERIC_H
 #define LIBPGFE_GENERIC_H
 
-#include <stdarg.h>
 #include <stddef.h>
 #include <stdint.h>
-#include <stdio.h>
-#include <string.h>
-#include <time.h>
 
 #include "algorithm-choice.h"
 
@@ -21,7 +17,7 @@
 extern "C" {
 #endif
 
-// Common reading buffer size
+// Default reading buffer size
 #define PGFE_BUFFER_SIZE 1024
 
 // byte -> bit (e.g. to_bit(4) = 32)
@@ -31,8 +27,12 @@ extern "C" {
 // Remainder of bit
 #define bit_rem(value) ((value) % 8)
 
+typedef char pgfe_ascii_t;
+
+typedef uint8_t pgfe_byte_t;
+
 // Common encoding character type in libpgfe
-typedef uint8_t pgfe_encode_t;
+typedef pgfe_byte_t pgfe_encode_t;
 
 typedef uint32_t pgfe_word_t;
 
@@ -41,9 +41,6 @@ typedef uint64_t pgfe_word64_t;
 typedef void pgfe_encode_func(const pgfe_encode_t input[], pgfe_encode_t output[]);
 
 typedef void pgfe_encode_multi_func(pgfe_encode_t output[], size_t input_c, ...);
-
-// Common UNIX time type in libpgfe
-typedef time_t pgfe_time_t;
 
 // Fake uint64
 typedef struct

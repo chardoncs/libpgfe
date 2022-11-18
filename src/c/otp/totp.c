@@ -13,9 +13,9 @@
 #include "utils.h"
 
 pgfe_otp_counter_t __pgfe_calc_periodic_counter(
-    pgfe_time_t realtime, pgfe_totp_interval_t interval, pgfe_time_t initial_time, pgfe_totp_delta_t *delta_out
+    time_t realtime, pgfe_totp_interval_t interval, time_t initial_time, pgfe_totp_delta_t *delta_out
 ) {
-    pgfe_time_t time_offset = realtime - initial_time;
+    time_t time_offset = realtime - initial_time;
     if (delta_out) {
         *delta_out = interval - time_offset % interval;
     }
@@ -24,7 +24,7 @@ pgfe_otp_counter_t __pgfe_calc_periodic_counter(
 
 pgfe_otp_t pgfe_totp_generic(
     enum pgfe_algorithm_choice alg, const pgfe_encode_t secret[], size_t secret_length, uint8_t digit_c,
-    pgfe_totp_interval_t interval, pgfe_time_t initial_time, pgfe_totp_delta_t *delta_out
+    pgfe_totp_interval_t interval, time_t initial_time, pgfe_totp_delta_t *delta_out
 ) {
     pgfe_otp_counter_t counter = __pgfe_calc_periodic_counter(pgfe_curtime(), interval, initial_time, delta_out);
     return pgfe_hotp_generic(alg, secret, secret_length, counter, digit_c);

@@ -35,7 +35,7 @@ size_t pgfe_hash_string_clean_(char hash_s[]);
 size_t pgfe_hash_length(const char hash_s[]);
 
 // Get current UNIX time
-pgfe_time_t pgfe_curtime();
+time_t pgfe_curtime();
 
 void pgfe_otp_to_string(pgfe_otp_t otp, char *cs_out, size_t digit_c);
 

@@ -7,6 +7,7 @@
 
 #include "blowfish.hpp"
 
+#include <cstring>
 #include <memory>
 
 using namespace libpgfe;

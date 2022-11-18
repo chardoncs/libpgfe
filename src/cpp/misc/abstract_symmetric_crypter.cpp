@@ -7,6 +7,8 @@
 
 #include "backend_cpp/abstract_symmetric_crypter.hpp"
 
+#include <cstring>
+
 using namespace libpgfe;
 
 SequentialData AbstractSymmetricCrypter::encrypt(const std::string &cpp_s) {

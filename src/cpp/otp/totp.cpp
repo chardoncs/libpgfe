@@ -19,15 +19,15 @@ pgfe_totp_interval_t TOTP::get_interval() const {
     return interval;
 }
 
-pgfe_time_t TOTP::get_initial_time() const {
+time_t TOTP::get_initial_time() const {
     return initial_time;
 }
 
-void TOTP::set_initial_time(pgfe_time_t initial_time) {
+void TOTP::set_initial_time(time_t initial_time) {
     this->initial_time = initial_time;
 }
 
-pgfe_time_t TOTP::get_update_time() const {
+time_t TOTP::get_update_time() const {
     return update_time;
 }
 
@@ -36,7 +36,7 @@ void TOTP::update_counter() {
     set_counter(__pgfe_calc_periodic_counter(update_time, interval, initial_time, &delta));
 }
 
-pgfe_time_t TOTP::get_remain_time() const {
+time_t TOTP::get_remain_time() const {
     return delta - (pgfe_curtime() - update_time);
 }
 
