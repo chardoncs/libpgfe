@@ -7,6 +7,8 @@
 
 #include "utils.h"
 
+#include <string.h>
+
 #include "backend/generic-internal.h"
 
 size_t pgfe_hash_to_hex_string(const pgfe_encode_t hash[], size_t hash_length, char out[]) {
