@@ -9,7 +9,7 @@
 
 **libpgfe** (IPA: /ˌlɪbˈpɪɡfiː/, like "lib-pig-fee") is a free and open-source cryptographic library focusing on flexibility and easy-to-access interfaces, which is written in [C](https://en.wikipedia.org/wiki/C_(programming_language)) and [C++](https://en.wikipedia.org/wiki/C%2B%2B).
 
-*libpgfe* currently supports hash encoding (e.g. SHA256, MD5), HMAC encoding, HOTP/TOTP and Base 16/32/64.
+*libpgfe* currently supports hash encoding (e.g. SHA256, MD5), HMAC encoding, HOTP/TOTP, Base 16/32/64 and Blowfish.
 
 *libpgfe* is currently under heavy development, more features and optimization will be added in the future.
 
@@ -50,6 +50,7 @@ The standards that are followed in this library are shown below.
 | Algorithm                     | Standard                                            |
 | :---------------------------- | :-------------------------------------------------- |
 | Base 16/32/64                 | [RFC 4648](https://doi.org/10.17487/RFC4648) |
+| Blowfish                      | [DOI: 10.1007/3-540-58108-1_24](https://doi.org/10.1007/3-540-58108-1_24) |
 | HMAC                          | [RFC 2104](https://doi.org/10.17487/RFC2104)<br>[RFC 6151](https://doi.org/10.17487/RFC6151) |
 | HOTP                          | [RFC 4226](https://doi.org/10.17487/RFC4226) |
 | MD5                           | [RFC 1321](https://doi.org/10.17487/RFC1321)<br>RFC 6151 |
@@ -64,4 +65,5 @@ Meanwhile, some existing implementation repositories are referenced for the deve
 
 | Algorithm                     | Reference                                           |
 | :---------------------------- | :-------------------------------------------------- |
+| Blowfish                      | [Reference source code](https://www.schneier.com/academic/blowfish/download/) |
 | SHA-3/SHAKE Family            | [Keccak-NIST Reference Implementation](https://csrc.nist.gov/projects/hash-functions/sha-3-project)<br>[Fackelmann/SHA3](https://github.com/Fackelmann/SHA3)<br>[brainhub/SHU3IUF](https://github.com/brainhub/SHA3IUF)<br>[mjosaarinen/tiny_sha3](https://github.com/mjosaarinen/tiny_sha3) |
