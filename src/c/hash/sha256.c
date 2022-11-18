@@ -7,6 +7,8 @@
 
 #include "sha2.h"
 
+#include <string.h>
+
 #include "backend/sha2-backend.h"
 #include "backend/templates.h"
 

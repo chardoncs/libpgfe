@@ -7,6 +7,8 @@
 
 #include "sha3.h"
 
+#include <string.h>
+
 #include "backend/templates.h"
 
 __PGFE_FRONTEND_GEN2(sha3_256);

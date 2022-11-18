@@ -7,6 +7,8 @@
 
 #include "sha1.h"
 
+#include <string.h>
+
 #include "backend/generic-internal.h"
 #include "backend/sha-internal.h"
 #include "backend/templates.h"

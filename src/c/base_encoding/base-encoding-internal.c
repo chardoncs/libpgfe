@@ -8,6 +8,7 @@
 #include "backend/base-encoding-internal.h"
 
 #include <limits.h>
+#include <string.h>
 
 #include "backend/generic-internal.h"
 

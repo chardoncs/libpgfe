@@ -7,6 +7,8 @@
 
 #include "backend/generic-internal.h"
 
+#include <string.h>
+
 inline void __pgfe_arrinit(pgfe_encode_t arr[], size_t size) {
     memset(arr, 0, size);
 }

@@ -7,6 +7,8 @@
 
 #include "hmac.h"
 
+#include <string.h>
+
 #include "backend/generic-internal.h"
 
 #define __pgfe_hmac_tmpl(name, upper)                                                                                  \

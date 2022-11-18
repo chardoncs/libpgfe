@@ -7,6 +7,8 @@
 
 #include "sha3.h"
 
+#include <string.h>
+
 #include "backend/templates.h"
 
 // RawSHAKE128
