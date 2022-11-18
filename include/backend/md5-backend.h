@@ -2,6 +2,8 @@
   libpgfe
   md5-backend.h
 
+  Backend implementation of MD5 algorithm
+
   Copyright (c) 2022 Charles Dong
 */
 

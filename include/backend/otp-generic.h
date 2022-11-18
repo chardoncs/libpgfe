@@ -2,6 +2,8 @@
   libpgfe
   otp-generic.h
 
+  Generic implementation of HOTP/TOTP
+
   Copyright (c) 2022 Charles Dong
 */
 

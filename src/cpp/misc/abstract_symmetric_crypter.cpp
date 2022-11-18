@@ -1,3 +1,10 @@
+/*
+  libpgfe
+  abstract_symmetric_crypter.cpp
+
+  Copyright (c) 2022 Charles Dong
+*/
+
 #include "backend_cpp/abstract_symmetric_crypter.hpp"
 
 using namespace libpgfe;

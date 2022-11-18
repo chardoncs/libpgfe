@@ -1,3 +1,10 @@
+/*
+  libpgfe
+  abstract_symmetric_crypter.hpp
+
+  Copyright (c) 2022 Charles Dong
+*/
+
 #ifndef LIBPGFE_ABSTRACT_SYMMETRIC_CRYPTER_HPP
 #define LIBPGFE_ABSTRACT_SYMMETRIC_CRYPTER_HPP
 #ifndef __cplusplus

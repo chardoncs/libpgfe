@@ -2,6 +2,8 @@
   libpgfe
   generic-internal.h
 
+  Generic configuration backend
+
   Copyright (c) 2022 Charles Dong
 */
 

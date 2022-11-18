@@ -1,3 +1,10 @@
+/*
+  libpgfe
+  blowfish.c
+
+  Copyright (c) 2022 Charles Dong
+*/
+
 #include "blowfish.h"
 
 static const pgfe_blowfish_block_t P0[] = {

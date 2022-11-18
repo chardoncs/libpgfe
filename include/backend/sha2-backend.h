@@ -2,6 +2,8 @@
   libpgfe
   sha2-backend.h
 
+  Generic implementation of SHA2 family
+
   Copyright (c) 2022 Charles Dong
 */
 

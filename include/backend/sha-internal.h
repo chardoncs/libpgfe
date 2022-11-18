@@ -2,6 +2,8 @@
   libpgfe
   sha-internal.h
 
+  Generic implementation of SHA family
+
   Copyright (c) 2022 Charles Dong
 */
 

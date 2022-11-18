@@ -1,3 +1,10 @@
+/*
+  libpgfe
+  blowfish.cpp
+
+  Copyright (c) 2022 Charles Dong
+*/
+
 #include "blowfish.hpp"
 
 #include <memory>

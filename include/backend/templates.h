@@ -2,6 +2,8 @@
   libpgfe
   templates.h
 
+  Template macros
+
   Copyright (c) 2022 Charles Dong
 */
 

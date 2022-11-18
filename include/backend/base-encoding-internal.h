@@ -2,6 +2,8 @@
   libpgfe
   base-encoding-internal.h
 
+  Base encoding backend
+
   Copyright (c) 2022 Charles Dong
 */
 

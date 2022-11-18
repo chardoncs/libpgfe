@@ -2,6 +2,8 @@
   libpgfe
   keccak-backend.h
 
+  Backend implementation of SHA3/Keccak algorithm
+
   Copyright (c) 2022 Charles Dong
 */
 

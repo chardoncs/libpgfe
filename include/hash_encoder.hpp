@@ -2,6 +2,8 @@
   libpgfe
   hash_encoder.hpp
 
+  Hash encoder
+
   Copyright (c) 2022 Charles Dong
 */
 
@@ -19,7 +21,6 @@
 
 namespace libpgfe {
 
-// Libpgfe - Hash Encoder
 class HashEncoder : public AbstractHashEncoder
 {
 

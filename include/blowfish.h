@@ -1,3 +1,12 @@
+/*
+  libpgfe
+  blowfish.h
+
+  Blowfish
+
+  Copyright (c) 2022 Charles Dong
+*/
+
 #ifndef LIBPGFE_BLOWFISH_H
 #define LIBPGFE_BLOWFISH_H
 #ifdef __cplusplus
