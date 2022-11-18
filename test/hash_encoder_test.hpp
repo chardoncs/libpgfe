@@ -16,7 +16,7 @@
 
 void hash_encoder_test(ARGS) {
     using namespace std;
-    LIBPGFE_NAMESPACE
+    using namespace libpgfe;
     LIBPGFE_UTILS_NAMESPACE
 
     unsigned long len_flag = 0UL;

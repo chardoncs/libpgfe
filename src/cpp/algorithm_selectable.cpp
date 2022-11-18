@@ -7,7 +7,7 @@
 
 #include "algorithm_selectable.hpp"
 
-using namespace chardon55::PGFE;
+using namespace libpgfe;
 
 void AlgorithmSelectable::select_algorithm(pgfe_algorithm_choice choice) {
     if (choice == cur_alg) return;

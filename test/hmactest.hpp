@@ -14,7 +14,7 @@
 #include "../include/utils.hpp"
 
 void hmac_encoder_test(ARGS) {
-    LIBPGFE_NAMESPACE
+    using namespace libpgfe;
 
     std::unique_ptr<HMACEncoder> encoder;
     std::unique_ptr<SequentialData> sd;

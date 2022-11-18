@@ -47,7 +47,7 @@
         pgfe_##name##_digest((pgfe_##name##_ctx *)ctx, seq, bitlength);                                                \
         break
 
-using namespace chardon55::PGFE;
+using namespace libpgfe;
 
 void HashEncoder::destroy_context() {
     if (!ctx) return;

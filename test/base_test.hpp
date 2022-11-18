@@ -12,7 +12,7 @@
 #include "../include/base64.hpp"
 
 using namespace std;
-using namespace chardon55::PGFE;
+using namespace libpgfe;
 
 void base16_encode_test(ARGS) {
     Base16 base16;

@@ -9,8 +9,7 @@
 #include "backend_cpp/abstract_symmetric_crypter.hpp"
 #include "blowfish.h"
 
-namespace chardon55 {
-namespace PGFE {
+namespace libpgfe {
 
 class Blowfish : public AbstractSymmetricCrypter
 {
@@ -35,7 +34,6 @@ public:
     SequentialData decrypt(const pgfe_encode_t *, size_t);
 };
 
-} // namespace PGFE
-} // namespace chardon55
+} // namespace libpgfe
 
 #endif

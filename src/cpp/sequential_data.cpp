@@ -10,7 +10,7 @@
 #include <cstring>
 #include <stdexcept>
 
-using namespace chardon55::PGFE;
+using namespace libpgfe;
 
 SequentialData::SequentialData() : pgfe_seqdata_t() {}
 

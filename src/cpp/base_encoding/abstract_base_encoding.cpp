@@ -12,7 +12,7 @@
 
 #define PGFE_SPACE_MULTIPLE 1.2
 
-using namespace chardon55::PGFE;
+using namespace libpgfe;
 
 void AbstractBaseEncoding::init() {
     init_base_function(encode_f, decode_f);

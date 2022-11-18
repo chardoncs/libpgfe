@@ -2,7 +2,7 @@
 
 #include <memory>
 
-using namespace chardon55::PGFE;
+using namespace libpgfe;
 
 Blowfish::Blowfish(const SequentialData &key) : Blowfish(key.to_pgfe_seq(), key.length()) {}
 

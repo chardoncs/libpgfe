@@ -14,8 +14,7 @@
 
 #include "algorithm-choice.h"
 
-namespace chardon55 {
-namespace PGFE {
+namespace libpgfe {
 
 class AlgorithmSelectable
 {
@@ -30,8 +29,7 @@ protected:
 public:
     pgfe_algorithm_choice algorithm() const;
 };
-} // namespace PGFE
-} // namespace chardon55
+} // namespace libpgfe
 
 #endif
 #endif

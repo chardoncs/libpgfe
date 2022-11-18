@@ -19,8 +19,7 @@
 #include "generic.hpp"
 #include "hmac.h"
 
-namespace chardon55 {
-namespace PGFE {
+namespace libpgfe {
 
 class HMACEncoder : public AbstractHashEncoder
 {
@@ -65,7 +64,6 @@ public:
     const SequentialData *get_digest();
 };
 
-} // namespace PGFE
-} // namespace chardon55
+} // namespace libpgfe
 
 #endif

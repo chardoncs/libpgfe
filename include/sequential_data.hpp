@@ -19,8 +19,7 @@
 #include "generic.h"
 #include "utils.h"
 
-namespace chardon55 {
-namespace PGFE {
+namespace libpgfe {
 
 typedef std::basic_string<pgfe_encode_t> pgfe_seqdata_t;
 
@@ -59,7 +58,6 @@ public:
     }
 };
 
-} // namespace PGFE
-} // namespace chardon55
+} // namespace libpgfe
 
 #endif

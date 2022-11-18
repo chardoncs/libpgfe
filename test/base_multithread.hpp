@@ -15,7 +15,7 @@
 #include "../include/base-encoding.h"
 #include "../include/base64.hpp"
 
-using namespace chardon55::PGFE;
+using namespace libpgfe;
 
 void __bm_encode(Base64 *encoder, const char *input_str, const char *expected) {
     auto str = encoder->encode(input_str);

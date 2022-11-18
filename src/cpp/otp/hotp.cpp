@@ -12,7 +12,7 @@
 #include "generic.hpp"
 #include "hotp.h"
 
-using namespace chardon55::PGFE;
+using namespace libpgfe;
 
 HOTP::HOTP(pgfe_algorithm_choice algorithm) {
     select_algorithm(algorithm);

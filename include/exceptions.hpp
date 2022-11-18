@@ -14,8 +14,7 @@
 
 #include <stdexcept>
 
-namespace chardon55 {
-namespace PGFE {
+namespace libpgfe {
 
 class NotInitializedException : public std::exception
 {
@@ -25,7 +24,6 @@ class EncodingCompletedException : public std::exception
 {
 };
 
-} // namespace PGFE
-} // namespace chardon55
+} // namespace libpgfe
 
 #endif

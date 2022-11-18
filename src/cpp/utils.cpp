@@ -11,8 +11,7 @@
 
 #include "utils.h"
 
-namespace chardon55 {
-namespace PGFE {
+namespace libpgfe {
 namespace utils {
 
 SequentialData *to_sequential_data(const pgfe_encode_t *pgfe_c_seq, size_t length) {
@@ -42,5 +41,4 @@ SequentialData *sequential_data::from_hex_string(std::string &hex_cpps) {
 }
 
 } // namespace utils
-} // namespace PGFE
-} // namespace chardon55
+}

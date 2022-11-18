@@ -8,8 +8,7 @@
 
 #include "../sequential_data.hpp"
 
-namespace chardon55 {
-namespace PGFE {
+namespace libpgfe {
 
 class AbstractSymmetricCrypter
 {
@@ -29,7 +28,6 @@ public:
     SequentialData decrypt(const SequentialData &);
 };
 
-} // namespace PGFE
-} // namespace chardon55
+} // namespace libpgfe
 
 #endif

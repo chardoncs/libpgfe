@@ -16,10 +16,9 @@
 #include "generic.hpp"
 #include "sequential_data.hpp"
 
-#define LIBPGFE_UTILS_NAMESPACE using namespace chardon55::PGFE::utils;
+#define LIBPGFE_UTILS_NAMESPACE using namespace libpgfe::utils;
 
-namespace chardon55 {
-namespace PGFE {
+namespace libpgfe {
 namespace utils {
 
 SequentialData *to_sequential_data(const pgfe_encode_t *pgfe_c_seq, size_t);
@@ -34,7 +33,6 @@ SequentialData *from_hex_string(std::string &hex_cpps);
 } // namespace sequential_data
 
 } // namespace utils
-} // namespace PGFE
-} // namespace chardon55
+} // namespace libpgfe
 
 #endif

@@ -18,8 +18,7 @@
 #include "../generic.h"
 #include "../sequential_data.hpp"
 
-namespace chardon55 {
-namespace PGFE {
+namespace libpgfe {
 
 typedef size_t base_encode_func(const pgfe_encode_t *, size_t, char *);
 typedef size_t base_decode_func(const char *, pgfe_encode_t *);
@@ -64,7 +63,6 @@ public:
     base_short_size_t alphabet_size() const;
 };
 
-} // namespace PGFE
-} // namespace chardon55
+} // namespace libpgfe
 
 #endif

@@ -8,7 +8,7 @@
 #include "../include/utils.hpp"
 
 void blowfish_encrypt_test(ARGS) {
-    using namespace chardon55::PGFE;
+    using namespace libpgfe;
     using namespace std;
 
     Blowfish b(argv[2]);
@@ -17,7 +17,7 @@ void blowfish_encrypt_test(ARGS) {
 }
 
 void blowfish_decrypt_test(ARGS) {
-    using namespace chardon55::PGFE;
+    using namespace libpgfe;
     using namespace std;
 
     Blowfish b(argv[2]);

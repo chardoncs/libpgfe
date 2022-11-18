@@ -18,8 +18,7 @@
 #include "../sequential_data.hpp"
 #include "../utils.hpp"
 
-namespace chardon55 {
-namespace PGFE {
+namespace libpgfe {
 
 class AbstractEncoder
 {
@@ -44,7 +43,6 @@ public:
     }
 }; // namespace AbstractEncoder
 
-} // namespace PGFE
-} // namespace chardon55
+} // namespace libpgfe
 
 #endif

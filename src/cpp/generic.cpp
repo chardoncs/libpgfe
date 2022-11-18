@@ -12,8 +12,7 @@
 
 #include "generic.h"
 
-namespace chardon55 {
-namespace PGFE {
+namespace libpgfe {
 
 pgfe_algorithm_choice _algstr(const char *cs) {
     std::string s{cs};
@@ -24,7 +23,6 @@ pgfe_algorithm_choice _algstr(std::string cpp_s) {
     return pgfe_option_map.at(cpp_s);
 }
 
-} // namespace PGFE
-} // namespace chardon55
+} // namespace libpgfe
 
 #endif

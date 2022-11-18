@@ -9,7 +9,7 @@
 
 #include "utils.h"
 
-using namespace chardon55::PGFE;
+using namespace libpgfe;
 
 void TOTP::set_interval(pgfe_totp_interval_t interval) {
     this->interval = interval;

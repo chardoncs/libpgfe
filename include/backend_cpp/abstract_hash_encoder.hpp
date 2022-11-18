@@ -20,8 +20,7 @@
 #include "../generic.h"
 #include "../generic.hpp"
 
-namespace chardon55 {
-namespace PGFE {
+namespace libpgfe {
 
 class AbstractHashEncoder : public AbstractEncoder, public AlgorithmSelectable
 {
@@ -38,7 +37,6 @@ public:
     }
 };
 
-} // namespace PGFE
-} // namespace chardon55
+} // namespace libpgfe
 
 #endif

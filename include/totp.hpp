@@ -14,8 +14,7 @@
 #include "hotp.hpp"
 #include "totp.h"
 
-namespace chardon55 {
-namespace PGFE {
+namespace libpgfe {
 
 class TOTP : public HOTP
 {
@@ -46,7 +45,6 @@ public:
     pgfe_time_t get_remain_time() const;
 };
 
-} // namespace PGFE
-} // namespace chardon55
+} // namespace libpgfe
 
 #endif

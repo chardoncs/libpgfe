@@ -16,8 +16,7 @@
 #include "backend_cpp/abstract_otp.hpp"
 #include "base32.hpp"
 
-namespace chardon55 {
-namespace PGFE {
+namespace libpgfe {
 
 class HOTP : public AbstractOTP
 {
@@ -53,7 +52,6 @@ public:
     std::string generate_str(uint8_t digit_count = 6) const;
 };
 
-} // namespace PGFE
-} // namespace chardon55
+} // namespace libpgfe
 
 #endif

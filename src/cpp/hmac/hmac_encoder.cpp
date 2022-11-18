@@ -31,7 +31,7 @@
         pgfe_hmac_##name##_update(&ctx.name, sequence, length);                                                        \
         break
 
-using namespace chardon55::PGFE;
+using namespace libpgfe;
 
 HMACEncoder::HMACEncoder(pgfe_algorithm_choice algorithm, const pgfe_encode_t sequence[], size_t length) {
     select_algorithm(algorithm);

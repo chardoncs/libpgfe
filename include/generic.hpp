@@ -21,8 +21,6 @@
 #include "sha2.h"
 #include "sha3.h"
 
-#define LIBPGFE_NAMESPACE using namespace chardon55::PGFE;
-
 #define __PGFE_BATCH_CASES(name)                                                                                       \
     switch (cur_alg) {                                                                                                 \
         __PGFE_##name##_CASE(MD5, md5);                                                                                \
@@ -99,8 +97,7 @@
         delete (pgfe_##name##_ctx *)ctx;                                                                               \
         break
 
-namespace chardon55 {
-namespace PGFE {
+namespace libpgfe {
 
 static const std::unordered_map<std::string, pgfe_algorithm_choice> pgfe_option_map = {
     {"sha1",        SHA1       },
@@ -184,7 +181,6 @@ inline pgfe_algorithm_choice operator"" _pgfe_alg(const char *str, size_t size) 
     return _algstr(str);
 }
 
-} // namespace PGFE
-} // namespace chardon55
+} // namespace libpgfe
 
 #endif

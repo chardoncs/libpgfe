@@ -13,8 +13,7 @@
 
 #include "backend_cpp/abstract_base_encoding.hpp"
 
-namespace chardon55 {
-namespace PGFE {
+namespace libpgfe {
 
 class Base16 : public AbstractBaseEncoding
 {
@@ -26,7 +25,6 @@ public:
     Base16();
 };
 
-} // namespace PGFE
-} // namespace chardon55
+} // namespace libpgfe
 
 #endif

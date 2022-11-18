@@ -18,8 +18,7 @@
 #include "../generic.h"
 #include "../sequential_data.hpp"
 
-namespace chardon55 {
-namespace PGFE {
+namespace libpgfe {
 
 class AbstractOTP : public AlgorithmSelectable
 {
@@ -38,7 +37,6 @@ public:
     virtual std::string generate_str(uint8_t digit_count = 6) const;
 };
 
-} // namespace PGFE
-} // namespace chardon55
+} // namespace libpgfe
 
 #endif

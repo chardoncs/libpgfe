@@ -17,8 +17,7 @@
 
 #include "generic.hpp"
 
-namespace chardon55 {
-namespace PGFE {
+namespace libpgfe {
 
 // Libpgfe - Hash Encoder
 class HashEncoder : public AbstractHashEncoder
@@ -52,7 +51,6 @@ public:
     const SequentialData *get_digest(uint64_t bitlength = 0);
 };
 
-} // namespace PGFE
-} // namespace chardon55
+} // namespace libpgfe
 
 #endif

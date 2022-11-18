@@ -9,7 +9,7 @@
 
 #include "base-encoding.h"
 
-using namespace chardon55::PGFE;
+using namespace libpgfe;
 
 void Base16::init_base_function(base_encode_func *&encode_f_ref, base_decode_func *&decode_f_ref) {
     encode_f_ref = pgfe_encode_base16;

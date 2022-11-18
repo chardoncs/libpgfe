@@ -1,6 +1,6 @@
 #include "backend_cpp/abstract_symmetric_crypter.hpp"
 
-using namespace chardon55::PGFE;
+using namespace libpgfe;
 
 SequentialData AbstractSymmetricCrypter::encrypt(const std::string &cpp_s) {
     return encrypt((const pgfe_encode_t *)cpp_s.c_str(), cpp_s.length());

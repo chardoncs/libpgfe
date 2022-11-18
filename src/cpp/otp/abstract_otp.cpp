@@ -11,7 +11,7 @@
 
 #include "base-encoding.h"
 
-using namespace chardon55::PGFE;
+using namespace libpgfe;
 
 void AbstractOTP::set_secret(const char *cs) {
     set_secret((pgfe_encode_t *)cs, strlen(cs));
