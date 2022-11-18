@@ -17,7 +17,6 @@
 void hash_encoder_test(ARGS) {
     using namespace std;
     using namespace libpgfe;
-    LIBPGFE_UTILS_NAMESPACE
 
     unsigned long len_flag = 0UL;
     HashEncoder encoder{_algstr(argv[2])};

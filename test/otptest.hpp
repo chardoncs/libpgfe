@@ -14,8 +14,6 @@
 #include "../include/utils.hpp"
 
 void hotp_hex_test(ARGS) {
-    LIBPGFE_UTILS_NAMESPACE
-
     HOTP hotp{_algstr(argv[2])};
 
     int counter;

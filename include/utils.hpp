@@ -16,8 +16,6 @@
 #include "generic.hpp"
 #include "sequential_data.hpp"
 
-#define LIBPGFE_UTILS_NAMESPACE using namespace libpgfe::utils;
-
 namespace libpgfe {
 namespace utils {
 
