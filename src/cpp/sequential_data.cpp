@@ -28,12 +28,7 @@ SequentialData::SequentialData(const std::string cpp_str)
     : SequentialData((const pgfe_encode_t *)cpp_str.c_str(), cpp_str.length()) {}
 
 std::string SequentialData::to_str(bool auto_hex) const {
-    if (!is_str() && auto_hex) {
-        return hex_str();
-    }
-
-    std::string s((const char *)this->c_str(), this->length());
-    return s;
+    return std::string((const char *)this->c_str(), this->length());
 }
 
 std::string SequentialData::hex_str() const {
@@ -53,31 +48,33 @@ const pgfe_encode_t *SequentialData::to_pgfe_seq(size_t &length_out) const {
     return to_pgfe_seq();
 }
 
-bool SequentialData::is_str() const {
-    if (_str_deter_overwrite) {
-        return _is_str;
-    }
-
-    return is_apparent_str();
+SequentialData SequentialData::trim() {
+    auto sd = SequentialData(this);
+    sd.trim_();
+    return sd;
 }
 
-void SequentialData::set_is_str(bool str) {
-    _is_str = str;
-    _str_deter_overwrite = true;
+SequentialData SequentialData::trim_left() {
+    auto sd = SequentialData(this);
+    sd.trim_left_();
+    return sd;
 }
 
-bool SequentialData::is_apparent_str() const {
-    return determine_ascii_str();
+SequentialData SequentialData::trim_right() {
+    auto sd = SequentialData(this);
+    sd.trim_right_();
+    return sd;
 }
 
-bool SequentialData::determine_ascii_str() const {
-    pgfe_encode_t ch;
-    for (const_iterator iter = begin(); iter != end(); iter++) {
-        ch = *iter;
-        if (ch > 0x7F || ch < 0x20) {
-            return false;
-        }
-    }
+inline void SequentialData::trim_() {
+    trim_left_();
+    trim_right_();
+}
 
-    return true;
+inline void SequentialData::trim_left_() {
+    erase(0, find_first_not_of(ws));
+}
+
+inline void SequentialData::trim_right_() {
+    erase(find_last_not_of(ws) + 1, length());
 }

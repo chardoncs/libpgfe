@@ -27,9 +27,7 @@ typedef std::basic_string<pgfe_encode_t> pgfe_seqdata_t;
 class SequentialData : public pgfe_seqdata_t
 {
 private:
-    bool _is_str = false, _str_deter_overwrite = false;
-
-    bool determine_ascii_str() const;
+    const pgfe_encode_t ws[1] = {0};
 
 public:
     SequentialData();
@@ -47,10 +45,13 @@ public:
     const pgfe_encode_t *to_pgfe_seq() const;
     const pgfe_encode_t *to_pgfe_seq(size_t &) const;
 
-    bool is_str() const;
-    void set_is_str(bool);
+    SequentialData trim();
+    SequentialData trim_left();
+    SequentialData trim_right();
 
-    bool is_apparent_str() const;
+    void trim_();
+    void trim_left_();
+    void trim_right_();
 
     inline friend std::ostream &operator<<(std::ostream &os, const SequentialData &sd) {
         os << sd.to_str();

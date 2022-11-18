@@ -30,5 +30,5 @@ void hmac_encoder_test(ARGS) {
     encoder->update(argv[4]);
 
     sd = std::make_unique<SequentialData>(encoder->get_digest());
-    std::cout << *sd << std::endl;
+    std::cout << sd->hex_str() << std::endl;
 }
