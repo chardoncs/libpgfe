@@ -142,16 +142,12 @@ struct __blowfish_numparts
     uint8_t d, c, b, a;
 };
 
-uint32_t F(const struct pgfe_blowfish_ctx *ctx, uint32_t x);
-
-inline uint32_t F(const struct pgfe_blowfish_ctx *ctx, uint32_t x) {
+static inline uint32_t F(const struct pgfe_blowfish_ctx *ctx, uint32_t x) {
     struct __blowfish_numparts *p = (struct __blowfish_numparts *)&x;
     return ((ctx->S[0][p->a] + ctx->S[1][p->b]) ^ ctx->S[2][p->c]) + ctx->S[3][p->d];
 }
 
-void __uint32_swap(uint32_t *a, uint32_t *b);
-
-inline void __uint32_swap(uint32_t *a, uint32_t *b) {
+static inline void __uint32_swap(uint32_t *a, uint32_t *b) {
     uint32_t tmp = *a;
     *a = *b;
     *b = tmp;
@@ -227,7 +223,7 @@ void pgfe_blowfish_decrypt_unit(const struct pgfe_blowfish_ctx *ctx, pgfe_fake_u
     *input = dp;
 }
 
-size_t __blowfish_en_decrypt_generic(
+static size_t __blowfish_en_decrypt_generic(
     const struct pgfe_blowfish_ctx *ctx, const pgfe_encode_t input[], size_t length, pgfe_encode_t output[],
     void (*unit_func)(const struct pgfe_blowfish_ctx *, pgfe_fake_uint64_t *)
 ) {
