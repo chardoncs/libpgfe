@@ -9,6 +9,7 @@
 
 #include "base_multithread.hpp"
 #include "base_test.hpp"
+#include "blowfish_test.hpp"
 #include "hash_encoder_test.hpp"
 #include "hmactest.hpp"
 #include "otptest.hpp"
@@ -21,8 +22,11 @@ int main(ARGS) {
 
     try {
         TEST_CASE("hash_encoder", hash_encoder_test)
+
         TEST_CASE("hmac_encoder", hmac_encoder_test)
+
         TEST_CASE("hotp_hex", hotp_hex_test)
+
         TEST_CASE("base16_encode", base16_encode_test)
         TEST_CASE("base16_decode", base16_decode_test)
         TEST_CASE("base32_encode", base32_encode_test)
@@ -34,6 +38,9 @@ int main(ARGS) {
         TEST_CASE("base64url_encode", base64url_encode_test)
         TEST_CASE("base64url_decode", base64url_decode_test)
         TEST_CASE("base_multithread1", base_multithread1)
+
+        TEST_CASE("blowfish_encrypt", blowfish_encrypt_test)
+        TEST_CASE("blowfish_decrypt", blowfish_decrypt_test)
 
         TEST_END;
     }

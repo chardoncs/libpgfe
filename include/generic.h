@@ -45,6 +45,13 @@ typedef void pgfe_encode_multi_func(pgfe_encode_t output[], size_t input_c, ...)
 // Common UNIX time type in libpgfe
 typedef time_t pgfe_time_t;
 
+// Fake uint64
+typedef struct
+{
+    // Little endian
+    uint32_t right, left;
+} pgfe_fake_uint64_t;
+
 #ifdef __cplusplus
 }
 #endif
