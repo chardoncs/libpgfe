@@ -25,7 +25,6 @@ void blowfish_decrypt_test(ARGS) {
     plain.reset(utils::sequential_data::from_hex_string(argv[3]));
 
     SequentialData sd = b.decrypt(*plain);
-    sd.set_is_str(true);
 
     cout << sd << endl;
 }
