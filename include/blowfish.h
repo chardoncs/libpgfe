@@ -18,7 +18,7 @@ struct pgfe_blowfish_ctx
     pgfe_blowfish_block_t P[__PGFE_BF_Np2], S[__PGFE_BF_S_ROW][__PGFE_BF_S_ENTRY];
 };
 
-void pgfe_blowfish_init(struct pgfe_blowfish_ctx *ctx, pgfe_encode_t key[], size_t key_length);
+void pgfe_blowfish_init(struct pgfe_blowfish_ctx *ctx, const pgfe_encode_t key[], size_t key_length);
 
 void pgfe_blowfish_encrypt_unit(const struct pgfe_blowfish_ctx *ctx, pgfe_fake_uint64_t *input);
 

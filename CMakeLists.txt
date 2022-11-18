@@ -51,7 +51,9 @@ add_library(pgfe SHARED
   ${src_cpp_dir}/base_encoding/base32.cpp
   ${src_cpp_dir}/base_encoding/base64.cpp
   ${src_cpp_dir}/otp/abstract_otp.cpp
-  ${src_cpp_dir}/otp/hotp.cpp ${src_cpp_dir}/otp/totp.cpp)
+  ${src_cpp_dir}/otp/hotp.cpp ${src_cpp_dir}/otp/totp.cpp
+  ${src_cpp_dir}/misc/abstract_symmetric_crypter.cpp
+  ${src_cpp_dir}/blowfish/blowfish.cpp)
 add_executable(pgfetest ${test_dir}/test.c)
 add_executable(pgfetestcpp ${test_dir}/test.cpp)
 # add_executable(totptest ${test_dir}/totptest.c)

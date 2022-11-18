@@ -153,7 +153,7 @@ static inline void __uint32_swap(uint32_t *a, uint32_t *b) {
     *b = tmp;
 }
 
-void pgfe_blowfish_init(struct pgfe_blowfish_ctx *ctx, pgfe_encode_t key[], size_t key_length) {
+void pgfe_blowfish_init(struct pgfe_blowfish_ctx *ctx, const pgfe_encode_t key[], size_t key_length) {
     uint16_t i, j, k;
     uint32_t data;
     pgfe_fake_uint64_t dp;
@@ -251,7 +251,7 @@ static size_t __blowfish_en_decrypt_generic(
         unit_func(ctx, &unit);
 
         i += rem;
-        for (j = i - 7; j <= i; j++) {
+        for (j = i - 8; j < i; j++) {
             // Little endian
             output[j] = unp[7 - j % 8];
         }
