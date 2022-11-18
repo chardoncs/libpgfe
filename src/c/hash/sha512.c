@@ -25,7 +25,7 @@ static const pgfe_word_t __pgfe_sha512_256_H0[] = {
     0xA88EFFE3, 0x96283EE2, 0x53863992, 0xBE5E1E25, 0x2C85B8AA, 0x2B0199FC, 0x81C52CA2, 0x0EB72DDC,
 };
 
-void pgfe_sha512_generic_init(struct pgfe_sha512_ctx *ctx, const pgfe_word_t H0[16]) {
+static void pgfe_sha512_generic_init(struct pgfe_sha512_ctx *ctx, const pgfe_word_t H0[16]) {
     if (!ctx) return;
 
     ctx->len_low = ctx->len_high = 0;

@@ -16,11 +16,7 @@ static const pgfe_word_t __pgfe_sha1_H0[] = {0x67452301, 0xEFCDAB89, 0x98BADCFE,
 __PGFE_FRONTEND_GEN2(sha1)
 __PGFE_FRONTEND_DEFAULT_GEN2(sha1, SHA1)
 
-__PGFE_SHA_INIT(sha1)
-__PGFE_SHA_UPDATE(sha1, SHA1)
-__PGFE_SHA_DIGEST(sha1, SHA1)
-
-void __pgfe_sha1_process_block(struct pgfe_sha1_ctx *ctx) {
+static void __pgfe_sha1_process_block(struct pgfe_sha1_ctx *ctx) {
     // Constants in SHA1
     static const pgfe_word_t K[] = {0x5A827999, 0x6ED9EBA1, 0x8F1BBCDC, 0xCA62C1D6};
 
@@ -93,7 +89,7 @@ void __pgfe_sha1_process_block(struct pgfe_sha1_ctx *ctx) {
     memset(ws, 0, sizeof(ws));
 }
 
-void __pgfe_sha1_padding(struct pgfe_sha1_ctx *ctx) {
+static void __pgfe_sha1_padding(struct pgfe_sha1_ctx *ctx) {
     ctx->block[ctx->index++] = __PGFE_PADDING_HEADER;
 
     // 56 = PGFE_SHA1_BLOCK_SIZE - 8
@@ -119,3 +115,7 @@ void __pgfe_sha1_padding(struct pgfe_sha1_ctx *ctx) {
 
     __pgfe_sha1_process_block(ctx);
 }
+
+__PGFE_SHA_INIT(sha1)
+__PGFE_SHA_UPDATE(sha1, SHA1)
+__PGFE_SHA_DIGEST(sha1, SHA1)

@@ -26,7 +26,7 @@ static const uint16_t _piln[24] = {
     10, 7, 11, 17, 18, 3, 5, 16, 8, 21, 24, 4, 15, 23, 19, 13, 12, 2, 20, 14, 22, 9, 6, 1,
 };
 
-void transform(pgfe_keccak_bitcube_t A, uint64_t RC) {
+static void transform(pgfe_keccak_bitcube_t A, uint64_t RC) {
     pgfe_keccak_lane_t C[5];
     uint64_t t;
     uint16_t j;
@@ -86,7 +86,7 @@ int __pgfe_keccak_init(struct pgfe_keccak_sponge_ctx *ctx, uint32_t capacity) {
     return EXIT_SUCCESS;
 }
 
-void seq_to_state(const pgfe_encode_t input[], pgfe_keccak_bitcube_t A, size_t length) {
+static void seq_to_state(const pgfe_encode_t input[], pgfe_keccak_bitcube_t A, size_t length) {
     pgfe_keccak_lane_t tmp;
     static const uint16_t lane_size = sizeof(pgfe_keccak_lane_t);
     int x, y;
@@ -107,13 +107,13 @@ void seq_to_state(const pgfe_encode_t input[], pgfe_keccak_bitcube_t A, size_t l
 seq_to_state_jump_end:;
 }
 
-void permutation(pgfe_keccak_bitcube_t A, uint16_t nr) {
+static void permutation(pgfe_keccak_bitcube_t A, uint16_t nr) {
     for (uint16_t i = 0; i < nr; i++) {
         transform(A, _RC[i]);
     }
 }
 
-void state_to_seq(const pgfe_keccak_bitcube_t A, pgfe_encode_t output[], uint32_t lane_count) {
+static void state_to_seq(const pgfe_keccak_bitcube_t A, pgfe_encode_t output[], uint32_t lane_count) {
     pgfe_encode_t *outp = output;
     static const uint16_t lane_size = sizeof(pgfe_keccak_lane_t);
     int x, y, i = 0;
@@ -132,18 +132,18 @@ void state_to_seq(const pgfe_keccak_bitcube_t A, pgfe_encode_t output[], uint32_
 state_to_seq_jump_end:;
 }
 
-void absorb(pgfe_keccak_bitcube_t state, const pgfe_encode_t input[], uint32_t lane_count, uint16_t nr) {
+static void absorb(pgfe_keccak_bitcube_t state, const pgfe_encode_t input[], uint32_t lane_count, uint16_t nr) {
     seq_to_state(input, state, lane_count * 8);
     // For little endian
     permutation(state, nr);
 }
 
-void absorb_queue(struct pgfe_keccak_sponge_ctx *ctx) {
+static void absorb_queue(struct pgfe_keccak_sponge_ctx *ctx) {
     absorb(ctx->state, ctx->data_queue, ctx->rate / 64, ctx->nr);
     ctx->inqueue_bits = 0;
 }
 
-void padding(struct pgfe_keccak_sponge_ctx *ctx) {
+static void padding(struct pgfe_keccak_sponge_ctx *ctx) {
     if (ctx->inqueue_bits + 1 == ctx->rate) {
         ctx->data_queue[to_byte(ctx->inqueue_bits)] |= 1 << bit_rem(ctx->inqueue_bits);
         absorb_queue(ctx);

@@ -43,12 +43,6 @@ void pgfe_sha1_update(struct pgfe_sha1_ctx *ctx, const pgfe_encode_t input[], si
 
 void pgfe_sha1_digest(struct pgfe_sha1_ctx *ctx, pgfe_encode_t output[]);
 
-// Internal
-
-void __pgfe_sha1_padding(struct pgfe_sha1_ctx *ctx);
-
-void __pgfe_sha1_process_block(struct pgfe_sha1_ctx *ctx);
-
 #ifdef __cplusplus
 }
 #endif
