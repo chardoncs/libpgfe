@@ -19,8 +19,8 @@ namespace libpgfe {
 class TOTP : public HOTP
 {
 private:
-    pgfe_totp_interval_t interval;
-    time_t initial_time = 0, update_time = 0;
+    pgfe_totp_interval_t _interval;
+    time_t _initial_time = 0, _update_time = 0;
 
     pgfe_totp_delta_t delta;
 
@@ -34,15 +34,15 @@ public:
 
     void update_counter();
 
-    pgfe_totp_interval_t get_interval() const;
+    pgfe_totp_interval_t interval() const;
     void set_interval(pgfe_totp_interval_t);
 
-    time_t get_initial_time() const;
+    time_t initial_time() const;
     void set_initial_time(time_t);
 
-    time_t get_update_time() const;
+    time_t update_time() const;
 
-    time_t get_remain_time() const;
+    time_t remaining_time() const;
 };
 
 } // namespace libpgfe
