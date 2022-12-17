@@ -22,7 +22,7 @@ private:
     pgfe_totp_interval_t _interval;
     time_t _initial_time = 0, _update_time = 0;
 
-    pgfe_totp_delta_t delta;
+    pgfe_totp_delta_t delta = 0;
 
 public:
     TOTP(pgfe_totp_interval_t = 30, pgfe_algorithm_choice = SHA1);
