@@ -4,7 +4,7 @@ set(CMAKE_C_COMPILER clang)
 set(CMAKE_CXX_COMPILER clang++)
 
 project(libpgfe
-  VERSION 0.6.0
+  VERSION 0.6.1
   DESCRIPTION "Cryptographic library"
   HOMEPAGE_URL "https://github.com/chardon55/libpgfe"
   LANGUAGES C CXX
