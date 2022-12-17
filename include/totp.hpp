@@ -32,10 +32,10 @@ public:
     TOTP(SequentialData &, pgfe_totp_interval_t = 30, pgfe_algorithm_choice = SHA1);
     ~TOTP();
 
-    void update_counter();
-
     pgfe_totp_interval_t interval() const;
     void set_interval(pgfe_totp_interval_t);
+
+    void update_counter();
 
     time_t initial_time() const;
     void set_initial_time(time_t);
@@ -43,6 +43,10 @@ public:
     time_t update_time() const;
 
     time_t remaining_time() const;
+
+    pgfe_otp_t generate(uint8_t digit_count = 6);
+
+    std::string generate_str(uint8_t digit_count = 6);
 };
 
 } // namespace libpgfe
