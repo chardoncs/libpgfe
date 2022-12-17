@@ -43,6 +43,10 @@ public:
     time_t get_update_time() const;
 
     time_t get_remain_time() const;
+
+    pgfe_otp_t generate(uint8_t digit_count = 6);
+
+    std::string generate_str(uint8_t digit_count = 6);
 };
 
 } // namespace libpgfe
