@@ -29,7 +29,7 @@ private:
     Base32 base32;
 
 protected:
-    void after_change_alg();
+    void after_change_alg() override;
 
 public:
     HOTP(pgfe_algorithm_choice algorithm = SHA1);
@@ -38,18 +38,18 @@ public:
     HOTP(std::string &, pgfe_algorithm_choice = SHA1);
     HOTP(SequentialData &, pgfe_algorithm_choice = SHA1);
 
-    void set_secret(const pgfe_encode_t *, size_t);
+    void set_secret(const pgfe_encode_t *, size_t) override;
     void set_secret(const char *cs, bool is_base32 = false);
     void set_secret(const std::string &, bool is_base32 = false);
-    void set_secret(const SequentialData &);
+    void set_secret(const SequentialData &) override;
 
     void set_secret_from_base32(const char *);
     void set_secret_from_base32(const std::string &);
 
-    void set_counter(pgfe_otp_counter_t);
+    void set_counter(pgfe_otp_counter_t) override;
 
-    pgfe_otp_t generate(uint8_t digit_count = 6) const;
-    std::string generate_str(uint8_t digit_count = 6) const;
+    pgfe_otp_t generate(uint8_t digit_count = 6) const override;
+    std::string generate_str(uint8_t digit_count = 6) const override;
 };
 
 } // namespace libpgfe
