@@ -71,7 +71,7 @@ __pgfe_hmac_tmpl(sha3_256, SHA3_256);
 __pgfe_hmac_tmpl(sha3_384, SHA3_384);
 __pgfe_hmac_tmpl(sha3_512, SHA3_512);
 
-#define __PGFE_ALG_SELECT_CASE_C(upper, lower)                                                                         \
+#define __PGFE_ALG_SELECT_CASE(upper, lower)                                                                           \
     case upper:                                                                                                        \
         pgfe_hmac_##lower(key, key_length, data, length, output);                                                      \
         break
@@ -80,5 +80,5 @@ void pgfe_hmac(
     enum pgfe_algorithm_choice alg, const pgfe_encode_t key[], size_t key_length, const pgfe_encode_t data[],
     size_t length, pgfe_encode_t output[]
 ) {
-    __PGFE_BATCH_CASES_SP_C(alg, ALG_SELECT)
+    __PGFE_BATCH_CASES_SP(alg, ALG_SELECT)
 }

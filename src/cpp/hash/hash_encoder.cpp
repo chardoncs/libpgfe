@@ -52,7 +52,7 @@ using namespace libpgfe;
 void HashEncoder::destroy_context() {
     if (!ctx) return;
 
-    __PGFE_BATCH_CASES(CTX_DELETE)
+    __PGFE_BATCH_CASES(cur_alg, CTX_DELETE)
 }
 
 void HashEncoder::before_change_alg() {
@@ -60,9 +60,9 @@ void HashEncoder::before_change_alg() {
 }
 
 void HashEncoder::load_algorithm() {
-    __PGFE_BATCH_CASES(CTX_CREATE)
-    __PGFE_BATCH_CASES(INIT_FUNC_CALL)
-    __PGFE_BATCH_CASES(INIT_SIZE)
+    __PGFE_BATCH_CASES(cur_alg, CTX_CREATE)
+    __PGFE_BATCH_CASES(cur_alg, INIT_FUNC_CALL)
+    __PGFE_BATCH_CASES(cur_alg, INIT_SIZE)
 }
 
 void HashEncoder::reset() {
@@ -84,7 +84,7 @@ HashEncoder::~HashEncoder() {
 }
 
 void HashEncoder::update(const pgfe_encode_t sequence[], size_t length) {
-    __PGFE_BATCH_CASES(UPDATE_FUNC_CALL3)
+    __PGFE_BATCH_CASES(cur_alg, UPDATE_FUNC_CALL3)
 }
 
 inline void HashEncoder::update(const char cs[]) {
@@ -120,7 +120,7 @@ const SequentialData *HashEncoder::get_digest(uint64_t bitlength) {
         __PGFE_BATCH_SHAKE_CASES(DIGEST_FUNC_CALL_LIMIT)
     }
     else {
-        __PGFE_BATCH_CASES_SP(DIGEST_FUNC_CALL)
+        __PGFE_BATCH_CASES_SP(cur_alg, DIGEST_FUNC_CALL)
     }
 
     out = std::make_unique<SequentialData>((const pgfe_encode_t *)seq, length);

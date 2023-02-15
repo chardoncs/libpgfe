@@ -35,7 +35,7 @@ HOTP::HOTP(SequentialData &secret, pgfe_algorithm_choice algorithm) : HOTP(algor
 }
 
 void HOTP::after_change_alg() {
-    __PGFE_BATCH_CASES(INIT_SIZE)
+    __PGFE_BATCH_CASES(cur_alg, INIT_SIZE)
 }
 
 void HOTP::set_secret(const pgfe_encode_t *seq, size_t length) {

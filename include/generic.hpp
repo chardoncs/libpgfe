@@ -21,46 +21,6 @@
 #include "sha2.h"
 #include "sha3.h"
 
-#define __PGFE_BATCH_CASES(name)                                                                                       \
-    switch (cur_alg) {                                                                                                 \
-        __PGFE_##name##_CASE(MD5, md5);                                                                                \
-        __PGFE_##name##_CASE(SHA1, sha1);                                                                              \
-        __PGFE_##name##_CASE(SHA224, sha224);                                                                          \
-        __PGFE_##name##_CASE(SHA256, sha256);                                                                          \
-        __PGFE_##name##_CASE(SHA384, sha384);                                                                          \
-        __PGFE_##name##_CASE(SHA512, sha512);                                                                          \
-        __PGFE_##name##_CASE(SHA512_224, sha512_224);                                                                  \
-        __PGFE_##name##_CASE(SHA512_256, sha512_256);                                                                  \
-        __PGFE_##name##_CASE(SHA3_224, sha3_224);                                                                      \
-        __PGFE_##name##_CASE(SHA3_256, sha3_256);                                                                      \
-        __PGFE_##name##_CASE(SHA3_384, sha3_384);                                                                      \
-        __PGFE_##name##_CASE(SHA3_512, sha3_512);                                                                      \
-        __PGFE_##name##_CASE(RawSHAKE128, rawshake128);                                                                \
-        __PGFE_##name##_CASE(SHAKE128, shake128);                                                                      \
-        __PGFE_##name##_CASE(RawSHAKE256, rawshake256);                                                                \
-        __PGFE_##name##_CASE(SHAKE256, shake256);                                                                      \
-    default:                                                                                                           \
-        break;                                                                                                         \
-    }
-
-#define __PGFE_BATCH_CASES_SP(name)                                                                                    \
-    switch (cur_alg) {                                                                                                 \
-        __PGFE_##name##_CASE(MD5, md5);                                                                                \
-        __PGFE_##name##_CASE(SHA1, sha1);                                                                              \
-        __PGFE_##name##_CASE(SHA224, sha224);                                                                          \
-        __PGFE_##name##_CASE(SHA256, sha256);                                                                          \
-        __PGFE_##name##_CASE(SHA384, sha384);                                                                          \
-        __PGFE_##name##_CASE(SHA512, sha512);                                                                          \
-        __PGFE_##name##_CASE(SHA512_224, sha512_224);                                                                  \
-        __PGFE_##name##_CASE(SHA512_256, sha512_256);                                                                  \
-        __PGFE_##name##_CASE(SHA3_224, sha3_224);                                                                      \
-        __PGFE_##name##_CASE(SHA3_256, sha3_256);                                                                      \
-        __PGFE_##name##_CASE(SHA3_384, sha3_384);                                                                      \
-        __PGFE_##name##_CASE(SHA3_512, sha3_512);                                                                      \
-    default:                                                                                                           \
-        break;                                                                                                         \
-    }
-
 #define __PGFE_BATCH_SHAKE_CASES(name)                                                                                 \
     switch (cur_alg) {                                                                                                 \
         __PGFE_##name##_CASE(RawSHAKE128, rawshake128);                                                                \

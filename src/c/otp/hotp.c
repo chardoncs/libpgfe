@@ -12,7 +12,7 @@
 #include "backend/generic-internal.h"
 #include "sha1.h"
 
-#define __PGFE_SET_SIZE_CASE_C(upper, lower)                                                                           \
+#define __PGFE_SET_SIZE_CASE(upper, lower)                                                                             \
     case upper:                                                                                                        \
         digest_size = PGFE_##upper##_DIGEST_SIZE;                                                                      \
         break
@@ -32,7 +32,7 @@ pgfe_otp_t pgfe_hotp_generic(
 ) {
     static const size_t enc_s = 1, counter_len = 8;
     int digest_size;
-    __PGFE_BATCH_CASES_C(alg, SET_SIZE)
+    __PGFE_BATCH_CASES(alg, SET_SIZE)
 
     pgfe_encode_t counter_h[counter_len], out_hash[digest_size];
     pgfe_otp_t result;

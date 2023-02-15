@@ -54,12 +54,12 @@ HMACEncoder::HMACEncoder(pgfe_algorithm_choice algorithm, SequentialData &sd) {
 }
 
 void HMACEncoder::after_change_alg() {
-    __PGFE_BATCH_CASES_SP(HMAC_INIT_CTX)
-    __PGFE_BATCH_CASES_SP(INIT_SIZE)
+    __PGFE_BATCH_CASES_SP(cur_alg, HMAC_INIT_CTX)
+    __PGFE_BATCH_CASES_SP(cur_alg, INIT_SIZE)
 }
 
 void HMACEncoder::set_key(const pgfe_encode_t sequence[], size_t length) {
-    __PGFE_BATCH_CASES_SP(HMAC_SET_KEY)
+    __PGFE_BATCH_CASES_SP(cur_alg, HMAC_SET_KEY)
 }
 
 void HMACEncoder::set_key(const char cs[]) {
@@ -76,7 +76,7 @@ void HMACEncoder::set_key(SequentialData &sd) {
 }
 
 void HMACEncoder::update(const pgfe_encode_t sequence[], size_t length) {
-    __PGFE_BATCH_CASES_SP(HMAC_ADD_DATA)
+    __PGFE_BATCH_CASES_SP(cur_alg, HMAC_ADD_DATA)
 }
 
 inline void HMACEncoder::update(const char cs[]) {
@@ -92,6 +92,6 @@ inline void HMACEncoder::update(SequentialData &sd) {
 }
 
 const SequentialData *HMACEncoder::get_digest() {
-    __PGFE_BATCH_CASES_SP(HMAC_DIGEST)
+    __PGFE_BATCH_CASES_SP(cur_alg, HMAC_DIGEST)
     return (const SequentialData *)output.get();
 }
