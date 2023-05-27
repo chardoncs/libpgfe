@@ -5,12 +5,12 @@
   Copyright (c) 2022 Charles Dong
 */
 
-#include "backend/base-encoding-internal.h"
+#include "./base-encoding-internal.h"
 
 #include <limits.h>
 #include <string.h>
 
-#include "backend/generic-internal.h"
+#include "../generic-internal.h"
 
 #define __bitsz 8
 

@@ -5,11 +5,11 @@
   Copyright (c) 2022 Charles Dong
 */
 
-#include "sha3.h"
+#include "libpgfe/sha3.h"
 
 #include <string.h>
 
-#include "backend/templates.h"
+#include "./templates.h"
 
 // RawSHAKE128
 

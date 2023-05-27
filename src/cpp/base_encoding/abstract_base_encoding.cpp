@@ -8,7 +8,7 @@
 #include <cmath>
 #include <cstring>
 
-#include "backend_cpp/abstract_base_encoding.hpp"
+#include "libpgfe/abstract_base_encoding.hpp"
 
 #define PGFE_SPACE_MULTIPLE 1.2
 

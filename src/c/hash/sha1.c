@@ -5,13 +5,13 @@
   Copyright (c) 2022 Charles Dong
 */
 
-#include "sha1.h"
+#include "libpgfe/sha1.h"
 
 #include <string.h>
 
-#include "backend/generic-internal.h"
-#include "backend/sha-internal.h"
-#include "backend/templates.h"
+#include "../generic-internal.h"
+#include "./sha-internal.h"
+#include "./templates.h"
 
 static const pgfe_word_t __pgfe_sha1_H0[] = {0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476, 0xC3D2E1F0};
 

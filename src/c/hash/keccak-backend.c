@@ -5,7 +5,7 @@
   Copyright (c) 2022 Charles Dong
 */
 
-#include "backend/keccak-backend.h"
+#include "./keccak-backend.h"
 
 #include <stdlib.h>
 #include <string.h>

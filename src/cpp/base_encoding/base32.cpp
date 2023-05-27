@@ -5,9 +5,9 @@
   Copyright (c) 2022 Charles Dong
 */
 
-#include "base32.hpp"
+#include "libpgfe/base32.hpp"
 
-#include "base-encoding.h"
+#include "libpgfe/base-encoding.h"
 
 using namespace libpgfe;
 

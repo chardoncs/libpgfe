@@ -12,8 +12,8 @@
 #include <stdexcept>
 #include <thread>
 
-#include "../include/base-encoding.h"
-#include "../include/base64.hpp"
+#include "../include/libpgfe/base-encoding.h"
+#include "../include/libpgfe/base64.hpp"
 
 using namespace libpgfe;
 

@@ -59,8 +59,12 @@ add_executable(pgfetestcpp ${test_dir}/test.cpp)
 # add_executable(totptest ${test_dir}/totptest.c)
 # add_executable(totptestcpp ${test_dir}/totptest.cpp)
 
-target_include_directories(pgfe PRIVATE
+target_include_directories(pgfe PUBLIC
   ${include_dir}
+)
+
+target_include_directories(pgfe PRIVATE
+  ${src_dir}
 )
 
 target_link_libraries(pgfetest pgfe)

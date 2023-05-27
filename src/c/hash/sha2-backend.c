@@ -5,10 +5,10 @@
   Copyright (c) 2022 Charles Dong
 */
 
-#include "backend/sha2-backend.h"
+#include "./sha2-backend.h"
 
-#include "backend/templates.h"
-#include "sha2.h"
+#include "./templates.h"
+#include "libpgfe/sha2.h"
 
 #include <string.h>
 

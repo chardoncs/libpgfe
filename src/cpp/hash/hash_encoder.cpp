@@ -5,17 +5,15 @@
   Copyright (c) 2022 Charles Dong
 */
 
-#include "hash_encoder.hpp"
+#include "libpgfe/hash_encoder.hpp"
 
 #include <cstring>
 #include <stdexcept>
 
-#include "md5.h"
-#include "sha1.h"
-#include "sha2.h"
-#include "sha3.h"
+#include "libpgfe/hash.h"
+#include "libpgfe/utils.h"
 
-#include "utils.h"
+#include "../../c/generic-internal.h"
 
 #define __PGFE_CTX_CREATE_CASE(alg, name)                                                                              \
     case alg:                                                                                                          \

@@ -5,11 +5,11 @@
   Copyright (c) 2022 Charles Dong
 */
 
-#include "backend_cpp/abstract_otp.hpp"
+#include "libpgfe/abstract_otp.hpp"
 
 #include <cstring>
 
-#include "base-encoding.h"
+#include "libpgfe/base-encoding.h"
 
 using namespace libpgfe;
 

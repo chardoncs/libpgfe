@@ -5,12 +5,12 @@
   Copyright (c) 2022 Charles Dong
 */
 
-#include "sha2.h"
+#include "libpgfe/sha2.h"
 
 #include <string.h>
 
-#include "backend/sha2-backend.h"
-#include "backend/templates.h"
+#include "./sha2-backend.h"
+#include "./templates.h"
 
 static const pgfe_word_t __pgfe_sha256_H0[] = {
     0x6A09E667, 0xBB67AE85, 0x3C6EF372, 0xA54FF53A, 0x510E527F, 0x9B05688C, 0x1F83D9AB, 0x5BE0CD19,

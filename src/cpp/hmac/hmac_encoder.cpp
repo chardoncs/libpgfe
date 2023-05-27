@@ -5,7 +5,9 @@
   Copyright (c) 2022 Charles Dong
 */
 
-#include "hmac_encoder.hpp"
+#include "libpgfe/hmac_encoder.hpp"
+
+#include "../../c/generic-internal.h"
 
 #include <cstring>
 

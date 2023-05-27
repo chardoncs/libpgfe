@@ -8,9 +8,9 @@
 #ifndef LIBPGFE_GENERIC_CPP
 #define LIBPGFE_GENERIC_CPP
 
-#include "generic.hpp"
+#include "libpgfe/generic.hpp"
 
-#include "generic.h"
+#include "libpgfe/generic.h"
 
 namespace libpgfe {
 

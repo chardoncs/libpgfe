@@ -5,9 +5,9 @@
   Copyright (c) 2022 Charles Dong
 */
 
-#include "base-encoding.h"
+#include "libpgfe/base-encoding.h"
 
-#include "backend/base-encoding-internal.h"
+#include "./base-encoding-internal.h"
 
 // Base 16 alphabet
 const char BASE16_ALPHABET[] = "0123456789ABCDEF"

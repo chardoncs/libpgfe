@@ -5,12 +5,14 @@
   Copyright (c) 2022 Charles Dong
 */
 
-#include "hotp.h"
+#include "libpgfe/hotp.h"
 
 #include <string.h>
 
-#include "backend/generic-internal.h"
-#include "sha1.h"
+#include "../generic-internal.h"
+#include "./otp-generic.h"
+
+#include "libpgfe/hash.h"
 
 #define __PGFE_SET_SIZE_CASE(upper, lower)                                                                             \
     case upper:                                                                                                        \

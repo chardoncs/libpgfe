@@ -5,11 +5,11 @@
   Copyright (c) 2022 Charles Dong
 */
 
-#include "hmac.h"
+#include "libpgfe/hmac.h"
 
 #include <string.h>
 
-#include "backend/generic-internal.h"
+#include "../generic-internal.h"
 
 #define __pgfe_hmac_tmpl(name, upper)                                                                                  \
     void pgfe_hmac_##name##_init(struct pgfe_hmac_##name##_ctx *ctx) {                                                 \

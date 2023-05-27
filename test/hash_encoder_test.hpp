@@ -10,9 +10,9 @@
 #include <iostream>
 #include <string>
 
-#include "../include/hash_encoder.hpp"
-#include "../include/utils.h"
-#include "../include/utils.hpp"
+#include "../include/libpgfe/hash_encoder.hpp"
+#include "../include/libpgfe/utils.h"
+#include "../include/libpgfe/utils.hpp"
 
 void hash_encoder_test(ARGS) {
     using namespace std;

@@ -10,8 +10,8 @@
 #include <cstdio>
 #include <iostream>
 
-#include "../include/hotp.hpp"
-#include "../include/utils.hpp"
+#include "../include/libpgfe/hotp.hpp"
+#include "../include/libpgfe/utils.hpp"
 
 void hotp_hex_test(ARGS) {
     HOTP hotp{_algstr(argv[2])};

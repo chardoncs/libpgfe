@@ -7,8 +7,8 @@
 
 #include "test.h"
 
-#include "../include/blowfish.h"
-#include "../include/utils.h"
+#include "../include/libpgfe/blowfish.h"
+#include "../include/libpgfe/utils.h"
 
 void blowfish_encrypt_unit_test(ARGS) {
     struct pgfe_blowfish_ctx ctx;

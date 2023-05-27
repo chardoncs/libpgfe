@@ -5,9 +5,10 @@
   Copyright (c) 2022 Charles Dong
 */
 
-#include "totp.hpp"
+#include "libpgfe/totp.hpp"
+#include "libpgfe/utils.h"
 
-#include "utils.h"
+#include "../../c/otp/otp-generic.h"
 
 using namespace libpgfe;
 

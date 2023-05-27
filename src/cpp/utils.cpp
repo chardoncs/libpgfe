@@ -5,11 +5,11 @@
   Copyright (c) 2022 Charles Dong
 */
 
-#include "utils.hpp"
+#include "libpgfe/utils.hpp"
 
 #include <cstring>
 
-#include "utils.h"
+#include "libpgfe/utils.h"
 
 namespace libpgfe {
 namespace utils {

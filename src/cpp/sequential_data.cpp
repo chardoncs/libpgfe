@@ -5,7 +5,7 @@
   Copyright (c) 2022 Charles Dong
 */
 
-#include "sequential_data.hpp"
+#include "libpgfe/sequential_data.hpp"
 
 #include <cstring>
 #include <stdexcept>

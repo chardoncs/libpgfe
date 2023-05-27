@@ -7,9 +7,9 @@
 
 #include "test.h"
 
-#include "../include/hmac.h"
-#include "../include/md5.h"
-#include "../include/utils.h"
+#include "../include/libpgfe/hmac.h"
+#include "../include/libpgfe/md5.h"
+#include "../include/libpgfe/utils.h"
 
 enum pgfe_algorithm_choice get_alg_choice(char option[]) {
     enum pgfe_algorithm_choice c;

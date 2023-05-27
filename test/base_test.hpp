@@ -7,9 +7,9 @@
 
 #include "test.h"
 
-#include "../include/base16.hpp"
-#include "../include/base32.hpp"
-#include "../include/base64.hpp"
+#include "../include/libpgfe/base16.hpp"
+#include "../include/libpgfe/base32.hpp"
+#include "../include/libpgfe/base64.hpp"
 
 using namespace std;
 using namespace libpgfe;

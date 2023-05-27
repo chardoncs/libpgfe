@@ -5,7 +5,7 @@
   Copyright (c) 2022 Charles Dong
 */
 
-#include "blowfish.h"
+#include "libpgfe/blowfish.h"
 
 #include <string.h>
 

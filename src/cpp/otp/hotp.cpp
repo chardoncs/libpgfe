@@ -5,12 +5,14 @@
   Copyright (c) 2022 Charles Dong
 */
 
-#include "hotp.hpp"
+#include "libpgfe/hotp.hpp"
 
 #include <cstring>
 
-#include "generic.hpp"
-#include "hotp.h"
+#include "libpgfe/generic.hpp"
+#include "libpgfe/hotp.h"
+
+#include "../../c/generic-internal.h"
 
 using namespace libpgfe;
 

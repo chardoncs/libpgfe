@@ -5,12 +5,12 @@
   Copyright (c) 2022 Charles Dong
 */
 
-#include "md5.h"
+#include "libpgfe/md5.h"
 
 #include <string.h>
 
-#include "backend/md5-backend.h"
-#include "backend/templates.h"
+#include "./md5-backend.h"
+#include "./templates.h"
 
 __PGFE_FRONTEND_GEN2(md5);
 __PGFE_FRONTEND_DEFAULT_GEN2(md5, MD5);

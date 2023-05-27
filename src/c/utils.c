@@ -5,11 +5,11 @@
   Copyright (c) 2022 Charles Dong
 */
 
-#include "utils.h"
+#include "libpgfe/utils.h"
 
 #include <string.h>
 
-#include "backend/generic-internal.h"
+#include "./generic-internal.h"
 
 size_t pgfe_hash_to_hex_string(const pgfe_encode_t hash[], size_t hash_length, char out[]) {
     char *op = out, dual_hex[3];
@@ -107,19 +107,4 @@ size_t pgfe_hash_length(const char hash_s[]) {
     len = strlen(s);
 
     return len / 2 + len % 2;
-}
-
-inline time_t pgfe_curtime() {
-    return time(NULL);
-}
-
-void pgfe_otp_to_string(pgfe_otp_t otp, char *cs_out, size_t digit_c) {
-    char *sp;
-
-    for (sp = cs_out + digit_c - 1; sp >= cs_out; sp--) {
-        *sp = (char)(otp % 10 + '0');
-        otp /= 10;
-    }
-
-    cs_out[digit_c] = 0;
 }

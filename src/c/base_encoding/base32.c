@@ -5,12 +5,12 @@
   Copyright (c) 2022 Charles Dong
 */
 
-#include "base-encoding.h"
+#include "libpgfe/base-encoding.h"
 
 #include <string.h>
 
-#include "backend/base-encoding-internal.h"
-#include "backend/generic-internal.h"
+#include "../generic-internal.h"
+#include "./base-encoding-internal.h"
 
 // Base 32 alphabet
 //                              0123456789ABCDEF

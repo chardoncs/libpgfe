@@ -5,12 +5,11 @@
   Copyright (c) 2022 Charles Dong
 */
 
-#include "totp.h"
+#include "libpgfe/totp.h"
 
-#include "backend/generic-internal.h"
-#include "hotp.h"
-#include "sha1.h"
-#include "utils.h"
+#include "../generic-internal.h"
+#include "libpgfe/hotp.h"
+#include "libpgfe/sha1.h"
 
 pgfe_otp_counter_t __pgfe_calc_periodic_counter(
     time_t realtime, pgfe_totp_interval_t interval, time_t initial_time, pgfe_totp_delta_t *delta_out
