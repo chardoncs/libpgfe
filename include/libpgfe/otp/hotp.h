@@ -2,14 +2,14 @@
   libpgfe
   hotp.h
 
-  Copyright (c) 2022 Charles Dong
+  Copyright (c) 2022-2023 Charles Dong
 */
 
-#ifndef LIBPGFE_HOTP_H
-#define LIBPGFE_HOTP_H
+#ifndef LIBPGFE_OTP_HOTP_H
+#define LIBPGFE_OTP_HOTP_H
 
-#include "libpgfe/generic.h"
-#include "libpgfe/otp_types.h"
+#include "libpgfe/core/generic.h"
+#include "libpgfe/otp/types.h"
 
 #ifdef __cplusplus
 extern "C" {

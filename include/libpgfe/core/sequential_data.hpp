@@ -4,11 +4,11 @@
 
   Header of Sequential Data class
 
-  Copyright (c) 2022 Charles Dong
+  Copyright (c) 2022-2023 Charles Dong
 */
 
-#ifndef LIBPGFE_SEQUENTIAL_DATA_HPP
-#define LIBPGFE_SEQUENTIAL_DATA_HPP
+#ifndef LIBPGFE_CORE_SEQUENTIAL_DATA_HPP
+#define LIBPGFE_CORE_SEQUENTIAL_DATA_HPP
 #ifndef __cplusplus
 #error libpgfe error: C++ headers are not compatible with C source
 #endif
@@ -16,8 +16,8 @@
 #include <ostream>
 #include <string>
 
-#include "libpgfe/generic.h"
-#include "libpgfe/utils.h"
+#include "libpgfe/core/generic.h"
+#include "libpgfe/core/utils.h"
 
 namespace libpgfe {
 

@@ -2,19 +2,19 @@
   libpgfe
   utils.hpp
 
-  Copyright (c) 2022 Charles Dong
+  Copyright (c) 2022-2023 Charles Dong
 */
 
-#ifndef LIBPGFE_UTILS_HPP
-#define LIBPGFE_UTILS_HPP
+#ifndef LIBPGFE_CORE_UTILS_HPP
+#define LIBPGFE_CORE_UTILS_HPP
 #ifndef __cplusplus
 #error libpgfe error: C++ headers are not compatible with C source
 #endif
 
 #include <string>
 
-#include "libpgfe/generic.hpp"
-#include "libpgfe/sequential_data.hpp"
+#include "libpgfe/core/generic.hpp"
+#include "libpgfe/core/sequential_data.hpp"
 
 namespace libpgfe {
 namespace utils {

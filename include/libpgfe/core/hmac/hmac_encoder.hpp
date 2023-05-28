@@ -2,11 +2,11 @@
   libpgfe
   hmac_encoder.hpp
 
-  Copyright (c) 2022 Charles Dong
+  Copyright (c) 2022-2023 Charles Dong
 */
 
-#ifndef LIBPGFE_HMAC_ENCODER_HPP
-#define LIBPGFE_HMAC_ENCODER_HPP
+#ifndef LIBPGFE_CORE_HMAC_ENCODER_HPP
+#define LIBPGFE_CORE_HMAC_ENCODER_HPP
 #ifndef __cplusplus
 #error libpgfe error: C++ headers are not compatible with C source
 #endif
@@ -14,10 +14,10 @@
 #include <memory>
 #include <vector>
 
-#include "libpgfe/abstract_hash_encoder.hpp"
-#include "libpgfe/generic.h"
-#include "libpgfe/generic.hpp"
-#include "libpgfe/hmac.h"
+#include "libpgfe/core/abstract_hash_encoder.hpp"
+#include "libpgfe/core/generic.h"
+#include "libpgfe/core/generic.hpp"
+#include "libpgfe/core/hmac/hmac.h"
 
 namespace libpgfe {
 

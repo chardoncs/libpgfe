@@ -2,13 +2,13 @@
   libpgfe
   utils.h
 
-  Copyright (c) 2022 Charles Dong
+  Copyright (c) 2022-2023 Charles Dong
 */
 
-#ifndef LIBPGFE_UTILS_H
-#define LIBPGFE_UTILS_H
+#ifndef LIBPGFE_CORE_UTILS_H
+#define LIBPGFE_CORE_UTILS_H
 
-#include "libpgfe/generic.h"
+#include "libpgfe/core/generic.h"
 
 #ifdef __cplusplus
 extern "C" {

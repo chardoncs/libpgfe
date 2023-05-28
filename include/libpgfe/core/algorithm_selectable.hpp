@@ -2,17 +2,17 @@
   libpgfe
   algorithm_selectable.hpp
 
-  Copyright (c) 2022 Charles Dong
+  Copyright (c) 2022-2023 Charles Dong
 */
 
-#ifndef LIBPGFE_ALGORITHM_SELECTABLE_HPP
-#define LIBPGFE_ALGORITHM_SELECTABLE_HPP
+#ifndef LIBPGFE_CORE_ALGORITHM_SELECTABLE_HPP
+#define LIBPGFE_CORE_ALGORITHM_SELECTABLE_HPP
 #ifdef __cplusplus
 
 #include <cstring>
 #include <string>
 
-#include "libpgfe/algorithm-choice.h"
+#include "libpgfe/core/algorithm-choice.h"
 
 namespace libpgfe {
 

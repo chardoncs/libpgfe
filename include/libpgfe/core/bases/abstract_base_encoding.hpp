@@ -2,11 +2,11 @@
   libpgfe
   abstract_base_encoding.hpp
 
-  Copyright (c) 2022 Charles Dong
+  Copyright (c) 2022-2023 Charles Dong
 */
 
-#ifndef LIBPGFE_ABSTRACT_BASE_ENCODING
-#define LIBPGFE_ABSTRACT_BASE_ENCODING
+#ifndef LIBPGFE_CORE_ABSTRACT_BASE_ENCODING
+#define LIBPGFE_CORE_ABSTRACT_BASE_ENCODING
 #ifndef __cplusplus
 #error libpgfe error: C++ headers are not compatible with C source
 #endif
@@ -15,8 +15,8 @@
 #include <mutex>
 #include <string>
 
-#include "libpgfe/generic.h"
-#include "libpgfe/sequential_data.hpp"
+#include "libpgfe/core/generic.h"
+#include "libpgfe/core/sequential_data.hpp"
 
 namespace libpgfe {
 

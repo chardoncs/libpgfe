@@ -2,19 +2,19 @@
   libpgfe
   hotp.hpp
 
-  Copyright (c) 2022 Charles Dong
+  Copyright (c) 2022-2023 Charles Dong
 */
 
-#ifndef LIBPGFE_HOTP_HPP
-#define LIBPGFE_HOTP_HPP
+#ifndef LIBPGFE_OTP_HOTP_HPP
+#define LIBPGFE_OTP_HOTP_HPP
 #ifndef __cplusplus
 #error libpgfe error: C++ headers are not compatible with C source
 #endif
 
 #include <memory>
 
-#include "libpgfe/abstract_otp.hpp"
-#include "libpgfe/base32.hpp"
+#include "libpgfe/core/hashes/base32.hpp"
+#include "libpgfe/otp/abstract_otp.hpp"
 
 namespace libpgfe {
 

@@ -2,21 +2,21 @@
   libpgfe
   abstract_otp.hpp
 
-  Copyright (c) 2022 Charles Dong
+  Copyright (c) 2022-2023 Charles Dong
 */
 
-#ifndef LIBPGFE_GENERIC_OTP_HPP
-#define LIBPGFE_GENERIC_OTP_HPP
+#ifndef LIBPGFE_OTP_GENERIC_OTP_HPP
+#define LIBPGFE_OTP_GENERIC_OTP_HPP
 #ifndef __cplusplus
 #error libpgfe error: C++ headers are not compatible with C source
 #endif
 
 #include <string>
 
-#include "libpgfe/algorithm_selectable.hpp"
-#include "libpgfe/generic.h"
-#include "libpgfe/otp_types.h"
-#include "libpgfe/sequential_data.hpp"
+#include "libpgfe/core/algorithm_selectable.hpp"
+#include "libpgfe/core/generic.h"
+#include "libpgfe/core/sequential_data.hpp"
+#include "libpgfe/otp/types.h"
 
 namespace libpgfe {
 

@@ -2,30 +2,30 @@
   libpgfe
   generic.h
 
-  Copyright (c) 2022 Charles Dong
+  Copyright (c) 2022-2023 Charles Dong
 */
 
-#ifndef LIBPGFE_GENERIC_H
-#define LIBPGFE_GENERIC_H
+#ifndef LIBPGFE_CORE_GENERIC_H
+#define LIBPGFE_CORE_GENERIC_H
 
 #include <stddef.h>
 #include <stdint.h>
 
-#include "libpgfe/algorithm-choice.h"
+#include "libpgfe/core/algorithm-choice.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 // Default reading buffer size
-#define PGFE_BUFFER_SIZE 1024
+#define PGFE_BUFFER_SIZE (1024)
 
 // byte -> bit (e.g. to_bit(4) = 32)
-#define to_bit(value) ((value)*8)
+#define pgfe_to_bit(value) ((value)*8)
 // bit -> byte (e.g. to_byte(32) = 4)
-#define to_byte(value) ((value) / 8)
+#define pgfe_to_byte(value) ((value) / 8)
 // Remainder of bit
-#define bit_rem(value) ((value) % 8)
+#define pgfe_bit_rem(value) ((value) % 8)
 
 typedef char pgfe_ascii_t;
 

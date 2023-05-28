@@ -2,11 +2,11 @@
   libpgfe
   abstract_encoder.hpp
 
-  Copyright (c) 2022 Charles Dong
+  Copyright (c) 2022-2023 Charles Dong
 */
 
-#ifndef LIBPGFE_GENERIC_ENCODER_HPP
-#define LIBPGFE_GENERIC_ENCODER_HPP
+#ifndef LIBPGFE_CORE_GENERIC_ENCODER_HPP
+#define LIBPGFE_CORE_GENERIC_ENCODER_HPP
 #ifndef __cplusplus
 #error libpgfe error: C++ headers are not compatible with C source
 #endif
@@ -14,9 +14,9 @@
 #include <cstring>
 #include <string>
 
-#include "libpgfe/generic.h"
-#include "libpgfe/sequential_data.hpp"
-#include "libpgfe/utils.hpp"
+#include "libpgfe/core/generic.h"
+#include "libpgfe/core/sequential_data.hpp"
+#include "libpgfe/core/utils.hpp"
 
 namespace libpgfe {
 

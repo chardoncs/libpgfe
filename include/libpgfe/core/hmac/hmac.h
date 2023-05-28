@@ -2,17 +2,14 @@
   libpgfe
   hmac.h
 
-  Copyright (c) 2022 Charles Dong
+  Copyright (c) 2022-2023 Charles Dong
 */
 
-#ifndef LIBPGFE_HMAC_H
-#define LIBPGFE_HMAC_H
+#ifndef LIBPGFE_CORE_HMAC_H
+#define LIBPGFE_CORE_HMAC_H
 
-#include "libpgfe/generic.h"
-#include "libpgfe/md5.h"
-#include "libpgfe/sha1.h"
-#include "libpgfe/sha2.h"
-#include "libpgfe/sha3.h"
+#include "libpgfe/core/generic.h"
+#include "libpgfe/core/hashes.h"
 
 #ifdef __cplusplus
 extern "C" {

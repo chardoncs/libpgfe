@@ -2,15 +2,15 @@
   libpgfe
   sha2.h
 
-  Copyright (c) 2022 Charles Dong
+  Copyright (c) 2022-2023 Charles Dong
 */
 
-#ifndef LIBPGFE_SHA2_H
-#define LIBPGFE_SHA2_H
+#ifndef LIBPGFE_CORE_SHA2_H
+#define LIBPGFE_CORE_SHA2_H
 
 #include <stdio.h>
 
-#include "libpgfe/generic.h"
+#include "libpgfe/core/generic.h"
 
 #ifdef __cplusplus
 extern "C" {

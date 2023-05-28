@@ -2,16 +2,16 @@
   libpgfe
   base16.hpp
 
-  Copyright (c) 2022 Charles Dong
+  Copyright (c) 2022-2023 Charles Dong
 */
 
-#ifndef LIBPGFE_BASE16_HPP
-#define LIBPGFE_BASE16_HPP
+#ifndef LIBPGFE_CORE_BASE16_HPP
+#define LIBPGFE_CORE_BASE16_HPP
 #ifndef __cplusplus
 #error libpgfe error: C++ headers are not compatible with C source
 #endif
 
-#include "libpgfe/abstract_base_encoding.hpp"
+#include "libpgfe/core/abstract_base_encoding.hpp"
 
 namespace libpgfe {
 

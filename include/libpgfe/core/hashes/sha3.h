@@ -2,15 +2,15 @@
   libpgfe
   sha3.h
 
-  Copyright (c) 2022 Charles Dong
+  Copyright (c) 2022-2023 Charles Dong
 */
 
-#ifndef LIBPGFE_SHA3_H
-#define LIBPGFE_SHA3_H
+#ifndef LIBPGFE_CORE_SHA3_H
+#define LIBPGFE_CORE_SHA3_H
 
 #include <stdio.h>
 
-#include "libpgfe/generic.h"
+#include "libpgfe/core/generic.h"
 
 #ifdef __cplusplus
 extern "C" {

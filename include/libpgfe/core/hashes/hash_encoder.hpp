@@ -4,16 +4,16 @@
 
   Hash encoder
 
-  Copyright (c) 2022 Charles Dong
+  Copyright (c) 2022-2023 Charles Dong
 */
 
-#ifndef LIBPGFE_HASH_ENCODER_HPP
-#define LIBPGFE_HASH_ENCODER_HPP
+#ifndef LIBPGFE_CORE_HASH_ENCODER_HPP
+#define LIBPGFE_CORE_HASH_ENCODER_HPP
 #ifndef __cplusplus
 #error libpgfe error: C++ headers are not compatible with C source
 #endif
 
-#include "libpgfe/abstract_hash_encoder.hpp"
+#include "libpgfe/core/abstract_hash_encoder.hpp"
 
 #include <memory>
 

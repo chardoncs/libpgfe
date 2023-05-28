@@ -2,11 +2,11 @@
   libpgfe
   generic.hpp
 
-  Copyright (c) 2022 Charles Dong
+  Copyright (c) 2022-2023 Charles Dong
 */
 
-#ifndef LIBPGFE_GENERIC_HPP
-#define LIBPGFE_GENERIC_HPP
+#ifndef LIBPGFE_CORE_GENERIC_HPP
+#define LIBPGFE_CORE_GENERIC_HPP
 #ifndef __cplusplus
 #error libpgfe error: C++ headers are not compatible with C source
 #endif
@@ -14,48 +14,9 @@
 #include <string>
 #include <unordered_map>
 
-#include "libpgfe/algorithm-choice.h"
-#include "libpgfe/exceptions.hpp"
-#include "libpgfe/md5.h"
-#include "libpgfe/sha1.h"
-#include "libpgfe/sha2.h"
-#include "libpgfe/sha3.h"
-
-#define __PGFE_BATCH_SHAKE_CASES(name)                                                                                 \
-    switch (cur_alg) {                                                                                                 \
-        __PGFE_##name##_CASE(RawSHAKE128, rawshake128);                                                                \
-        __PGFE_##name##_CASE(SHAKE128, shake128);                                                                      \
-        __PGFE_##name##_CASE(RawSHAKE256, rawshake256);                                                                \
-        __PGFE_##name##_CASE(SHAKE256, shake256);                                                                      \
-    default:                                                                                                           \
-        break;                                                                                                         \
-    }
-
-#define __PGFE_INIT_SIZE_CASE(alg, name)                                                                               \
-    case alg:                                                                                                          \
-        digsz = PGFE_##alg##_DIGEST_SIZE;                                                                              \
-        blocksz = PGFE_##alg##_BLOCK_SIZE;                                                                             \
-        break
-
-#define __PGFE_INIT_CTXP_CASE(alg, name)                                                                               \
-    case alg:                                                                                                          \
-        pgfe_##name##_init((pgfe_##name##_ctx *)ctx);                                                                  \
-        break
-
-#define __PGFE_INIT_CTX_CASE(alg, name)                                                                                \
-    case alg:                                                                                                          \
-        pgfe_##name##_init(&ctx);                                                                                      \
-        break
-
-#define __PGFE_SET_CTXP_CASE(alg, name)                                                                                \
-    case alg:                                                                                                          \
-        ctx = new pgfe_##name##_ctx;                                                                                   \
-        break
-
-#define __PGFE_FREE_CTXP_CASE(alg, name)                                                                               \
-    case alg:                                                                                                          \
-        delete (pgfe_##name##_ctx *)ctx;                                                                               \
-        break
+#include "libpgfe/core/algorithm-choice.h"
+#include "libpgfe/core/exceptions.hpp"
+#include "libpgfe/core/hashes.h"
 
 namespace libpgfe {
 
