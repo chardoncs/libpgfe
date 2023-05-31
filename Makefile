@@ -5,7 +5,7 @@ include metadata.mak
 all: 
 	@echo 'Building...'
 	@cmake . -B $(BUILD_DIR) -G Ninja
-	@cmake --build $(BUILD_DIR) --config Release -j20 --target pgfe --
+	@cmake --build $(BUILD_DIR) --config Release -j20 --target all --
 	@echo 'Building done'
 
 rebuild: clean all

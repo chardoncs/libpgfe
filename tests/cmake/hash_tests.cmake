@@ -47,13 +47,13 @@ foreach(item IN ZIP_LISTS AlgList HashResults_string1)
 
     add_test(
         NAME ${test_name_c}
-        COMMAND pgfetest ${item_0} ${test_text}
+        COMMAND ${test_c_exe} ${item_0} ${test_text}
     )
     set_property(TEST ${test_name_c} PROPERTY PASS_REGULAR_EXPRESSION ${item_1})
 
     add_test(
         NAME ${test_name_cpp}
-        COMMAND pgfetestcpp hash_encoder ${item_0} ${test_text}
+        COMMAND ${test_cpp_exe} hash_encoder ${item_0} ${test_text}
     )
     set_property(TEST ${test_name_cpp} PROPERTY PASS_REGULAR_EXPRESSION ${item_1})
 endforeach()
@@ -63,7 +63,7 @@ foreach(item IN ZIP_LISTS AlgList_file HashResults_file1)
 
     add_test(
         NAME ${test_name_c}
-        COMMAND pgfetest "${item_0}_file" test/test.txt
+        COMMAND ${test_c_exe} "${item_0}_file" test/test.txt
     )
     set_property(TEST ${test_name_c} PROPERTY PASS_REGULAR_EXPRESSION ${item_1})
 endforeach()

@@ -7,10 +7,10 @@
 
 #include "test.h"
 
-#include "../include/libpgfe/hashes/sha1.h"
-#include "../include/libpgfe/hashes/sha2.h"
-#include "../include/libpgfe/hashes/sha3.h"
-#include "../include/libpgfe/utils.h"
+#define TEST_FILE1_PATH "../tests/test.txt"
+
+#include "libpgfe/hashes.h"
+#include "libpgfe/utils.h"
 
 void sha1_test(ARGS) {
     pgfe_encode_t output[PGFE_SHA1_DIGEST_SIZE];
@@ -22,7 +22,7 @@ void sha1_test(ARGS) {
 void sha1_file_test(ARGS) {
     pgfe_encode_t output[PGFE_SHA1_DIGEST_SIZE];
 
-    FILE *fp = fopen("../test/test.txt", "r");
+    FILE *fp = fopen(TEST_FILE1_PATH, "r");
     pgfe_sha1_encode_f(fp, output);
     fclose(fp);
 
@@ -46,7 +46,7 @@ void sha256_test(ARGS) {
 void sha256_file_test(ARGS) {
     pgfe_encode_t output[PGFE_SHA256_DIGEST_SIZE];
 
-    FILE *fp = fopen("../test/test.txt", "r");
+    FILE *fp = fopen(TEST_FILE1_PATH, "r");
     pgfe_sha256_encode_f(fp, output);
     fclose(fp);
 
@@ -70,7 +70,7 @@ void sha512_test(ARGS) {
 void sha512_file_test(ARGS) {
     pgfe_encode_t output[PGFE_SHA512_DIGEST_SIZE];
 
-    FILE *fp = fopen("../test/test.txt", "r");
+    FILE *fp = fopen(TEST_FILE1_PATH, "r");
     pgfe_sha512_encode_f(fp, output);
     fclose(fp);
 
@@ -101,7 +101,7 @@ void sha3_224_test(ARGS) {
 void sha3_224_file_test(ARGS) {
     pgfe_encode_t output[PGFE_SHA3_224_DIGEST_SIZE];
 
-    FILE *fp = fopen("../test/test.txt", "r");
+    FILE *fp = fopen(TEST_FILE1_PATH, "r");
     pgfe_sha3_224_encode_f(fp, output);
     fclose(fp);
 
@@ -118,7 +118,7 @@ void sha3_256_test(ARGS) {
 void sha3_256_file_test(ARGS) {
     pgfe_encode_t output[PGFE_SHA3_256_DIGEST_SIZE];
 
-    FILE *fp = fopen("../test/test.txt", "r");
+    FILE *fp = fopen(TEST_FILE1_PATH, "r");
     pgfe_sha3_256_encode_f(fp, output);
     fclose(fp);
 
@@ -135,7 +135,7 @@ void sha3_384_test(ARGS) {
 void sha3_384_file_test(ARGS) {
     pgfe_encode_t output[PGFE_SHA3_384_DIGEST_SIZE];
 
-    FILE *fp = fopen("../test/test.txt", "r");
+    FILE *fp = fopen(TEST_FILE1_PATH, "r");
     pgfe_sha3_384_encode_f(fp, output);
     fclose(fp);
 
@@ -152,7 +152,7 @@ void sha3_512_test(ARGS) {
 void sha3_512_file_test(ARGS) {
     pgfe_encode_t output[PGFE_SHA3_512_DIGEST_SIZE];
 
-    FILE *fp = fopen("../test/test.txt", "r");
+    FILE *fp = fopen(TEST_FILE1_PATH, "r");
     pgfe_sha3_512_encode_f(fp, output);
     fclose(fp);
 

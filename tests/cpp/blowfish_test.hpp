@@ -11,8 +11,8 @@
 #include <memory>
 #include <string>
 
-#include "../include/libpgfe/blowfish.hpp"
-#include "../include/libpgfe/utils.hpp"
+#include "libpgfe/fishes/blowfish.hpp"
+#include "libpgfe/utils.hpp"
 
 void blowfish_encrypt_test(ARGS) {
     using namespace libpgfe;

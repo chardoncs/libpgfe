@@ -14,13 +14,13 @@ foreach(item IN ZIP_LISTS HOTP_alglist HOTP_inputs HOTP_counters HOTP_results)
 
     add_test(
         NAME ${test_name_c}
-        COMMAND pgfetest "hotp_hex_${item_0}" ${item_1} ${item_2}
+        COMMAND ${test_c_exe} "hotp_hex_${item_0}" ${item_1} ${item_2}
     )
     set_property(TEST ${test_name_c} PROPERTY PASS_REGULAR_EXPRESSION ${item_3})
 
     add_test(
         NAME ${test_name_cpp}
-        COMMAND pgfetestcpp hotp_hex ${item_0} ${item_1} ${item_2}
+        COMMAND ${test_cpp_exe} hotp_hex ${item_0} ${item_1} ${item_2}
     )
     set_property(TEST ${test_name_cpp} PROPERTY PASS_REGULAR_EXPRESSION ${item_3})
 endforeach()

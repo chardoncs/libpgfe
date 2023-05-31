@@ -19,7 +19,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(src_dir "src")
 set(include_dir "include")
 set(cmake_module_dir "cmake")
-set(test_dir "tests")
 
 list(APPEND cmake_modules "libpgfe")
 
@@ -27,7 +26,7 @@ foreach(mod IN LISTS cmake_modules)
   include(${cmake_module_dir}/targets/${mod}.cmake)
 endforeach()
 
-add_subdirectory(${test_dir})
+include(${cmake_module_dir}/tests.cmake)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})

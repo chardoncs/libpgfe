@@ -9,9 +9,9 @@
 
 #include <memory>
 
-#include "../include/libpgfe/hmac_encoder.hpp"
-#include "../include/libpgfe/utils.h"
-#include "../include/libpgfe/utils.hpp"
+#include "libpgfe/hmac/hmac_encoder.hpp"
+#include "libpgfe/utils.h"
+#include "libpgfe/utils.hpp"
 
 void hmac_encoder_test(ARGS) {
     using namespace libpgfe;

@@ -30,13 +30,13 @@ foreach(alg IN LISTS HMAC_alglist)
 
         add_test(
             NAME ${test_name_c}
-            COMMAND pgfetest hmac ${alg} ${tup_0} ${tup_1}
+            COMMAND ${test_c_exe} hmac ${alg} ${tup_0} ${tup_1}
         )    
         set_property(TEST ${test_name_c} PROPERTY PASS_REGULAR_EXPRESSION ${result})
 
         add_test(
             NAME ${test_name_cpp}
-            COMMAND pgfetestcpp hmac_encoder ${alg} ${tup_0} ${tup_1}
+            COMMAND ${test_cpp_exe} hmac_encoder ${alg} ${tup_0} ${tup_1}
         )
         set_property(TEST ${test_name_cpp} PROPERTY PASS_REGULAR_EXPRESSION ${result})
     

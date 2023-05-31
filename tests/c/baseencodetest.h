@@ -9,7 +9,9 @@
 
 #include <string.h>
 
-#include "../include/libpgfe/base-encoding.h"
+#include "libpgfe/base_encoding/base16.h"
+#include "libpgfe/base_encoding/base32.h"
+#include "libpgfe/base_encoding/base64.h"
 
 void base16_encode_test(ARGS) {
     char cs_out[700];

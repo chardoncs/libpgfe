@@ -13,13 +13,13 @@ foreach(item IN ZIP_LISTS Blowfish_keys Blowfish_plains Blowfish_crypts)
 
     add_test(
         NAME ${test_name_enc}
-        COMMAND pgfetest blowfish_enc_unit ${item_0} ${item_1}
+        COMMAND ${test_c_exe} blowfish_enc_unit ${item_0} ${item_1}
     )
     set_property(TEST ${test_name_enc} PROPERTY PASS_REGULAR_EXPRESSION ${item_2})
 
     add_test(
         NAME ${test_name_dec}
-        COMMAND pgfetest blowfish_dec_unit ${item_0} ${item_2}
+        COMMAND ${test_c_exe} blowfish_dec_unit ${item_0} ${item_2}
     )
     set_property(TEST ${test_name_dec} PROPERTY PASS_REGULAR_EXPRESSION ${item_1})
 
@@ -35,25 +35,25 @@ foreach(item IN ZIP_LISTS Blowfish_keys_str Blowfish_plains_str Blowfish_crypts_
 
     add_test(
         NAME ${test_name_enc}
-        COMMAND pgfetest blowfish_enc_str ${item_0} ${item_1}
+        COMMAND ${test_c_exe} blowfish_enc_str ${item_0} ${item_1}
     )
     set_property(TEST ${test_name_enc} PROPERTY PASS_REGULAR_EXPRESSION ${item_2})
 
     add_test(
         NAME ${test_name_dec}
-        COMMAND pgfetest blowfish_dec_str ${item_0} ${item_2}
+        COMMAND ${test_c_exe} blowfish_dec_str ${item_0} ${item_2}
     )
     set_property(TEST ${test_name_dec} PROPERTY PASS_REGULAR_EXPRESSION ${item_1})
 
     add_test(
         NAME ${test_name_enc_cpp}
-        COMMAND pgfetestcpp blowfish_encrypt ${item_0} ${item_1}
+        COMMAND ${test_cpp_exe} blowfish_encrypt ${item_0} ${item_1}
     )
     set_property(TEST ${test_name_enc_cpp} PROPERTY PASS_REGULAR_EXPRESSION ${item_2})
 
     add_test(
         NAME ${test_name_dec_cpp}
-        COMMAND pgfetestcpp blowfish_decrypt ${item_0} ${item_2}
+        COMMAND ${test_cpp_exe} blowfish_decrypt ${item_0} ${item_2}
     )
     set_property(TEST ${test_name_dec_cpp} PROPERTY PASS_REGULAR_EXPRESSION ${item_1})
 

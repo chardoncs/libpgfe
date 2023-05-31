@@ -7,11 +7,13 @@
 
 #include "test.h"
 
+#define TEST_FILE1_PATH "../tests/test.txt"
+
 #include <stdio.h>
 #include <string.h>
 
-#include "../include/libpgfe/hashes/sha3.h"
-#include "../include/libpgfe/utils.h"
+#include "libpgfe/hashes/sha3.h"
+#include "libpgfe/utils.h"
 
 void shake_test(ARGS) {
     size_t bitsize;
@@ -22,9 +24,9 @@ void shake_test(ARGS) {
     sscanf(argv[3], "%u", &hash_type);
     sscanf(argv[4], "%lu", &bitsize);
 
-    size_t byte_size = to_byte(bitsize);
+    size_t byte_size = pgfe_to_byte(bitsize);
 
-    pgfe_encode_t out[byte_size + bit_rem(bitsize)];
+    pgfe_encode_t out[byte_size + pgfe_bit_rem(bitsize)];
     void (*func)(const pgfe_encode_t data_str[], pgfe_encode_t output[], size_t out_bitlength);
 
     alg[3] = 0;
@@ -70,13 +72,13 @@ void shake_test_file(ARGS) {
     sscanf(argv[3], "%u", &hash_type);
     sscanf(argv[4], "%lu", &bitsize);
 
-    size_t byte_size = to_byte(bitsize);
+    size_t byte_size = pgfe_to_byte(bitsize);
 
-    pgfe_encode_t out[byte_size + bit_rem(bitsize)];
-    void (*func)(FILE * fp, pgfe_encode_t output[], size_t out_bitlength);
+    pgfe_encode_t out[byte_size + pgfe_bit_rem(bitsize)];
+    void (*func)(FILE *fp, pgfe_encode_t output[], size_t out_bitlength);
     func = NULL;
 
-    FILE *fp = fopen("../test/test.txt", "r");
+    FILE *fp = fopen(TEST_FILE1_PATH, "r");
 
     alg[3] = 0;
     if (!strcasecmp(alg, "raw")) {

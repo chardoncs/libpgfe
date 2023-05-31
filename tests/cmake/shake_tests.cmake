@@ -39,7 +39,7 @@ while(${i} LESS ${SHAKE_lengthSize_len})
 
                 add_test(
                     NAME ${test_name}
-                    COMMAND pgfetest shake-test ${alg} ${alg_tup_0} ${alg_tup_1} ${text}
+                    COMMAND ${test_c_exe} shake-test ${alg} ${alg_tup_0} ${alg_tup_1} ${text}
                 )
                 
                 list(GET SHAKE_results ${k} SHAKE_result)
@@ -49,7 +49,7 @@ while(${i} LESS ${SHAKE_lengthSize_len})
 
                 add_test(
                     NAME ${test_name_cpp}
-                    COMMAND pgfetestcpp hash_encoder "${alg}${alg_tup_0}" ${alg_tup_1} ${text}
+                    COMMAND ${test_cpp_exe} hash_encoder "${alg}${alg_tup_0}" ${alg_tup_1} ${text}
                 )
 
                 set_property(TEST ${test_name_cpp} PROPERTY PASS_REGULAR_EXPRESSION ${SHAKE_result})
@@ -62,7 +62,7 @@ while(${i} LESS ${SHAKE_lengthSize_len})
 
             add_test(
                 NAME ${test_name}
-                COMMAND pgfetest shake-test_file ${alg} ${alg_tup_0} ${alg_tup_1}
+                COMMAND ${test_c_exe} shake-test_file ${alg} ${alg_tup_0} ${alg_tup_1}
             )
             
             list(GET SHAKE_results_file ${kf} SHAKE_result_file)

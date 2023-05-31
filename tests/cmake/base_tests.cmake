@@ -22,25 +22,25 @@ foreach(alg IN LISTS Base_algorithms)
 
         add_test(
             NAME ${test_name1}
-            COMMAND pgfetest "${alg}-encode" ${test_item}
+            COMMAND ${test_c_exe} "${alg}-encode" ${test_item}
         )
         set_property(TEST ${test_name1} PROPERTY PASS_REGULAR_EXPRESSION ${cipher})
 
         add_test(
             NAME ${test_name2}
-            COMMAND pgfetest "${alg}-decode" ${cipher}
+            COMMAND ${test_c_exe} "${alg}-decode" ${cipher}
         )
         set_property(TEST ${test_name2} PROPERTY PASS_REGULAR_EXPRESSION ${test_item})
 
         add_test(
             NAME ${test_name1_cpp}
-            COMMAND pgfetestcpp "${alg}_encode" ${test_item}
+            COMMAND ${test_cpp_exe} "${alg}_encode" ${test_item}
         )
         set_property(TEST ${test_name1_cpp} PROPERTY PASS_REGULAR_EXPRESSION ${cipher})
 
         add_test(
             NAME ${test_name2_cpp}
-            COMMAND pgfetestcpp "${alg}_decode" ${cipher}
+            COMMAND ${test_cpp_exe} "${alg}_decode" ${cipher}
         )
         set_property(TEST ${test_name2_cpp} PROPERTY PASS_REGULAR_EXPRESSION ${test_item})
 
@@ -51,5 +51,5 @@ endforeach()
 
 add_test(
     NAME base64_multithread
-    COMMAND pgfetestcpp base_multithread1
+    COMMAND ${test_cpp_exe} base_multithread1
 )

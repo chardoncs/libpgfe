@@ -7,7 +7,7 @@
 
 #include "test.h"
 
-#include "../include/libpgfe/utils.h"
+#include "libpgfe/utils.h"
 #include <string.h>
 
 void string2hash(ARGS) {

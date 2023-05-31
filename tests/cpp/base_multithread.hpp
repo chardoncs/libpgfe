@@ -4,7 +4,6 @@
 
   Copyright (c) 2022-2023 Charles Dong
 */
-
 #include "test.h"
 
 #include <cstring>
@@ -12,8 +11,8 @@
 #include <stdexcept>
 #include <thread>
 
-#include "../include/libpgfe/base-encoding.h"
-#include "../include/libpgfe/base64.hpp"
+#include "libpgfe/base_encoding/base64.h"
+#include "libpgfe/base_encoding/base64.hpp"
 
 using namespace libpgfe;
 

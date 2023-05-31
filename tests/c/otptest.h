@@ -7,9 +7,9 @@
 
 #include "test.h"
 
-#include "../include/libpgfe/hotp.h"
-#include "../include/libpgfe/hashes/sha2.h"
-#include "../include/libpgfe/utils.h"
+#include "libpgfe/hashes/sha2.h"
+#include "libpgfe/otp/hotp.h"
+#include "libpgfe/utils.h"
 
 void hotp_hex(ARGS) {
     pgfe_encode_t key[100];
