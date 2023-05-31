@@ -2,7 +2,7 @@
   libpgfe
   algorithm_selectable.hpp
 
-  Copyright (c) 2022 Charles Dong
+  Copyright (c) 2022-2023 Charles Dong
 */
 
 #ifndef LIBPGFE_ALGORITHM_SELECTABLE_HPP

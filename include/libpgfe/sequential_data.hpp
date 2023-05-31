@@ -4,7 +4,7 @@
 
   Header of Sequential Data class
 
-  Copyright (c) 2022 Charles Dong
+  Copyright (c) 2022-2023 Charles Dong
 */
 
 #ifndef LIBPGFE_SEQUENTIAL_DATA_HPP

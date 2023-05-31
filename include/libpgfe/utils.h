@@ -2,7 +2,7 @@
   libpgfe
   utils.h
 
-  Copyright (c) 2022 Charles Dong
+  Copyright (c) 2022-2023 Charles Dong
 */
 
 #ifndef LIBPGFE_UTILS_H

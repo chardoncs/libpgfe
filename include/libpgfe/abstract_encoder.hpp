@@ -2,7 +2,7 @@
   libpgfe
   abstract_encoder.hpp
 
-  Copyright (c) 2022 Charles Dong
+  Copyright (c) 2022-2023 Charles Dong
 */
 
 #ifndef LIBPGFE_GENERIC_ENCODER_HPP
