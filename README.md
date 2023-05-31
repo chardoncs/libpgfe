@@ -5,7 +5,7 @@
 
 ## Introduction
 
-**libpgfe** (IPA: /[ˌlɪbˈpɪɡfiː](http://ipa-reader.xyz/?text=%CB%8Cl%C9%AAb%CB%88p%C9%AA%C9%A1fi%CB%90)/, like "lib-pig-fee") is a free and open-source cryptographic library focusing on flexibility and easy-to-access interfaces, which is written in [C](https://en.wikipedia.org/wiki/C_(programming_language)) and [C++](https://en.wikipedia.org/wiki/C%2B%2B).
+**libpgfe** (IPA: /[ˌlɪbˈpɪɡfiː](http://ipa-reader.xyz/?text=%CB%8Cl%C9%AAb%CB%88p%C9%AA%C9%A1fi%CB%90)/, respelling: "lib-PIG-fee") is a free and open-source cryptographic library focusing on flexibility and easy-to-access interfaces, which is written in [C](https://en.wikipedia.org/wiki/C_(programming_language)) and [C++](https://en.wikipedia.org/wiki/C%2B%2B).
 
 *libpgfe* currently supports hash encoding (e.g. SHA256, MD5), HMAC encoding, HOTP/TOTP and Base 16/32/64.
 
