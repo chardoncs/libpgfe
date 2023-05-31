@@ -10,8 +10,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "../include/libpgfe/core/hashes/sha3.h"
-#include "../include/libpgfe/core/utils.h"
+#include "../include/libpgfe/hashes/sha3.h"
+#include "../include/libpgfe/utils.h"
 
 void shake_test(ARGS) {
     size_t bitsize;

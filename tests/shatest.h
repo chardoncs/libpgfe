@@ -7,10 +7,10 @@
 
 #include "test.h"
 
-#include "../include/libpgfe/core/hashes/sha1.h"
-#include "../include/libpgfe/core/hashes/sha2.h"
-#include "../include/libpgfe/core/hashes/sha3.h"
-#include "../include/libpgfe/core/utils.h"
+#include "../include/libpgfe/hashes/sha1.h"
+#include "../include/libpgfe/hashes/sha2.h"
+#include "../include/libpgfe/hashes/sha3.h"
+#include "../include/libpgfe/utils.h"
 
 void sha1_test(ARGS) {
     pgfe_encode_t output[PGFE_SHA1_DIGEST_SIZE];

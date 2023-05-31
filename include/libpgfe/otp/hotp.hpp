@@ -13,7 +13,7 @@
 
 #include <memory>
 
-#include "libpgfe/core/hashes/base32.hpp"
+#include "libpgfe/base_encoding/base32.hpp"
 #include "libpgfe/otp/abstract_otp.hpp"
 
 namespace libpgfe {

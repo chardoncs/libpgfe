@@ -13,9 +13,9 @@
 
 #include <string>
 
-#include "libpgfe/core/algorithm_selectable.hpp"
-#include "libpgfe/core/generic.h"
-#include "libpgfe/core/sequential_data.hpp"
+#include "libpgfe/algorithm_selectable.hpp"
+#include "libpgfe/generic.h"
+#include "libpgfe/sequential_data.hpp"
 #include "libpgfe/otp/types.h"
 
 namespace libpgfe {

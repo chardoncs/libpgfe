@@ -11,7 +11,7 @@
 
 #include <time.h>
 
-#include "libpgfe/core/generic.h"
+#include "libpgfe/generic.h"
 #include "libpgfe/otp/types.h"
 
 #ifdef __cplusplus

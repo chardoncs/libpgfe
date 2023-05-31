@@ -4,8 +4,8 @@ include metadata.mak
 
 all: 
 	@echo 'Building...'
-	@cmake . -B $(BUILD_DIR)
-	@cmake --build $(BUILD_DIR) --config Release -j18 --
+	@cmake . -B $(BUILD_DIR) -G Ninja
+	@cmake --build $(BUILD_DIR) --config Release -j20 --target pgfe --
 	@echo 'Building done'
 
 rebuild: clean all
@@ -39,4 +39,4 @@ uninstall:
 	@echo done
 
 init-scripts:
-	@chmod u+x ./scripts/{comment_header,update_meta,deploy}
+	@chmod u+x ./scripts/{comment_header.py,update_meta.py,deploy.py}

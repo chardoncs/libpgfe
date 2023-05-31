@@ -8,7 +8,7 @@
 #ifndef LIBPGFE_OTP_HOTP_H
 #define LIBPGFE_OTP_HOTP_H
 
-#include "libpgfe/core/generic.h"
+#include "libpgfe/generic.h"
 #include "libpgfe/otp/types.h"
 
 #ifdef __cplusplus

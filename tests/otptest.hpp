@@ -11,7 +11,7 @@
 #include <iostream>
 
 #include "../include/libpgfe/otp/hotp.hpp"
-#include "../include/libpgfe/core/utils.hpp"
+#include "../include/libpgfe/utils.hpp"
 
 void hotp_hex_test(ARGS) {
     HOTP hotp{_algstr(argv[2])};

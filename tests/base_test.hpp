@@ -8,7 +8,7 @@
 #include "test.h"
 
 #include "../include/libpgfe/base16.hpp"
-#include "../include/libpgfe/core/hashes/base32.hpp"
+#include "../include/libpgfe/hashes/base32.hpp"
 #include "../include/libpgfe/base64.hpp"
 
 using namespace std;
