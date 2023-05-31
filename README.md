@@ -16,7 +16,7 @@
 | C Standard   | [C11 (ISO/IEC 9899:2011)](https://en.wikipedia.org/wiki/C11_(C_standard_revision))  |
 | C++ Standard | [C++14 (ISO/IEC 14882:2014)](https://en.wikipedia.org/wiki/C++14) |
 | Compiler     | LLVM Clang          |
-| License      | BSD 3-Clause        |
+| License      | Dual (MIT / Apache 2.0)    |
 
 [*Any questions?*](.github/qna.md)
 
