@@ -18,6 +18,16 @@
 | Compiler     | LLVM Clang          |
 | License      | Dual (MIT / Apache 2.0)    |
 
+>
+> NOTE
+> 
+> Since 0.7.0, I have started to rewrite *libpgfe* in [Rust](https://rustlang.org), in order to prevent from potential memory leaks and
+> other unsafe things.
+>
+> The Rust edition libpgfe is planned to be released as v1. Before that, libpgfe v0 might still get some new features, but mostly will be
+> daily sustaining.
+>
+
 [*Any questions?*](.github/qna.md)
 
 ## [Endianness (Byte order)](https://en.wikipedia.org/wiki/Endianness)
