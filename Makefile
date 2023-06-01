@@ -1,11 +1,11 @@
 include metadata.mak
 
-.PHONY: all rebuild clean test install uninstall init-scripts
+.PHONY: all build rebuild clean test install uninstall init-scripts
 
 all: 
 	@echo 'Building...'
-	@cmake . -B $(BUILD_DIR)
-	@cmake --build $(BUILD_DIR) --config Release -j18 --
+	@cmake . -B $(BUILD_DIR) -G Ninja -DCMAKE_TOOLCHAIN_FILE=$(DEFAULT_CMAKE_TOOLCHAIN_FILE)
+	@cmake --build $(BUILD_DIR) --config Release -j20 --target all --
 	@echo 'Building done'
 
 rebuild: clean all
@@ -14,9 +14,9 @@ $(BUILD_DIR):
 	@mkdir -vp $(BUILD_DIR)
 
 clean:
-	@echo 'Cleaning...'
-	@rm -rfv ./$(BUILD_DIR)
-	@echo 'Cleaning done'
+	@echo -ne 'Cleaning... '
+	@rm -rf ./$(BUILD_DIR)
+	@echo 'done'
 
 test: all
 	@ctest --test-dir $(BUILD_DIR) -C Release
@@ -39,4 +39,48 @@ uninstall:
 	@echo done
 
 init-scripts:
-	@chmod u+x ./scripts/{comment_header,update_meta,deploy}
+	@chmod u+x ./scripts/{comment_header.py,update_meta.py,deploy.py}
+
+
+# Cross compilation
+
+build-x86_64: clean
+	@echo 'Building...'
+	@cmake . -B $(BUILD_DIR) -G Ninja -DCMAKE_TOOLCHAIN_FILE=./cmake/toolchains/x86_64-linux-gnu-clang.cmake
+	@cmake --build $(BUILD_DIR) --config Release -j20 --target pgfe --
+	@echo 'Building done'
+
+build-x86_64-mold: clean
+	@echo 'Building...'
+	@cmake . -B $(BUILD_DIR) -G Ninja -DCMAKE_TOOLCHAIN_FILE=./cmake/toolchains/x86_64-linux-gnu-clang-mold.cmake
+	@cmake --build $(BUILD_DIR) --config Release -j20 --target pgfe --
+	@echo 'Building done'
+
+build-aarch64-android: clean
+	@echo 'Building...'
+	@cmake . -B $(BUILD_DIR) -G Ninja \
+		-DNDK_ROOT=$(NDK_ROOT) \
+		-DCMAKE_TOOLCHAIN_FILE=./cmake/toolchains/aarch64-linux-android.cmake
+	@cmake --build $(BUILD_DIR) --config Release -j20 --target pgfe --
+	@echo 'Building done'
+
+build-arm-android: clean
+	@echo 'Building...'
+	@cmake . -B $(BUILD_DIR) -G Ninja -DCMAKE_TOOLCHAIN_FILE=./cmake/toolchains/arm-linux-android.cmake \
+		-DNDK_ROOT=$(NDK_ROOT)
+	@cmake --build $(BUILD_DIR) --config Release -j20 --target pgfe --
+	@echo 'Building done'
+
+build-x86_64-android: clean
+	@echo 'Building...'
+	@cmake . -B $(BUILD_DIR) -G Ninja -DCMAKE_TOOLCHAIN_FILE=./cmake/toolchains/x86_64-linux-android.cmake \
+		-DNDK_ROOT=$(NDK_ROOT)
+	@cmake --build $(BUILD_DIR) --config Release -j20 --target pgfe --
+	@echo 'Building done'
+
+build-x86-android: clean
+	@echo 'Building...'
+	@cmake . -B $(BUILD_DIR) -G Ninja -DCMAKE_TOOLCHAIN_FILE=./cmake/toolchains/x86-linux-android.cmake \
+		-DNDK_ROOT=$(NDK_ROOT)
+	@cmake --build $(BUILD_DIR) --config Release -j20 --target pgfe --
+	@echo 'Building done'

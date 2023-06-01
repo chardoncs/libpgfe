@@ -2,12 +2,10 @@
 
 ![Version](https://img.shields.io/github/v/tag/chardon55/libpgfe?color=brightgreen&label=version)
 ![License](https://img.shields.io/github/license/chardon55/libpgfe)
-![Files](https://img.shields.io/github/directory-file-count/chardon55/libpgfe)
-![File size](https://img.shields.io/github/repo-size/chardon55/libpgfe)
 
 ## Introduction
 
-**libpgfe** (IPA: /ˌlɪbˈpɪɡfiː/, like "lib-pig-fee") is a free and open-source cryptographic library focusing on flexibility and easy-to-access interfaces, which is written in [C](https://en.wikipedia.org/wiki/C_(programming_language)) and [C++](https://en.wikipedia.org/wiki/C%2B%2B).
+**libpgfe** (IPA: /[ˌlɪbˈpɪɡfiː](http://ipa-reader.xyz/?text=%CB%8Cl%C9%AAb%CB%88p%C9%AA%C9%A1fi%CB%90)/, respelling: "lib-PIG-fee") is a free and open-source cryptographic library focusing on flexibility and easy-to-access interfaces, which is written in [C](https://en.wikipedia.org/wiki/C_(programming_language)) and [C++](https://en.wikipedia.org/wiki/C%2B%2B).
 
 *libpgfe* currently supports hash encoding (e.g. SHA256, MD5), HMAC encoding, HOTP/TOTP, Base 16/32/64 and Blowfish.
 
@@ -18,7 +16,17 @@
 | C Standard   | [C11 (ISO/IEC 9899:2011)](https://en.wikipedia.org/wiki/C11_(C_standard_revision))  |
 | C++ Standard | [C++14 (ISO/IEC 14882:2014)](https://en.wikipedia.org/wiki/C++14) |
 | Compiler     | LLVM Clang          |
-| License      | BSD 3-Clause        |
+| License      | Dual (MIT / Apache 2.0)    |
+
+>
+> NOTE
+> 
+> Since 0.7.0, I have started to rewrite *libpgfe* in [Rust](https://rustlang.org), in order to prevent from potential memory leaks and
+> other unsafe things.
+>
+> The Rust edition libpgfe is planned to be released as v1. Before that, libpgfe v0 might still get some new features, but mostly will be
+> daily sustaining.
+>
 
 [*Any questions?*](.github/qna.md)
 

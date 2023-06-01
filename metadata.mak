@@ -1,5 +1,5 @@
 PROJECT := libpgfe
-VERSION := 0.6.1
+VERSION := 0.7.0
 
 BUILD_DIR := build
 
@@ -13,3 +13,7 @@ TARGET_FILE := $(PROJECT).so
 
 TARGET := $(TARGET_DIR)/$(TARGET_FILE)
 TEST_TARGET := $(TARGET_DIR)/$(TEST_BIN)
+
+DEFAULT_CMAKE_TOOLCHAIN_FILE := ./cmake/toolchains/x86_64-linux-gnu-clang.cmake
+
+NDK_ROOT := ~/Android/Sdk/ndk/23.1.7779620/
