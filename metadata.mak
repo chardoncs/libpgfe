@@ -6,7 +6,7 @@ BUILD_DIR := build
 INCLUDE_DIR := include
 SRC_DIR := src
 
-HEADER_DIR := /usr/local/include/libpgfe
+HEADER_DIR := /usr/local/include
 LIB_DIR := /usr/lib
 TARGET_DIR := $(BUILD_DIR)
 TARGET_FILE := $(PROJECT).so
