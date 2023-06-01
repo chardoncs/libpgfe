@@ -11,7 +11,6 @@
 #define LIBPGFE_OTP_GENERIC_H
 
 #include <stdint.h>
-#include <time.h>
 
 #include "libpgfe/generic.h"
 #include "libpgfe/hmac/hmac.h"
@@ -27,9 +26,6 @@ extern "C" {
 
 // Performing dynamic truncation
 pgfe_otp_t dynamically_truncate(const pgfe_encode_t hash[], size_t length);
-
-// Get current UNIX time
-time_t curtime();
 
 void otp_to_string(pgfe_otp_t otp, char *cs_out, size_t digit_c);
 

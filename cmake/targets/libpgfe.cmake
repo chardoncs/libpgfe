@@ -40,6 +40,7 @@ add_library(pgfe SHARED
   # OTP
   ${src_dir}/otp/otp-generic.c
   ${src_dir}/otp/hotp.c
+  ${src_dir}/otp/totp-internal.c
   ${src_dir}/otp/totp.c
   ${src_dir}/otp/abstract_otp.cpp
   ${src_dir}/otp/hotp.cpp

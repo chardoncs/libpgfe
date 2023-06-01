@@ -22,10 +22,6 @@ pgfe_otp_t dynamically_truncate(const pgfe_encode_t hash[], size_t length) {
     return code << 1 >> 1;
 }
 
-inline time_t curtime() {
-    return time(NULL);
-}
-
 void otp_to_string(pgfe_otp_t otp, char *cs_out, size_t digit_c) {
     char *sp;
 

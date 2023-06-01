@@ -10,6 +10,7 @@
 #include "libpgfe/utils.h"
 
 #include "./otp-generic.h"
+#include "./totp-internal.h"
 
 using namespace libpgfe;
 
