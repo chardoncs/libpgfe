@@ -13,7 +13,7 @@
 #include "libpgfe/hashes/sha1.h"
 #include "libpgfe/otp/hotp.h"
 
-pgfe_otp_counter_t __pgfe_calc_periodic_counter(
+pgfe_otp_counter_t calc_periodic_counter(
     time_t realtime, pgfe_totp_interval_t interval, time_t initial_time, pgfe_totp_delta_t *delta_out
 ) {
     time_t time_offset = realtime - initial_time;
@@ -27,7 +27,7 @@ pgfe_otp_t pgfe_totp_generic(
     enum pgfe_algorithm_choice alg, const pgfe_encode_t secret[], size_t secret_length, uint8_t digit_c,
     pgfe_totp_interval_t interval, time_t initial_time, pgfe_totp_delta_t *delta_out
 ) {
-    pgfe_otp_counter_t counter = __pgfe_calc_periodic_counter(curtime(), interval, initial_time, delta_out);
+    pgfe_otp_counter_t counter = calc_periodic_counter(curtime(), interval, initial_time, delta_out);
     return pgfe_hotp_generic(alg, secret, secret_length, counter, digit_c);
 }
 

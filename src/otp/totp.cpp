@@ -61,7 +61,7 @@ time_t TOTP::update_time() const {
 
 void TOTP::update_counter() {
     _update_time = curtime();
-    set_counter(__pgfe_calc_periodic_counter(_update_time, _interval, _initial_time, &delta));
+    set_counter(calc_periodic_counter(_update_time, _interval, _initial_time, &delta));
 }
 
 time_t TOTP::remaining_time() const {

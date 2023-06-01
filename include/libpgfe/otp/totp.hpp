@@ -24,6 +24,8 @@ private:
 
     pgfe_totp_delta_t delta = 0;
 
+    void update_counter();
+
 public:
     TOTP(pgfe_totp_interval_t = 30, pgfe_algorithm_choice = SHA1);
     TOTP(const pgfe_encode_t *, size_t, pgfe_totp_interval_t = 30, pgfe_algorithm_choice = SHA1);
@@ -34,8 +36,6 @@ public:
 
     pgfe_totp_interval_t interval() const;
     void set_interval(pgfe_totp_interval_t);
-
-    void update_counter();
 
     time_t initial_time() const;
     void set_initial_time(time_t);

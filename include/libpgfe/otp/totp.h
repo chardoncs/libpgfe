@@ -22,7 +22,7 @@ typedef uint32_t pgfe_totp_interval_t;
 
 typedef int32_t pgfe_totp_delta_t;
 
-pgfe_otp_counter_t __pgfe_calc_periodic_counter(
+pgfe_otp_counter_t calc_periodic_counter(
     time_t realtime, pgfe_totp_interval_t interval, time_t initial_time, pgfe_totp_delta_t *delta_out
 );
 
