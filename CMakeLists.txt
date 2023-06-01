@@ -1,14 +1,15 @@
 cmake_minimum_required(VERSION 3.26.0)
 
-set(CMAKE_C_COMPILER clang)
-set(CMAKE_CXX_COMPILER clang++)
-
 project(libpgfe
   VERSION 0.7.0
   DESCRIPTION "Cryptographic library"
   HOMEPAGE_URL "https://github.com/chardon55/libpgfe"
   LANGUAGES C CXX
 )
+
+if(CMAKE_TOOLCHAIN_FILE)
+  include(${CMAKE_TOOLCHAIN_FILE})
+endif()
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
