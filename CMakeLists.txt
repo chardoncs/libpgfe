@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.26.0)
 
 project(libpgfe
-  VERSION 0.7.0
+  VERSION 0.7.1
   DESCRIPTION "Cryptographic library"
   HOMEPAGE_URL "https://github.com/chardon55/libpgfe"
   LANGUAGES C CXX

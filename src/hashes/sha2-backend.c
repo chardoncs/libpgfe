@@ -72,10 +72,6 @@ void sha256_process_block(struct pgfe_sha256_ctx *ctx) {
     ctx->state[7] += H;
 
     ctx->index = 0;
-
-    // Wipe data from RAM
-    tmp1 = tmp2 = A = B = C = D = E = F = G = H = 0;
-    memset(ws, 0, PGFE_SHA256_BLOCK_SIZE);
 }
 
 void sha224n256_padding(struct pgfe_sha256_ctx *ctx) {
@@ -111,10 +107,6 @@ void sha224n256_digest(struct pgfe_sha256_ctx *ctx, pgfe_encode_t output[], uint
     size_t i;
 
     sha224n256_padding(ctx);
-
-    // Wipe sensitive data from the RAM
-    memset(ctx->block, 0, sizeof(ctx->block));
-    ctx->len_low = ctx->len_high = 0;
 
     // Write output
     for (i = 0; i < digest_size; i++) {
@@ -195,10 +187,6 @@ void sha384n512_process_block(struct pgfe_sha512_ctx *ctx) {
     ctx->state[7] += H;
 
     ctx->index = 0;
-
-    // Wipe data from RAM
-    tmp1 = tmp2 = tmp = A = B = C = D = E = F = G = H = 0;
-    memset(ws, 0, 80);
 }
 
 void sha384n512_update(struct pgfe_sha512_ctx *ctx, const pgfe_encode_t input[], size_t length) {
@@ -266,10 +254,6 @@ void sha384n512_digest(struct pgfe_sha512_ctx *ctx, pgfe_encode_t output[], uint
     size_t i;
 
     sha384n512_padding(ctx, PADDING_HEADER);
-
-    // Wipe data from RAM
-    memset(ctx->block, 0, sizeof(ctx->block));
-    ctx->len_high = ctx->len_low = 0;
 
     for (i = 0; i < digest_size; i++) {
         output[i] = (uint8_t)(ctx->state[i >> 3] >> (8 * (7 - (i % 8))));

@@ -1,4 +1,4 @@
-# libpgfe
+# libpgfe (Legacy C/C++ edition)
 
 ![Version](https://img.shields.io/github/v/tag/chardon55/libpgfe?color=brightgreen&label=version)
 ![License](https://img.shields.io/github/license/chardon55/libpgfe)

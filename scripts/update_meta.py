@@ -5,7 +5,7 @@ import json
 
 FILES = {
     "scripts/metadata.mak.in": "metadata.mak",
-    "scripts/version.h.template": "include/version.h",
+    "scripts/version.h.template": "include/libpgfe/version.h",
 }
 
 

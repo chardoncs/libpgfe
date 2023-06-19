@@ -22,9 +22,7 @@ Blowfish::Blowfish(const pgfe_encode_t *key, size_t length) {
 
 Blowfish::Blowfish(const std::string &key) : Blowfish(key.c_str()) {}
 
-Blowfish::~Blowfish() {
-    memset(&ctx, 0, sizeof(ctx));
-}
+Blowfish::~Blowfish() {}
 
 SequentialData Blowfish::encrypt(const pgfe_encode_t *seq, size_t length) {
     size_t sz = length + length % 8;

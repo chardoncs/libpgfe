@@ -63,9 +63,6 @@ static void transform(pgfe_keccak_bitcube_t A, uint64_t RC) {
         }
     }
 
-    // Wipe sensitive data from RAM
-    memset(C, 0, 40);
-
     // Iota
     A[0][0] ^= RC;
 }

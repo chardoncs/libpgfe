@@ -69,8 +69,6 @@ void pgfe_md5_digest(struct pgfe_md5_ctx *ctx, pgfe_encode_t output[]) {
     pgfe_md5_update(ctx, PADDING, padding_len);
     pgfe_md5_update(ctx, chunk, 8);
 
-    // Wipe sensitive data from the RAM
-    memset(ctx->block, 0, sizeof(ctx->block));
     ctx->count[0] = ctx->count[1] = 0;
 
     md5_encode(ctx->state, PGFE_MD5_DIGEST_SIZE, output);
