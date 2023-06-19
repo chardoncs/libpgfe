@@ -41,11 +41,6 @@
         pgfe_##name##_encode_multiple(                                                                                 \
             output, 2, ctx->k_o_pad, PGFE_##upper##_BLOCK_SIZE, mid_hash, PGFE_##upper##_DIGEST_SIZE                   \
         );                                                                                                             \
-                                                                                                                       \
-        /* Wipe buffers' data */                                                                                       \
-        memset(mid_hash, 0, PGFE_##upper##_DIGEST_SIZE);                                                               \
-        memset(ctx->k_i_pad, 0, PGFE_##upper##_BLOCK_SIZE);                                                            \
-        memset(ctx->k_o_pad, 0, PGFE_##upper##_BLOCK_SIZE);                                                            \
     }                                                                                                                  \
     inline void pgfe_hmac_##name(                                                                                      \
         const pgfe_encode_t key[], size_t key_length, const pgfe_encode_t data[], size_t length,                       \

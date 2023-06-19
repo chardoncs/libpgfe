@@ -85,10 +85,6 @@ static void sha1_process_block(struct pgfe_sha1_ctx *ctx) {
     ctx->state[4] += E;
 
     ctx->index = 0;
-
-    // Wipe sensitive data
-    tmp = A = B = C = D = E = 0;
-    memset(ws, 0, sizeof(ws));
 }
 
 static void sha1_padding(struct pgfe_sha1_ctx *ctx) {
