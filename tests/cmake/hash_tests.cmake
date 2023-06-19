@@ -23,8 +23,10 @@ list(APPEND HashResults_string1 "720aea11019ef06440fbf05d87aa24680a2153df3907b23
 # SHA3-512
 list(APPEND HashResults_string1 "75d527c368f2efe848ecf6b073a36767800805e9eef2b1857d5f984f036eb6df891d75f72d9b154518c1cd58835286d1da9a38deba3de98b5a53e5ed78a84976")
 
-list(APPEND AlgList_file sha1 sha256 sha512 sha3_224 sha3_256 sha3_384 sha3_512)
+list(APPEND AlgList_file md5 sha1 sha256 sha512 sha3_224 sha3_256 sha3_384 sha3_512)
 
+# MD5
+list(APPEND HashResults_file1 "2272be522b715d5541cff37c92ad4124")
 # SHA1
 list(APPEND HashResults_file1 "65d7d52df994f64a0e993794222124645242e00f")
 # SHA256

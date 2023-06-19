@@ -48,6 +48,7 @@ int main(ARGS) {
     TEST_CASE("shake-test_file", shake_test_file);
 
     TEST_CASE("md5", md5test)
+    TEST_CASE("md5_file", md5_file_test)
 
     TEST_CASE("hmac", hmac_test)
 
