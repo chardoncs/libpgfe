@@ -1,5 +1,5 @@
 PROJECT := libpgfe
-VERSION := 0.7.0-dev
+VERSION := 0.7.1-dev
 
 BUILD_DIR := build
 
