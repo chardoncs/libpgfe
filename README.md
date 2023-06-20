@@ -1,7 +1,12 @@
-# libpgfe (Legacy C/C++ edition)
+# libpgfe
 
 ![Version](https://img.shields.io/github/v/tag/chardon55/libpgfe?color=brightgreen&label=version)
 ![License](https://img.shields.io/github/license/chardon55/libpgfe)
+
+> NOTE
+>
+> This library is archived since I have discovered that Rust has more systematic ecosystem for cryptography,
+> which may reduce tons of repetitive work.
 
 ## Introduction
 
@@ -17,16 +22,6 @@
 | C++ Standard | [C++14 (ISO/IEC 14882:2014)](https://en.wikipedia.org/wiki/C++14) |
 | Compiler     | LLVM Clang          |
 | License      | Dual (MIT / Apache 2.0)    |
-
->
-> NOTE
-> 
-> Since 0.7.0, I have started to rewrite *libpgfe* in [Rust](https://rustlang.org), in order to prevent from potential memory leaks and
-> other unsafe things.
->
-> The Rust edition libpgfe is planned to be released as v1. Before that, libpgfe v0 might still get some new features, but mostly will be
-> daily sustaining.
->
 
 [*Any questions?*](.github/qna.md)
 
