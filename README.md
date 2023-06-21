@@ -3,11 +3,6 @@
 ![Version](https://img.shields.io/github/v/tag/chardon55/libpgfe?color=brightgreen&label=version)
 ![License](https://img.shields.io/github/license/chardon55/libpgfe)
 
-> NOTE
->
-> This library is archived since I have discovered that Rust has more systematic ecosystem for cryptography,
-> which may reduce tons of repetitive work.
-
 ## Introduction
 
 **libpgfe** (IPA: /[ˌlɪbˈpɪɡfiː](http://ipa-reader.xyz/?text=%CB%8Cl%C9%AAb%CB%88p%C9%AA%C9%A1fi%CB%90)/, respelling: "lib-PIG-fee") is a free and open-source cryptographic library focusing on flexibility and easy-to-access interfaces, which is written in [C](https://en.wikipedia.org/wiki/C_(programming_language)) and [C++](https://en.wikipedia.org/wiki/C%2B%2B).
