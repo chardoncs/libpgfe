@@ -23,53 +23,50 @@ static const pgfe_encode_t PADDING[] = {
 };
 
 void pgfe_md5_init(struct pgfe_md5_ctx *ctx) {
-    memset(ctx->count, 0, sizeof(ctx->count));
+    ctx->block_len = 0;
     memcpy(ctx->state, H0, sizeof(H0));
 }
 
 void pgfe_md5_update(struct pgfe_md5_ctx *ctx, const pgfe_encode_t input[], size_t length) {
+    size_t chunk_len = PGFE_MD5_BLOCK_SIZE, read_len, remainder;
     size_t i, index, part_len;
 
-    index = (ctx->count[0] >> 3) & 0x3F;
-
-    ctx->count[0] += (uint32_t)length << 3;
-    if (ctx->count[0] < (length << 3)) {
-        ctx->count[1]++;
-    }
-
-    ctx->count[1] += (uint32_t)length >> 29;
-    part_len = 64 - index;
-
-    if (length >= part_len) {
-        memcpy(ctx->block + index, input, part_len);
-        md5_transform(ctx->state, ctx->block);
-
-        for (i = part_len; i + 63 < length; i += 64) {
-            md5_transform(ctx->state, input + i);
+    for (const pgfe_encode_t *p = input; (read_len = p - input) < length; p += PGFE_MD5_BLOCK_SIZE) {
+        remainder = length - read_len;
+        if (remainder < PGFE_MD5_BLOCK_SIZE) {
+            chunk_len = remainder;
         }
 
-        index = 0;
-    }
-    else {
         i = 0;
-    }
+        index = (size_t)(ctx->block_len & 0x3F);
 
-    memcpy(ctx->block + index, input + i, length - i);
+        ctx->block_len += (uint64_t)chunk_len;
+        part_len = PGFE_MD5_BLOCK_SIZE - index;
+
+        if (chunk_len >= part_len) {
+            memcpy(ctx->block + index, p, part_len);
+            md5_transform(ctx->state, ctx->block);
+            index = 0;
+        }
+
+        memcpy(ctx->block + index, p + i, chunk_len - i);
+    }
 }
 
 void pgfe_md5_digest(struct pgfe_md5_ctx *ctx, pgfe_encode_t output[]) {
     pgfe_encode_t chunk[8];
-    size_t i, padding_len;
+    size_t i;
+    uint32_t count[2];
 
-    md5_encode(ctx->count, 8, chunk);
+    count[0] = (uint32_t)(ctx->block_len << 3);
+    count[1] = (uint32_t)(ctx->block_len >> 29);
 
-    i = (size_t)((ctx->count[0] >> 3) & 0x3F);
-    padding_len = (i < 56) ? (56 - i) : (120 - i);
+    md5_encode(count, 8, chunk);
 
-    pgfe_md5_update(ctx, PADDING, padding_len);
+    i = (size_t)(ctx->block_len & 0x3F);
+
+    pgfe_md5_update(ctx, PADDING, (i < 56) ? (56 - i) : (120 - i));
     pgfe_md5_update(ctx, chunk, 8);
-
-    ctx->count[0] = ctx->count[1] = 0;
 
     md5_encode(ctx->state, PGFE_MD5_DIGEST_SIZE, output);
 }

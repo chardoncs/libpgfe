@@ -22,7 +22,7 @@ extern "C" {
 struct pgfe_md5_ctx
 {
     pgfe_word_t state[4];
-    uint32_t count[2];
+    uint64_t block_len;
     pgfe_encode_t block[PGFE_MD5_BLOCK_SIZE];
 };
 
