@@ -23,37 +23,49 @@ static const pgfe_encode_t PADDING[] = {
 };
 
 void pgfe_md5_init(struct pgfe_md5_ctx *ctx) {
+    if (!ctx) return;
+
     ctx->block_len = 0;
     memcpy(ctx->state, H0, sizeof(H0));
 }
 
 void pgfe_md5_update(struct pgfe_md5_ctx *ctx, const pgfe_encode_t input[], size_t length) {
-    size_t chunk_len = PGFE_MD5_BLOCK_SIZE, read_len, remainder;
-    size_t i, index, part_len;
+    if (!ctx || !input) return;
 
-    for (const pgfe_encode_t *p = input; (read_len = p - input) < length; p += PGFE_MD5_BLOCK_SIZE) {
-        remainder = length - read_len;
-        if (remainder < PGFE_MD5_BLOCK_SIZE) {
-            chunk_len = remainder;
+    size_t read_len, written_len, remainder, offset;
+    const pgfe_encode_t *p;
+
+    for (p = input; (read_len = p - input) < length; p += written_len) {
+        offset = (uint8_t)(ctx->block_len & 0x3F);
+        written_len = PGFE_MD5_BLOCK_SIZE - offset;
+
+        if (length - read_len < written_len) {
+            break;
         }
 
-        i = 0;
-        index = (size_t)(ctx->block_len & 0x3F);
+        memcpy(ctx->block + offset, p, written_len);
+        ctx->block_len += written_len;
 
-        ctx->block_len += (uint64_t)chunk_len;
-        part_len = PGFE_MD5_BLOCK_SIZE - index;
+        md5_transform(ctx->state, ctx->block);
+    }
 
-        if (chunk_len >= part_len) {
-            memcpy(ctx->block + index, p, part_len);
-            md5_transform(ctx->state, ctx->block);
-            index = 0;
-        }
+    // Finish up the last chunk
+    remainder = written_len;
+    if ((written_len = length - read_len)) {
+        memcpy(ctx->block + offset, p, written_len);
+        ctx->block_len += written_len;
 
-        memcpy(ctx->block + index, p + i, chunk_len - i);
+        remainder -= written_len;
+    }
+
+    if (!remainder) {
+        md5_transform(ctx->state, ctx->block);
     }
 }
 
 void pgfe_md5_digest(struct pgfe_md5_ctx *ctx, pgfe_encode_t output[]) {
+    if (!ctx || !output) return;
+
     pgfe_encode_t chunk[8];
     size_t i;
     uint32_t count[2];
